@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import * as mutations from "@/graphql/mutations";
 import * as queries from "@/graphql/queries";
 import config from "@/amplifyconfiguration.json";
+import { Button, TextField } from "@mui/material";
 
 export const cookiesClient = generateServerClientUsingCookies({
   config,
@@ -35,10 +36,12 @@ export default async function Home() {
     <div>
       <form action={createTodo}>
         <div className="mt-2">
-          <input type="text" name="name" required />
+          <TextField label="Todo" name="name" />
         </div>
         <div>
-          <button type="submit">Add</button>
+          <Button variant="contained" type="submit">
+            Add
+          </Button>
         </div>
       </form>
       {/* 3. Handle edge cases & zero state & error states*/}
