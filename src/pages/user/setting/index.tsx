@@ -1,17 +1,17 @@
 import Layout from "@/app/layout";
-import RegisterPane from "@/components/pages/auth/Register/RegisterPane";
+import UserSettingPane from "@/components/pages/user/setting/UserSettingPane";
 import Head from "next/head";
 
-export default function Register() {
+export default function UserSetting() {
   return (
     <>
       <Head>
-        <title>会員登録 | テック教育ナビ</title>
+        <title>プロフィール・各種設定 | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <RegisterPane />
+        <UserSettingPane />
       </Layout>
     </>
   );

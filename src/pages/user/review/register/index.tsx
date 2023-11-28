@@ -1,17 +1,17 @@
 import Layout from "@/app/layout";
-import RegisterPane from "@/components/pages/auth/Register/RegisterPane";
+import ReviewRegisterPane from "@/components/pages/user/review/register/ReviewRegisterPane";
 import Head from "next/head";
 
-export default function Register() {
+export default function ReviewRegister() {
   return (
     <>
       <Head>
-        <title>会員登録 | テック教育ナビ</title>
+        <title>口コミ投稿 | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <RegisterPane />
+        <ReviewRegisterPane />
       </Layout>
     </>
   );
