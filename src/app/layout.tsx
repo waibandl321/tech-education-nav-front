@@ -10,12 +10,16 @@ import "@fontsource/roboto/700.css";
 import "normalize.css";
 import "@/assets/css/style.css";
 import { Box } from "@mui/material";
+import MesageAlert from "@/components/common/parts/MesageAlert";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 Amplify.configure(config);
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <LoadingOverlay />
+      <MesageAlert />
       <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
         <Header />
       </Box>

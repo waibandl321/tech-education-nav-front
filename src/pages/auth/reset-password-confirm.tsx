@@ -1,18 +1,18 @@
 "use client";
 import Layout from "@/app/layout";
-import RegisterInputPane from "@/components/pages/auth/Register/RegisterInputPane";
+import PasswordResetConfirmPane from "@/components/pages/auth/PasswordReset/PasswordResetConfirmPane";
 import Head from "next/head";
 
-export default function Register() {
+export default function ResetPasswordConfirm() {
   return (
     <>
       <Head>
-        <title>会員登録 | テック教育ナビ</title>
+        <title>パスワード再設定 | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <RegisterInputPane />
+        <PasswordResetConfirmPane />
       </Layout>
     </>
   );

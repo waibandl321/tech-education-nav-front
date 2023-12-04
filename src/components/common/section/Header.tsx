@@ -12,12 +12,15 @@ import SearchInput from "../parts/SearchInput";
 import { Button, Container } from "@mui/material";
 // useRouter
 import { useRouter } from "next/navigation";
-
+import useSignOut from "@/hooks/utils/client/auth/useSignOut";
+import { useUserContext } from "@/contexts/UserContext";
 /**
  * ヘッダー コンポーネント
  */
 export default function Header() {
   const router = useRouter();
+  const handleSignOut = useSignOut();
+  const { isLoggedIn } = useUserContext();
 
   // 検索入力値の状態
   const [searchValue, setSearchValue] = React.useState<string>("");
@@ -66,7 +69,7 @@ export default function Header() {
       <MenuItem onClick={() => router.push("/user/setting")}>
         プロフィール・各種設定
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>ログアウト</MenuItem>
+      <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
     </Menu>
   );
 
@@ -95,36 +98,40 @@ export default function Header() {
               onSubmit={handleSubmit}
             />
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ m: "0 8px" }}
-                href="/auth/login"
-              >
-                ログイン
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{ m: "0 8px" }}
-                href="/auth/register"
-              >
-                会員登録
-              </Button>
-            </Box>
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={handleAccountMenuOpen}
-              >
-                <AccountCircle />
-              </IconButton>
-            </Box>
+            {!isLoggedIn && (
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ m: "0 8px" }}
+                  href="/auth/login"
+                >
+                  ログイン
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  sx={{ m: "0 8px" }}
+                  href="/auth/register"
+                >
+                  会員登録
+                </Button>
+              </Box>
+            )}
+            {isLoggedIn && (
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  onClick={handleAccountMenuOpen}
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Box>
+            )}
           </Toolbar>
         </Container>
       </AppBar>

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -17,9 +18,10 @@ import {
 } from "@mui/material";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
+import { useRouter } from "next/router";
 
 export default function LearningCenterReviewPane() {
-  // sp device
+  const router = useRouter();
   const isMobile = useMediaQuery("(max-width:480px)");
 
   return (
@@ -37,9 +39,22 @@ export default function LearningCenterReviewPane() {
         >
           テックアカデミーの口コミ一覧
         </Typography>
+        <Button
+          variant="contained"
+          size={isMobile ? "medium" : "large"}
+          sx={isMobile ? { mt: 1 } : {}}
+          onClick={() => router.push("/learning-center/1")}
+        >
+          <Grid container>
+            <RateReviewOutlinedIcon></RateReviewOutlinedIcon>
+            <Typography sx={{ ml: 1 }}>
+              テックアカデミーの詳細はこちら
+            </Typography>
+          </Grid>
+        </Button>
       </Grid>
       <Grid container>
-        <Grid xs={12} sm={8}>
+        <Grid item xs={12} sm={8}>
           <Card>
             <CardContent>
               <Typography
@@ -142,7 +157,7 @@ export default function LearningCenterReviewPane() {
             </Card>
           ))}
         </Grid>
-        <Grid xs={12} sm={4} sx={isMobile ? { mt: 5 } : { pl: 4 }}>
+        <Grid item xs={12} sm={4} sx={isMobile ? { mt: 5 } : { pl: 4 }}>
           <Card>
             <CardContent>
               <Typography

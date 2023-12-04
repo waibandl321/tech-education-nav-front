@@ -21,7 +21,6 @@ import { useRouter } from "next/router";
 
 export default function LearningCenterPane() {
   const router = useRouter();
-  // sp device
   const isMobile = useMediaQuery("(max-width:480px)");
 
   const handleMoveReviewList = () => {
@@ -58,7 +57,7 @@ export default function LearningCenterPane() {
         </Button>
       </Grid>
       <Grid container>
-        <Grid xs={12} sm={8}>
+        <Grid item xs={12} sm={8}>
           <Card>
             <CardContent>
               <Typography
@@ -114,7 +113,7 @@ export default function LearningCenterPane() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid xs={12} sm={4} sx={isMobile ? { mt: 5 } : { pl: 4 }}>
+        <Grid item xs={12} sm={4} sx={isMobile ? { mt: 5 } : { pl: 4 }}>
           <Card>
             <CardContent>
               <Typography

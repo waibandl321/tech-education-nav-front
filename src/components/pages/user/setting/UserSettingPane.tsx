@@ -21,10 +21,7 @@ export default function UserSetting() {
 
   return (
     <Container>
-      <Grid
-        container
-        sx={isMobile ? { px: 0, py: 3 } : { px: 4, pt: 5, pb: 6 }}
-      >
+      <Grid container sx={isMobile ? { px: 0, py: 3 } : { px: 4, py: 6 }}>
         <Grid item xs={12} sm={3} width={isMobile ? "100%" : "auto"}>
           <UserSettingAside />
         </Grid>

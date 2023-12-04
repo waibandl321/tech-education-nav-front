@@ -6,45 +6,47 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
-import { SubmitHandler, useForm } from "react-hook-form";
+import useAuth, { AuthPasswordResetFormType } from "@/hooks/api/useAuth";
+import { useRouter } from "next/router";
 import useValidation from "@/hooks/utils/client/useValidation";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { useUserContext } from "@/contexts/UserContext";
-import useAuth from "@/hooks/api/useAuth";
-import usePasswordReset from "@/hooks/utils/client/auth/usePasswordReset";
-
 export default function ResetPassword() {
+  const router = useRouter();
   const isMobile = useMediaQuery("(max-width:480px)");
+  const { apiConfirmResetPassword } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{
-    email: string;
-  }>();
-  const { EmailRegex, useGetEmailInputError } = useValidation();
+  } = useForm<AuthPasswordResetFormType>();
+  const { useGetPasswordInputError } = useValidation();
   const { setAlertMessage } = useMessageAlert();
-  const { setEmail } = useUserContext();
-  const { apiResetPassword } = useAuth();
-  const { handleResetPasswordNextSteps } = usePasswordReset();
+  const { email } = useUserContext();
 
   /**
    * 送信処理
    * @param data
    * @returns
    */
-  const onSubmit: SubmitHandler<{
-    email: string;
-  }> = async (data) => {
+  const onSubmit: SubmitHandler<AuthPasswordResetFormType> = async (data) => {
     try {
-      const output = await apiResetPassword(data.email);
-      setEmail(data.email);
-      handleResetPasswordNextSteps(output);
+      await apiConfirmResetPassword({
+        username: email,
+        confirmationCode: data.confirmationCode,
+        newPassword: data.newPassword,
+      });
+      setAlertMessage({
+        type: "success",
+        message: "パスワードを再設定しました。再度ログインしてください。",
+      });
+      router.replace("/auth/login");
     } catch (error) {
       console.error(error);
       setAlertMessage({
         type: "error",
-        message: "認証に失敗しました。",
+        message: "パスワードの再設定に失敗しました。",
       });
     }
   };
@@ -70,24 +72,35 @@ export default function ResetPassword() {
           パスワードの再設定
         </Typography>
         <Typography sx={{ mt: 3 }}>
-          メールアドレスを入力して認証コードをお受け取りください。
-          次の画面でパスワードの再設定を行います。
+          登録されたメールアドレスに認証コードを送信しました。認証コードと新しいパスワードを入力して会員登録を完了させてください。
         </Typography>
         <Box sx={{ mt: 4 }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
+              fullWidth
+              id="confirmationCode"
+              label="認証コード"
+              autoFocus
+              {...register("confirmationCode", {
+                required: {
+                  value: true,
+                  message: "入力が必須の項目です。",
+                },
+              })}
+              error={!!errors.confirmationCode}
+              helperText={errors.confirmationCode?.message}
+            />
+            <TextField
+              sx={{ mt: 4 }}
               margin="normal"
               fullWidth
-              id="email"
-              label="メールアドレス"
-              autoComplete="email"
-              autoFocus
-              {...register("email", {
-                required: true,
-                pattern: EmailRegex,
-              })}
-              error={!!errors.email}
-              helperText={useGetEmailInputError(errors.email?.type)}
+              label="新しいパスワード"
+              type="password"
+              id="newPassword"
+              autoComplete="password"
+              {...register("newPassword", { required: true, minLength: 8 })}
+              error={!!errors.newPassword}
+              helperText={useGetPasswordInputError(errors.newPassword?.type)}
             />
             <Button
               type="submit"
@@ -96,7 +109,7 @@ export default function ResetPassword() {
               size="large"
               sx={{ mt: 4, mb: 2, height: 48 }}
             >
-              認証コードを送信する
+              パスワードを再設定する
             </Button>
           </form>
         </Box>

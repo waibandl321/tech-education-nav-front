@@ -10,13 +10,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import MesageAlert, {
-  AlertMessageKeyType,
-  AlertMessageStateType,
-} from "@/components/common/parts/MesageAlert";
+import React from "react";
 import FormButtons from "@/components/common/parts/FormButtons";
 import FormTitle from "@/components/common/parts/FormTitle";
+import { useMessageAlert } from "@/contexts/MessageAlertContext";
 
 /**
  * 口コミ投稿 確認画面
@@ -24,53 +21,31 @@ import FormTitle from "@/components/common/parts/FormTitle";
 export default function Confirm() {
   const router = useRouter();
 
+  const { setAlertMessage } = useMessageAlert();
+
   // sp device
   const isMobile = useMediaQuery("(max-width:480px)");
-
-  const [stateSnackbar, setStateSnackbar] = useState<AlertMessageStateType>({
-    isOpenSuccessAlert: false,
-    isOpenErrorAlert: false,
-    successMessage: "",
-    errorMessage: "",
-  });
-
-  const handleCloseSnackbar = (key: AlertMessageKeyType) => {
-    setStateSnackbar((prevStateSnackbar) => ({
-      ...prevStateSnackbar,
-      [key]: false,
-    }));
-  };
 
   // データ送信の非同期処理をここに追加する
   const handleSubmit = async () => {
     // 送信ロジック
     console.log("post");
     // メッセージ表示
-    // setStateSnackbar((prevStateSnackbar) => ({
-    //   ...prevStateSnackbar,
-    //   isOpenErrorAlert: true,
-    //   errorMessage: `口コミ情報の登録に失敗しました。
-    //   しばらく時間を置いてから、再度お試しください。`,
-    // }));
-    setStateSnackbar((prevStateSnackbar) => ({
-      ...prevStateSnackbar,
-      isOpenSuccessAlert: true,
-      successMessage: `口コミ情報を登録しました。
-      ご投稿いただいた口コミは、1件ずつチェックしております。
-      審査を通過した口コミのみ、本サイトに掲載します。`,
-    }));
-    router.push("/");
+    setAlertMessage({
+      type: "error",
+      message: `口コミ情報の登録に失敗しました。
+      しばらく時間を置いてから、再度お試しください。`,
+    });
+    // setAlertMessage({
+    //   type: "success",
+    //   message: `口コミ情報を登録しました。
+    //     ご投稿いただいた口コミは、1件ずつチェックしております。
+    //     審査を通過した口コミのみ、本サイトに掲載します。`,
+    // });
   };
 
   return (
     <>
-      <MesageAlert
-        isOpenSuccessAlert={stateSnackbar.isOpenSuccessAlert}
-        isOpenErrorAlert={stateSnackbar.isOpenErrorAlert}
-        successMessage={stateSnackbar.successMessage}
-        errorMessage={stateSnackbar.errorMessage}
-        handleClose={handleCloseSnackbar}
-      />
       <Container
         sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6 }}
         maxWidth="md"

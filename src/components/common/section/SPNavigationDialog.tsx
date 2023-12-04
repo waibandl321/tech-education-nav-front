@@ -16,6 +16,8 @@ import { TransitionProps } from "@mui/material/transitions";
 import { Box, Button, Card, Grid, ListSubheader, Slide } from "@mui/material";
 import SearchInput from "@/components/common/parts/SearchInput";
 import { useRouter } from "next/router";
+import useSignOut from "@/hooks/utils/client/auth/useSignOut";
+import { useUserContext } from "@/contexts/UserContext";
 
 // props型
 interface SPNavigationDialogProps {
@@ -42,7 +44,10 @@ export default function SPNavigationDialog({
   open,
   onClose,
 }: SPNavigationDialogProps) {
+  // hook
   const router = useRouter();
+  const handleSignOut = useSignOut();
+  const { isLoggedIn } = useUserContext();
 
   const menus = [
     {
@@ -91,30 +96,33 @@ export default function SPNavigationDialog({
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Box sx={{ m: "24px 16px", textAlign: "center" }}>
-        <Grid container spacing={2}>
-          <Grid xs={6} item>
-            <Button
-              size="large"
-              variant="contained"
-              fullWidth
-              href="/auth/login"
-            >
-              ログイン
-            </Button>
+      {!isLoggedIn && (
+        <Box sx={{ m: "24px 16px", textAlign: "center" }}>
+          <Grid container spacing={2}>
+            <Grid xs={6} item>
+              <Button
+                size="large"
+                variant="contained"
+                fullWidth
+                href="/auth/login"
+              >
+                ログイン
+              </Button>
+            </Grid>
+            <Grid xs={6} item>
+              <Button
+                size="large"
+                variant="outlined"
+                fullWidth
+                href="/auth/register"
+              >
+                会員登録
+              </Button>
+            </Grid>
           </Grid>
-          <Grid xs={6} item>
-            <Button
-              size="large"
-              variant="outlined"
-              fullWidth
-              href="/auth/register"
-            >
-              会員登録
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      )}
+
       <Divider />
       <List>
         <ListSubheader>口コミ・評判を探す</ListSubheader>
@@ -128,31 +136,35 @@ export default function SPNavigationDialog({
           />
         </Card>
       </List>
-      <List>
-        <ListSubheader>マイメニュー</ListSubheader>
-        {menus.map((item, index) => (
-          <ListItem
-            key={index}
-            button
-            secondaryAction={
-              <IconButton edge="end" aria-label="link">
-                <ChevronRightOutlinedIcon />
-              </IconButton>
-            }
-            sx={{ borderTop: "1px solid rgba(0, 0, 0, 0.12)" }}
-            onClick={() => item.callbackFunc()}
-          >
-            <ListItemText primary={item.text} />
-          </ListItem>
-        ))}
-        <Divider />
-      </List>
+      {isLoggedIn && (
+        <List>
+          <ListSubheader>マイメニュー</ListSubheader>
+          {menus.map((item, index) => (
+            <ListItem
+              key={index}
+              button
+              secondaryAction={
+                <IconButton edge="end" aria-label="link">
+                  <ChevronRightOutlinedIcon />
+                </IconButton>
+              }
+              sx={{ borderTop: "1px solid rgba(0, 0, 0, 0.12)" }}
+              onClick={() => item.callbackFunc()}
+            >
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ))}
+          <Divider />
+        </List>
+      )}
+
       <Box sx={{ m: "40px 0 0", textAlign: "center" }}>
         <Button
           size="large"
           color="error"
           variant="outlined"
           sx={{ minWidth: 300 }}
+          onClick={handleSignOut}
         >
           ログアウト
         </Button>
