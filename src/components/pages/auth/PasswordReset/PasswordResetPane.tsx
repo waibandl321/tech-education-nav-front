@@ -24,7 +24,7 @@ export default function ResetPassword() {
   }>();
   const { EmailRegex, useGetEmailInputError } = useValidation();
   const { setAlertMessage } = useMessageAlert();
-  const { setEmail } = useUserContext();
+  const { setAccountInfomation } = useUserContext();
   const { apiResetPassword } = useAuth();
   const { handleResetPasswordNextSteps } = usePasswordReset();
 
@@ -38,7 +38,9 @@ export default function ResetPassword() {
   }> = async (data) => {
     try {
       const output = await apiResetPassword(data.email);
-      setEmail(data.email);
+      setAccountInfomation({
+        email: data.email,
+      });
       handleResetPasswordNextSteps(output);
     } catch (error) {
       console.error(error);

@@ -14,10 +14,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import UserSettingAside from "@/components/pages/user/UserSettingAside";
+import { useRouter } from "next/router";
 
 export default function UserSetting() {
-  // sp device
+  // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
+  const router = useRouter();
 
   return (
     <Container>
@@ -52,15 +54,6 @@ export default function UserSetting() {
                       </Button>
                     </TableCell>
                   </TableRow>
-                  <TableRow>
-                    <TableCell>電話番号</TableCell>
-                    <TableCell>08029811429</TableCell>
-                    <TableCell width={60}>
-                      <Button variant="text" sx={{ px: 0 }}>
-                        変更する
-                      </Button>
-                    </TableCell>
-                  </TableRow>
                 </TableBody>
               </Table>
             </CardContent>
@@ -72,7 +65,11 @@ export default function UserSetting() {
                   プロフィール情報
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
-                <Button variant="text" sx={{ px: 0 }}>
+                <Button
+                  variant="text"
+                  sx={{ px: 0 }}
+                  onClick={() => router.push("/user/setting/edit/profile")}
+                >
                   変更する
                 </Button>
               </Grid>

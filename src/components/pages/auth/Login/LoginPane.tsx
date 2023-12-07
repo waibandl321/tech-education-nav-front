@@ -8,14 +8,16 @@ import { Card, Container, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import useValidation from "@/hooks/utils/client/useValidation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useAuth, { AuthLoginFormType } from "@/hooks/api/useAuth";
+import useAuth from "@/hooks/api/useAuth";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { useUserContext } from "@/contexts/UserContext";
 import { useLoading } from "@/contexts/LoadingContext";
+import useUser from "@/hooks/api/useUser";
+import { AuthLoginFormType } from "@/types/FormType";
 
 export default function LoginPane() {
+  // hooks
   const router = useRouter();
-  // sp device
   const isMobile = useMediaQuery("(max-width:480px)");
   const {
     register,
@@ -25,10 +27,49 @@ export default function LoginPane() {
   const { EmailRegex, useGetEmailInputError, useGetPasswordInputError } =
     useValidation();
   const { setAlertMessage } = useMessageAlert();
-  const { setEmail, setUserId } = useUserContext();
+  const { setAccountInfomation } = useUserContext();
   const { apiSignin, resendSignUpAuthCode, currentAuthenticatedUser } =
     useAuth();
   const { setLoading } = useLoading();
+  const { apiGetUserByCognitoSub, apiCreateUser } = useUser();
+
+  const afterSignIn = async () => {
+    const { userId, signInDetails } = await currentAuthenticatedUser();
+    if (!userId) return;
+    setAccountInfomation({
+      userId,
+      email: signInDetails?.loginId,
+    });
+
+    // Userテーブルへの問い合わせ
+    const getUserResult = await apiGetUserByCognitoSub(userId);
+    if (!getUserResult.data) {
+      // データが存在しない場合、Userテーブルにデータを保存
+      await apiCreateUser(userId);
+      // console.log(user);
+      await router.replace("/user/setting/edit/profile");
+      setAlertMessage({
+        type: "success",
+        message: "認証に成功しました。ユーザー情報を登録してください。",
+      });
+      return;
+    }
+
+    if (getUserResult.data && !getUserResult.data.isRegisterUserInfo) {
+      await router.replace("/user/setting/edit/profile");
+      setAlertMessage({
+        type: "success",
+        message: "認証に成功しました。ユーザー情報を登録してください。",
+      });
+      return;
+    }
+    await router.replace("/");
+    setAlertMessage({
+      type: "success",
+      message: "認証に成功しました。",
+    });
+    return;
+  };
 
   /**
    * 送信処理
@@ -42,7 +83,9 @@ export default function LoginPane() {
       // 認証コードの未確認
       if (nextStep.signInStep === "CONFIRM_SIGN_UP") {
         await resendSignUpAuthCode(data.email);
-        setEmail(data.email);
+        setAccountInfomation({
+          email: data.email,
+        });
         router.replace("/auth/register-confirm");
         setAlertMessage({
           type: "error",
@@ -53,15 +96,7 @@ export default function LoginPane() {
       }
       // サインイン完了
       if (isSignedIn) {
-        const { userId } = await currentAuthenticatedUser();
-        if (!userId) return;
-        setUserId(userId);
-        await router.replace("/");
-        setAlertMessage({
-          type: "success",
-          message: "認証に成功しました。",
-        });
-        return;
+        await afterSignIn();
       }
     } catch (error) {
       console.error(error);

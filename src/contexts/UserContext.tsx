@@ -1,6 +1,4 @@
-/**
- * グローバルにアクセス可能なユーザー情報を管理するコンテキスト
- */
+// グローバルにアクセス可能なユーザー情報を管理するコンテキスト
 import useAuth from "@/hooks/api/useAuth";
 import { useRouter } from "next/router";
 import React, {
@@ -12,12 +10,16 @@ import React, {
 } from "react";
 import { useLoading } from "./LoadingContext";
 
+export interface AccountInfomation {
+  email?: string;
+  phoneNumber?: string;
+  userId?: string;
+}
+
 // 保持するユーザー情報の型定義
 interface UserContextType {
-  email: string;
-  setEmail: (email: string) => void;
-  userId: string;
-  setUserId: (userId: string) => void;
+  accountInfomation: AccountInfomation;
+  setAccountInfomation: (accountInfo: AccountInfomation) => void;
   isLoggedIn: boolean; // ログイン状態のgetter
 }
 
@@ -35,14 +37,15 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const router = useRouter();
   const { setLoading } = useLoading();
   const { currentAuthenticatedUser } = useAuth();
-  const [email, setEmail] = useState("");
-  const [userId, setUserId] = useState("");
+  const [accountInfomation, setAccountInfomation] = useState<AccountInfomation>(
+    {}
+  );
 
   // ユーザーのログイン状態: userIdがあればログインしていると判定
-  const isLoggedIn = !!userId;
+  const isLoggedIn = !!accountInfomation?.userId;
 
   // ログインユーザーの操作画面の場合はリダイレクトする
-  const moveToLoginPage = () => {
+  const transitionToEachPage = () => {
     if (router.pathname.startsWith("/user/")) {
       router.replace("/auth/login");
       return;
@@ -52,17 +55,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   // ユーザーのログイン状態をチェックし、未認証の場合はログイン画面に遷移させる
   const checkUserSignIn = async () => {
     setLoading(true);
-
     try {
-      const { userId } = await currentAuthenticatedUser();
+      const { userId, signInDetails } = await currentAuthenticatedUser();
       if (!userId) {
-        setUserId("");
-        moveToLoginPage();
-        setUserId(userId);
+        setAccountInfomation({ userId: "" });
+        transitionToEachPage();
       }
+      setAccountInfomation({
+        userId,
+        email: signInDetails?.loginId,
+      });
     } catch (error) {
-      setUserId("");
-      moveToLoginPage();
+      setAccountInfomation({ userId: "" });
+      transitionToEachPage();
       console.error(error);
     } finally {
       setLoading(false); // ローディング終了
@@ -70,16 +75,25 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
-    const storedUserId = localStorage.getItem("userId");
-    if (storedEmail) setEmail(storedEmail);
-    if (storedUserId) setUserId(storedUserId);
+    const storedAccountInfomation = localStorage.getItem("accountInfomation");
+    if (storedAccountInfomation) {
+      try {
+        const parsedAccountInfomation = JSON.parse(storedAccountInfomation);
+        setAccountInfomation(parsedAccountInfomation);
+      } catch (e) {
+        console.error("Failed to parse accountInfomation", e);
+      }
+    }
   }, []);
 
   useEffect(() => {
-    if (email) localStorage.setItem("userEmail", email);
-    if (userId) localStorage.setItem("userId", userId);
-  }, [email, userId]);
+    if (accountInfomation) {
+      localStorage.setItem(
+        "accountInfomation",
+        JSON.stringify(accountInfomation)
+      );
+    }
+  }, [accountInfomation]);
 
   useEffect(() => {
     checkUserSignIn();
@@ -87,7 +101,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ email, setEmail, userId, setUserId, isLoggedIn }}
+      value={{
+        isLoggedIn,
+        accountInfomation,
+        setAccountInfomation,
+      }}
     >
       {children}
     </UserContext.Provider>

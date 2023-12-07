@@ -1,17 +1,17 @@
 import Layout from "@/app/layout";
-import UserSettingPane from "@/components/pages/user/setting/UserSettingPane";
+import EditUserAccountPane from "@/components/pages/user/setting/edit/EditUserAccountPane";
 import Head from "next/head";
 
 export default function UserSetting() {
   return (
     <>
       <Head>
-        <title>プロフィール変更 | テック教育ナビ</title>
+        <title>アカウント情報変更 | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <UserSettingPane />
+        <EditUserAccountPane />
       </Layout>
     </>
   );

@@ -9,9 +9,10 @@ import Container from "@mui/material/Container";
 import { Card, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useAuth, { AuthRegisterConfirmFormType } from "@/hooks/api/useAuth";
+import useAuth from "@/hooks/api/useAuth";
 import { useUserContext } from "@/contexts/UserContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
+import { AuthRegisterConfirmFormType } from "@/types/FormType";
 
 export default function RegisterConfirmPane() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function RegisterConfirmPane() {
   // 認証hook
   const { signUpConfirmation } = useAuth();
   // User Context API hook
-  const { email } = useUserContext();
+  const { accountInfomation } = useUserContext();
   const { setAlertMessage } = useMessageAlert();
 
   /**
@@ -34,9 +35,12 @@ export default function RegisterConfirmPane() {
    * @returns
    */
   const onSubmit: SubmitHandler<AuthRegisterConfirmFormType> = async (data) => {
+    if (!accountInfomation.email) {
+      throw new Error("");
+    }
     try {
       const result = await signUpConfirmation({
-        username: email,
+        username: accountInfomation.email,
         confirmationCode: data.authCode,
       });
       if (result.isSignUpComplete) {

@@ -10,8 +10,9 @@ import { Card, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import useValidation from "@/hooks/utils/client/useValidation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useAuth, { AuthRegisterFormType } from "@/hooks/api/useAuth";
+import useAuth from "@/hooks/api/useAuth";
 import { useUserContext } from "@/contexts/UserContext";
+import { AuthRegisterFormType } from "@/types/FormType";
 
 export default function RegisterPane() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function RegisterPane() {
   } = useValidation();
   // 認証hook
   const { apiSignUp } = useAuth();
-  const { setEmail } = useUserContext();
+  const { setAccountInfomation } = useUserContext();
 
   /**
    * サインアップ
@@ -44,7 +45,9 @@ export default function RegisterPane() {
       const { nextStep } = await apiSignUp(data);
       // 認証コードの未確認
       if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
-        setEmail(data.email);
+        setAccountInfomation({
+          email: data.email,
+        });
         router.replace("/auth/register-confirm");
       }
       return;
@@ -92,13 +95,12 @@ export default function RegisterPane() {
               error={!!errors.email}
               helperText={useGetEmailInputError(errors.email?.type)}
             />
-            <TextField
+            {/* <TextField
               fullWidth
               id="phoneNumber"
               autoComplete="tel"
               type="tel"
               label="電話番号"
-              autoFocus
               {...register("phoneNumber", {
                 required: true,
                 pattern: PhoneRegexp,
@@ -106,7 +108,7 @@ export default function RegisterPane() {
               error={!!errors.phoneNumber}
               helperText={useGetPhoneNumberInputError(errors.phoneNumber?.type)}
               sx={{ mt: 4 }}
-            />
+            /> */}
             <TextField
               fullWidth
               label="パスワード（英数字記号8文字以上）"

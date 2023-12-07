@@ -6,12 +6,14 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
-import useAuth, { AuthPasswordResetFormType } from "@/hooks/api/useAuth";
+import useAuth from "@/hooks/api/useAuth";
 import { useRouter } from "next/router";
 import useValidation from "@/hooks/utils/client/useValidation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { useUserContext } from "@/contexts/UserContext";
+import { AuthPasswordResetFormType } from "@/types/FormType";
+
 export default function ResetPassword() {
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width:480px)");
@@ -23,7 +25,7 @@ export default function ResetPassword() {
   } = useForm<AuthPasswordResetFormType>();
   const { useGetPasswordInputError } = useValidation();
   const { setAlertMessage } = useMessageAlert();
-  const { email } = useUserContext();
+  const { accountInfomation } = useUserContext();
 
   /**
    * 送信処理
@@ -31,9 +33,10 @@ export default function ResetPassword() {
    * @returns
    */
   const onSubmit: SubmitHandler<AuthPasswordResetFormType> = async (data) => {
+    if (!accountInfomation.email) throw new Error("");
     try {
       await apiConfirmResetPassword({
-        username: email,
+        username: accountInfomation.email,
         confirmationCode: data.confirmationCode,
         newPassword: data.newPassword,
       });

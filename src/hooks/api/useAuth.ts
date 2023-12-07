@@ -1,3 +1,4 @@
+import { AuthLoginFormType, AuthRegisterFormType } from "@/types/FormType";
 import {
   ConfirmSignUpInput,
   confirmSignUp,
@@ -8,31 +9,8 @@ import {
   resetPassword,
   ConfirmResetPasswordInput,
   confirmResetPassword,
+  updateUserAttributes,
 } from "aws-amplify/auth";
-
-// 会員登録画面の入力型
-export interface AuthRegisterFormType {
-  email: string;
-  password: string;
-  phoneNumber: string;
-}
-
-// 認証コード 入力型
-export interface AuthRegisterConfirmFormType {
-  authCode: string;
-}
-
-// ログイン画面の入力型
-export interface AuthLoginFormType {
-  email: string;
-  password: string;
-}
-
-// パスワード再設定画面の入力型
-export interface AuthPasswordResetFormType {
-  confirmationCode: string;
-  newPassword: string;
-}
 
 export default function useAuth() {
   /**
@@ -46,7 +24,7 @@ export default function useAuth() {
       options: {
         userAttributes: {
           email: formData.email,
-          phone_number: "+81" + formData.phoneNumber, // E.164 number convention
+          // phone_number: "+81" + formData.phoneNumber, // E.164 number convention
         },
         // optional
         // autoSignIn: true, // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
@@ -110,6 +88,17 @@ export default function useAuth() {
   }: ConfirmResetPasswordInput) =>
     confirmResetPassword({ username, confirmationCode, newPassword });
 
+  /**
+   * Update email
+   */
+  const apiUpdateUserAttr = async (updatedEmail: string) =>
+    updateUserAttributes({
+      userAttributes: {
+        email: updatedEmail,
+        name: updatedEmail,
+      },
+    });
+
   return {
     currentAuthenticatedUser,
     signUpConfirmation,
@@ -118,5 +107,6 @@ export default function useAuth() {
     apiSignin,
     apiResetPassword,
     apiConfirmResetPassword,
+    apiUpdateUserAttr,
   };
 }
