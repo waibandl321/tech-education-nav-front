@@ -6,14 +6,11 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import useValidation from "@/hooks/utils/useValidation";
-import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { useUserContext } from "@/contexts/UserContext";
-import useAuth from "@/hooks/api/useAuth";
 import usePasswordReset from "@/hooks/components/auth/usePasswordReset";
 
-export default function ResetPassword() {
+export default function PasswordResetRequestPane() {
   // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
   const {
@@ -24,33 +21,7 @@ export default function ResetPassword() {
     email: string;
   }>();
   const { EmailRegex, useGetEmailInputError } = useValidation();
-  const { setAlertMessage } = useMessageAlert();
-  const { setAccountInfomation } = useUserContext();
-  const { apiResetPassword } = useAuth();
-  const { handleResetPasswordNextSteps } = usePasswordReset();
-
-  /**
-   * 送信処理
-   * @param data
-   * @returns
-   */
-  const onSubmit: SubmitHandler<{
-    email: string;
-  }> = async (data) => {
-    try {
-      const output = await apiResetPassword(data.email);
-      setAccountInfomation({
-        email: data.email,
-      });
-      handleResetPasswordNextSteps(output);
-    } catch (error) {
-      console.error(error);
-      setAlertMessage({
-        type: "error",
-        message: "認証に失敗しました。",
-      });
-    }
-  };
+  const { requestPasswordReset } = usePasswordReset();
 
   return (
     <Container
@@ -77,7 +48,7 @@ export default function ResetPassword() {
           次の画面でパスワードの再設定を行います。
         </Typography>
         <Box sx={{ mt: 4 }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(requestPasswordReset)}>
             <TextField
               margin="normal"
               fullWidth

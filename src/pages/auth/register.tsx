@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/app/layout";
-import RegisterInputPane from "@/components/pages/auth/Register/RegisterInputPane";
+import RegisterPane from "@/components/pages/auth/Register/RegisterPane";
 import Head from "next/head";
 
 export default function Register() {
@@ -12,7 +12,7 @@ export default function Register() {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <RegisterInputPane />
+        <RegisterPane />
       </Layout>
     </>
   );

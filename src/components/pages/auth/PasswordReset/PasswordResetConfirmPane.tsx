@@ -6,54 +6,22 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
-import useAuth from "@/hooks/api/useAuth";
-import { useRouter } from "next/router";
 import useValidation from "@/hooks/utils/useValidation";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { useUserContext } from "@/contexts/UserContext";
+import { useForm } from "react-hook-form";
 import { AuthPasswordResetFormType } from "@/types/FormType";
+import usePasswordReset from "@/hooks/components/auth/usePasswordReset";
 
-export default function ResetPassword() {
+export default function PasswordResetConfirmPane() {
   // hooks
-  const router = useRouter();
   const isMobile = useMediaQuery("(max-width:480px)");
-  const { apiConfirmResetPassword } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthPasswordResetFormType>();
   const { useGetPasswordInputError } = useValidation();
-  const { setAlertMessage } = useMessageAlert();
-  const { accountInfomation } = useUserContext();
-
-  /**
-   * 送信処理
-   * @param data
-   * @returns
-   */
-  const onSubmit: SubmitHandler<AuthPasswordResetFormType> = async (data) => {
-    if (!accountInfomation.email) throw new Error("");
-    try {
-      await apiConfirmResetPassword({
-        username: accountInfomation.email,
-        confirmationCode: data.confirmationCode,
-        newPassword: data.newPassword,
-      });
-      setAlertMessage({
-        type: "success",
-        message: "パスワードを再設定しました。再度ログインしてください。",
-      });
-      router.replace("/auth/login");
-    } catch (error) {
-      console.error(error);
-      setAlertMessage({
-        type: "error",
-        message: "パスワードの再設定に失敗しました。",
-      });
-    }
-  };
+  const { confirmPasswordReset } = usePasswordReset();
 
   return (
     <Container
@@ -79,7 +47,7 @@ export default function ResetPassword() {
           登録されたメールアドレスに認証コードを送信しました。認証コードと新しいパスワードを入力して会員登録を完了させてください。
         </Typography>
         <Box sx={{ mt: 4 }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(confirmPasswordReset)}>
             <TextField
               fullWidth
               id="confirmationCode"

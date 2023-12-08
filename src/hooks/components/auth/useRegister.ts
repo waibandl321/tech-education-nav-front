@@ -44,7 +44,7 @@ const useRegister = () => {
         message: getErrorMessage(error),
       });
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 

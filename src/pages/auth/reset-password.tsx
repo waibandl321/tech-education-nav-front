@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/app/layout";
-import PasswordResetPane from "@/components/pages/auth/PasswordReset/PasswordResetPane";
+import PasswordResetRequestPane from "@/components/pages/auth/PasswordReset/PasswordResetRequestPane";
 import Head from "next/head";
 
 export default function ResetPassword() {
@@ -12,7 +12,7 @@ export default function ResetPassword() {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <PasswordResetPane />
+        <PasswordResetRequestPane />
       </Layout>
     </>
   );
