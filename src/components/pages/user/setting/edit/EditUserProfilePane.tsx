@@ -17,7 +17,7 @@ import { useUserContext } from "@/contexts/UserContext";
 import EditUserProfileForm from "./section/EditUserProfileForm";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import useRequest from "@/hooks/utils/client/useRequest";
+import useAPIRequest from "@/hooks/utils/useAPIRequest";
 
 export default function EditUserProfilePane() {
   // hook
@@ -28,7 +28,7 @@ export default function EditUserProfilePane() {
   const { setLoading } = useLoading();
   const { setAlertMessage } = useMessageAlert();
   const { apiUpdateUser } = useUser();
-  const { getUpdateRequest } = useRequest();
+  const { getUpdateRequest } = useAPIRequest();
 
   // Formの更新
   const handlerFormChange = (

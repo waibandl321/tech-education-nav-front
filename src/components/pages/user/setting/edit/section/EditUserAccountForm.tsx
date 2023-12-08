@@ -1,5 +1,5 @@
 import { AccountInfomation } from "@/contexts/UserContext";
-import useValidation from "@/hooks/utils/client/useValidation";
+import useValidation from "@/hooks/utils/useValidation";
 import { UserAccountInputType } from "@/types/FormType";
 import {
   Box,

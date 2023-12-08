@@ -44,7 +44,7 @@ export default function useAuth() {
    * @param username ユーザー名（メールアドレス）
    * @param confirmationCode 認証コード
    */
-  const signUpConfirmation = async ({
+  const apiConfirmSignUp = async ({
     username,
     confirmationCode,
   }: ConfirmSignUpInput) =>
@@ -101,7 +101,7 @@ export default function useAuth() {
 
   return {
     currentAuthenticatedUser,
-    signUpConfirmation,
+    apiConfirmSignUp,
     resendSignUpAuthCode,
     apiSignUp,
     apiSignin,

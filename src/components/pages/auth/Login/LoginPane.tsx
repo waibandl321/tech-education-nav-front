@@ -6,14 +6,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
-import useValidation from "@/hooks/utils/client/useValidation";
-import { SubmitHandler, useForm } from "react-hook-form";
-import useAuth from "@/hooks/api/useAuth";
-import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { useUserContext } from "@/contexts/UserContext";
-import { useLoading } from "@/contexts/LoadingContext";
-import useUser from "@/hooks/api/useUser";
+import useValidation from "@/hooks/utils/useValidation";
+import { useForm } from "react-hook-form";
 import { AuthLoginFormType } from "@/types/FormType";
+import useLogin from "@/hooks/components/auth/useLogin";
 
 export default function LoginPane() {
   // hooks
@@ -26,88 +22,7 @@ export default function LoginPane() {
   } = useForm<AuthLoginFormType>();
   const { EmailRegex, useGetEmailInputError, useGetPasswordInputError } =
     useValidation();
-  const { setAlertMessage } = useMessageAlert();
-  const { setAccountInfomation } = useUserContext();
-  const { apiSignin, resendSignUpAuthCode, currentAuthenticatedUser } =
-    useAuth();
-  const { setLoading } = useLoading();
-  const { apiGetUserByCognitoSub, apiCreateUser } = useUser();
-
-  const afterSignIn = async () => {
-    const { userId, signInDetails } = await currentAuthenticatedUser();
-    if (!userId) return;
-    setAccountInfomation({
-      userId,
-      email: signInDetails?.loginId,
-    });
-
-    // Userテーブルへの問い合わせ
-    const getUserResult = await apiGetUserByCognitoSub(userId);
-    if (!getUserResult.data) {
-      // データが存在しない場合、Userテーブルにデータを保存
-      await apiCreateUser(userId);
-      // console.log(user);
-      await router.replace("/user/setting/edit/profile");
-      setAlertMessage({
-        type: "success",
-        message: "認証に成功しました。ユーザー情報を登録してください。",
-      });
-      return;
-    }
-
-    if (getUserResult.data && !getUserResult.data.isRegisterUserInfo) {
-      await router.replace("/user/setting/edit/profile");
-      setAlertMessage({
-        type: "success",
-        message: "認証に成功しました。ユーザー情報を登録してください。",
-      });
-      return;
-    }
-    await router.replace("/");
-    setAlertMessage({
-      type: "success",
-      message: "認証に成功しました。",
-    });
-    return;
-  };
-
-  /**
-   * 送信処理
-   * @param data
-   * @returns
-   */
-  const onSubmit: SubmitHandler<AuthLoginFormType> = async (data) => {
-    setLoading(true);
-    try {
-      const { isSignedIn, nextStep } = await apiSignin(data);
-      // 認証コードの未確認
-      if (nextStep.signInStep === "CONFIRM_SIGN_UP") {
-        await resendSignUpAuthCode(data.email);
-        setAccountInfomation({
-          email: data.email,
-        });
-        router.replace("/auth/register-confirm");
-        setAlertMessage({
-          type: "error",
-          message:
-            "お客様は、認証コードの確認が未完了です。メールアドレスに送信された認証コードを入力してください。",
-        });
-        return;
-      }
-      // サインイン完了
-      if (isSignedIn) {
-        await afterSignIn();
-      }
-    } catch (error) {
-      console.error(error);
-      setAlertMessage({
-        type: "error",
-        message: "認証に失敗しました。",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { login } = useLogin();
 
   return (
     <>
@@ -131,7 +46,7 @@ export default function LoginPane() {
             ログイン
           </Typography>
           <Box sx={{ mt: isMobile ? 2 : 4 }}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(login)}>
               <TextField
                 margin="normal"
                 fullWidth

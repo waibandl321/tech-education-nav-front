@@ -8,53 +8,23 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Card, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
-import useValidation from "@/hooks/utils/client/useValidation";
-import { SubmitHandler, useForm } from "react-hook-form";
-import useAuth from "@/hooks/api/useAuth";
-import { useUserContext } from "@/contexts/UserContext";
+import useValidation from "@/hooks/utils/useValidation";
+import { useForm } from "react-hook-form";
 import { AuthRegisterFormType } from "@/types/FormType";
+import useRegister from "@/hooks/components/auth/useRegister";
 
 export default function RegisterPane() {
+  // hooks
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width:480px)");
-  // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthRegisterFormType>();
-  // バリデーションhook
-  const {
-    EmailRegex,
-    PhoneRegexp,
-    useGetEmailInputError,
-    useGetPasswordInputError,
-    useGetPhoneNumberInputError,
-  } = useValidation();
-  // 認証hook
-  const { apiSignUp } = useAuth();
-  const { setAccountInfomation } = useUserContext();
-
-  /**
-   * サインアップ
-   * @param data
-   * @returns
-   */
-  const onSubmit: SubmitHandler<AuthRegisterFormType> = async (data) => {
-    try {
-      const { nextStep } = await apiSignUp(data);
-      // 認証コードの未確認
-      if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
-        setAccountInfomation({
-          email: data.email,
-        });
-        router.replace("/auth/register-confirm");
-      }
-      return;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { EmailRegex, useGetEmailInputError, useGetPasswordInputError } =
+    useValidation();
+  const { signUpSubmit } = useRegister();
 
   return (
     <Container
@@ -81,7 +51,7 @@ export default function RegisterPane() {
           「認証コード」の確認は次の画面で行います。
         </Typography>
         <Box sx={{ mt: isMobile ? 2 : 4 }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(signUpSubmit)}>
             <TextField
               fullWidth
               id="email"
@@ -95,20 +65,6 @@ export default function RegisterPane() {
               error={!!errors.email}
               helperText={useGetEmailInputError(errors.email?.type)}
             />
-            {/* <TextField
-              fullWidth
-              id="phoneNumber"
-              autoComplete="tel"
-              type="tel"
-              label="電話番号"
-              {...register("phoneNumber", {
-                required: true,
-                pattern: PhoneRegexp,
-              })}
-              error={!!errors.phoneNumber}
-              helperText={useGetPhoneNumberInputError(errors.phoneNumber?.type)}
-              sx={{ mt: 4 }}
-            /> */}
             <TextField
               fullWidth
               label="パスワード（英数字記号8文字以上）"

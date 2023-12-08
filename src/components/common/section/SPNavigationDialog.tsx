@@ -16,7 +16,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import { Box, Button, Card, Grid, ListSubheader, Slide } from "@mui/material";
 import SearchInput from "@/components/common/parts/SearchInput";
 import { useRouter } from "next/router";
-import useSignOut from "@/hooks/utils/client/auth/useSignOut";
+import useSignOut from "@/hooks/components/auth/useSignOut";
 import { useUserContext } from "@/contexts/UserContext";
 
 // props型

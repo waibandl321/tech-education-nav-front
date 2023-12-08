@@ -7,59 +7,19 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Card, useMediaQuery } from "@mui/material";
-import { useRouter } from "next/router";
-import { SubmitHandler, useForm } from "react-hook-form";
-import useAuth from "@/hooks/api/useAuth";
-import { useUserContext } from "@/contexts/UserContext";
-import { useMessageAlert } from "@/contexts/MessageAlertContext";
+import { useForm } from "react-hook-form";
 import { AuthRegisterConfirmFormType } from "@/types/FormType";
+import useRegister from "@/hooks/components/auth/useRegister";
 
 export default function RegisterConfirmPane() {
-  const router = useRouter();
+  // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
-  // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthRegisterConfirmFormType>();
-  // 認証hook
-  const { signUpConfirmation } = useAuth();
-  // User Context API hook
-  const { accountInfomation } = useUserContext();
-  const { setAlertMessage } = useMessageAlert();
-
-  /**
-   * サインアップ
-   * @param data
-   * @returns
-   */
-  const onSubmit: SubmitHandler<AuthRegisterConfirmFormType> = async (data) => {
-    if (!accountInfomation.email) {
-      throw new Error("");
-    }
-    try {
-      const result = await signUpConfirmation({
-        username: accountInfomation.email,
-        confirmationCode: data.authCode,
-      });
-      if (result.isSignUpComplete) {
-        setAlertMessage({
-          type: "success",
-          message:
-            "認証に成功しました。ログインしてアプリの利用を開始してください。",
-        });
-        router.push("/auth/login");
-      }
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-      setAlertMessage({
-        type: "error",
-        message: "認証に失敗しました。入力された認証コードは正しいですか？",
-      });
-    }
-  };
+  const { confirmSignUpSubmit } = useRegister();
 
   return (
     <Container
@@ -85,7 +45,7 @@ export default function RegisterConfirmPane() {
           登録されたメールアドレスに認証コードを送信しました。認証コードを入力して会員登録を完了させてください。
         </Typography>
         <Box sx={{ mt: 4 }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(confirmSignUpSubmit)}>
             <TextField
               fullWidth
               id="authCode"

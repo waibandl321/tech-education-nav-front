@@ -1,4 +1,4 @@
-export default function useRequest() {
+export default function useAPIRequest() {
   /**
    * 更新リクエスト生成
    * 不要なプロパティを除いたリクエストデータを返す

@@ -8,13 +8,14 @@ import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
 import useAuth from "@/hooks/api/useAuth";
 import { useRouter } from "next/router";
-import useValidation from "@/hooks/utils/client/useValidation";
+import useValidation from "@/hooks/utils/useValidation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { useUserContext } from "@/contexts/UserContext";
 import { AuthPasswordResetFormType } from "@/types/FormType";
 
 export default function ResetPassword() {
+  // hooks
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width:480px)");
   const { apiConfirmResetPassword } = useAuth();

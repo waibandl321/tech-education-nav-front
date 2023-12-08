@@ -7,13 +7,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useValidation from "@/hooks/utils/client/useValidation";
+import useValidation from "@/hooks/utils/useValidation";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { useUserContext } from "@/contexts/UserContext";
 import useAuth from "@/hooks/api/useAuth";
-import usePasswordReset from "@/hooks/utils/client/auth/usePasswordReset";
+import usePasswordReset from "@/hooks/components/auth/usePasswordReset";
 
 export default function ResetPassword() {
+  // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
   const {
     register,

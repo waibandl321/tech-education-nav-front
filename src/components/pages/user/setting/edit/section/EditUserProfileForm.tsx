@@ -1,5 +1,5 @@
 import { User } from "@/API";
-import { useFormOptions } from "@/hooks/utils/client/useFormOptions";
+import { useFormOptions } from "@/hooks/utils/useFormOptions";
 import { UserProfileInputType } from "@/types/FormType";
 import {
   Box,

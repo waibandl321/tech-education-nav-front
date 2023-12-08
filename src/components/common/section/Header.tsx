@@ -12,7 +12,7 @@ import SearchInput from "../parts/SearchInput";
 import { Button, Container } from "@mui/material";
 // useRouter
 import { useRouter } from "next/navigation";
-import useSignOut from "@/hooks/utils/client/auth/useSignOut";
+import useSignOut from "@/hooks/components/auth/useSignOut";
 import { useUserContext } from "@/contexts/UserContext";
 /**
  * ヘッダー コンポーネント
