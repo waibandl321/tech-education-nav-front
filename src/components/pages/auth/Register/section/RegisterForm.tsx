@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthRegisterFormType } from "@/types/FormType";
 import { Box, useMediaQuery } from "@mui/material";
 
-export default function RegisterFormSection({
+export default function RegisterForm({
   onSubmit,
 }: {
   onSubmit: SubmitHandler<AuthRegisterFormType>;

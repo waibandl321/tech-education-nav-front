@@ -4,8 +4,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
 import useLogin from "@/hooks/components/auth/useLogin";
-import LoginFormSection from "./LoginFormSection";
-import LoginLinkSection from "./LoginLinkSection";
+import LoginForm from "../section/LoginForm";
+import LoginLinks from "../section/LoginLinks";
 
 export default function LoginPane() {
   // hooks
@@ -34,8 +34,8 @@ export default function LoginPane() {
             ログイン
           </Typography>
           <Box sx={{ mt: isMobile ? 2 : 4 }}>
-            <LoginFormSection onSubmit={login} />
-            <LoginLinkSection />
+            <LoginForm onSubmit={login} />
+            <LoginLinks />
           </Box>
         </Card>
       </Container>

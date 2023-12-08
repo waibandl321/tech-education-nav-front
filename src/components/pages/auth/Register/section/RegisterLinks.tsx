@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "@mui/material";
 
-export default function RegisterLinkSection() {
+export default function RegisterLinks() {
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width:480px)");
 

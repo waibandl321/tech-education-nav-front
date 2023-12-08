@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/app/layout";
-import RegisterPane from "@/components/pages/auth/Register/RegisterPane";
+import RegisterPane from "@/components/pages/auth/Register/pane/Register";
 import Head from "next/head";
 
 export default function Register() {

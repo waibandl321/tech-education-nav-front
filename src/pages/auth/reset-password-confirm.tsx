@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/app/layout";
-import PasswordResetConfirmPane from "@/components/pages/auth/PasswordReset/PasswordResetConfirmPane";
+import PasswordResetConfirm from "@/components/pages/auth/PasswordReset/pane/PasswordResetConfirm";
 import Head from "next/head";
 
 export default function ResetPasswordConfirm() {
@@ -12,7 +12,7 @@ export default function ResetPasswordConfirm() {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <PasswordResetConfirmPane />
+        <PasswordResetConfirm />
       </Layout>
     </>
   );

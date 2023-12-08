@@ -22,13 +22,13 @@ import { useForm } from "react-hook-form";
 export default function EditUserProfileForm({
   user,
   handlerFormChange,
-  handlerSubmit,
+  onSubmit,
 }: {
   user: User;
   handlerFormChange: (
     event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent
   ) => void;
-  handlerSubmit: () => Promise<void>;
+  onSubmit: () => Promise<void>;
 }) {
   const isMobile = useMediaQuery("(max-width:480px)");
   const { prefectures, genders, getBirthDayFields } = useFormOptions();
@@ -62,7 +62,7 @@ export default function EditUserProfileForm({
   }, [user, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(handlerSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box sx={{ mt: 5 }}>
         <Typography>氏名</Typography>
         <TextField

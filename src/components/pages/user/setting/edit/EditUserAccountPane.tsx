@@ -79,7 +79,7 @@ export default function EditUserAccountPane() {
               <EditUserAccountForm
                 account={account}
                 handlerFormChange={handlerFormChange}
-                handlerSubmit={updateAccount}
+                onSubmit={updateAccount}
               />
             </CardContent>
           </Card>

@@ -57,7 +57,13 @@ const useRegister = () => {
     AuthRegisterConfirmFormType
   > = async (data) => {
     if (!accountInfomation.email) {
-      throw new Error("");
+      setAlertMessage({
+        type: "error",
+        message: `不明なエラー: Emailが存在しません。\n
+          ログインすると認証コードが再度送信されます。
+          `,
+      });
+      return; // 処理をここで終了させる
     }
     try {
       const result = await apiConfirmSignUp({

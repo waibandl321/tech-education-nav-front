@@ -1,21 +1,20 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { Card, useMediaQuery } from "@mui/material";
-import useRegister from "@/hooks/components/auth/useRegister";
-import RegisterFormSection from "./RegisterFormSection";
-import RegisterLinkSection from "./RegisterLinkSection";
+import { Card, Container, useMediaQuery } from "@mui/material";
+import usePasswordReset from "@/hooks/components/auth/usePasswordReset";
+import PasswordRequestForm from "@/components/pages/auth/PasswordReset/section/PasswordRequestForm";
 
-export default function RegisterPane() {
+export default function PasswordResetRequest() {
   // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
-  const { signUpSubmit } = useRegister();
+  const { requestPasswordReset } = usePasswordReset();
 
   return (
     <Container
-      sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6 }}
+      sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6, minHeight: "75vh" }}
       component="main"
       maxWidth="sm"
     >
@@ -31,14 +30,15 @@ export default function RegisterPane() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          会員登録
+          パスワードの再設定
         </Typography>
         <Typography sx={{ mt: 3 }}>
-          メールアドレス、パスワードを送信すると、メールアドレス宛に認証コードが送信されます。
-          「認証コード」の確認は次の画面で行います。
+          メールアドレスを入力して認証コードをお受け取りください。
+          次の画面でパスワードの再設定を行います。
         </Typography>
-        <RegisterFormSection onSubmit={signUpSubmit} />
-        <RegisterLinkSection />
+        <Box sx={{ mt: 4 }}>
+          <PasswordRequestForm onSubmit={requestPasswordReset} />
+        </Box>
       </Card>
     </Container>
   );

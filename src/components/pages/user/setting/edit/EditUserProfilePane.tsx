@@ -128,7 +128,7 @@ export default function EditUserProfilePane() {
                 <EditUserProfileForm
                   user={user}
                   handlerFormChange={handlerFormChange}
-                  handlerSubmit={saveUserProfile}
+                  onSubmit={saveUserProfile}
                 />
               </CardContent>
             </Card>

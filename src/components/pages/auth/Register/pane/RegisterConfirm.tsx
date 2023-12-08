@@ -5,27 +5,25 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { Card, Container, useMediaQuery } from "@mui/material";
+import Container from "@mui/material/Container";
+import { Card, useMediaQuery } from "@mui/material";
 import { useForm } from "react-hook-form";
-import useValidation from "@/hooks/utils/useValidation";
-import usePasswordReset from "@/hooks/components/auth/usePasswordReset";
+import { AuthRegisterConfirmFormType } from "@/types/FormType";
+import useRegister from "@/hooks/components/auth/useRegister";
 
-export default function PasswordResetRequestPane() {
+export default function RegisterConfirm() {
   // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{
-    email: string;
-  }>();
-  const { EmailRegex, useGetEmailInputError } = useValidation();
-  const { requestPasswordReset } = usePasswordReset();
+  } = useForm<AuthRegisterConfirmFormType>();
+  const { confirmSignUpSubmit } = useRegister();
 
   return (
     <Container
-      sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6, minHeight: "75vh" }}
+      sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6 }}
       component="main"
       maxWidth="sm"
     >
@@ -41,38 +39,40 @@ export default function PasswordResetRequestPane() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          パスワードの再設定
+          認証コード確認
         </Typography>
         <Typography sx={{ mt: 3 }}>
-          メールアドレスを入力して認証コードをお受け取りください。
-          次の画面でパスワードの再設定を行います。
+          登録されたメールアドレスに認証コードを送信しました。認証コードを入力して会員登録を完了させてください。
         </Typography>
         <Box sx={{ mt: 4 }}>
-          <form onSubmit={handleSubmit(requestPasswordReset)}>
+          <form onSubmit={handleSubmit(confirmSignUpSubmit)}>
             <TextField
-              margin="normal"
               fullWidth
-              id="email"
-              label="メールアドレス"
-              autoComplete="email"
+              id="authCode"
+              label="認証コード"
               autoFocus
-              {...register("email", {
-                required: true,
-                pattern: EmailRegex,
+              {...register("authCode", {
+                required: {
+                  value: true,
+                  message: "入力が必須の項目です。",
+                },
               })}
-              error={!!errors.email}
-              helperText={useGetEmailInputError(errors.email?.type)}
+              error={!!errors.authCode}
+              helperText={errors.authCode?.message}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              sx={{ my: 4, height: 48 }}
               size="large"
-              sx={{ mt: 4, mb: 2, height: 48 }}
             >
-              認証コードを送信する
+              認証
             </Button>
           </form>
+          <Typography textAlign="right">
+            <Button>認証コード再発行</Button>
+          </Typography>
         </Box>
       </Card>
     </Container>

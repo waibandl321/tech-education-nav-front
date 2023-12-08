@@ -14,11 +14,11 @@ import { useForm } from "react-hook-form";
 export default function EditUserAccountForm({
   account,
   handlerFormChange,
-  handlerSubmit,
+  onSubmit,
 }: {
   account: AccountInfomation;
   handlerFormChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handlerSubmit: () => Promise<void>;
+  onSubmit: () => Promise<void>;
 }) {
   const isMobile = useMediaQuery("(max-width:480px)");
   const {
@@ -40,7 +40,7 @@ export default function EditUserAccountForm({
   }, [account, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(handlerSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box sx={{ mt: 2 }}>
         <Typography>メールアドレス</Typography>
         <TextField

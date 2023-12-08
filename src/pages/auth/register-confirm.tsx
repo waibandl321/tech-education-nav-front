@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/app/layout";
-import RegisterConfirmPane from "@/components/pages/auth/Register/RegisterConfirmPane";
+import RegisterConfirmPane from "@/components/pages/auth/Register/pane/RegisterConfirm";
 import Head from "next/head";
 
 export default function RegisterConfirm() {

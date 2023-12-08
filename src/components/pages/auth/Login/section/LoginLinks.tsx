@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 
-export default function LoginLinkSection() {
+export default function LoginLinks() {
   const router = useRouter();
 
   return (

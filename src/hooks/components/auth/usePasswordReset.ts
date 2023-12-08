@@ -70,7 +70,15 @@ const usePasswordReset = () => {
   const confirmPasswordReset: SubmitHandler<AuthPasswordResetFormType> = async (
     data
   ) => {
-    if (!accountInfomation.email) throw new Error("");
+    if (!accountInfomation.email) {
+      setAlertMessage({
+        type: "error",
+        message:
+          "アカウント情報のEmailが存在しません。\n「認証コードを再発行する」ボタンを押して、再度手続きをお願いいたします。",
+      });
+      return; // 処理をここで終了させる
+    }
+
     try {
       await apiConfirmResetPassword({
         username: accountInfomation.email,
@@ -79,7 +87,7 @@ const usePasswordReset = () => {
       });
       setAlertMessage({
         type: "success",
-        message: "パスワードを再設定しました。再度ログインしてください。",
+        message: "パスワードを再設定しました。\n再度ログインしてください。",
       });
       router.replace("/auth/login");
     } catch (error) {

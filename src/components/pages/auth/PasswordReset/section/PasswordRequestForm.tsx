@@ -1,21 +1,25 @@
-import useValidation from "@/hooks/utils/useValidation";
-import { AuthLoginFormType } from "@/types/FormType";
+import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { SubmitHandler, useForm } from "react-hook-form";
+import useValidation from "@/hooks/utils/useValidation";
 
-export default function LoginFormSection({
+export default function PasswordRequestForm({
   onSubmit,
 }: {
-  onSubmit: SubmitHandler<AuthLoginFormType>;
+  onSubmit: SubmitHandler<{
+    email: string;
+  }>;
 }) {
+  // hooks
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthLoginFormType>();
-  const { EmailRegex, useGetEmailInputError, useGetPasswordInputError } =
-    useValidation();
+  } = useForm<{
+    email: string;
+  }>();
+  const { EmailRegex, useGetEmailInputError } = useValidation();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -23,7 +27,7 @@ export default function LoginFormSection({
         margin="normal"
         fullWidth
         id="email"
-        label="ログインID（メールアドレス）"
+        label="メールアドレス"
         autoComplete="email"
         autoFocus
         {...register("email", {
@@ -33,18 +37,6 @@ export default function LoginFormSection({
         error={!!errors.email}
         helperText={useGetEmailInputError(errors.email?.type)}
       />
-      <TextField
-        sx={{ mt: 4 }}
-        margin="normal"
-        fullWidth
-        label="パスワード"
-        type="password"
-        id="password"
-        autoComplete="password"
-        {...register("password", { required: true, minLength: 8 })}
-        error={!!errors.password}
-        helperText={useGetPasswordInputError(errors.password?.type)}
-      />
       <Button
         type="submit"
         fullWidth
@@ -52,7 +44,7 @@ export default function LoginFormSection({
         size="large"
         sx={{ mt: 4, mb: 2, height: 48 }}
       >
-        ログイン
+        認証コードを送信する
       </Button>
     </form>
   );
