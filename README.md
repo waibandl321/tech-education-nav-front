@@ -19,7 +19,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 | Page                 | ルーティング管理 | Pane     | ナビゲーションとルーティングに集中。React Router などのルーティングライブラリと統合し、ルートパラメータの管理を担当。 パス: src/pages |
 | Pane | レイアウト管理、UI の構成 | Page | ページの主要なレイアウトと UI 構造を担当。ビジネスロジックや API 通信はカスタムフックに委ねる。 |
 | Section | UI の細分化とプレゼンテーションロジックの管理 | Pane | UI 要素をより小さく集中的な単位に分割し、フォームや特定の UI セクションの表示を担当。API 通信は行わない。例)ヘッダー、フッター、フォームなど |
-| Parts | テキストフィールドやカード要素などのパーツ単位の表示 | Section | 管理が煩雑になるため使用しない。@mui/material の UI コンポーネントをセクション内で使用する。 |
+| Parts | テキストフィールドやカード要素などのパーツ単位の表示 | Section | @mui/material の UI コンポーネントをセクション内で使用する。 |
 
 ### **使用例**
 
