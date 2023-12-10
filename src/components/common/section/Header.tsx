@@ -63,9 +63,6 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => router.push("/user/review")}>
-        口コミ投稿・削除
-      </MenuItem>
       <MenuItem onClick={() => router.push("/user/setting")}>
         プロフィール・各種設定
       </MenuItem>
@@ -120,6 +117,13 @@ export default function Header() {
             )}
             {isLoggedIn && (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Button
+                  onClick={() => router.push("/user/review")}
+                  variant="contained"
+                  sx={{ mr: 2 }}
+                >
+                  口コミ投稿・削除
+                </Button>
                 <IconButton
                   size="large"
                   edge="end"

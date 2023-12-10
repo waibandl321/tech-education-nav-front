@@ -49,7 +49,7 @@ export default function EditUserAccountForm({
           id="email"
           autoComplete="email"
           autoFocus
-          value={account.email}
+          value={account.email || ""}
           {...register("email", {
             required: true,
             pattern: EmailRegex,

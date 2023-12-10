@@ -10,25 +10,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import UserSettingEditAside from "@/components/pages/user/UserSettingEditAside";
-import React, { useEffect, useState } from "react";
-import { UpdateUserInput, User } from "@/API";
-import useUser from "@/hooks/api/useUser";
-import { useUserContext } from "@/contexts/UserContext";
+import React from "react";
 import EditUserProfileForm from "./section/EditUserProfileForm";
-import { useLoading } from "@/contexts/LoadingContext";
-import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import useAPIRequest from "@/hooks/utils/useAPIRequest";
+import { useUserInfo } from "@/hooks/components/user/setting/useUserInfo";
 
 export default function EditUserProfilePane() {
   // hook
   const isMobile = useMediaQuery("(max-width:480px)");
-  const [user, setUser] = useState({} as User);
-  const { apiGetUserByCognitoSub } = useUser();
-  const { accountInfomation } = useUserContext();
-  const { setLoading } = useLoading();
-  const { setAlertMessage } = useMessageAlert();
-  const { apiUpdateUser } = useUser();
-  const { getUpdateRequest } = useAPIRequest();
+  const { user, setUser, saveUserProfile } = useUserInfo();
 
   // Formの更新
   const handlerFormChange = (
@@ -41,64 +30,6 @@ export default function EditUserProfilePane() {
       [name]: value,
     }));
   };
-
-  // 保存処理
-  const saveUserProfile = async () => {
-    setLoading(true);
-    try {
-      const request: UpdateUserInput = getUpdateRequest({
-        ...user,
-        isRegisterUserInfo: true,
-      });
-      const result = await apiUpdateUser(request);
-      if (!result.isSuccess || !result.data) {
-        throw new Error("");
-      }
-      setAlertMessage({
-        type: "success",
-        message: "データを保存しました。",
-      });
-    } catch (error) {
-      console.log(error);
-      setAlertMessage({
-        type: "error",
-        message: "データの保存に失敗しました。",
-      });
-      return;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      setLoading(true);
-      try {
-        // TODO: リダイレクト処理
-        if (!accountInfomation.userId) return;
-        const result = await apiGetUserByCognitoSub(accountInfomation.userId);
-        if (!result.isSuccess || !result.data) {
-          setAlertMessage({
-            type: "error",
-            message: "データの取得に失敗しました。",
-          });
-          return;
-        }
-        setUser({
-          ...result.data,
-        });
-      } catch (error) {
-        setAlertMessage({
-          type: "error",
-          message:
-            "エラーが発生しました。しばらく時間を置いてから再度お試しください。",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    getUserInfo();
-  }, [accountInfomation.userId]);
 
   return (
     <>

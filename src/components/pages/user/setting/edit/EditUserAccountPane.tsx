@@ -9,43 +9,14 @@ import {
 } from "@mui/material";
 import UserSettingEditAside from "@/components/pages/user/UserSettingEditAside";
 import EditUserAccountForm from "./section/EditUserAccountForm";
-import { AccountInfomation, useUserContext } from "@/contexts/UserContext";
-import { useLoading } from "@/contexts/LoadingContext";
-import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import useAuth from "@/hooks/api/useAuth";
-import { useEffect, useState } from "react";
-import useAPIResponse from "@/hooks/api/useAPIResponse";
+import { useUserContext } from "@/contexts/UserContext";
+import { useEffect } from "react";
+import { useAccountInfo } from "@/hooks/components/user/setting/useAccountInfo";
 
 export default function EditUserAccountPane() {
   const isMobile = useMediaQuery("(max-width:480px)");
   const { accountInfomation } = useUserContext();
-  const { setLoading } = useLoading();
-  const { setAlertMessage } = useMessageAlert();
-  const { apiUpdateUserAttr } = useAuth();
-  const { getErrorMessage } = useAPIResponse();
-  const [account, setAccount] = useState({} as AccountInfomation);
-
-  // 保存処理
-  const updateAccount = async () => {
-    setLoading(true);
-    try {
-      if (!account.email) throw new Error("Not fount email.");
-      const results = await apiUpdateUserAttr(account.email);
-      const failed = !results["email"].isUpdated || !results["name"].isUpdated;
-      if (failed) throw new Error("Failed to update account information.");
-      setAlertMessage({
-        type: "success",
-        message: "アカウント情報を更新しました。",
-      });
-    } catch (error) {
-      setAlertMessage({
-        type: "error",
-        message: getErrorMessage(error),
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { account, setAccount, updateEmail } = useAccountInfo();
 
   // Formの更新
   const handlerFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +50,7 @@ export default function EditUserAccountPane() {
               <EditUserAccountForm
                 account={account}
                 handlerFormChange={handlerFormChange}
-                onSubmit={updateAccount}
+                onSubmit={updateEmail}
               />
             </CardContent>
           </Card>
