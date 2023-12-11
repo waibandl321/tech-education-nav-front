@@ -140,3 +140,177 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   APITypes.DeleteUserMutationVariables,
   APITypes.DeleteUserMutation
 >;
+export const createLearningCenter = /* GraphQL */ `mutation CreateLearningCenter(
+  $input: CreateLearningCenterInput!
+  $condition: ModelLearningCenterConditionInput
+) {
+  createLearningCenter(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    operatingCompany
+    headquartersLocation
+    websiteURL
+    establishmentYear
+    representative
+    locations {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateLearningCenterMutationVariables,
+  APITypes.CreateLearningCenterMutation
+>;
+export const updateLearningCenter = /* GraphQL */ `mutation UpdateLearningCenter(
+  $input: UpdateLearningCenterInput!
+  $condition: ModelLearningCenterConditionInput
+) {
+  updateLearningCenter(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    operatingCompany
+    headquartersLocation
+    websiteURL
+    establishmentYear
+    representative
+    locations {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateLearningCenterMutationVariables,
+  APITypes.UpdateLearningCenterMutation
+>;
+export const deleteLearningCenter = /* GraphQL */ `mutation DeleteLearningCenter(
+  $input: DeleteLearningCenterInput!
+  $condition: ModelLearningCenterConditionInput
+) {
+  deleteLearningCenter(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    operatingCompany
+    headquartersLocation
+    websiteURL
+    establishmentYear
+    representative
+    locations {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteLearningCenterMutationVariables,
+  APITypes.DeleteLearningCenterMutation
+>;
+export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearningCenterCourse(
+  $input: CreateLearningCenterCourseInput!
+  $condition: ModelLearningCenterCourseConditionInput
+) {
+  createLearningCenterCourse(input: $input, condition: $condition) {
+    id
+    learningCenterId
+    courseName
+    courseURL
+    couseDetail
+    user {
+      id
+      name
+      memo
+      operatingCompany
+      headquartersLocation
+      websiteURL
+      establishmentYear
+      representative
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateLearningCenterCourseMutationVariables,
+  APITypes.CreateLearningCenterCourseMutation
+>;
+export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearningCenterCourse(
+  $input: UpdateLearningCenterCourseInput!
+  $condition: ModelLearningCenterCourseConditionInput
+) {
+  updateLearningCenterCourse(input: $input, condition: $condition) {
+    id
+    learningCenterId
+    courseName
+    courseURL
+    couseDetail
+    user {
+      id
+      name
+      memo
+      operatingCompany
+      headquartersLocation
+      websiteURL
+      establishmentYear
+      representative
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateLearningCenterCourseMutationVariables,
+  APITypes.UpdateLearningCenterCourseMutation
+>;
+export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearningCenterCourse(
+  $input: DeleteLearningCenterCourseInput!
+  $condition: ModelLearningCenterCourseConditionInput
+) {
+  deleteLearningCenterCourse(input: $input, condition: $condition) {
+    id
+    learningCenterId
+    courseName
+    courseURL
+    couseDetail
+    user {
+      id
+      name
+      memo
+      operatingCompany
+      headquartersLocation
+      websiteURL
+      establishmentYear
+      representative
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteLearningCenterCourseMutationVariables,
+  APITypes.DeleteLearningCenterCourseMutation
+>;

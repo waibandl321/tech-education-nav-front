@@ -88,3 +88,110 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+export const getLearningCenter = /* GraphQL */ `query GetLearningCenter($id: ID!) {
+  getLearningCenter(id: $id) {
+    id
+    name
+    memo
+    operatingCompany
+    headquartersLocation
+    websiteURL
+    establishmentYear
+    representative
+    locations {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetLearningCenterQueryVariables,
+  APITypes.GetLearningCenterQuery
+>;
+export const listLearningCenters = /* GraphQL */ `query ListLearningCenters(
+  $filter: ModelLearningCenterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLearningCenters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      memo
+      operatingCompany
+      headquartersLocation
+      websiteURL
+      establishmentYear
+      representative
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListLearningCentersQueryVariables,
+  APITypes.ListLearningCentersQuery
+>;
+export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCourse($id: ID!) {
+  getLearningCenterCourse(id: $id) {
+    id
+    learningCenterId
+    courseName
+    courseURL
+    couseDetail
+    user {
+      id
+      name
+      memo
+      operatingCompany
+      headquartersLocation
+      websiteURL
+      establishmentYear
+      representative
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetLearningCenterCourseQueryVariables,
+  APITypes.GetLearningCenterCourseQuery
+>;
+export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenterCourses(
+  $filter: ModelLearningCenterCourseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLearningCenterCourses(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      learningCenterId
+      courseName
+      courseURL
+      couseDetail
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListLearningCenterCoursesQueryVariables,
+  APITypes.ListLearningCenterCoursesQuery
+>;

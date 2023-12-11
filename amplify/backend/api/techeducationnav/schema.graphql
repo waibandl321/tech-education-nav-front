@@ -20,3 +20,24 @@ type User @model @auth(rules: [{ allow: owner }]) {
   previousJob: String
   isRegisterUserInfo: Boolean
 }
+
+type LearningCenter @model {
+  id: ID!
+  name: String
+  memo: String
+  operatingCompany: String
+  headquartersLocation: String
+  websiteURL: String
+  establishmentYear: Int
+  representative: String
+  locations: [LearningCenterCourse] @hasMany(fields: ["id"])
+}
+
+type LearningCenterCourse @model {
+  id: ID!
+  learningCenterId: ID!
+  courseName: String
+  courseURL: String
+  couseDetail: String
+  user: LearningCenter @belongsTo(fields: ["learningCenterId"])
+}
