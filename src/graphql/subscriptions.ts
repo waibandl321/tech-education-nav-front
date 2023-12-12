@@ -133,8 +133,9 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
 >;
 export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearningCenter(
   $filter: ModelSubscriptionLearningCenterFilterInput
+  $owner: String
 ) {
-  onCreateLearningCenter(filter: $filter) {
+  onCreateLearningCenter(filter: $filter, owner: $owner) {
     id
     name
     memo
@@ -143,12 +144,13 @@ export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearni
     websiteURL
     establishmentYear
     representative
-    locations {
+    learningCenterCourses {
       nextToken
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -158,8 +160,9 @@ export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearni
 >;
 export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearningCenter(
   $filter: ModelSubscriptionLearningCenterFilterInput
+  $owner: String
 ) {
-  onUpdateLearningCenter(filter: $filter) {
+  onUpdateLearningCenter(filter: $filter, owner: $owner) {
     id
     name
     memo
@@ -168,12 +171,13 @@ export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearni
     websiteURL
     establishmentYear
     representative
-    locations {
+    learningCenterCourses {
       nextToken
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -183,8 +187,9 @@ export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearni
 >;
 export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearningCenter(
   $filter: ModelSubscriptionLearningCenterFilterInput
+  $owner: String
 ) {
-  onDeleteLearningCenter(filter: $filter) {
+  onDeleteLearningCenter(filter: $filter, owner: $owner) {
     id
     name
     memo
@@ -193,12 +198,13 @@ export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearni
     websiteURL
     establishmentYear
     representative
-    locations {
+    learningCenterCourses {
       nextToken
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -208,14 +214,15 @@ export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearni
 >;
 export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreateLearningCenterCourse(
   $filter: ModelSubscriptionLearningCenterCourseFilterInput
+  $owner: String
 ) {
-  onCreateLearningCenterCourse(filter: $filter) {
+  onCreateLearningCenterCourse(filter: $filter, owner: $owner) {
     id
     learningCenterId
     courseName
     courseURL
     couseDetail
-    user {
+    learningCenter {
       id
       name
       memo
@@ -226,10 +233,12 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
       representative
       createdAt
       updatedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -239,14 +248,15 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
 >;
 export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdateLearningCenterCourse(
   $filter: ModelSubscriptionLearningCenterCourseFilterInput
+  $owner: String
 ) {
-  onUpdateLearningCenterCourse(filter: $filter) {
+  onUpdateLearningCenterCourse(filter: $filter, owner: $owner) {
     id
     learningCenterId
     courseName
     courseURL
     couseDetail
-    user {
+    learningCenter {
       id
       name
       memo
@@ -257,10 +267,12 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
       representative
       createdAt
       updatedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -270,14 +282,15 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
 >;
 export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDeleteLearningCenterCourse(
   $filter: ModelSubscriptionLearningCenterCourseFilterInput
+  $owner: String
 ) {
-  onDeleteLearningCenterCourse(filter: $filter) {
+  onDeleteLearningCenterCourse(filter: $filter, owner: $owner) {
     id
     learningCenterId
     courseName
     courseURL
     couseDetail
-    user {
+    learningCenter {
       id
       name
       memo
@@ -288,10 +301,12 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
       representative
       createdAt
       updatedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }

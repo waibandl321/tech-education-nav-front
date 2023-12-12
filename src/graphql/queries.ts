@@ -98,12 +98,13 @@ export const getLearningCenter = /* GraphQL */ `query GetLearningCenter($id: ID!
     websiteURL
     establishmentYear
     representative
-    locations {
+    learningCenterCourses {
       nextToken
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -128,6 +129,7 @@ export const listLearningCenters = /* GraphQL */ `query ListLearningCenters(
       representative
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
@@ -145,7 +147,7 @@ export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCou
     courseName
     courseURL
     couseDetail
-    user {
+    learningCenter {
       id
       name
       memo
@@ -156,10 +158,12 @@ export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCou
       representative
       createdAt
       updatedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -185,6 +189,7 @@ export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenter
       couseDetail
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
