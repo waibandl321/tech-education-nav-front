@@ -13,7 +13,7 @@ import { Box } from "@mui/material";
 import MesageAlert from "@/components/common/parts/MesageAlert";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
 
-Amplify.configure(config);
+Amplify.configure(config, { ssr: true });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

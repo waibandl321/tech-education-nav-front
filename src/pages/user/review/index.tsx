@@ -1,6 +1,8 @@
 import Layout from "@/app/layout";
 import UserReviewPane from "@/components/pages/user/review/UserReviewPane";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
+import { checkAuth } from "@/hooks/server/checkAuth";
 
 export default function UserReview() {
   return (
@@ -16,3 +18,9 @@ export default function UserReview() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  return await checkAuth(context.req, context.res);
+};

@@ -3,13 +3,10 @@ import {
   listLearningCenterCourses,
   listLearningCenters,
 } from "@/graphql/queries";
-import config from "@/amplifyconfiguration.json";
-import { Amplify } from "aws-amplify";
 
-Amplify.configure(config);
 const client = generateClient();
 
-// スクールとコースの一覧を取得する
+// スクールとコースの一覧をサーバーサイドで取得する
 export const fetchSchoolData = async () => {
   try {
     const [learningCentersResult, learningCenterCoursesResult] =

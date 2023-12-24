@@ -1,6 +1,5 @@
 // グローバルにアクセス可能なユーザー情報を管理するコンテキスト
 import useAuth from "@/hooks/api/useAuth";
-import { useRouter } from "next/router";
 import React, {
   ReactNode,
   createContext,
@@ -34,7 +33,6 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 // ユーザープロバイダーコンポーネント
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   // hooks
-  const router = useRouter();
   const { setLoading } = useLoading();
   const { currentAuthenticatedUser } = useAuth();
   const [accountInfomation, setAccountInfomation] = useState<AccountInfomation>(
@@ -44,14 +42,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   // ユーザーのログイン状態: userIdがあればログインしていると判定
   const isLoggedIn = !!accountInfomation?.userId;
 
-  // ログインユーザーの操作画面の場合はリダイレクトする
-  const transitionToEachPage = () => {
-    if (router.pathname.startsWith("/user/")) {
-      router.replace("/auth/login");
-      return;
-    }
-  };
-
   // ユーザーのログイン状態をチェックし、未認証の場合はログイン画面に遷移させる
   const checkUserSignIn = async () => {
     setLoading(true);
@@ -59,7 +49,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       const { userId, signInDetails } = await currentAuthenticatedUser();
       if (!userId) {
         setAccountInfomation({ userId: "" });
-        transitionToEachPage();
       }
       setAccountInfomation({
         userId,
@@ -67,24 +56,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       });
     } catch (error) {
       setAccountInfomation({ userId: "" });
-      transitionToEachPage();
       console.error(error);
     } finally {
       setLoading(false); // ローディング終了
     }
   };
-
-  useEffect(() => {
-    const storedAccountInfomation = localStorage.getItem("accountInfomation");
-    if (storedAccountInfomation) {
-      try {
-        const parsedAccountInfomation = JSON.parse(storedAccountInfomation);
-        setAccountInfomation(parsedAccountInfomation);
-      } catch (e) {
-        console.error("Failed to parse accountInfomation", e);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (accountInfomation) {

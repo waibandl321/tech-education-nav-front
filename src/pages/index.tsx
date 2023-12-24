@@ -1,4 +1,3 @@
-import config from "@/amplifyconfiguration.json";
 import { GetServerSideProps } from "next";
 import {
   Autocomplete,
@@ -8,15 +7,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Amplify } from "aws-amplify";
 import React, { useEffect, useMemo, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
 import { LearningCenter, LearningCenterCourse } from "@/API";
 import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
-
-Amplify.configure(config);
 
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // state
