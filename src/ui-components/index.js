@@ -4,8 +4,6 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-export { default as CourseReviewCreateForm } from "./CourseReviewCreateForm";
-export { default as CourseReviewUpdateForm } from "./CourseReviewUpdateForm";
 export { default as LearningCenterCreateForm } from "./LearningCenterCreateForm";
 export { default as LearningCenterUpdateForm } from "./LearningCenterUpdateForm";
 export { default as TodoCreateForm } from "./TodoCreateForm";

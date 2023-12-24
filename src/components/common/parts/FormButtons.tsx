@@ -7,11 +7,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 export default function FormButtons({
   submitText,
   backText,
+  isDisabled,
   handleSubmit,
   handleBack,
 }: {
   submitText?: string;
   backText?: string;
+  isDisabled?: boolean;
   handleSubmit?: () => void;
   handleBack?: () => void;
 }) {
@@ -31,6 +33,7 @@ export default function FormButtons({
               fontSize: 20,
             }}
             onClick={handleSubmit}
+            disabled={isDisabled}
           >
             {submitText}
           </Button>

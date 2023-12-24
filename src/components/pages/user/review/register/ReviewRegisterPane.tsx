@@ -67,24 +67,6 @@ export default function ReviewRegister({
         <Divider></Divider>
         <CardContent>
           <Typography fontWeight={700} align="center" sx={{ mt: 2 }}>
-            ※以下の内容を事前にご確認ください。
-          </Typography>
-          <List>
-            <ListItem sx={{ lineHeight: 1.6 }}>
-              1.
-              テック教育ナビでは、ご利用になる皆様の個人情報の取り扱いにおいては十分な注意を払い、個人情報を適切に収集・管理いたします。
-              法律で定められた場合や裁判所からの開示命令を除き、投稿者の同意なく第三者に対して個人情報を開示することはございません。
-            </ListItem>
-            <ListItem sx={{ lineHeight: 1.6 }}>
-              2.
-              ご投稿いただいた口コミは、サイト管理者が1件ずつチェックしております。審査を通過した口コミのみ、本サイトに掲載しております。
-              ただし、ガイドラインに反した内容は、掲載後でも削除する場合がございます。
-            </ListItem>
-          </List>
-        </CardContent>
-        <Divider></Divider>
-        <CardContent>
-          <Typography fontWeight={700} align="center" sx={{ mt: 2 }}>
             あなたが在籍していたスクールとコース選択してください。
           </Typography>
           <Grid container spacing={2} sx={{ mt: 2 }}>

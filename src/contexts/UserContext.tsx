@@ -27,7 +27,7 @@ interface UserProviderProps {
   children: ReactNode;
 }
 
-// ユーザープロバイダーコンポーネント
+// UserContextを作成
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 // ユーザープロバイダーコンポーネント

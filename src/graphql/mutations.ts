@@ -76,6 +76,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     prefecture
     previousJob
     isRegisterUserInfo
+    courseReviews {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -103,6 +107,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     prefecture
     previousJob
     isRegisterUserInfo
+    courseReviews {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -130,6 +138,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     prefecture
     previousJob
     isRegisterUserInfo
+    courseReviews {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -249,6 +261,10 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
       owner
       __typename
     }
+    courseReviews {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -282,6 +298,10 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
       createdAt
       updatedAt
       owner
+      __typename
+    }
+    courseReviews {
+      nextToken
       __typename
     }
     createdAt
@@ -319,6 +339,10 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
       owner
       __typename
     }
+    courseReviews {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -336,11 +360,42 @@ export const createCourseReview = /* GraphQL */ `mutation CreateCourseReview(
   createCourseReview(input: $input, condition: $condition) {
     id
     userId
+    userDisplayName
     learningCenterId
     learningCenterCourseId
     gotResults
     message
     otherMemo
+    isPublished
+    learningCenterCourse {
+      id
+      learningCenterId
+      courseName
+      courseURL
+      couseDetail
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    user {
+      id
+      cognitoSub
+      displayId
+      name
+      nameKana
+      gender
+      birthYear
+      birthMonth
+      birthDate
+      prefecture
+      previousJob
+      isRegisterUserInfo
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -358,11 +413,42 @@ export const updateCourseReview = /* GraphQL */ `mutation UpdateCourseReview(
   updateCourseReview(input: $input, condition: $condition) {
     id
     userId
+    userDisplayName
     learningCenterId
     learningCenterCourseId
     gotResults
     message
     otherMemo
+    isPublished
+    learningCenterCourse {
+      id
+      learningCenterId
+      courseName
+      courseURL
+      couseDetail
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    user {
+      id
+      cognitoSub
+      displayId
+      name
+      nameKana
+      gender
+      birthYear
+      birthMonth
+      birthDate
+      prefecture
+      previousJob
+      isRegisterUserInfo
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -380,11 +466,42 @@ export const deleteCourseReview = /* GraphQL */ `mutation DeleteCourseReview(
   deleteCourseReview(input: $input, condition: $condition) {
     id
     userId
+    userDisplayName
     learningCenterId
     learningCenterCourseId
     gotResults
     message
     otherMemo
+    isPublished
+    learningCenterCourse {
+      id
+      learningCenterId
+      courseName
+      courseURL
+      couseDetail
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    user {
+      id
+      cognitoSub
+      displayId
+      name
+      nameKana
+      gender
+      birthYear
+      birthMonth
+      birthDate
+      prefecture
+      previousJob
+      isRegisterUserInfo
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
     createdAt
     updatedAt
     owner

@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,32 +7,16 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import SearchInput from "../parts/SearchInput";
 import { Button, Container } from "@mui/material";
 // useRouter
 import { useRouter } from "next/navigation";
 import useSignOut from "@/hooks/components/auth/useSignOut";
 import { useUserContext } from "@/contexts/UserContext";
-/**
- * ヘッダー コンポーネント
- */
+
 export default function Header() {
   const router = useRouter();
   const handleSignOut = useSignOut();
   const { isLoggedIn } = useUserContext();
-
-  // 検索入力値の状態
-  const [searchValue, setSearchValue] = React.useState<string>("");
-
-  // 検索入力値の変更をハンドルする関数
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-  };
-
-  // 検索実行
-  const handleSubmit = () => {
-    router.push(`/search?query=${encodeURIComponent(searchValue)}`);
-  };
 
   // アカウントメニュー
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -91,13 +74,6 @@ export default function Header() {
             >
               テック教育ナビ
             </Button>
-            <SearchInput
-              searchValue={searchValue}
-              width={300}
-              placeholder="興味のあるスクールを検索"
-              onSearchChange={handleSearchChange}
-              onSubmit={handleSubmit}
-            />
             <Box sx={{ flexGrow: 1 }} />
             {!isLoggedIn && (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -150,7 +126,6 @@ export default function Header() {
           </Toolbar>
         </Container>
       </AppBar>
-
       {renderMenu}
     </Box>
   );

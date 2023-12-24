@@ -19,6 +19,7 @@ type User @model @auth(rules: [{ allow: owner }]) {
   prefecture: String
   previousJob: String
   isRegisterUserInfo: Boolean
+  courseReviews: [CourseReview] @hasMany(fields: ["id"])
 }
 
 type LearningCenter
@@ -45,6 +46,7 @@ type LearningCenterCourse
   courseURL: String
   couseDetail: String
   learningCenter: LearningCenter @belongsTo(fields: ["learningCenterId"])
+  courseReviews: [CourseReview] @hasMany(fields: ["id"])
 }
 
 type CourseReview
@@ -52,9 +54,14 @@ type CourseReview
   @auth(rules: [{ allow: public, operations: [read] }, { allow: owner }]) {
   id: ID!
   userId: ID!
+  userDisplayName: String
   learningCenterId: ID!
   learningCenterCourseId: ID!
   gotResults: String
   message: String
   otherMemo: String
+  isPublished: Boolean
+  learningCenterCourse: LearningCenterCourse
+    @belongsTo(fields: ["learningCenterCourseId"])
+  user: User @belongsTo(fields: ["userId"])
 }

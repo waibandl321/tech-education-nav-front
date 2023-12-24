@@ -10,12 +10,11 @@ import {
   UpdateLearningCenterMutation,
 } from "@/API";
 import useAPIResponse from "./useAPIResponse";
-import useConvertData from "../utils/useConvertData";
+import { ensureString } from "../utils/useConvertData";
 
 export default function useLearningCenter() {
   const { getErrorMessage } = useAPIResponse();
   const client = generateClient();
-  const { ensureString } = useConvertData();
   // 一覧取得
   const apiGetLearningCenters = async (): Promise<
     ApiResponse<Array<LearningCenter>>

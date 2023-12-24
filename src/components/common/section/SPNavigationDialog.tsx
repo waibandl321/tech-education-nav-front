@@ -14,7 +14,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import { TransitionProps } from "@mui/material/transitions";
 import { Box, Button, Card, Grid, ListSubheader, Slide } from "@mui/material";
-import SearchInput from "@/components/common/parts/SearchInput";
 import { useRouter } from "next/router";
 import useSignOut from "@/hooks/components/auth/useSignOut";
 import { useUserContext } from "@/contexts/UserContext";
@@ -59,19 +58,6 @@ export default function SPNavigationDialog({
       callbackFunc: () => router.push("/user/setting"),
     },
   ];
-
-  // 検索入力値の状態管理
-  const [searchValue, setSearchValue] = React.useState<string>("");
-
-  // 検索入力値の変更を適用する関数
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-  };
-
-  // 検索実行
-  const handleSubmit = () => {
-    router.push(`/search?query=${encodeURIComponent(searchValue)}`);
-  };
 
   return (
     <Dialog
@@ -126,15 +112,7 @@ export default function SPNavigationDialog({
       <Divider />
       <List>
         <ListSubheader>口コミ・評判を探す</ListSubheader>
-        <Card sx={{ m: "0 16px" }}>
-          <SearchInput
-            searchValue={searchValue}
-            placeholder="興味のあるスクールを検索"
-            onSearchChange={handleSearchChange}
-            onSubmit={handleSubmit}
-            width="100%"
-          />
-        </Card>
+        <Card sx={{ m: "0 16px" }}></Card>
       </List>
       {isLoggedIn && (
         <List>

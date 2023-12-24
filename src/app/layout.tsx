@@ -9,13 +9,15 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "normalize.css";
 import "@/assets/css/style.css";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import MesageAlert from "@/components/common/parts/MesageAlert";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 Amplify.configure(config, { ssr: true });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const isSpDevice = useMediaQuery("(max-width:480px)");
   return (
     <>
       <LoadingOverlay />
@@ -26,7 +28,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Box sx={{ flexGrow: 1, display: { xs: "block", sm: "none" } }}>
         <MobileHeader />
       </Box>
-      <main>{children}</main>
+      <Container
+        sx={{ py: 4, height: "calc(100dvh - 112px)", overflow: "auto" }}
+      >
+        {children}
+      </Container>
       <Footer />
     </>
   );

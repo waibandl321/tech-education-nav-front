@@ -1,26 +1,38 @@
 import { GetServerSideProps } from "next";
 import {
   Autocomplete,
-  Button,
+  Avatar,
+  Box,
   Container,
   Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   TextField,
   Typography,
 } from "@mui/material";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import React, { useEffect, useMemo, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { LearningCenter, LearningCenterCourse } from "@/API";
+import { CourseReview, LearningCenter, LearningCenterCourse } from "@/API";
 import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
+import useReviewPost from "@/hooks/api/useReviewPost";
+import { useLoading } from "@/contexts/LoadingContext";
 
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
+  // hook
+  const { apiGetCourseReviewsByIds } = useReviewPost();
+  const { setLoading } = useLoading();
   // state
   const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
     null
   );
   const [selectedCourse, setSelectedCourse] =
     useState<LearningCenterCourse | null>(null);
+  const [reviewList, setReviewList] = useState<Array<CourseReview>>([]);
 
   // コース選択オプション: スクールの選択状態に応じて動的に変化する
   const courseOptions: Array<LearningCenterCourse> = useMemo(() => {
@@ -31,14 +43,40 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
     // コースが選択されている状態でスクールが削除された場合、コースを初期化
     if (!selectedCenter) {
       setSelectedCourse(null);
+      setReviewList([]);
       return;
     }
     // コースが選択されている状態でスクールが変更された場合、コースを初期化
     if (selectedCenter.id !== selectedCourse?.learningCenterId) {
       setSelectedCourse(null);
+      setReviewList([]);
       return;
     }
+    // 共に選択されている場合は検索処理を実行する
+    if (selectedCenter && selectedCourse) {
+      handleViewReviews();
+    }
   }, [selectedCenter, selectedCourse]);
+
+  // レビュー表示
+  const handleViewReviews = async () => {
+    if (!selectedCenter?.id || !selectedCourse?.id) return;
+    setLoading(true);
+    try {
+      const results = await apiGetCourseReviewsByIds(
+        selectedCenter.id,
+        selectedCourse.id
+      );
+      console.log(results);
+
+      setReviewList(results.data ?? []);
+    } catch (error) {
+      console.error(error);
+      setReviewList([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -49,13 +87,11 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
       </Head>
       <Layout>
         <Container maxWidth="md">
-          <Typography>
-            テック教育ナビは、プログラミングスクールの受講を検討している人のための口コミ・評判プラットフォームです。
-            <br />
-            コース単位の口コミにより、コース受講後に得られる結果や、先輩からのアドバイスを具体的に知ることができます。
+          <Typography textAlign="center">
+            スクールとコースを選択したら、検索が実行されます。
           </Typography>
           <Grid container spacing={2} sx={{ mt: 3 }}>
-            <Grid item md={4.5} xs={12}>
+            <Grid item md={6} xs={12}>
               <Autocomplete
                 id="learningCenterSelect"
                 value={selectedCenter}
@@ -75,7 +111,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                 fullWidth
               />
             </Grid>
-            <Grid item md={4.5} xs={12}>
+            <Grid item md={6} xs={12}>
               <Autocomplete
                 fullWidth
                 disabled={!selectedCenter}
@@ -99,17 +135,52 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                 )}
               />
             </Grid>
-            <Grid item md={3} xs={12}>
-              <Button
-                size="large"
-                variant="contained"
-                fullWidth
-                sx={{ height: "100%" }}
-              >
-                口コミを見る
-              </Button>
-            </Grid>
           </Grid>
+          {/* 一覧 */}
+          <Box sx={{ mt: 5 }}>
+            {/* 件数あり */}
+            {reviewList.length > 0 && (
+              <List>
+                {reviewList.map((item) => (
+                  <ListItem
+                    key={item.id}
+                    sx={{ borderRadius: 8, border: "1px solid #ccc", mb: 2 }}
+                  >
+                    <ListItemAvatar>
+                      <Avatar>
+                        <StickyNote2Icon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <div>
+                      <div>
+                        <ListItemText
+                          primary="スクールを受講したことで得られた結果"
+                          secondary={item.gotResults}
+                          sx={{ py: 1 }}
+                        />
+                        <ListItemText
+                          primary="これから受講する後輩へのメッセージ"
+                          secondary={item.message}
+                          sx={{ py: 1 }}
+                        />
+                        {item.otherMemo && (
+                          <ListItemText
+                            primary="その他・備考"
+                            secondary={item.otherMemo}
+                            sx={{ py: 1 }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </ListItem>
+                ))}
+              </List>
+            )}
+            {/* 検索結果: 0件 */}
+            {reviewList.length === 0 && (
+              <Typography textAlign="center">データがありません。</Typography>
+            )}
+          </Box>
         </Container>
       </Layout>
     </>

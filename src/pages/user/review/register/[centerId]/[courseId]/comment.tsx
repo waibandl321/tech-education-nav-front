@@ -1,12 +1,18 @@
 import Layout from "@/app/layout";
-import ReviewCommentPane from "@/components/pages/user/review/register/[centerId]/[courseId]/ReviewCommentPane";
+import ReviewPostPane from "@/components/pages/user/review/register/[centerId]/[courseId]/ReviewPostPane";
 import { checkAuth } from "@/hooks/server/checkAuth";
+import { fetchSchoolCourseDetail } from "@/hooks/server/fetchSchoolData";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
+import { ensureString } from "@/hooks/utils/useConvertData";
+import { CenterAndCourseDetailPropType } from "@/types/CommonType";
 /**
  * 口コミ投稿画面
  */
-export default function Comment() {
+export default function Comment({
+  center,
+  course,
+}: CenterAndCourseDetailPropType) {
   return (
     <>
       <Head>
@@ -15,14 +21,25 @@ export default function Comment() {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <ReviewCommentPane />
+        <ReviewPostPane center={center} course={course} />
       </Layout>
     </>
   );
 }
 
+// router.paramsに含まれるスクールIDとコースIDに一致するデータを取得してクライアントに渡す
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  return await checkAuth(context.req, context.res);
+  await checkAuth(context.req, context.res);
+
+  if (!context.params?.centerId || !context.params?.courseId) {
+    return {
+      props: {},
+    };
+  }
+  const centerId = ensureString(context.params.centerId);
+  const courseId = ensureString(context.params.courseId);
+  const data = await fetchSchoolCourseDetail(centerId, courseId);
+  return { props: { ...data } };
 };

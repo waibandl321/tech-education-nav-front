@@ -1,5 +1,7 @@
 import { generateClient } from "aws-amplify/api";
 import {
+  getLearningCenter,
+  getLearningCenterCourse,
   listLearningCenterCourses,
   listLearningCenters,
 } from "@/graphql/queries";
@@ -30,6 +32,35 @@ export const fetchSchoolData = async () => {
     return {
       centers: [],
       courses: [],
+    };
+  }
+};
+
+export const fetchSchoolCourseDetail = async (
+  centerId: string,
+  courseId: string
+) => {
+  try {
+    const [getCenterResult, getCourseResult] = await Promise.all([
+      client.graphql({
+        query: getLearningCenter,
+        variables: { id: centerId },
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: getLearningCenterCourse,
+        variables: { id: courseId },
+        authMode: "apiKey",
+      }),
+    ]);
+    return {
+      center: getCenterResult.data.getLearningCenter,
+      course: getCourseResult.data.getLearningCenterCourse,
+    };
+  } catch (error) {
+    return {
+      center: null,
+      course: null,
     };
   }
 };
