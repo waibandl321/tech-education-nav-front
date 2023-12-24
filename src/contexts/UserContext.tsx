@@ -48,28 +48,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     try {
       const { userId, signInDetails } = await currentAuthenticatedUser();
       if (!userId) {
-        setAccountInfomation({ userId: "" });
+        setAccountInfomation({ userId: "", email: "" });
       }
       setAccountInfomation({
         userId,
         email: signInDetails?.loginId,
       });
     } catch (error) {
-      setAccountInfomation({ userId: "" });
+      setAccountInfomation({ userId: "", email: "" });
       console.error(error);
     } finally {
       setLoading(false); // ローディング終了
     }
   };
-
-  useEffect(() => {
-    if (accountInfomation) {
-      localStorage.setItem(
-        "accountInfomation",
-        JSON.stringify(accountInfomation)
-      );
-    }
-  }, [accountInfomation]);
 
   useEffect(() => {
     checkUserSignIn();
