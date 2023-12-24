@@ -72,15 +72,19 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#87CEEB" }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "#F5F5F5", color: "#333" }}
+        elevation={0}
+      >
         <Container>
           <Toolbar>
             <Button
               variant="text"
+              color="inherit"
               sx={{
                 display: { xs: "none", sm: "block" },
                 m: "0 24px 0 0",
-                color: "white",
                 fontSize: 20,
               }}
               onClick={() => router.push("/")}
@@ -116,20 +120,27 @@ export default function Header() {
               </Box>
             )}
             {isLoggedIn && (
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box sx={{ color: "#333", display: { xs: "none", md: "flex" } }}>
                 <Button
-                  onClick={() => router.push("/user/review")}
+                  onClick={() => router.push("/user/review/register")}
+                  color="primary"
                   variant="contained"
                   sx={{ mr: 2 }}
                 >
-                  口コミ投稿・削除
+                  口コミを投稿する
+                </Button>
+                <Button
+                  onClick={() => router.push("/user/review")}
+                  color="inherit"
+                  sx={{ mr: 2 }}
+                >
+                  あなたの投稿
                 </Button>
                 <IconButton
                   size="large"
                   edge="end"
                   aria-label="account of current user"
                   aria-haspopup="true"
-                  color="inherit"
                   onClick={handleAccountMenuOpen}
                 >
                   <AccountCircle />

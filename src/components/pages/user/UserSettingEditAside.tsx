@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 export default function UserSettingAside() {
   const router = useRouter();
   return (
-    <Card>
+    <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
       <List>
         <ListItemButton>
           <ListItemText

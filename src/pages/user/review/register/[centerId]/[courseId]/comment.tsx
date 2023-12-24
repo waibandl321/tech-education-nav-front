@@ -1,20 +1,19 @@
 import Layout from "@/app/layout";
-import ReviewConfirmPane from "@/components/pages/user/review/register/[id]/ReviewConfirmPane";
+import ReviewCommentPane from "@/components/pages/user/review/register/[centerId]/[courseId]/ReviewCommentPane";
 import Head from "next/head";
-
 /**
- * 口コミ投稿 確認画面
+ * 口コミ投稿画面
  */
-export default function Confirm() {
+export default function Comment() {
   return (
     <>
       <Head>
-        <title>口コミ投稿: 確認 | テック教育ナビ</title>
+        <title>口コミ投稿 | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <ReviewConfirmPane />
+        <ReviewCommentPane />
       </Layout>
     </>
   );

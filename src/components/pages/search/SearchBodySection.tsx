@@ -20,10 +20,10 @@ export default function SearchBodySection() {
     <Container sx={{ mt: 5, pb: 6 }} maxWidth="md">
       <h3>検索結果</h3>
       {/* 検索結果なし */}
-      <Card sx={{ mt: 3 }}>
+      <Card sx={{ mt: 3, backgroundColor: "#f5f5f5" }} elevation={0}>
         <CardContent sx={{ p: 4 }}>
           <Typography fontWeight={700} align="center">
-            ご指定の条件に該当する会社が見つかりませんでした。
+            条件に該当するスクールが見つかりませんでした。
           </Typography>
           <Typography sx={{ mt: 2 }} align="center">
             条件を変更のうえ、再度検索してください。
@@ -49,25 +49,7 @@ export default function SearchBodySection() {
             <Typography fontSize={14} color={"#666"} sx={{ mt: 2 }}>
               口コミ: 13件
             </Typography>
-            <Box sx={{ mt: 3 }}>
-              <Typography color="primary" fontSize={14}>
-                メンターの印象
-              </Typography>
-              <Typography sx={{ mt: 1 }}>aaaaaa</Typography>
-            </Box>
-            <Box sx={{ mt: 3 }}>
-              <Typography color="primary" fontSize={14}>
-                転職サポートについて
-              </Typography>
-              <Typography sx={{ mt: 1 }}>aaaaaa</Typography>
-            </Box>
-            <Box sx={{ mt: 3 }}>
-              <Typography color="primary" fontSize={14}>
-                受講前とのギャップ
-              </Typography>
-              <Typography sx={{ mt: 1 }}>aaaaaa</Typography>
-            </Box>
-            <Grid container sx={{ mt: 4 }} spacing={2}>
+            <Grid container sx={{ mt: 3 }} spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Button
                   variant="contained"

@@ -6,7 +6,7 @@ export default function UserReview() {
   return (
     <>
       <Head>
-        <title>口コミ投稿・削除 | テック教育ナビ</title>
+        <title>あなたの投稿 | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>

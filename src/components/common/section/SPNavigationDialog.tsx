@@ -51,7 +51,7 @@ export default function SPNavigationDialog({
 
   const menus = [
     {
-      text: "口コミ投稿・削除",
+      text: "あなたの投稿",
       callbackFunc: () => router.push("/user/review"),
     },
     {

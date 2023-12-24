@@ -28,7 +28,7 @@ export default function LearningCenterPane() {
   };
 
   return (
-    <Container sx={{ py: 4 }}>
+    <>
       <Grid
         container
         justifyContent={"space-between"}
@@ -58,7 +58,7 @@ export default function LearningCenterPane() {
       </Grid>
       <Grid container>
         <Grid item xs={12} sm={8}>
-          <Card>
+          <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
             <CardContent>
               <Typography
                 component="h3"
@@ -73,7 +73,7 @@ export default function LearningCenterPane() {
               </Typography>
             </CardContent>
           </Card>
-          <Card sx={{ mt: 5 }}>
+          <Card sx={{ backgroundColor: "#f5f5f5", mt: 5 }} elevation={0}>
             <CardContent>
               <Typography
                 component="h3"
@@ -114,7 +114,7 @@ export default function LearningCenterPane() {
           </Card>
         </Grid>
         <Grid item xs={12} sm={4} sx={isMobile ? { mt: 5 } : { pl: 4 }}>
-          <Card>
+          <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
             <CardContent>
               <Typography
                 component="h3"
@@ -155,7 +155,7 @@ export default function LearningCenterPane() {
               </Table>
             </CardContent>
           </Card>
-          <Card sx={{ mt: 5 }}>
+          <Card sx={{ backgroundColor: "#f5f5f5", mt: 5 }} elevation={0}>
             <CardContent>
               <Typography
                 component="h3"
@@ -213,6 +213,6 @@ export default function LearningCenterPane() {
           </Card>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
 }

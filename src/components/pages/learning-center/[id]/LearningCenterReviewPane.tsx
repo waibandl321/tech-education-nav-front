@@ -25,7 +25,7 @@ export default function LearningCenterReviewPane() {
   const isMobile = useMediaQuery("(max-width:480px)");
 
   return (
-    <Container sx={{ py: 4 }}>
+    <>
       <Grid
         container
         justifyContent={"space-between"}
@@ -55,83 +55,34 @@ export default function LearningCenterReviewPane() {
       </Grid>
       <Grid container>
         <Grid item xs={12} sm={8}>
-          <Card>
-            <CardContent>
+          <Grid container>
+            <Typography fontWeight={700} fontSize={isMobile ? 16 : 18}>
+              全
               <Typography
-                component="h3"
-                fontWeight={700}
-                fontSize={isMobile ? 16 : 18}
-                sx={{ mb: 2 }}
-              >
-                カテゴリから探す
-              </Typography>
-              <Grid container spacing={2}>
-                {[
-                  "講師の印象の評価",
-                  "カリキュラムの柔軟性",
-                  "教材のクオリティの評価",
-                  "転職サポートの評価",
-                  "案件サポートの評価",
-                  "他の受講生との交流の評価",
-                  "受講前とのギャップ",
-                  "総合評価",
-                ].map((item, index) => (
-                  <Grid item xs={12} sm={6} key={index}>
-                    <Card variant="outlined">
-                      <CardActionArea
-                        onClick={() => console.log("hofw")}
-                        sx={{ p: 1 }}
-                      >
-                        <CardActions>
-                          <Box>
-                            <Typography sx={isMobile ? { fontSize: 14 } : {}}>
-                              {item}{" "}
-                              <Typography
-                                component="span"
-                                color="primary"
-                                fontSize={14}
-                              >
-                                33件
-                              </Typography>
-                            </Typography>
-                          </Box>
-                          <Box sx={{ flexGrow: 1 }}></Box>
-                          <Box>
-                            <ChevronRightOutlinedIcon></ChevronRightOutlinedIcon>
-                          </Box>
-                        </CardActions>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </CardContent>
-          </Card>
-          <Box sx={{ mt: 5 }}>
-            <Grid container>
-              <Typography fontWeight={700} fontSize={isMobile ? 16 : 18}>
-                全
-                <Typography
-                  color="primary"
-                  component="span"
-                  fontSize={isMobile ? 18 : 24}
-                  fontWeight={700}
-                  sx={{ px: 1 }}
-                >
-                  204
-                </Typography>
-                件
-              </Typography>
-              <Box sx={{ flexGrow: 1 }}></Box>
-              <Pagination
-                count={10}
                 color="primary"
-                sx={isMobile ? { mt: 1 } : {}}
-              />
-            </Grid>
-          </Box>
+                component="span"
+                fontSize={isMobile ? 18 : 24}
+                fontWeight={700}
+                sx={{ px: 1 }}
+              >
+                204
+              </Typography>
+              件
+            </Typography>
+            <Box sx={{ flexGrow: 1 }}></Box>
+            <Pagination
+              count={10}
+              color="primary"
+              sx={isMobile ? { mt: 1 } : {}}
+            />
+          </Grid>
           {[1, 2, 3].map((item, index) => (
-            <Card variant="outlined" key={index} sx={{ mt: 2, p: 2 }}>
+            <Card
+              variant="outlined"
+              key={index}
+              sx={{ mt: 2, p: 2, backgroundColor: "#f5f5f5" }}
+              elevation={0}
+            >
               <Grid container alignItems="center">
                 <RateReviewOutlinedIcon></RateReviewOutlinedIcon>
                 <Typography sx={{ ml: 1 }} fontWeight={700}>
@@ -158,7 +109,7 @@ export default function LearningCenterReviewPane() {
           ))}
         </Grid>
         <Grid item xs={12} sm={4} sx={isMobile ? { mt: 5 } : { pl: 4 }}>
-          <Card>
+          <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
             <CardContent>
               <Typography
                 component="h3"
@@ -199,7 +150,7 @@ export default function LearningCenterReviewPane() {
               </Table>
             </CardContent>
           </Card>
-          <Card sx={{ mt: 5 }}>
+          <Card sx={{ backgroundColor: "#f5f5f5", mt: 5 }} elevation={0}>
             <CardContent>
               <Typography
                 component="h3"
@@ -257,6 +208,6 @@ export default function LearningCenterReviewPane() {
           </Card>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
 }

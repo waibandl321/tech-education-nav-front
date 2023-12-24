@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  Container,
   Divider,
   Grid,
   Typography,
@@ -35,27 +34,25 @@ export default function EditUserAccountPane() {
   }, [accountInfomation]);
 
   return (
-    <Container>
-      <Grid container sx={isMobile ? { px: 0, py: 3 } : { px: 4, py: 6 }}>
-        <Grid item xs={12} sm={3} width={isMobile ? "100%" : "auto"}>
-          <UserSettingEditAside />
-        </Grid>
-        <Grid item xs={12} sm={9} sx={isMobile ? { pl: 0, mt: 3 } : { pl: 3 }}>
-          <Card>
-            <CardContent>
-              <Typography component="h2" variant={isMobile ? "h6" : "h5"}>
-                アカウント情報編集
-              </Typography>
-              <Divider sx={{ mt: 2 }}></Divider>
-              <EditUserAccountForm
-                account={account}
-                handlerFormChange={handlerFormChange}
-                onSubmit={updateEmail}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
+    <Grid container>
+      <Grid item xs={12} sm={3} width={isMobile ? "100%" : "auto"}>
+        <UserSettingEditAside />
       </Grid>
-    </Container>
+      <Grid item xs={12} sm={9} sx={isMobile ? { pl: 0, mt: 3 } : { pl: 3 }}>
+        <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
+          <CardContent>
+            <Typography component="h2" variant={isMobile ? "h6" : "h5"}>
+              アカウント情報編集
+            </Typography>
+            <Divider sx={{ mt: 2 }}></Divider>
+            <EditUserAccountForm
+              account={account}
+              handlerFormChange={handlerFormChange}
+              onSubmit={updateEmail}
+            />
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }

@@ -1,6 +1,4 @@
-import SearchInput from "@/components/common/parts/SearchInput";
-import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import {
   Card,
   CardContent,
@@ -10,39 +8,59 @@ import {
   Typography,
   Box,
   Grid,
-  ListItemButton,
   Container,
-  useMediaQuery,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import FormTitle from "@/components/common/parts/FormTitle";
+import { GetServerSideProps } from "next";
+import { LearningCenter, LearningCenterCourse } from "@/API";
+import { CentersAndCoursesPropType } from "@/types/CommonType";
+import FormButtons from "@/components/common/parts/FormButtons";
 
-export default function ReviewRegister() {
+export default function ReviewRegister({
+  centers,
+  courses,
+}: CentersAndCoursesPropType) {
   const router = useRouter();
+  // state
+  const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
+    null
+  );
+  const [selectedCourse, setSelectedCourse] =
+    useState<LearningCenterCourse | null>(null);
 
-  // sp device
-  const isMobile = useMediaQuery("(max-width:480px)");
+  // コース選択オプション: スクールの選択状態に応じて動的に変化する
+  const courseOptions: Array<LearningCenterCourse> = useMemo(() => {
+    if (!courses) return [];
+    return courses.filter((v) => v.learningCenterId === selectedCenter?.id);
+  }, [selectedCenter, courses]);
 
-  // 検索入力値の状態
-  const [searchValue, setSearchValue] = useState<string>("");
+  useEffect(() => {
+    // コースが選択されている状態でスクールが削除された場合、コースを初期化
+    if (!selectedCenter) {
+      setSelectedCourse(null);
+      return;
+    }
+    // コースが選択されている状態でスクールが変更された場合、コースを初期化
+    if (selectedCenter.id !== selectedCourse?.learningCenterId) {
+      setSelectedCourse(null);
+      return;
+    }
+  }, [selectedCenter, selectedCourse]);
 
-  // 検索入力値の変更をハンドルする関数
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-  };
-
-  // 検索実行
-  const handleSubmit = () => {
-    router.push(`/search?query=${encodeURIComponent(searchValue)}`);
+  // 投稿画面に遷移
+  const handleMoveToPostPage = () => {
+    router.push(
+      `/user/review/register/${selectedCenter?.id}/${selectedCourse?.id}/comment/`
+    );
   };
 
   return (
-    <Container
-      sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6 }}
-      maxWidth="md"
-    >
-      <Card sx={{ backgroundColor: "#fff", py: 2 }}>
+    <Container maxWidth="md">
+      <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
         <CardContent>
           <FormTitle formTitle="口コミの登録をお願いいたします。" />
         </CardContent>
@@ -67,52 +85,68 @@ export default function ReviewRegister() {
         <Divider></Divider>
         <CardContent>
           <Typography fontWeight={700} align="center" sx={{ mt: 2 }}>
-            在籍していたスクールを検索・選択してください。
+            あなたが在籍していたスクールとコース選択してください。
           </Typography>
-          <Box maxWidth={600} textAlign="center" sx={{ mx: "auto", mt: 2 }}>
-            <SearchInput
-              searchValue={searchValue}
-              placeholder="スクール名を入力して検索"
-              width="100%"
-              height={48}
-              outlined
-              onSearchChange={handleSearchChange}
-              onSubmit={handleSubmit}
-            />
-          </Box>
+          <Grid container spacing={2} sx={{ mt: 2 }}>
+            <Grid item md={6} xs={12}>
+              <Autocomplete
+                id="learningCenterSelect"
+                value={selectedCenter}
+                options={centers}
+                noOptionsText="データがありません"
+                getOptionLabel={(option) => option.name ?? ""}
+                onChange={(event: any, newValue: LearningCenter | null) => {
+                  setSelectedCenter(newValue);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="スクールを選択"
+                    placeholder="テキストで検索できます"
+                  />
+                )}
+                fullWidth
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Autocomplete
+                fullWidth
+                disabled={!selectedCenter}
+                id="learningCourseSelect"
+                value={selectedCourse}
+                options={courseOptions}
+                noOptionsText="データがありません"
+                getOptionLabel={(option) => option.courseName ?? ""}
+                onChange={(
+                  event: any,
+                  newValue: LearningCenterCourse | null
+                ) => {
+                  setSelectedCourse(newValue);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="コースを選択"
+                    placeholder="テキストで検索できます"
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
           <Box maxWidth={600} sx={{ mx: "auto", mt: 4 }}>
-            <ListItemButton
-              sx={{
-                p: 2,
-                border: "1px solid",
-                borderRadius: 2,
-                cursor: "pointer",
-              }}
-              onClick={() => router.push("/user/review/register/1/attendance")}
-            >
-              <Grid container alignItems="center">
-                <Grid item xs={11}>
-                  <Typography fontWeight={700}>テックアカデミー</Typography>
-                  <Grid
-                    container
-                    sx={{ mt: 1 }}
-                    flexWrap="nowrap"
-                    alignItems="center"
-                  >
-                    <MapOutlinedIcon sx={{ mr: 1 }}></MapOutlinedIcon>
-                    <Typography>
-                      東京都港区海岸１丁目２－３汐留芝離宮ビルディング 13F
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs={1} textAlign="end">
-                  <ChevronRightOutlinedIcon></ChevronRightOutlinedIcon>
-                </Grid>
-              </Grid>
-            </ListItemButton>
+            <FormButtons
+              submitText="投稿する"
+              handleSubmit={handleMoveToPostPage}
+            />
           </Box>
         </CardContent>
       </Card>
     </Container>
   );
 }
+
+// サーバーサイドでスクールとコース情報を取得し、クライアントにpropsとして渡す
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await fetchSchoolData();
+  return { props: { ...data } };
+};

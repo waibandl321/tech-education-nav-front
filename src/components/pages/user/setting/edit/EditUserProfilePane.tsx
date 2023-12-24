@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   CardContent,
-  Container,
   Divider,
   Grid,
   SelectChangeEvent,
@@ -32,40 +31,29 @@ export default function EditUserProfilePane() {
   };
 
   return (
-    <>
-      <Container>
-        <Grid container sx={isMobile ? { px: 0, py: 3 } : { px: 4, py: 6 }}>
-          <Grid item xs={12} sm={3} width={isMobile ? "100%" : "auto"}>
-            <UserSettingEditAside />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={9}
-            sx={isMobile ? { pl: 0, mt: 3 } : { pl: 3 }}
-          >
-            <Card>
-              <CardContent>
-                <Typography component="h2" variant={isMobile ? "h6" : "h5"}>
-                  プロフィール編集
-                </Typography>
-                <Divider sx={{ mt: 2 }}></Divider>
-                <Box sx={{ mt: 2 }}>
-                  <Typography>表示名</Typography>
-                  <Typography sx={{ mt: 1 }}>
-                    {user?.displayId || ""}
-                  </Typography>
-                </Box>
-                <EditUserProfileForm
-                  user={user}
-                  handlerFormChange={handlerFormChange}
-                  onSubmit={saveUserProfile}
-                />
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Container>
-    </>
+    <Grid container>
+      <Grid item xs={12} sm={3} width={isMobile ? "100%" : "auto"}>
+        <UserSettingEditAside />
+      </Grid>
+      <Grid item xs={12} sm={9} sx={isMobile ? { pl: 0, mt: 3 } : { pl: 3 }}>
+        <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
+          <CardContent>
+            <Typography component="h2" variant={isMobile ? "h6" : "h5"}>
+              プロフィール編集
+            </Typography>
+            <Divider sx={{ mt: 2 }}></Divider>
+            <Box sx={{ mt: 2 }}>
+              <Typography>表示名</Typography>
+              <Typography sx={{ mt: 1 }}>{user?.displayId || ""}</Typography>
+            </Box>
+            <EditUserProfileForm
+              user={user}
+              handlerFormChange={handlerFormChange}
+              onSubmit={saveUserProfile}
+            />
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }

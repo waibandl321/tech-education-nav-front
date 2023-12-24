@@ -151,6 +151,7 @@ export const createLearningCenter = /* GraphQL */ `mutation CreateLearningCenter
     operatingCompany
     headquartersLocation
     websiteURL
+    logoImageURL
     establishmentYear
     representative
     learningCenterCourses {
@@ -178,6 +179,7 @@ export const updateLearningCenter = /* GraphQL */ `mutation UpdateLearningCenter
     operatingCompany
     headquartersLocation
     websiteURL
+    logoImageURL
     establishmentYear
     representative
     learningCenterCourses {
@@ -205,6 +207,7 @@ export const deleteLearningCenter = /* GraphQL */ `mutation DeleteLearningCenter
     operatingCompany
     headquartersLocation
     websiteURL
+    logoImageURL
     establishmentYear
     representative
     learningCenterCourses {
@@ -238,6 +241,7 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -272,6 +276,7 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -306,6 +311,7 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -322,4 +328,70 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
 ` as GeneratedMutation<
   APITypes.DeleteLearningCenterCourseMutationVariables,
   APITypes.DeleteLearningCenterCourseMutation
+>;
+export const createCourseReview = /* GraphQL */ `mutation CreateCourseReview(
+  $input: CreateCourseReviewInput!
+  $condition: ModelCourseReviewConditionInput
+) {
+  createCourseReview(input: $input, condition: $condition) {
+    id
+    userId
+    learningCenterId
+    learningCenterCourseId
+    gotResults
+    message
+    otherMemo
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateCourseReviewMutationVariables,
+  APITypes.CreateCourseReviewMutation
+>;
+export const updateCourseReview = /* GraphQL */ `mutation UpdateCourseReview(
+  $input: UpdateCourseReviewInput!
+  $condition: ModelCourseReviewConditionInput
+) {
+  updateCourseReview(input: $input, condition: $condition) {
+    id
+    userId
+    learningCenterId
+    learningCenterCourseId
+    gotResults
+    message
+    otherMemo
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateCourseReviewMutationVariables,
+  APITypes.UpdateCourseReviewMutation
+>;
+export const deleteCourseReview = /* GraphQL */ `mutation DeleteCourseReview(
+  $input: DeleteCourseReviewInput!
+  $condition: ModelCourseReviewConditionInput
+) {
+  deleteCourseReview(input: $input, condition: $condition) {
+    id
+    userId
+    learningCenterId
+    learningCenterCourseId
+    gotResults
+    message
+    otherMemo
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteCourseReviewMutationVariables,
+  APITypes.DeleteCourseReviewMutation
 >;

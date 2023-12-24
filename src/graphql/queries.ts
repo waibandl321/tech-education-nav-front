@@ -96,6 +96,7 @@ export const getLearningCenter = /* GraphQL */ `query GetLearningCenter($id: ID!
     operatingCompany
     headquartersLocation
     websiteURL
+    logoImageURL
     establishmentYear
     representative
     learningCenterCourses {
@@ -125,6 +126,7 @@ export const listLearningCenters = /* GraphQL */ `query ListLearningCenters(
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -154,6 +156,7 @@ export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCou
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -199,4 +202,50 @@ export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenter
 ` as GeneratedQuery<
   APITypes.ListLearningCenterCoursesQueryVariables,
   APITypes.ListLearningCenterCoursesQuery
+>;
+export const getCourseReview = /* GraphQL */ `query GetCourseReview($id: ID!) {
+  getCourseReview(id: $id) {
+    id
+    userId
+    learningCenterId
+    learningCenterCourseId
+    gotResults
+    message
+    otherMemo
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetCourseReviewQueryVariables,
+  APITypes.GetCourseReviewQuery
+>;
+export const listCourseReviews = /* GraphQL */ `query ListCourseReviews(
+  $filter: ModelCourseReviewFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCourseReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userId
+      learningCenterId
+      learningCenterCourseId
+      gotResults
+      message
+      otherMemo
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListCourseReviewsQueryVariables,
+  APITypes.ListCourseReviewsQuery
 >;

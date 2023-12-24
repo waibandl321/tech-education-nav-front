@@ -142,6 +142,7 @@ export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearni
     operatingCompany
     headquartersLocation
     websiteURL
+    logoImageURL
     establishmentYear
     representative
     learningCenterCourses {
@@ -169,6 +170,7 @@ export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearni
     operatingCompany
     headquartersLocation
     websiteURL
+    logoImageURL
     establishmentYear
     representative
     learningCenterCourses {
@@ -196,6 +198,7 @@ export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearni
     operatingCompany
     headquartersLocation
     websiteURL
+    logoImageURL
     establishmentYear
     representative
     learningCenterCourses {
@@ -229,6 +232,7 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -263,6 +267,7 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -297,6 +302,7 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
       operatingCompany
       headquartersLocation
       websiteURL
+      logoImageURL
       establishmentYear
       representative
       createdAt
@@ -313,4 +319,70 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
 ` as GeneratedSubscription<
   APITypes.OnDeleteLearningCenterCourseSubscriptionVariables,
   APITypes.OnDeleteLearningCenterCourseSubscription
+>;
+export const onCreateCourseReview = /* GraphQL */ `subscription OnCreateCourseReview(
+  $filter: ModelSubscriptionCourseReviewFilterInput
+  $owner: String
+) {
+  onCreateCourseReview(filter: $filter, owner: $owner) {
+    id
+    userId
+    learningCenterId
+    learningCenterCourseId
+    gotResults
+    message
+    otherMemo
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateCourseReviewSubscriptionVariables,
+  APITypes.OnCreateCourseReviewSubscription
+>;
+export const onUpdateCourseReview = /* GraphQL */ `subscription OnUpdateCourseReview(
+  $filter: ModelSubscriptionCourseReviewFilterInput
+  $owner: String
+) {
+  onUpdateCourseReview(filter: $filter, owner: $owner) {
+    id
+    userId
+    learningCenterId
+    learningCenterCourseId
+    gotResults
+    message
+    otherMemo
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateCourseReviewSubscriptionVariables,
+  APITypes.OnUpdateCourseReviewSubscription
+>;
+export const onDeleteCourseReview = /* GraphQL */ `subscription OnDeleteCourseReview(
+  $filter: ModelSubscriptionCourseReviewFilterInput
+  $owner: String
+) {
+  onDeleteCourseReview(filter: $filter, owner: $owner) {
+    id
+    userId
+    learningCenterId
+    learningCenterCourseId
+    gotResults
+    message
+    otherMemo
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteCourseReviewSubscriptionVariables,
+  APITypes.OnDeleteCourseReviewSubscription
 >;
