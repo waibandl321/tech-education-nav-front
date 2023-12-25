@@ -14,12 +14,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### コンポーネント設計
 
-| コンポーネントの種類 | 責務             | 依存関係 | 詳細説明                                                                                                              |
-| -------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
-| Page                 | ルーティング管理 | Pane     | ナビゲーションとルーティングに集中。React Router などのルーティングライブラリと統合し、ルートパラメータの管理を担当。 パス: src/pages |
-| Pane | レイアウト管理、UI の構成 | Page | ページの主要なレイアウトと UI 構造を担当。ビジネスロジックや API 通信はカスタムフックに委ねる。 |
-| Section | UI の細分化とプレゼンテーションロジックの管理 | Pane | UI 要素をより小さく集中的な単位に分割し、フォームや特定の UI セクションの表示を担当。API 通信は行わない。例)ヘッダー、フッター、フォームなど |
-| Parts | テキストフィールドやカード要素などのパーツ単位の表示 | Section | @mui/material の UI コンポーネントをセクション内で使用する。 |
+| コンポーネントの種類 | 責務                                                 | 依存関係 | 詳細説明                                                                                                                                     |
+| -------------------- | ---------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Page                 | ルーティング管理                                     | Pane     | ナビゲーションとルーティングに集中。React Router などのルーティングライブラリと統合し、ルートパラメータの管理を担当。 パス: src/pages        |
+| Pane                 | レイアウト管理、UI の構成                            | Page     | ページの主要なレイアウトと UI 構造を担当。ビジネスロジックや API 通信はカスタムフックに委ねる。                                              |
+| Section              | UI の細分化とプレゼンテーションロジックの管理        | Pane     | UI 要素をより小さく集中的な単位に分割し、フォームや特定の UI セクションの表示を担当。API 通信は行わない。例)ヘッダー、フッター、フォームなど |
+| Parts                | テキストフィールドやカード要素などのパーツ単位の表示 | Section  | @mui/material の UI コンポーネントをセクション内で使用する。                                                                                 |
 
 ### **使用例**
 
@@ -47,39 +47,49 @@ https://ja.react.dev/learn/reusing-logic-with-custom-hooks
   - 例：`**useValidation**`（フォームバリデーション）、**`useFormOptions`**（フォームオプション）
   - 目的：汎用性の高い機能を提供し、コンポーネント間でのコードの再利用を促進。
 - **`hooks/components`**:
+
   - 例：**`useLogin`**（ログインプロセスの管理）、**`usePasswordReset`**（パスワードリセット機能）
   - 目的：特定の UI コンポーネントや機能に密接に関連するビジネスロジックを分離し、コンポーネントをより宣言的に保つ。
+
   ## 状態管理
+
   アプリケーション全体でデータのグローバルアクセスを行うために、Context API を使用する。
   https://ja.react.dev/learn/passing-data-deeply-with-context
+
   ### 管理している状態
+
   | 状態の種類         | ファイルパス                         | 説明                                                                                     |
   | ------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------- |
   | ローディング状態   | src/contexts/LoadingContext.tsx      | アプリケーションのローディング状態を管理。非同期処理中などの UI 表示に使用。             |
   | アラートメッセージ | src/contexts/MessageAlertContext.tsx | ユーザーに通知するメッセージをアプリケーション全体で管理。エラーや通知など。             |
-  | ユーザーの認証状態 | src/contexts/UserContext.tsx         | ユーザーのログイン状態や認証情報を管理。ログイン、ログアウト、ユーザー情報の更新に使用。 |
+  | ユーザーの認証状態 | src/contexts/AccountContext.tsx      | ユーザーのログイン状態や認証情報を管理。ログイン、ログアウト、ユーザー情報の更新に使用。 |
+
   ### コンポーネントツリー内での使用
+
   - アプリケーションのルート（`**src/pages/_app.tsx**`）で各コンテキストプロバイダーをラップする。
   - これにより、アプリケーションのどのコンポーネントからでも、これらの状態にアクセスし、更新することが可能になる。
+
   ```jsx
   import type { AppProps } from "next/app";
   import { MessageAlertProvider } from "@/contexts/MessageAlertContext";
-  import { UserProvider } from "@/contexts/UserContext";
+  import { AccountProvider } from "@/contexts/AccountContext";
   import { LoadingProvider } from "@/contexts/LoadingContext";
 
   export default function App({ Component, pageProps }: AppProps) {
     return (
       <LoadingProvider>
-        <UserProvider>
+        <AccountProvider>
           <MessageAlertProvider>
             <Component {...pageProps} />
           </MessageAlertProvider>
-        </UserProvider>
+        </AccountProvider>
       </LoadingProvider>
     );
   }
   ```
+
   ### 注意点
+
   現時点で Context API はグローバルな状態管理にのみ使用し、コンポーネント間（Pane→Section）のデータ共有については props を使用する。
 
 ## Getting Started

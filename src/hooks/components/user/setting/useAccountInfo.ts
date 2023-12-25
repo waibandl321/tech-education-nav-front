@@ -1,5 +1,5 @@
 // hooks/useUserInfo.js
-import { AccountInfomation } from "@/contexts/UserContext";
+import { AccountInfomation } from "@/contexts/AccountContext";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import useAuth from "@/hooks/api/useAuth";

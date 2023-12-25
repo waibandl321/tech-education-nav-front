@@ -1,6 +1,6 @@
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 import useAuth from "@/hooks/api/useAuth";
 import useUser from "@/hooks/api/useUser";
 import { AuthLoginFormType } from "@/types/FormType";
@@ -15,7 +15,7 @@ const useLogin = () => {
   const router = useRouter();
   const { setLoading } = useLoading();
   const { apiGetUserByCognitoSub, apiCreateUser } = useUser();
-  const { setAccountInfomation } = useUserContext();
+  const { setAccountInfomation, setLoginUser } = useAccountContext();
   const { apiSignin, resendSignUpAuthCode, currentAuthenticatedUser } =
     useAuth();
 
@@ -29,15 +29,20 @@ const useLogin = () => {
       email: signInDetails?.loginId,
     });
 
-    const getUserResult = await apiGetUserByCognitoSub(userId);
     let alertMessage = "認証に成功しました。";
     let redirectPath = "/";
 
-    if (!getUserResult.data) {
-      await apiCreateUser(userId);
+    const getUserResult = await apiGetUserByCognitoSub(userId);
+    if (getUserResult.data && getUserResult.data.isRegisterUserInfo) {
+      // ユーザー情報が存在し、プロフィールも登録済み
+      setLoginUser(getUserResult.data);
+    } else if (getUserResult.data && !getUserResult.data.isRegisterUserInfo) {
+      // ユーザー情報が存在するが、プロフィールは未登録
       redirectPath = "/user/setting/edit/profile";
       alertMessage += "ユーザー情報を登録してください。";
-    } else if (!getUserResult.data.isRegisterUserInfo) {
+    } else if (!getUserResult.data) {
+      // ユーザー情報が存在しない
+      await apiCreateUser(userId);
       redirectPath = "/user/setting/edit/profile";
       alertMessage += "ユーザー情報を登録してください。";
     }

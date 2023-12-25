@@ -15,14 +15,14 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { useUserInfo } from "@/hooks/components/user/setting/useUserInfo";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 
 export default function UserSetting() {
   // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
   const router = useRouter();
   const { user } = useUserInfo();
-  const { accountInfomation } = useUserContext();
+  const { accountInfomation } = useAccountContext();
 
   return (
     <Container maxWidth="md">

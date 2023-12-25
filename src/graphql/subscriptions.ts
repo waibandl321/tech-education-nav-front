@@ -352,6 +352,9 @@ export const onCreateCourseReview = /* GraphQL */ `subscription OnCreateCourseRe
     id
     userId
     userDisplayName
+    userGender
+    userAge
+    userPreviousJob
     learningCenterId
     learningCenterCourseId
     gotResults
@@ -405,6 +408,9 @@ export const onUpdateCourseReview = /* GraphQL */ `subscription OnUpdateCourseRe
     id
     userId
     userDisplayName
+    userGender
+    userAge
+    userPreviousJob
     learningCenterId
     learningCenterCourseId
     gotResults
@@ -458,6 +464,9 @@ export const onDeleteCourseReview = /* GraphQL */ `subscription OnDeleteCourseRe
     id
     userId
     userDisplayName
+    userGender
+    userAge
+    userPreviousJob
     learningCenterId
     learningCenterCourseId
     gotResults

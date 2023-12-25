@@ -16,7 +16,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import { Box, Button, Card, Grid, ListSubheader, Slide } from "@mui/material";
 import { useRouter } from "next/router";
 import useSignOut from "@/hooks/components/auth/useSignOut";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 
 // props型
 interface SPNavigationDialogProps {
@@ -46,7 +46,7 @@ export default function SPNavigationDialog({
   // hook
   const router = useRouter();
   const handleSignOut = useSignOut();
-  const { isLoggedIn } = useUserContext();
+  const { isLoggedIn } = useAccountContext();
 
   const menus = [
     {

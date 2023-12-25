@@ -1,7 +1,12 @@
 import * as queries from "@/graphql/queries";
 import * as mutations from "@/graphql/mutations";
 import { generateClient } from "aws-amplify/api";
-import { CreateUserInput, UpdateUserInput, User } from "@/API";
+import {
+  CreateUserInput,
+  CreateUserMutation,
+  UpdateUserInput,
+  User,
+} from "@/API";
 import { v4 as uuidv4 } from "uuid";
 import useAPIResponse from "./useAPIResponse";
 
@@ -46,7 +51,7 @@ export default function useUser() {
    */
   const apiCreateUser = async (
     cognitoSub: string
-  ): Promise<ApiResponse<User>> => {
+  ): Promise<ApiResponse<CreateUserMutation>> => {
     try {
       const request: CreateUserInput = {
         cognitoSub,
@@ -67,7 +72,7 @@ export default function useUser() {
       });
       return {
         isSuccess: true,
-        data: result.data.createUser,
+        data: result.data,
       };
     } catch (error) {
       return {

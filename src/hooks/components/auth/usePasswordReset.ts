@@ -1,6 +1,6 @@
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 import useAuth from "@/hooks/api/useAuth";
 import { AuthPasswordResetFormType } from "@/types/FormType";
 import { ResetPasswordOutput } from "aws-amplify/auth";
@@ -11,9 +11,9 @@ const usePasswordReset = () => {
   const { setAlertMessage } = useMessageAlert();
   const router = useRouter();
   const { apiResetPassword } = useAuth();
-  const { setAccountInfomation } = useUserContext();
+  const { setAccountInfomation } = useAccountContext();
   const { setLoading } = useLoading();
-  const { accountInfomation } = useUserContext();
+  const { accountInfomation } = useAccountContext();
   const { apiConfirmResetPassword } = useAuth();
 
   // パスワード変更リクエスト後にステータスに応じて画面を切り替える処理

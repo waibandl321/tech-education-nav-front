@@ -1,6 +1,6 @@
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 import useAPIResponse from "@/hooks/api/useAPIResponse";
 import useAuth from "@/hooks/api/useAuth";
 import {
@@ -17,7 +17,7 @@ const useRegister = () => {
   const { setAlertMessage } = useMessageAlert();
   const router = useRouter();
   const { setLoading } = useLoading();
-  const { accountInfomation, setAccountInfomation } = useUserContext();
+  const { accountInfomation, setAccountInfomation } = useAccountContext();
   const { apiSignUp, apiConfirmSignUp } = useAuth();
   const { getErrorMessage } = useAPIResponse();
 

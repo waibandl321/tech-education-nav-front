@@ -55,12 +55,15 @@ type CourseReview
   id: ID!
   userId: ID!
   userDisplayName: String
+  userGender: String
+  userAge: String
+  userPreviousJob: String
   learningCenterId: ID!
   learningCenterCourseId: ID!
-  gotResults: String
-  message: String
+  gotResults: String!
+  message: String!
   otherMemo: String
-  isPublished: Boolean
+  isPublished: Boolean!
   learningCenterCourse: LearningCenterCourse
     @belongsTo(fields: ["learningCenterCourseId"])
   user: User @belongsTo(fields: ["userId"])

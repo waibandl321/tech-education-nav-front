@@ -8,13 +8,13 @@ import {
 } from "@mui/material";
 import UserSettingEditAside from "@/components/pages/user/UserSettingEditAside";
 import EditUserAccountForm from "./section/EditUserAccountForm";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 import { useEffect } from "react";
 import { useAccountInfo } from "@/hooks/components/user/setting/useAccountInfo";
 
 export default function EditUserAccountPane() {
   const isMobile = useMediaQuery("(max-width:480px)");
-  const { accountInfomation } = useUserContext();
+  const { accountInfomation } = useAccountContext();
   const { account, setAccount, updateEmail } = useAccountInfo();
 
   // Formの更新

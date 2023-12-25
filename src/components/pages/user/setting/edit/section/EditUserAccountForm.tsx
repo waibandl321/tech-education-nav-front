@@ -1,4 +1,4 @@
-import { AccountInfomation } from "@/contexts/UserContext";
+import { AccountInfomation } from "@/contexts/AccountContext";
 import useValidation from "@/hooks/utils/useValidation";
 import { UserAccountInputType } from "@/types/FormType";
 import {

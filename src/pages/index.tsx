@@ -21,11 +21,13 @@ import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { useLoading } from "@/contexts/LoadingContext";
-
+import { useFormOptions } from "@/hooks/utils/useFormOptions";
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // hook
   const { apiGetCourseReviewsByIds } = useReviewPost();
   const { setLoading } = useLoading();
+  const { genders } = useFormOptions();
+
   // state
   const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
     null
@@ -76,6 +78,11 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const getGenderText = (key?: string | null) => {
+    if (!key) return "";
+    return genders.find((g) => g.key === key)?.value ?? "";
   };
 
   return (
@@ -153,6 +160,10 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                     </ListItemAvatar>
                     <div>
                       <div>
+                        <Typography sx={{ color: "#666", mt: 1 }} fontSize={14}>
+                          {item.userAge}歳 /{getGenderText(item.userGender)}/
+                          前職: {item.userPreviousJob}
+                        </Typography>
                         <ListItemText
                           primary="スクールを受講したことで得られた結果"
                           secondary={item.gotResults}

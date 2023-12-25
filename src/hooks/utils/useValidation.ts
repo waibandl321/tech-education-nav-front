@@ -10,12 +10,6 @@ export default function useValidation() {
   const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   /**
-   * 電話番号 正規表現
-   * 0から始まり、残りの数字9桁または10桁の半角数字
-   */
-  const PhoneRegexp = /^0\d{9,10}$/;
-
-  /**
    * Emailのバリデーションエラーメッセージを取得する
    * @param errorType エラーのタイプ
    * @returns エラーメッセージ
@@ -52,29 +46,10 @@ export default function useValidation() {
         break;
     }
   };
-  /**
-   * 電話番号のバリデーションエラーメッセージを取得する
-   * @param errorType エラーのタイプ
-   * @returns エラーメッセージ
-   */
-  const useGetPhoneNumberInputError = (
-    errorType: LiteralUnion<keyof RegisterOptions, string> | undefined
-  ) => {
-    switch (errorType) {
-      case "required":
-        return "電話番号の入力は必須です。";
-      case "pattern":
-        return "電話番号の形式で入力してください。";
-      default:
-        break;
-    }
-  };
 
   return {
     EmailRegex,
-    PhoneRegexp,
     useGetEmailInputError,
     useGetPasswordInputError,
-    useGetPhoneNumberInputError,
   };
 }

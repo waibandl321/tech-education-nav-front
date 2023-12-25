@@ -11,12 +11,12 @@ import { Button, Container } from "@mui/material";
 // useRouter
 import { useRouter } from "next/navigation";
 import useSignOut from "@/hooks/components/auth/useSignOut";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 
 export default function Header() {
   const router = useRouter();
   const handleSignOut = useSignOut();
-  const { isLoggedIn } = useUserContext();
+  const { isLoggedIn } = useAccountContext();
 
   // アカウントメニュー
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

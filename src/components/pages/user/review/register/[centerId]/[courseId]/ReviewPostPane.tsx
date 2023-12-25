@@ -17,13 +17,14 @@ import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { CreateCourseReviewInput } from "@/API";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 import { useLoading } from "@/contexts/LoadingContext";
-
+import { calculateAge } from "@/hooks/utils/useConvertData";
 interface ReviewFormType {
   gotResults: string;
   message: string;
   otherMemo: string;
+  isPublished: boolean;
 }
 
 /**
@@ -40,13 +41,14 @@ export default function ReviewPostPane({
   const { setAlertMessage } = useMessageAlert();
   const isMobile = useMediaQuery("(max-width:480px)");
   const { apiCreateCourseReview } = useReviewPost();
-  const { accountInfomation } = useUserContext();
+  const { accountInfomation, loginUser } = useAccountContext();
   const { setLoading } = useLoading();
   // state
   const [reviewFormData, setReviewFormData] = useState<ReviewFormType>({
     gotResults: "",
     message: "",
     otherMemo: "",
+    isPublished: false,
   });
 
   // 入力変更ハンドラ
@@ -65,6 +67,16 @@ export default function ReviewPostPane({
     try {
       const request: CreateCourseReviewInput = {
         userId: accountInfomation.userId,
+        userDisplayName: loginUser?.displayId,
+        userGender: loginUser?.gender,
+        userPreviousJob: loginUser?.previousJob,
+        userAge: String(
+          calculateAge(
+            loginUser?.birthYear ?? 0,
+            loginUser?.birthMonth ?? 0,
+            loginUser?.birthDate ?? 0
+          )
+        ),
         learningCenterId: center.id,
         learningCenterCourseId: course.id,
         ...reviewFormData,

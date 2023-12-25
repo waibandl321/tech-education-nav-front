@@ -361,6 +361,9 @@ export const createCourseReview = /* GraphQL */ `mutation CreateCourseReview(
     id
     userId
     userDisplayName
+    userGender
+    userAge
+    userPreviousJob
     learningCenterId
     learningCenterCourseId
     gotResults
@@ -414,6 +417,9 @@ export const updateCourseReview = /* GraphQL */ `mutation UpdateCourseReview(
     id
     userId
     userDisplayName
+    userGender
+    userAge
+    userPreviousJob
     learningCenterId
     learningCenterCourseId
     gotResults
@@ -467,6 +473,9 @@ export const deleteCourseReview = /* GraphQL */ `mutation DeleteCourseReview(
     id
     userId
     userDisplayName
+    userGender
+    userAge
+    userPreviousJob
     learningCenterId
     learningCenterCourseId
     gotResults

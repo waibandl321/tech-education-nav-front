@@ -1,6 +1,6 @@
 // hooks/useUserInfo.js
 import { useState, useEffect, useCallback } from "react";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import useUser from "@/hooks/api/useUser";
@@ -11,7 +11,7 @@ import useAPIRequest from "@/hooks/utils/useAPIRequest";
 export function useUserInfo() {
   const [user, setUser] = useState({} as User);
   const { apiGetUserByCognitoSub } = useUser();
-  const { accountInfomation } = useUserContext();
+  const { accountInfomation } = useAccountContext();
   const { setLoading } = useLoading();
   const { setAlertMessage } = useMessageAlert();
   const { apiUpdateUser } = useUser();

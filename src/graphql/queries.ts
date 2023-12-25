@@ -216,6 +216,9 @@ export const getCourseReview = /* GraphQL */ `query GetCourseReview($id: ID!) {
     id
     userId
     userDisplayName
+    userGender
+    userAge
+    userPreviousJob
     learningCenterId
     learningCenterCourseId
     gotResults
@@ -271,6 +274,9 @@ export const listCourseReviews = /* GraphQL */ `query ListCourseReviews(
       id
       userId
       userDisplayName
+      userGender
+      userAge
+      userPreviousJob
       learningCenterId
       learningCenterCourseId
       gotResults
