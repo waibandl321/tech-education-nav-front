@@ -60,7 +60,7 @@ export function useUserInfo() {
         message: "データを保存しました。",
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setAlertMessage({
         type: "error",
         message: "データの保存に失敗しました。",

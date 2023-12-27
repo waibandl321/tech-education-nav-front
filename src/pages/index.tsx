@@ -69,8 +69,6 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
         selectedCenter.id,
         selectedCourse.id
       );
-      console.log(results);
-
       setReviewList(results.data ?? []);
     } catch (error) {
       console.error(error);
@@ -145,6 +143,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
           </Grid>
           {/* 一覧 */}
           <Box sx={{ mt: 5 }}>
+            <h2>口コミ一覧</h2>
             {/* 件数あり */}
             {reviewList.length > 0 && (
               <List>

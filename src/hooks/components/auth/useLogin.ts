@@ -24,12 +24,7 @@ const useLogin = () => {
     const { userId, signInDetails } = await currentAuthenticatedUser();
     if (!userId) return;
 
-    setAccountInfomation({
-      userId,
-      email: signInDetails?.loginId,
-    });
-
-    let alertMessage = "認証に成功しました。";
+    let alertMessage = "認証に成功しました。アプリの利用を開始してください。";
     let redirectPath = "/";
 
     const getUserResult = await apiGetUserByCognitoSub(userId);
@@ -46,6 +41,11 @@ const useLogin = () => {
       redirectPath = "/user/setting/edit/profile";
       alertMessage += "ユーザー情報を登録してください。";
     }
+
+    setAccountInfomation({
+      userId,
+      email: signInDetails?.loginId,
+    });
 
     await router.replace(redirectPath);
     setAlertMessage({

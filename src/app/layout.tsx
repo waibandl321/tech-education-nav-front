@@ -12,12 +12,10 @@ import "@/assets/css/style.css";
 import { Box, Container } from "@mui/material";
 import MesageAlert from "@/components/common/parts/MesageAlert";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 Amplify.configure(config, { ssr: true });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const isSpDevice = useMediaQuery("(max-width:480px)");
   return (
     <>
       <LoadingOverlay />

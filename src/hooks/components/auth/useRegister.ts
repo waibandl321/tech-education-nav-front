@@ -9,6 +9,8 @@ import {
 } from "@/types/FormType";
 import { useRouter } from "next/router";
 import { SubmitHandler } from "react-hook-form";
+import { autoSignIn } from "aws-amplify/auth";
+import useLogin from "./useLogin";
 
 /**
  * 会員登録画面のビジネスロジックを定義するカスタムフック
@@ -20,6 +22,7 @@ const useRegister = () => {
   const { accountInfomation, setAccountInfomation } = useAccountContext();
   const { apiSignUp, apiConfirmSignUp } = useAuth();
   const { getErrorMessage } = useAPIResponse();
+  const { handleAfterSignIn } = useLogin();
 
   /**
    * サインアップ
@@ -49,7 +52,7 @@ const useRegister = () => {
   };
 
   /**
-   * 認証コード確認
+   * 認証コード確認: 自動サインインする
    * @param data
    * @returns
    */
@@ -63,14 +66,24 @@ const useRegister = () => {
           ログインすると認証コードが再度送信されます。
           `,
       });
-      return; // 処理をここで終了させる
+      return;
     }
+    setLoading(true);
     try {
       const result = await apiConfirmSignUp({
         username: accountInfomation.email,
         confirmationCode: data.authCode,
       });
       if (result.isSignUpComplete) {
+        // 自動ログイン
+        const autoSignInResult = await autoSignIn();
+        if (
+          autoSignInResult.isSignedIn &&
+          autoSignInResult.nextStep.signInStep === "DONE"
+        ) {
+          await handleAfterSignIn();
+          return;
+        }
         setAlertMessage({
           type: "success",
           message:
@@ -84,6 +97,8 @@ const useRegister = () => {
         type: "error",
         message: "認証に失敗しました。入力された認証コードは正しいですか？",
       });
+    } finally {
+      setLoading(false);
     }
   };
 

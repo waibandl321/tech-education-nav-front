@@ -76,7 +76,7 @@ const usePasswordReset = () => {
         message:
           "アカウント情報のEmailが存在しません。\n「認証コードを再発行する」ボタンを押して、再度手続きをお願いいたします。",
       });
-      return; // 処理をここで終了させる
+      return;
     }
 
     try {

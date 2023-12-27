@@ -10,6 +10,7 @@ import {
   ConfirmResetPasswordInput,
   confirmResetPassword,
   updateUserAttributes,
+  autoSignIn,
 } from "aws-amplify/auth";
 
 export default function useAuth() {
@@ -26,6 +27,7 @@ export default function useAuth() {
           email: formData.email,
           // phone_number: "+81" + formData.phoneNumber, // E.164 number convention
         },
+        autoSignIn: true,
         // optional
         // autoSignIn: true, // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
       },

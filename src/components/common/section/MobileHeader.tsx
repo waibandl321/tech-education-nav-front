@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import SPNavigationDialog from "@/components/common/section/SPNavigationDialog";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 /**
  * スマホ用ヘッダー コンポーネント
