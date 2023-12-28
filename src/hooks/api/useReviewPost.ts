@@ -12,10 +12,8 @@ import {
 } from "@/API";
 import useAPIResponse from "./useAPIResponse";
 import { ensureString } from "../utils/useConvertData";
-import { useAccountContext } from "@/contexts/AccountContext";
 
 export default function useReviewPost() {
-  const { accountInfomation } = useAccountContext();
   const { getErrorMessage } = useAPIResponse();
   const client = generateClient();
   // 全件取得
@@ -71,9 +69,9 @@ export default function useReviewPost() {
     }
   };
 
-  const apiGetCourseReviewsByUserId = async (): Promise<
-    ApiResponse<Array<CourseReview>>
-  > => {
+  const apiGetCourseReviewsByUserId = async (
+    userId: string
+  ): Promise<ApiResponse<Array<CourseReview>>> => {
     try {
       const result = await client.graphql({
         authMode: "apiKey",
@@ -81,7 +79,7 @@ export default function useReviewPost() {
         variables: {
           filter: {
             userId: {
-              eq: accountInfomation.userId,
+              eq: userId,
             },
           },
         },

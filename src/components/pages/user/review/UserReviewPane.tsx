@@ -7,24 +7,29 @@ import {
   Typography,
 } from "@mui/material";
 import useReviewPost from "@/hooks/api/useReviewPost";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { CourseReview } from "@/API";
 import { useLoading } from "@/contexts/LoadingContext";
 import dayjs from "dayjs";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
+import { useAccountContext } from "@/contexts/AccountContext";
 
 export default function UserReview({
   centers,
   courses,
 }: CentersAndCoursesPropType) {
+  const { accountInfomation } = useAccountContext();
   const { apiGetCourseReviewsByUserId } = useReviewPost();
   const [userReviews, setUserReviews] = useState<Array<CourseReview>>([]);
   const { setLoading } = useLoading();
 
   const fetchData = async () => {
+    if (!accountInfomation.userId) return;
     setLoading(true);
     try {
-      const result = await apiGetCourseReviewsByUserId();
+      const result = await apiGetCourseReviewsByUserId(
+        accountInfomation.userId
+      );
       setUserReviews(result.data ?? []);
     } catch (error) {
       console.error(error);
@@ -36,7 +41,7 @@ export default function UserReview({
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [accountInfomation.userId]);
 
   const getTargetCenterName = (learningCenterId: string) => {
     return centers.find((center) => center.id === learningCenterId)?.name ?? "";
