@@ -60,7 +60,7 @@ export default function ReviewRegister({
 
   return (
     <Container maxWidth="md">
-      <Card sx={{ backgroundColor: "#f5f5f5" }} elevation={0}>
+      <Card>
         <CardContent>
           <FormTitle formTitle="口コミの登録をお願いいたします。" />
         </CardContent>
@@ -119,6 +119,7 @@ export default function ReviewRegister({
             <FormButtons
               submitText="投稿する"
               handleSubmit={handleMoveToPostPage}
+              isDisabled={!selectedCenter || !selectedCourse}
             />
           </Box>
         </CardContent>

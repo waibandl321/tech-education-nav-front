@@ -12,8 +12,10 @@ import {
 } from "@/API";
 import useAPIResponse from "./useAPIResponse";
 import { ensureString } from "../utils/useConvertData";
+import { useAccountContext } from "@/contexts/AccountContext";
 
 export default function useReviewPost() {
+  const { accountInfomation } = useAccountContext();
   const { getErrorMessage } = useAPIResponse();
   const client = generateClient();
   // 全件取得
@@ -53,6 +55,33 @@ export default function useReviewPost() {
             },
             learningCenterCourseId: {
               eq: courseId,
+            },
+          },
+        },
+      });
+      return {
+        isSuccess: true,
+        data: result.data.listCourseReviews.items,
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        error: getErrorMessage(error),
+      };
+    }
+  };
+
+  const apiGetCourseReviewsByUserId = async (): Promise<
+    ApiResponse<Array<CourseReview>>
+  > => {
+    try {
+      const result = await client.graphql({
+        authMode: "apiKey",
+        query: queries.listCourseReviews,
+        variables: {
+          filter: {
+            userId: {
+              eq: accountInfomation.userId,
             },
           },
         },
@@ -160,6 +189,7 @@ export default function useReviewPost() {
 
   return {
     apiGetCourseReviews,
+    apiGetCourseReviewsByUserId,
     apiGetCourseReviewsByIds,
     apiGetCourseReviewById,
     apiCreateCourseReview,
