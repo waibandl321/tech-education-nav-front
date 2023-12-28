@@ -1,6 +1,5 @@
 import Layout from "@/app/layout";
 import ReviewPostPane from "@/components/pages/user/review/register/[centerId]/[courseId]/ReviewPostPane";
-import { checkAuth } from "@/hooks/server/checkAuth";
 import { fetchSchoolCourseDetail } from "@/hooks/server/fetchSchoolData";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
@@ -31,8 +30,6 @@ export default function Comment({
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  await checkAuth(context.req, context.res);
-
   if (!context.params?.centerId || !context.params?.courseId) {
     return {
       props: {},

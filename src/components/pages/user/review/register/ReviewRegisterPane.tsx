@@ -3,8 +3,6 @@ import {
   Card,
   CardContent,
   Divider,
-  List,
-  ListItem,
   Typography,
   Box,
   Grid,

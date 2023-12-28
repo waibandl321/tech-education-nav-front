@@ -2,9 +2,8 @@ import Layout from "@/app/layout";
 import ReviewRegisterPane from "@/components/pages/user/review/register/ReviewRegisterPane";
 import Head from "next/head";
 import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { GetServerSideProps } from "next";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
-import { checkAuth } from "@/hooks/server/checkAuth";
 
 export default function ReviewRegister({
   centers,
@@ -25,10 +24,7 @@ export default function ReviewRegister({
 }
 
 // サーバーサイドでスクールとコース情報を取得し、クライアントにpropsとして渡す
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  await checkAuth(context.req, context.res);
+export const getServerSideProps: GetServerSideProps = async () => {
   const data = await fetchSchoolData();
   return { props: { ...data } };
 };
