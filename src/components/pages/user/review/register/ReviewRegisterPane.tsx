@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import FormTitle from "@/components/common/parts/FormTitle";
 import { GetServerSideProps } from "next";
 import { LearningCenter, LearningCenterCourse } from "@/API";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
@@ -60,7 +59,14 @@ export default function ReviewRegister({
     <Container maxWidth="md">
       <Card>
         <CardContent>
-          <FormTitle formTitle="口コミ登録" />
+          <Typography
+            component="h2"
+            fontWeight={700}
+            variant="h6"
+            align="center"
+          >
+            口コミ登録
+          </Typography>
         </CardContent>
         <Divider></Divider>
         <CardContent>

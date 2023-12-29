@@ -123,18 +123,18 @@ export default function useReviewPost() {
     reviewInput: CreateCourseReviewInput
   ) => {
     try {
-      const request: CreateCourseReviewInput = {
-        ...reviewInput,
-      };
       const result = await client.graphql({
         query: mutations.createCourseReview,
-        variables: { input: request },
+        variables: { input: reviewInput },
       });
+      console.log("apiCreateCourseReview:result", result);
+
       return {
         isSuccess: true,
         data: result.data.createCourseReview,
       };
     } catch (error) {
+      console.error(error);
       return {
         isSuccess: false,
         error: getErrorMessage(error),

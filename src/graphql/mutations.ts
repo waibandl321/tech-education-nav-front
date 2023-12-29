@@ -76,10 +76,6 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     prefecture
     previousJob
     isRegisterUserInfo
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -107,10 +103,6 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     prefecture
     previousJob
     isRegisterUserInfo
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -138,10 +130,6 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     prefecture
     previousJob
     isRegisterUserInfo
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -366,39 +354,10 @@ export const createCourseReview = /* GraphQL */ `mutation CreateCourseReview(
     userPreviousJob
     learningCenterId
     learningCenterCourseId
-    gotResults
-    message
-    otherMemo
+    reviewTitle
+    reviewDetail
+    rating
     isPublished
-    learningCenterCourse {
-      id
-      learningCenterId
-      courseName
-      courseURL
-      couseDetail
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    user {
-      id
-      cognitoSub
-      displayId
-      name
-      nameKana
-      gender
-      birthYear
-      birthMonth
-      birthDate
-      prefecture
-      previousJob
-      isRegisterUserInfo
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -422,39 +381,10 @@ export const updateCourseReview = /* GraphQL */ `mutation UpdateCourseReview(
     userPreviousJob
     learningCenterId
     learningCenterCourseId
-    gotResults
-    message
-    otherMemo
+    reviewTitle
+    reviewDetail
+    rating
     isPublished
-    learningCenterCourse {
-      id
-      learningCenterId
-      courseName
-      courseURL
-      couseDetail
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    user {
-      id
-      cognitoSub
-      displayId
-      name
-      nameKana
-      gender
-      birthYear
-      birthMonth
-      birthDate
-      prefecture
-      previousJob
-      isRegisterUserInfo
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -478,39 +408,10 @@ export const deleteCourseReview = /* GraphQL */ `mutation DeleteCourseReview(
     userPreviousJob
     learningCenterId
     learningCenterCourseId
-    gotResults
-    message
-    otherMemo
+    reviewTitle
+    reviewDetail
+    rating
     isPublished
-    learningCenterCourse {
-      id
-      learningCenterId
-      courseName
-      courseURL
-      couseDetail
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    user {
-      id
-      cognitoSub
-      displayId
-      name
-      nameKana
-      gender
-      birthYear
-      birthMonth
-      birthDate
-      prefecture
-      previousJob
-      isRegisterUserInfo
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
     createdAt
     updatedAt
     owner

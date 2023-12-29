@@ -19,7 +19,6 @@ type User @model @auth(rules: [{ allow: owner }]) {
   prefecture: String
   previousJob: String
   isRegisterUserInfo: Boolean
-  courseReviews: [CourseReview] @hasMany(fields: ["id"])
 }
 
 type LearningCenter
@@ -60,11 +59,8 @@ type CourseReview
   userPreviousJob: String
   learningCenterId: ID!
   learningCenterCourseId: ID!
-  gotResults: String!
-  message: String!
-  otherMemo: String
+  reviewTitle: String!
+  reviewDetail: String!
+  rating: Int!
   isPublished: Boolean!
-  learningCenterCourse: LearningCenterCourse
-    @belongsTo(fields: ["learningCenterCourseId"])
-  user: User @belongsTo(fields: ["userId"])
 }

@@ -6,13 +6,14 @@ import {
   Container,
   List,
   ListItem,
+  TextField,
+  Rating,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Textarea from "@/components/common/parts/TextareaComponent";
 import FormButtons from "@/components/common/parts/FormButtons";
-import FormTitle from "@/components/common/parts/FormTitle";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
@@ -20,10 +21,11 @@ import { CreateCourseReviewInput } from "@/API";
 import { useAccountContext } from "@/contexts/AccountContext";
 import { useLoading } from "@/contexts/LoadingContext";
 import { calculateAge } from "@/hooks/utils/useConvertData";
+
 interface ReviewFormType {
-  gotResults: string;
-  message: string;
-  otherMemo: string;
+  reviewTitle: string;
+  reviewDetail: string;
+  rating: number;
   isPublished: boolean;
 }
 
@@ -45,9 +47,9 @@ export default function ReviewPostPane({
   const { setLoading } = useLoading();
   // state
   const [reviewFormData, setReviewFormData] = useState<ReviewFormType>({
-    gotResults: "",
-    message: "",
-    otherMemo: "",
+    reviewTitle: "",
+    reviewDetail: "",
+    rating: 0,
     isPublished: false,
   });
 
@@ -57,6 +59,13 @@ export default function ReviewPostPane({
     setReviewFormData((prevReview) => ({
       ...prevReview,
       [name]: value,
+    }));
+  };
+
+  const handleChangeRating = (newRating: number | null) => {
+    setReviewFormData((prevReview) => ({
+      ...prevReview,
+      rating: newRating ?? 0,
     }));
   };
 
@@ -100,7 +109,14 @@ export default function ReviewPostPane({
     <Container maxWidth="md">
       <Card sx={{ pb: 6, backgroundColor: "#f5f5f5" }} elevation={0}>
         <CardContent sx={{ pt: 4 }}>
-          <FormTitle formTitle="投稿" />
+          <Typography
+            component="h2"
+            fontWeight={700}
+            variant="h6"
+            align="center"
+          >
+            投稿
+          </Typography>
         </CardContent>
         <Divider></Divider>
         <CardContent>
@@ -111,46 +127,49 @@ export default function ReviewPostPane({
         </CardContent>
         <Divider></Divider>
         <CardContent sx={isMobile ? { px: 2 } : { px: 4 }}>
-          <Typography fontWeight={700}>
-            スクールを受講したことで得られた結果
-          </Typography>
-          <Typography sx={{ color: "#666", my: 1 }} fontSize={14}>
-            例:学習開始から3ヶ月でエンジニアとして転職成功、年収100万円UP、受講期間中に〇〇万円の案件を受注し費用回収に成功など
+          <Typography fontWeight={700}>総合評価</Typography>
+          <Rating
+            name="rating"
+            value={reviewFormData.rating}
+            size="large"
+            onChange={(event, newValue) => {
+              handleChangeRating(newValue);
+            }}
+            sx={{ mt: 1 }}
+          />
+          <Divider sx={{ my: 2 }}></Divider>
+          <Typography fontWeight={700}>タイトル</Typography>
+          <TextField
+            margin="normal"
+            fullWidth
+            placeholder="最も伝えたいことを一言で！"
+            required
+            autoComplete="off"
+            sx={{ background: "#fff" }}
+            name="reviewTitle"
+            value={reviewFormData.reviewTitle}
+            onChange={handleInputChange}
+          />
+          <Divider sx={{ my: 2 }}></Divider>
+          <Typography fontWeight={700}>レビューの詳細</Typography>
+          <Typography variant="body2" sx={{ my: 1 }}>
+            スクールの良かった/悪かった（改善してほしい）ことは何ですか？
+            <br />
+            また、受講したことでどのような結果を得ることができましたか？
           </Typography>
           <Textarea
-            name="gotResults"
-            inputValue={reviewFormData.gotResults}
+            name="reviewDetail"
+            inputValue={reviewFormData.reviewDetail}
             onInputChange={handleInputChange}
-          ></Textarea>
-        </CardContent>
-        <CardContent sx={isMobile ? { px: 2 } : { px: 4 }}>
-          <Typography fontWeight={700}>
-            これから受講する後輩へのメッセージ
-          </Typography>
-          <Typography sx={{ color: "#666", mb: 1 }} fontSize={14}>
-            例:スクールでの学び方のポイントや、エンジニアを目指す上でのエールなど
-          </Typography>
-          <Textarea
-            name="message"
-            inputValue={reviewFormData.message}
-            onInputChange={handleInputChange}
-          ></Textarea>
-        </CardContent>
-        <CardContent sx={isMobile ? { px: 2 } : { px: 4 }}>
-          <Typography fontWeight={700}>受講したコースの改善点</Typography>
-          <Typography sx={{ color: "#666", my: 1 }} fontSize={14}>
-            例: オンラインカウンセリングの
-          </Typography>
-          <Textarea
-            name="otherMemo"
-            inputValue={reviewFormData.otherMemo}
-            onInputChange={handleInputChange}
+            placeholder="スクールでの自分の体験や感想を共有しましょう。"
           ></Textarea>
         </CardContent>
         <FormButtons
           submitText="送信する"
           backText="戻る"
-          isDisabled={!reviewFormData.gotResults || !reviewFormData.message}
+          isDisabled={
+            !reviewFormData.reviewTitle || !reviewFormData.reviewDetail
+          }
           handleSubmit={handleSubmit}
           handleBack={() => router.back()}
         />

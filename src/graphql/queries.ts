@@ -52,10 +52,6 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     prefecture
     previousJob
     isRegisterUserInfo
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -221,39 +217,10 @@ export const getCourseReview = /* GraphQL */ `query GetCourseReview($id: ID!) {
     userPreviousJob
     learningCenterId
     learningCenterCourseId
-    gotResults
-    message
-    otherMemo
+    reviewTitle
+    reviewDetail
+    rating
     isPublished
-    learningCenterCourse {
-      id
-      learningCenterId
-      courseName
-      courseURL
-      couseDetail
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    user {
-      id
-      cognitoSub
-      displayId
-      name
-      nameKana
-      gender
-      birthYear
-      birthMonth
-      birthDate
-      prefecture
-      previousJob
-      isRegisterUserInfo
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -279,9 +246,9 @@ export const listCourseReviews = /* GraphQL */ `query ListCourseReviews(
       userPreviousJob
       learningCenterId
       learningCenterCourseId
-      gotResults
-      message
-      otherMemo
+      reviewTitle
+      reviewDetail
+      rating
       isPublished
       createdAt
       updatedAt

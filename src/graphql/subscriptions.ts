@@ -67,10 +67,6 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
     prefecture
     previousJob
     isRegisterUserInfo
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -98,10 +94,6 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
     prefecture
     previousJob
     isRegisterUserInfo
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -129,10 +121,6 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
     prefecture
     previousJob
     isRegisterUserInfo
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -357,39 +345,10 @@ export const onCreateCourseReview = /* GraphQL */ `subscription OnCreateCourseRe
     userPreviousJob
     learningCenterId
     learningCenterCourseId
-    gotResults
-    message
-    otherMemo
+    reviewTitle
+    reviewDetail
+    rating
     isPublished
-    learningCenterCourse {
-      id
-      learningCenterId
-      courseName
-      courseURL
-      couseDetail
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    user {
-      id
-      cognitoSub
-      displayId
-      name
-      nameKana
-      gender
-      birthYear
-      birthMonth
-      birthDate
-      prefecture
-      previousJob
-      isRegisterUserInfo
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -413,39 +372,10 @@ export const onUpdateCourseReview = /* GraphQL */ `subscription OnUpdateCourseRe
     userPreviousJob
     learningCenterId
     learningCenterCourseId
-    gotResults
-    message
-    otherMemo
+    reviewTitle
+    reviewDetail
+    rating
     isPublished
-    learningCenterCourse {
-      id
-      learningCenterId
-      courseName
-      courseURL
-      couseDetail
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    user {
-      id
-      cognitoSub
-      displayId
-      name
-      nameKana
-      gender
-      birthYear
-      birthMonth
-      birthDate
-      prefecture
-      previousJob
-      isRegisterUserInfo
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -469,39 +399,10 @@ export const onDeleteCourseReview = /* GraphQL */ `subscription OnDeleteCourseRe
     userPreviousJob
     learningCenterId
     learningCenterCourseId
-    gotResults
-    message
-    otherMemo
+    reviewTitle
+    reviewDetail
+    rating
     isPublished
-    learningCenterCourse {
-      id
-      learningCenterId
-      courseName
-      courseURL
-      couseDetail
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    user {
-      id
-      cognitoSub
-      displayId
-      name
-      nameKana
-      gender
-      birthYear
-      birthMonth
-      birthDate
-      prefecture
-      previousJob
-      isRegisterUserInfo
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
     createdAt
     updatedAt
     owner

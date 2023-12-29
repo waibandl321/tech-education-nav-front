@@ -62,26 +62,11 @@ export default function UserReview({
               受講したコース: {getTargetCourseName(item.learningCenterCourseId)}
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
-              投稿日: {dayjs(item.createdAt).format("YYYY-MM-DD")}
+              {dayjs(item.createdAt).format("YYYY-MM-DD")}にレビュー
             </Typography>
             <Divider sx={{ my: 2 }}></Divider>
             <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle1" color="textSecondary">
-                スクールを受講したことで得られた結果
-              </Typography>
-              <Typography variant="body1">{item.gotResults}</Typography>
-            </Box>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle1" color="textSecondary">
-                これから受講する後輩へのメッセージ
-              </Typography>
-              <Typography variant="body1">{item.message}</Typography>
-            </Box>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle1" color="textSecondary">
-                備考（スクールの改善点など）
-              </Typography>
-              <Typography variant="body1">{item.otherMemo}</Typography>
+              <Typography variant="body1">{item.reviewDetail}</Typography>
             </Box>
           </CardContent>
         </Card>

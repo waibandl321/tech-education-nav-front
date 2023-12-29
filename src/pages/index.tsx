@@ -6,13 +6,16 @@ import {
   Container,
   Grid,
   List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
+  Rating,
   TextField,
   Typography,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Divider,
 } from "@mui/material";
-import StickyNote2Icon from "@mui/icons-material/StickyNote2";
+import AccountCircle from "@mui/icons-material/AccountBox";
 import React, { useEffect, useMemo, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
@@ -22,11 +25,59 @@ import { CentersAndCoursesPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useFormOptions } from "@/hooks/utils/useFormOptions";
+
+function ReviewListSection({
+  reviewList,
+}: {
+  reviewList: Array<CourseReview>;
+}) {
+  const { getGenderText } = useFormOptions();
+  const subHeaderText = (item: CourseReview) => {
+    return `${item.userAge}歳 /${getGenderText(item.userGender)}/前職: ${
+      item.userPreviousJob
+    }`;
+  };
+
+  return (
+    <List>
+      {reviewList.map((item) => (
+        <>
+          <Card key={item.id} elevation={0}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="user icon">
+                  <AccountCircle></AccountCircle>
+                </Avatar>
+              }
+              title={item.userDisplayName}
+              subheader={subHeaderText(item)}
+              sx={{ px: 0 }}
+            />
+            <CardContent sx={{ p: 0 }}>
+              <Rating readOnly value={item.rating} />
+              <Typography fontWeight={700}>{item.reviewTitle}</Typography>
+              <Typography sx={{ mt: 0.5 }}>{item.reviewDetail}</Typography>
+            </CardContent>
+            {/* <CardActions disableSpacing sx={{ px: 0 }}>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton aria-label="share">
+                <ShareIcon />
+              </IconButton>
+            </CardActions> */}
+          </Card>
+          <Divider></Divider>
+        </>
+      ))}
+    </List>
+  );
+}
+
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // hook
   const { apiGetCourseReviewsByIds } = useReviewPost();
   const { setLoading } = useLoading();
-  const { getGenderText } = useFormOptions();
 
   // state
   const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
@@ -141,46 +192,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
             <h2>口コミ一覧</h2>
             {/* 件数あり */}
             {reviewList.length > 0 && (
-              <List>
-                {reviewList.map((item) => (
-                  <ListItem
-                    key={item.id}
-                    sx={{ borderRadius: 8, border: "1px solid #ccc", mb: 2 }}
-                  >
-                    <ListItemAvatar>
-                      <Avatar>
-                        <StickyNote2Icon />
-                      </Avatar>
-                      aaaaa
-                    </ListItemAvatar>
-                    <div>
-                      <div>
-                        <Typography sx={{ color: "#666", mt: 1 }} fontSize={14}>
-                          {item.userAge}歳 /{getGenderText(item.userGender)}/
-                          前職: {item.userPreviousJob}
-                        </Typography>
-                        <ListItemText
-                          primary="スクールを受講したことで得られた結果"
-                          secondary={item.gotResults}
-                          sx={{ py: 1 }}
-                        />
-                        <ListItemText
-                          primary="これから受講する後輩へのメッセージ"
-                          secondary={item.message}
-                          sx={{ py: 1 }}
-                        />
-                        {item.otherMemo && (
-                          <ListItemText
-                            primary="受講したコースの改善点"
-                            secondary={item.otherMemo}
-                            sx={{ py: 1 }}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </ListItem>
-                ))}
-              </List>
+              <ReviewListSection reviewList={reviewList} />
             )}
             {/* 検索結果: 0件 */}
             {reviewList.length === 0 && (
