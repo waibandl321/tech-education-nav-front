@@ -16,12 +16,14 @@ import {
 import { useRouter } from "next/router";
 import { useUserInfo } from "@/hooks/components/user/setting/useUserInfo";
 import { useAccountContext } from "@/contexts/AccountContext";
+import { useFormOptions } from "@/hooks/utils/useFormOptions";
 
 export default function UserSetting() {
   // hooks
   const isMobile = useMediaQuery("(max-width:480px)");
   const router = useRouter();
   const { user } = useUserInfo();
+  const { getGenderText } = useFormOptions();
   const { accountInfomation } = useAccountContext();
 
   return (
@@ -75,7 +77,7 @@ export default function UserSetting() {
               </TableRow>
               <TableRow>
                 <TableCell>性別</TableCell>
-                <TableCell>{user.gender || ""}</TableCell>
+                <TableCell>{getGenderText(user.gender)}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>生年月日</TableCell>

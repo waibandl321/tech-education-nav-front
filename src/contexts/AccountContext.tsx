@@ -1,4 +1,3 @@
-import useAuth from "@/hooks/api/useAuth";
 import React, {
   ReactNode,
   createContext,
@@ -9,6 +8,7 @@ import React, {
 import { useLoading } from "./LoadingContext";
 import { User } from "@/API";
 import useUser from "@/hooks/api/useUser";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 export interface AccountInfomation {
   email?: string;
@@ -43,7 +43,6 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
 }) => {
   // hooks
   const { setLoading } = useLoading();
-  const { currentAuthenticatedUser } = useAuth();
   const { apiGetUserByCognitoSub } = useUser();
   const [accountInfomation, setAccountInfomation] = useState<AccountInfomation>(
     {}
@@ -57,14 +56,19 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   const checkSignIn = async () => {
     setLoading(true);
     try {
-      const { userId, signInDetails } = await currentAuthenticatedUser();
+      const res = await fetchAuthSession();
+      const userId = res.tokens?.idToken?.payload.sub;
+      const email = res.tokens?.idToken?.payload.email
+        ? String(res.tokens?.idToken?.payload.email)
+        : undefined;
+
       if (!userId) {
         setAccountInfomation(initAccountInfomation);
         return;
       }
       setAccountInfomation({
         userId,
-        email: signInDetails?.loginId,
+        email,
       });
       // ログインユーザー情報を取得する
       const getLoginUserResult = await apiGetUserByCognitoSub(userId);

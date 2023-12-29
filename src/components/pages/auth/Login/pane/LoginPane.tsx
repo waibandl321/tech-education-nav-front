@@ -14,11 +14,7 @@ export default function LoginPane() {
 
   return (
     <>
-      <Container
-        sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6 }}
-        component="main"
-        maxWidth="sm"
-      >
+      <Container component="main" maxWidth="sm">
         <Card
           sx={{
             p: isMobile ? 2 : 6,

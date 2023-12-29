@@ -6,6 +6,7 @@ import useUser from "@/hooks/api/useUser";
 import { AuthLoginFormType } from "@/types/FormType";
 import { useRouter } from "next/router";
 import { SubmitHandler } from "react-hook-form";
+import { getCurrentUser } from "aws-amplify/auth";
 
 /**
  * サインイン画面のビジネスロジックを定義するカスタムフック
@@ -16,12 +17,11 @@ const useLogin = () => {
   const { setLoading } = useLoading();
   const { apiGetUserByCognitoSub, apiCreateUser } = useUser();
   const { setAccountInfomation, setLoginUser } = useAccountContext();
-  const { apiSignin, resendSignUpAuthCode, currentAuthenticatedUser } =
-    useAuth();
+  const { apiSignin, resendSignUpAuthCode } = useAuth();
 
   // サインイン完了後の処理
   const handleAfterSignIn = async () => {
-    const { userId, signInDetails } = await currentAuthenticatedUser();
+    const { userId, signInDetails } = await getCurrentUser();
     if (!userId) return;
 
     let alertMessage = "認証に成功しました。アプリの利用を開始してください。";

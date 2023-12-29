@@ -10,9 +10,8 @@ export async function middleware(request: NextRequest) {
     nextServerContext: { request, response },
     operation: async (contextSpec) => {
       try {
-        // The fetch will grab the session cookies
+        // 認証情報を取得する
         const session = await fetchAuthSession(contextSpec, {});
-        console.log(session);
         return session.tokens !== undefined;
       } catch (error) {
         console.log(error);

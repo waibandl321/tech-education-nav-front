@@ -60,7 +60,7 @@ export default function ReviewRegister({
     <Container maxWidth="md">
       <Card>
         <CardContent>
-          <FormTitle formTitle="口コミの登録をお願いいたします。" />
+          <FormTitle formTitle="口コミ登録" />
         </CardContent>
         <Divider></Divider>
         <CardContent>

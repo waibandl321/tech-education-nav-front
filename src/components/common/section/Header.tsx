@@ -96,19 +96,27 @@ export default function Header() {
               </Box>
             )}
             {isLoggedIn && (
-              <Box sx={{ color: "#333", display: { xs: "none", md: "flex" } }}>
+              <Box
+                sx={{
+                  color: "#333",
+                  display: { xs: "none", md: "flex" },
+                  alignItems: "center",
+                }}
+              >
                 <Button
                   onClick={() => router.push("/user/review/register")}
                   color="primary"
                   variant="contained"
-                  sx={{ mr: 2 }}
+                  size="small"
+                  sx={{ mr: 2, height: 32 }}
                 >
                   口コミを投稿する
                 </Button>
                 <Button
                   onClick={() => router.push("/user/review")}
                   color="inherit"
-                  sx={{ mr: 2 }}
+                  size="small"
+                  sx={{ mr: 2, height: 32 }}
                 >
                   あなたの投稿
                 </Button>

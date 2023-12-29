@@ -108,5 +108,18 @@ export const useFormOptions = () => {
     ];
   };
 
-  return { prefectures, genders, years, months, days, getBirthDayFields };
+  const getGenderText = (key?: string | null) => {
+    if (!key) return "";
+    return genders.find((g) => g.key === key)?.value ?? "";
+  };
+
+  return {
+    prefectures,
+    genders,
+    years,
+    months,
+    days,
+    getBirthDayFields,
+    getGenderText,
+  };
 };

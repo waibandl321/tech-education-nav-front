@@ -100,18 +100,21 @@ export default function ReviewPostPane({
     <Container maxWidth="md">
       <Card sx={{ pb: 6, backgroundColor: "#f5f5f5" }} elevation={0}>
         <CardContent sx={{ pt: 4 }}>
-          <FormTitle formTitle="レビューを投稿してください。" />
+          <FormTitle formTitle="投稿" />
+        </CardContent>
+        <Divider></Divider>
+        <CardContent>
           <List>
             <ListItem>スクール名: {center.name}</ListItem>
             <ListItem>コース名: {course.courseName}</ListItem>
           </List>
         </CardContent>
         <Divider></Divider>
-        <CardContent sx={{ py: 3 }}>
+        <CardContent sx={isMobile ? { px: 2 } : { px: 4 }}>
           <Typography fontWeight={700}>
             スクールを受講したことで得られた結果
           </Typography>
-          <Typography sx={{ color: "#666", my: 2 }} fontSize={14}>
+          <Typography sx={{ color: "#666", my: 1 }} fontSize={14}>
             例:学習開始から3ヶ月でエンジニアとして転職成功、年収100万円UP、受講期間中に〇〇万円の案件を受注し費用回収に成功など
           </Typography>
           <Textarea
@@ -121,10 +124,10 @@ export default function ReviewPostPane({
           ></Textarea>
         </CardContent>
         <CardContent sx={isMobile ? { px: 2 } : { px: 4 }}>
-          <Typography fontWeight={700} sx={{ my: 2 }}>
+          <Typography fontWeight={700}>
             これから受講する後輩へのメッセージ
           </Typography>
-          <Typography sx={{ color: "#666", my: 2 }} fontSize={14}>
+          <Typography sx={{ color: "#666", mb: 1 }} fontSize={14}>
             例:スクールでの学び方のポイントや、エンジニアを目指す上でのエールなど
           </Typography>
           <Textarea
@@ -134,11 +137,9 @@ export default function ReviewPostPane({
           ></Textarea>
         </CardContent>
         <CardContent sx={isMobile ? { px: 2 } : { px: 4 }}>
-          <Typography fontWeight={700} sx={{ my: 2 }}>
-            備考
-          </Typography>
-          <Typography sx={{ color: "#666", my: 2 }} fontSize={14}>
-            受講したコースの改善点などがあれば、記載してください。
+          <Typography fontWeight={700}>受講したコースの改善点</Typography>
+          <Typography sx={{ color: "#666", my: 1 }} fontSize={14}>
+            例: オンラインカウンセリングの
           </Typography>
           <Textarea
             name="otherMemo"

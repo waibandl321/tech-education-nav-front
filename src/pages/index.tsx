@@ -26,7 +26,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // hook
   const { apiGetCourseReviewsByIds } = useReviewPost();
   const { setLoading } = useLoading();
-  const { genders } = useFormOptions();
+  const { getGenderText } = useFormOptions();
 
   // state
   const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
@@ -78,11 +78,6 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
     }
   };
 
-  const getGenderText = (key?: string | null) => {
-    if (!key) return "";
-    return genders.find((g) => g.key === key)?.value ?? "";
-  };
-
   return (
     <>
       <Head>
@@ -93,7 +88,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
       <Layout>
         <Container maxWidth="md">
           <Typography textAlign="center">
-            スクールとコースを選択したら、検索が実行されます。
+            スクールとコースを選択すると、検索が実行されます。
           </Typography>
           <Grid container spacing={2} sx={{ mt: 3 }}>
             <Grid item md={6} xs={12}>
@@ -156,6 +151,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                       <Avatar>
                         <StickyNote2Icon />
                       </Avatar>
+                      aaaaa
                     </ListItemAvatar>
                     <div>
                       <div>
@@ -175,7 +171,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                         />
                         {item.otherMemo && (
                           <ListItemText
-                            primary="その他・備考"
+                            primary="受講したコースの改善点"
                             secondary={item.otherMemo}
                             sx={{ py: 1 }}
                           />

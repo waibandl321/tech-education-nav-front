@@ -2,7 +2,6 @@ import { AuthLoginFormType, AuthRegisterFormType } from "@/types/FormType";
 import {
   ConfirmSignUpInput,
   confirmSignUp,
-  getCurrentUser,
   signIn,
   signUp,
   resendSignUpCode,
@@ -10,7 +9,6 @@ import {
   ConfirmResetPasswordInput,
   confirmResetPassword,
   updateUserAttributes,
-  autoSignIn,
 } from "aws-amplify/auth";
 
 export default function useAuth() {
@@ -56,11 +54,6 @@ export default function useAuth() {
     });
 
   /**
-   * ユーザーがサインインしているかどうかを確認する
-   */
-  const currentAuthenticatedUser = async () => getCurrentUser();
-
-  /**
    * ログイン
    * @param formData ログイン画面の入力データ
    */
@@ -102,7 +95,6 @@ export default function useAuth() {
     });
 
   return {
-    currentAuthenticatedUser,
     apiConfirmSignUp,
     resendSignUpAuthCode,
     apiSignUp,
