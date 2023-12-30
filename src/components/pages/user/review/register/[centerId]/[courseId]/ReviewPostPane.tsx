@@ -8,7 +8,12 @@ import {
   ListItem,
   TextField,
   Rating,
+  Stepper,
+  Step,
+  StepLabel,
 } from "@mui/material";
+import SchoolIcon from "@mui/icons-material/School";
+import TerminalIcon from "@mui/icons-material/Terminal";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -21,7 +26,7 @@ import { CreateCourseReviewInput } from "@/API";
 import { useAccountContext } from "@/contexts/AccountContext";
 import { useLoading } from "@/contexts/LoadingContext";
 import { calculateAge } from "@/hooks/utils/useConvertData";
-
+import { steps } from "@/components/pages/user/review/register/ReviewRegisterPane";
 interface ReviewFormType {
   reviewTitle: string;
   reviewDetail: string;
@@ -107,22 +112,28 @@ export default function ReviewPostPane({
 
   return (
     <Container maxWidth="md">
-      <Card sx={{ pb: 6, backgroundColor: "#f5f5f5" }} elevation={0}>
-        <CardContent sx={{ pt: 4 }}>
-          <Typography
-            component="h2"
-            fontWeight={700}
-            variant="h6"
-            align="center"
-          >
-            投稿
-          </Typography>
+      <Card sx={{ pb: 6 }} elevation={0}>
+        <h2>レビュー投稿</h2>
+        <CardContent>
+          <Stepper activeStep={1} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
         </CardContent>
         <Divider></Divider>
         <CardContent>
           <List>
-            <ListItem>スクール名: {center.name}</ListItem>
-            <ListItem>コース名: {course.courseName}</ListItem>
+            <ListItem>
+              <SchoolIcon sx={{ mr: 1 }}></SchoolIcon>
+              {center.name}
+            </ListItem>
+            <ListItem>
+              <TerminalIcon sx={{ mr: 1 }}></TerminalIcon>
+              {course.courseName}
+            </ListItem>
           </List>
         </CardContent>
         <Divider></Divider>
@@ -165,13 +176,17 @@ export default function ReviewPostPane({
           ></Textarea>
         </CardContent>
         <FormButtons
-          submitText="送信する"
+          submitText="投稿"
           backText="戻る"
           isDisabled={
             !reviewFormData.reviewTitle || !reviewFormData.reviewDetail
           }
           handleSubmit={handleSubmit}
-          handleBack={() => router.back()}
+          handleBack={() =>
+            router.push(
+              `/user/review/register?centerId=${center.id}&courseId=${course.id}`
+            )
+          }
         />
       </Card>
     </Container>

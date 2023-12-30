@@ -4,8 +4,11 @@ import {
   CardContent,
   Container,
   Divider,
+  Rating,
   Typography,
 } from "@mui/material";
+import SchoolIcon from "@mui/icons-material/School";
+import TerminalIcon from "@mui/icons-material/Terminal";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { useEffect, useState } from "react";
 import { CourseReview } from "@/API";
@@ -52,22 +55,42 @@ export default function UserReview({
 
   return (
     <Container maxWidth="md">
+      <h2>あなたの投稿</h2>
+      {userReviews.length === 0 && (
+        <Card sx={{ pb: 6 }} elevation={0}>
+          <Typography>投稿はありません。</Typography>
+        </Card>
+      )}
       {userReviews.map((item) => (
         <Card key={item.id} sx={{ mb: 4 }}>
           <CardContent>
-            <Typography component="h3" fontWeight={700} variant="h6">
-              スクール名: 「{getTargetCenterName(item.learningCenterId)}」
+            <Typography fontWeight={700} display="flex" alignItems="center">
+              <SchoolIcon sx={{ mr: 1 }} />
+              <span>「{getTargetCenterName(item.learningCenterId)}」</span>
             </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              受講したコース: {getTargetCourseName(item.learningCenterCourseId)}
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+              display="flex"
+              alignItems="center"
+            >
+              <TerminalIcon sx={{ mr: 1 }} />
+              <span>{getTargetCourseName(item.learningCenterCourseId)}</span>
             </Typography>
-            <Typography variant="subtitle2" color="textSecondary">
+            <Typography
+              variant="subtitle2"
+              color="textSecondary"
+              marginTop={0.5}
+            >
               {dayjs(item.createdAt).format("YYYY-MM-DD")}にレビュー
             </Typography>
-            <Divider sx={{ my: 2 }}></Divider>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="body1">{item.reviewDetail}</Typography>
-            </Box>
+            <Rating readOnly value={item.rating} size="small" sx={{ mt: 1 }} />
+            <Typography variant="body1" marginTop={1} fontWeight={700}>
+              {item.reviewTitle}
+            </Typography>
+            <Typography variant="body1" marginTop={1}>
+              {item.reviewDetail}
+            </Typography>
           </CardContent>
         </Card>
       ))}

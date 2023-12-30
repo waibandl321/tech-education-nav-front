@@ -29,8 +29,8 @@ export default function FormButtons({
             size="large"
             sx={{
               width: isSpDevice ? "100%" : 400,
-              height: 60,
-              fontSize: 20,
+              height: 52,
+              fontSize: 18,
             }}
             onClick={handleSubmit}
             disabled={isDisabled}
@@ -41,15 +41,15 @@ export default function FormButtons({
       )}
 
       {backText && (
-        <Box textAlign="center" sx={{ mt: 4, px: 2 }}>
+        <Box textAlign="center" sx={{ mt: 2, px: 2 }}>
           <Button
             color="inherit"
             variant="outlined"
             size="large"
             sx={{
               width: isSpDevice ? "100%" : 400,
-              height: 60,
-              fontSize: 20,
+              height: 52,
+              fontSize: 18,
             }}
             onClick={handleBack}
           >

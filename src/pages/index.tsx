@@ -1,21 +1,15 @@
 import { GetServerSideProps } from "next";
 import {
   Autocomplete,
-  Avatar,
   Box,
   Container,
   Grid,
-  List,
-  Rating,
   TextField,
   Typography,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Divider,
+  InputAdornment,
 } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountBox";
+import SchoolIcon from "@mui/icons-material/School";
+import TerminalIcon from "@mui/icons-material/Terminal";
 import React, { useEffect, useMemo, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
@@ -24,55 +18,7 @@ import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { useLoading } from "@/contexts/LoadingContext";
-import { useFormOptions } from "@/hooks/utils/useFormOptions";
-
-function ReviewListSection({
-  reviewList,
-}: {
-  reviewList: Array<CourseReview>;
-}) {
-  const { getGenderText } = useFormOptions();
-  const subHeaderText = (item: CourseReview) => {
-    return `${item.userAge}歳 /${getGenderText(item.userGender)}/前職: ${
-      item.userPreviousJob
-    }`;
-  };
-
-  return (
-    <List>
-      {reviewList.map((item) => (
-        <>
-          <Card key={item.id} elevation={0}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="user icon">
-                  <AccountCircle></AccountCircle>
-                </Avatar>
-              }
-              title={item.userDisplayName}
-              subheader={subHeaderText(item)}
-              sx={{ px: 0 }}
-            />
-            <CardContent sx={{ p: 0 }}>
-              <Rating readOnly value={item.rating} />
-              <Typography fontWeight={700}>{item.reviewTitle}</Typography>
-              <Typography sx={{ mt: 0.5 }}>{item.reviewDetail}</Typography>
-            </CardContent>
-            {/* <CardActions disableSpacing sx={{ px: 0 }}>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
-            </CardActions> */}
-          </Card>
-          <Divider></Divider>
-        </>
-      ))}
-    </List>
-  );
-}
+import ReviewListSection from "@/components/common/ReviewListSection";
 
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // hook
@@ -155,8 +101,15 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="スクールを選択"
-                    placeholder="テキストで検索できます"
+                    placeholder="スクールを選択してください"
+                    InputProps={{
+                      ...params.InputProps,
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SchoolIcon />
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 )}
                 fullWidth
@@ -181,7 +134,15 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                   <TextField
                     {...params}
                     label="コースを選択"
-                    placeholder="テキストで検索できます"
+                    placeholder="コースを選択してください"
+                    InputProps={{
+                      ...params.InputProps,
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <TerminalIcon />
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 )}
               />
