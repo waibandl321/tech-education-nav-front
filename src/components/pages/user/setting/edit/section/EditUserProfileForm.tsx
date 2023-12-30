@@ -63,9 +63,10 @@ export default function EditUserProfileForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={{ mt: 5 }}>
+      <Box>
         <Typography>氏名</Typography>
         <TextField
+          size="small"
           value={user.name || ""}
           {...register("name", {
             required: {
@@ -84,7 +85,7 @@ export default function EditUserProfileForm({
           sx={{ mt: 1 }}
         />
       </Box>
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 3 }}>
         <Typography>性別</Typography>
         <RadioGroup
           row
@@ -114,13 +115,14 @@ export default function EditUserProfileForm({
           </FormHelperText>
         )}
       </Box>
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 3 }}>
         <Typography>生年月日</Typography>
         <Grid container alignItems="center" sx={{ mt: 1 }}>
           {getBirthDayFields(user).map((field, index) => (
             <React.Fragment key={field.name}>
               <Grid item minWidth={80}>
                 <Select
+                  size="small"
                   labelId={field.labelId}
                   id={field.labelId}
                   fullWidth
@@ -152,11 +154,12 @@ export default function EditUserProfileForm({
           ))}
         </Grid>
       </Box>
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 3 }}>
         <Typography>現在お住まいの都道府県</Typography>
         <Grid container sx={{ mt: 1 }}>
           <Grid item minWidth={200}>
             <Select
+              size="small"
               value={user?.prefecture || ""}
               {...register("prefecture", {
                 required: {
@@ -184,9 +187,10 @@ export default function EditUserProfileForm({
           </FormHelperText>
         )}
       </Box>
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 3 }}>
         <Typography>前職</Typography>
         <TextField
+          size="small"
           value={user?.previousJob || ""}
           {...register("previousJob", {
             required: {
@@ -205,7 +209,7 @@ export default function EditUserProfileForm({
           sx={{ mt: 1 }}
         />
       </Box>
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 3 }}>
         <Button
           variant="contained"
           size="large"

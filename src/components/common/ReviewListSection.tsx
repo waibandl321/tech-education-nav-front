@@ -28,8 +28,8 @@ export default function ReviewListSection({
   return (
     <List>
       {reviewList.map((item) => (
-        <>
-          <Card key={item.id} elevation={0}>
+        <div key={item.id}>
+          <Card elevation={0}>
             <CardHeader
               avatar={
                 <Avatar aria-label="user icon">
@@ -55,7 +55,7 @@ export default function ReviewListSection({
             </CardActions> */}
           </Card>
           <Divider></Divider>
-        </>
+        </div>
       ))}
     </List>
   );
