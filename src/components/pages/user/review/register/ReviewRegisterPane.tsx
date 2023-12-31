@@ -12,6 +12,7 @@ import {
   Step,
   StepLabel,
   InputAdornment,
+  Typography,
 } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import TerminalIcon from "@mui/icons-material/Terminal";
@@ -23,7 +24,7 @@ import { CentersAndCoursesPropType } from "@/types/CommonType";
 import FormButtons from "@/components/common/parts/FormButtons";
 import { ensureString } from "@/hooks/utils/useConvertData";
 
-export const steps = ["スクールとコースを選択", "レビュー投稿"];
+export const steps = ["スクールとコースを選択", "口コミ投稿"];
 
 export default function ReviewRegister({
   centers,
@@ -80,90 +81,87 @@ export default function ReviewRegister({
   };
 
   return (
-    <Container maxWidth="md">
-      <Card sx={{ pb: 6 }} elevation={0}>
-        <h2>レビュー投稿</h2>
-        <CardContent>
-          <Stepper activeStep={0} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </CardContent>
-        <Divider></Divider>
-        <CardContent>
-          <Grid container spacing={2} sx={{ mt: 2 }}>
-            <Grid item md={6} xs={12}>
-              <Autocomplete
-                id="learningCenterSelect"
-                value={selectedCenter}
-                options={centers}
-                noOptionsText="データがありません"
-                getOptionLabel={(option) => option.name ?? ""}
-                onChange={(event: any, newValue: LearningCenter | null) => {
-                  setSelectedCenter(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="受講したスクールを選択してください"
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SchoolIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                )}
-                fullWidth
-              />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <Autocomplete
-                fullWidth
-                disabled={!selectedCenter}
-                id="learningCourseSelect"
-                value={selectedCourse}
-                options={courseOptions}
-                noOptionsText="データがありません"
-                getOptionLabel={(option) => option.courseName ?? ""}
-                onChange={(
-                  event: any,
-                  newValue: LearningCenterCourse | null
-                ) => {
-                  setSelectedCourse(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="受講したコースを選択してください"
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <TerminalIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
-          <Box maxWidth={600} sx={{ mx: "auto", mt: 4 }}>
-            <FormButtons
-              submitText="次へ"
-              handleSubmit={handleMoveToPostPage}
-              isDisabled={!selectedCenter || !selectedCourse}
+    <Card sx={{ p: 4, borderRadius: "16px" }} elevation={3}>
+      <Typography component="h2" variant="h5" textAlign="center">
+        口コミ投稿
+      </Typography>
+      <CardContent>
+        <Stepper activeStep={0} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </CardContent>
+      <Divider></Divider>
+      <CardContent>
+        <Grid container spacing={2} sx={{ mt: 2 }}>
+          <Grid item md={6} xs={12}>
+            <Autocomplete
+              id="learningCenterSelect"
+              value={selectedCenter}
+              options={centers}
+              noOptionsText="データがありません"
+              getOptionLabel={(option) => option.name ?? ""}
+              onChange={(event: any, newValue: LearningCenter | null) => {
+                setSelectedCenter(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder="受講したスクールを選択してください"
+                  InputProps={{
+                    ...params.InputProps,
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SchoolIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+              fullWidth
             />
-          </Box>
-        </CardContent>
-      </Card>
-    </Container>
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <Autocomplete
+              fullWidth
+              disabled={!selectedCenter}
+              id="learningCourseSelect"
+              value={selectedCourse}
+              options={courseOptions}
+              noOptionsText="データがありません"
+              getOptionLabel={(option) => option.courseName ?? ""}
+              onChange={(event: any, newValue: LearningCenterCourse | null) => {
+                setSelectedCourse(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder="受講したコースを選択してください"
+                  InputProps={{
+                    ...params.InputProps,
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <TerminalIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
+        <Box maxWidth={600} sx={{ mx: "auto", mt: 4 }}>
+          <FormButtons
+            submitText="次へ"
+            handleSubmit={handleMoveToPostPage}
+            isDisabled={!selectedCenter || !selectedCourse}
+          />
+        </Box>
+      </CardContent>
+    </Card>
   );
 }
 

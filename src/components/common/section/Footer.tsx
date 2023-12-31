@@ -10,8 +10,6 @@ export default function Footer() {
         textAlign: "center",
         height: "48px",
         lineHeight: "48px",
-        backgroundColor: "#333",
-        color: "#fff",
       }}
     >
       © 2023 テック教育ナビ. All Rights Reserved.

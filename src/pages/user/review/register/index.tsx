@@ -4,6 +4,7 @@ import Head from "next/head";
 import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { GetServerSideProps } from "next";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
+import { Container } from "@mui/material";
 
 export default function ReviewRegister({
   centers,
@@ -17,7 +18,9 @@ export default function ReviewRegister({
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <ReviewRegisterPane centers={centers} courses={courses} />
+        <Container maxWidth="md" sx={{ py: 5 }}>
+          <ReviewRegisterPane centers={centers} courses={courses} />
+        </Container>
       </Layout>
     </>
   );

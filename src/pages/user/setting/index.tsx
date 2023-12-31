@@ -1,5 +1,6 @@
 import Layout from "@/app/layout";
 import UserSettingPane from "@/components/pages/user/setting/UserSettingPane";
+import { Container } from "@mui/material";
 import Head from "next/head";
 
 export default function UserSetting() {
@@ -11,7 +12,9 @@ export default function UserSetting() {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <UserSettingPane />
+        <Container maxWidth="md" sx={{ py: 5 }}>
+          <UserSettingPane />
+        </Container>
       </Layout>
     </>
   );

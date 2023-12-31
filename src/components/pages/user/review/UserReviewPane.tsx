@@ -54,7 +54,7 @@ export default function UserReview({
   };
 
   return (
-    <Container maxWidth="md">
+    <>
       <h2>あなたの投稿</h2>
       {userReviews.length === 0 && (
         <Card sx={{ pb: 6 }} elevation={0}>
@@ -82,7 +82,7 @@ export default function UserReview({
               color="textSecondary"
               marginTop={0.5}
             >
-              {dayjs(item.createdAt).format("YYYY-MM-DD")}にレビュー
+              {dayjs(item.createdAt).format("YYYY-MM-DD")}に口コミ
             </Typography>
             <Rating readOnly value={item.rating} size="small" sx={{ mt: 1 }} />
             <Typography variant="body1" marginTop={1} fontWeight={700}>
@@ -94,6 +94,6 @@ export default function UserReview({
           </CardContent>
         </Card>
       ))}
-    </Container>
+    </>
   );
 }

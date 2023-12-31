@@ -1,13 +1,7 @@
 import { AccountInfomation } from "@/contexts/AccountContext";
 import useValidation from "@/hooks/utils/useValidation";
 import { UserAccountInputType } from "@/types/FormType";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -41,38 +35,33 @@ export default function EditUserAccountForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={{ mt: 2 }}>
-        <Typography>メールアドレス</Typography>
-        <TextField
-          margin="normal"
-          fullWidth
-          id="email"
-          autoComplete="email"
-          autoFocus
-          value={account.email || ""}
-          {...register("email", {
-            required: true,
-            pattern: EmailRegex,
-            onChange: (event) => handlerFormChange(event),
-          })}
-          error={!!errors.email}
-          helperText={useGetEmailInputError(errors.email?.type)}
-        />
-      </Box>
-      <Box sx={{ mt: 5 }}>
-        <Button
-          variant="contained"
-          size="large"
-          sx={{
-            width: "100%",
-            fontSize: isMobile ? 16 : 18,
-            height: isMobile ? 48 : 56,
-          }}
-          type="submit"
-        >
-          保存
-        </Button>
-      </Box>
+      <Typography marginBottom={1}>メールアドレス</Typography>
+      <TextField
+        size="small"
+        fullWidth
+        id="email"
+        autoComplete="email"
+        autoFocus
+        value={account.email || ""}
+        {...register("email", {
+          required: true,
+          pattern: EmailRegex,
+          onChange: (event) => handlerFormChange(event),
+        })}
+        error={!!errors.email}
+        helperText={useGetEmailInputError(errors.email?.type)}
+      />
+      <Button
+        variant="contained"
+        size="large"
+        sx={{
+          width: "100%",
+          mt: 4,
+        }}
+        type="submit"
+      >
+        保存
+      </Button>
     </form>
   );
 }

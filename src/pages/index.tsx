@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
   InputAdornment,
+  Paper,
 } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import TerminalIcon from "@mui/icons-material/Terminal";
@@ -19,6 +20,7 @@ import { CentersAndCoursesPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { useLoading } from "@/contexts/LoadingContext";
 import ReviewListSection from "@/components/common/ReviewListSection";
+import Link from "next/link";
 
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // hook
@@ -57,7 +59,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
     }
   }, [selectedCenter, selectedCourse]);
 
-  // レビュー表示
+  // 口コミ表示
   const handleViewReviews = async () => {
     if (!selectedCenter?.id || !selectedCourse?.id) return;
     setLoading(true);
@@ -83,74 +85,105 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <Container maxWidth="md">
-          <Typography textAlign="center">
-            スクールとコースを選択すると、検索が実行されます。
-          </Typography>
-          <Grid container spacing={2} sx={{ mt: 3 }}>
-            <Grid item md={6} xs={12}>
-              <Autocomplete
-                id="learningCenterSelect"
-                value={selectedCenter}
-                options={centers}
-                noOptionsText="データがありません"
-                getOptionLabel={(option) => option.name ?? ""}
-                onChange={(event: any, newValue: LearningCenter | null) => {
-                  setSelectedCenter(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="スクールを選択してください"
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SchoolIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                )}
-                fullWidth
-              />
+        <Paper
+          elevation={0}
+          sx={{ pt: 5, borderRadius: 0, backgroundColor: "#f8f8f8" }}
+        >
+          <Container>
+            <Typography textAlign="center" component={"h2"} variant="h5">
+              口コミを検索
+            </Typography>
+            <Typography textAlign="center" marginTop={2}>
+              スクールとコースを選択すると検索が実行されます。
+            </Typography>
+            <Grid container spacing={2} sx={{ mt: 3 }}>
+              <Grid item md={6} xs={12}>
+                <Autocomplete
+                  id="learningCenterSelect"
+                  value={selectedCenter}
+                  options={centers}
+                  noOptionsText="データがありません"
+                  getOptionLabel={(option) => option.name ?? ""}
+                  onChange={(event: any, newValue: LearningCenter | null) => {
+                    setSelectedCenter(newValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="スクールを選択してください"
+                      InputProps={{
+                        ...params.InputProps,
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SchoolIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+                  fullWidth
+                  sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+                />
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Autocomplete
+                  disabled={!selectedCenter}
+                  id="learningCourseSelect"
+                  value={selectedCourse}
+                  options={courseOptions}
+                  noOptionsText="データがありません"
+                  getOptionLabel={(option) => option.courseName ?? ""}
+                  onChange={(
+                    event: any,
+                    newValue: LearningCenterCourse | null
+                  ) => {
+                    setSelectedCourse(newValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="コースを選択してください"
+                      InputProps={{
+                        ...params.InputProps,
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <TerminalIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+                  fullWidth
+                  sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+                />
+              </Grid>
             </Grid>
-            <Grid item md={6} xs={12}>
-              <Autocomplete
-                fullWidth
-                disabled={!selectedCenter}
-                id="learningCourseSelect"
-                value={selectedCourse}
-                options={courseOptions}
-                noOptionsText="データがありません"
-                getOptionLabel={(option) => option.courseName ?? ""}
-                onChange={(
-                  event: any,
-                  newValue: LearningCenterCourse | null
-                ) => {
-                  setSelectedCourse(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="コースを選択"
-                    placeholder="コースを選択してください"
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <TerminalIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                )}
-              />
+          </Container>
+        </Paper>
+        {/* 一覧 */}
+        {selectedCenter && selectedCourse && (
+          <Container sx={{ mt: 5, pb: 6 }}>
+            <Grid container justifyContent="space-between" alignItems="center">
+              <h2>口コミ一覧</h2>
+              <Box>
+                <Typography textAlign="right">
+                  <span style={{ marginRight: 8 }}>
+                    スクール詳細（公式サイト）:
+                  </span>
+                  <Link href={selectedCenter.websiteURL ?? ""} target="_brank">
+                    {selectedCenter.name}
+                  </Link>
+                </Typography>
+                <Typography textAlign="right">
+                  <span style={{ marginRight: 8 }}>
+                    コース詳細（公式サイト）:
+                  </span>
+                  <Link href={selectedCourse.courseURL ?? ""} target="_brank">
+                    {selectedCourse.courseName}
+                  </Link>
+                </Typography>
+              </Box>
             </Grid>
-          </Grid>
-          {/* 一覧 */}
-          <Box sx={{ mt: 5 }}>
-            <h2>口コミ一覧</h2>
             {/* 件数あり */}
             {reviewList.length > 0 && (
               <ReviewListSection reviewList={reviewList} />
@@ -159,8 +192,8 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
             {reviewList.length === 0 && (
               <Typography textAlign="center">データがありません。</Typography>
             )}
-          </Box>
-        </Container>
+          </Container>
+        )}
       </Layout>
     </>
   );

@@ -1,17 +1,17 @@
 import {
   Avatar,
-  List,
   Rating,
   Typography,
   Card,
   CardHeader,
   CardContent,
-  Divider,
+  Paper,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountBox";
 import React from "react";
 import { CourseReview } from "@/API";
 import { useFormOptions } from "@/hooks/utils/useFormOptions";
+import Masonry from "@mui/lab/Masonry";
 
 export default function ReviewListSection({
   reviewList,
@@ -26,9 +26,9 @@ export default function ReviewListSection({
   };
 
   return (
-    <List>
+    <Masonry columns={2} spacing={2}>
       {reviewList.map((item) => (
-        <div key={item.id}>
+        <Paper key={item.id} elevation={3} sx={{ p: 2, borderRadius: 2 }}>
           <Card elevation={0}>
             <CardHeader
               avatar={
@@ -38,12 +38,14 @@ export default function ReviewListSection({
               }
               title={item.userDisplayName}
               subheader={subHeaderText(item)}
-              sx={{ px: 0 }}
+              sx={{ p: 0 }}
             />
             <CardContent sx={{ p: 0 }}>
-              <Rating readOnly value={item.rating} />
-              <Typography fontWeight={700}>{item.reviewTitle}</Typography>
-              <Typography sx={{ mt: 0.5 }}>{item.reviewDetail}</Typography>
+              <Rating readOnly value={item.rating} sx={{ mt: 1 }} />
+              <Typography fontWeight={700} marginTop={1}>
+                {item.reviewTitle}
+              </Typography>
+              <Typography marginTop={1}>{item.reviewDetail}</Typography>
             </CardContent>
             {/* <CardActions disableSpacing sx={{ px: 0 }}>
               <IconButton aria-label="add to favorites">
@@ -54,9 +56,8 @@ export default function ReviewListSection({
               </IconButton>
             </CardActions> */}
           </Card>
-          <Divider></Divider>
-        </div>
+        </Paper>
       ))}
-    </List>
+    </Masonry>
   );
 }

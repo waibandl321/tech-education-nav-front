@@ -5,6 +5,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { ensureString } from "@/hooks/utils/useConvertData";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
+import { Container } from "@mui/material";
 /**
  * 口コミ投稿画面
  */
@@ -20,7 +21,9 @@ export default function Comment({
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <ReviewPostPane center={center} course={course} />
+        <Container maxWidth="md" sx={{ py: 5 }}>
+          <ReviewPostPane center={center} course={course} />
+        </Container>
       </Layout>
     </>
   );

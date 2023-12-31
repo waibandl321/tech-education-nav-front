@@ -6,17 +6,19 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Button, Container } from "@mui/material";
+import MenuOpenOutlined from "@mui/icons-material/MenuOpenOutlined";
+import { Button, Typography } from "@mui/material";
 // useRouter
 import { useRouter } from "next/navigation";
 import useSignOut from "@/hooks/components/auth/useSignOut";
 import { useAccountContext } from "@/contexts/AccountContext";
+import PersonIcon from "@mui/icons-material/Person";
+import Link from "next/link";
 
 export default function Header() {
   const router = useRouter();
   const handleSignOut = useSignOut();
-  const { isLoggedIn } = useAccountContext();
+  const { isLoggedIn, loginUser } = useAccountContext();
 
   // アカウントメニュー
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -46,8 +48,11 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      <MenuItem onClick={() => router.push("/user/review")}>
+        あなたの投稿
+      </MenuItem>
       <MenuItem onClick={() => router.push("/user/setting")}>
-        プロフィール・各種設定
+        プロフィール
       </MenuItem>
       <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
     </Menu>
@@ -55,84 +60,66 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{ backgroundColor: "#F5F5F5", color: "#333" }}
-        elevation={0}
-      >
-        <Container>
-          <Toolbar>
-            <Button
-              variant="text"
-              color="inherit"
-              sx={{
-                display: { xs: "none", sm: "block" },
-                m: "0 24px 0 0",
-                fontSize: 20,
-              }}
-              onClick={() => router.push("/")}
-            >
-              テック教育ナビ
-            </Button>
-            <Box sx={{ flexGrow: 1 }} />
-            {!isLoggedIn && (
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ m: "0 8px" }}
-                  href="/auth/login"
-                >
-                  ログイン
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  sx={{ m: "0 8px" }}
-                  href="/auth/register"
-                >
-                  会員登録
-                </Button>
-              </Box>
-            )}
-            {isLoggedIn && (
-              <Box
-                sx={{
-                  color: "#333",
-                  display: { xs: "none", md: "flex" },
-                  alignItems: "center",
-                }}
+      <AppBar position="static" sx={{ backgroundColor: "#fff" }} elevation={3}>
+        <Toolbar>
+          <Link
+            style={{ textDecoration: "none", color: "#666", fontSize: 20 }}
+            href="/"
+          >
+            テック教育ナビ
+          </Link>
+          <Link
+            style={{ textDecoration: "none", color: "#1976d2", marginLeft: 40 }}
+            href="/"
+          >
+            口コミを探す
+          </Link>
+          <Link
+            style={{ textDecoration: "none", color: "#1976d2", marginLeft: 16 }}
+            href="/user/review/register"
+          >
+            口コミを投稿する
+          </Link>
+          <Box sx={{ flexGrow: 1 }} />
+          {!isLoggedIn && (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ m: "0 8px" }}
+                href="/auth/login"
               >
-                <Button
-                  onClick={() => router.push("/user/review/register")}
-                  color="primary"
-                  variant="contained"
-                  size="small"
-                  sx={{ mr: 2, height: 32 }}
-                >
-                  口コミを投稿する
-                </Button>
-                <Button
-                  onClick={() => router.push("/user/review")}
-                  color="inherit"
-                  size="small"
-                  sx={{ mr: 2, height: 32 }}
-                >
-                  あなたの投稿
-                </Button>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
-                  onClick={handleAccountMenuOpen}
-                >
-                  <AccountCircle />
-                </IconButton>
-              </Box>
-            )}
-          </Toolbar>
-        </Container>
+                ログイン
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{ m: "0 8px" }}
+                href="/auth/register"
+              >
+                会員登録
+              </Button>
+            </Box>
+          )}
+          {isLoggedIn && (
+            <>
+              <Typography color="GrayText" display="flex" alignItems="center">
+                <PersonIcon sx={{ mr: 1 }}></PersonIcon>
+                <span>{loginUser?.name ?? ""}さん</span>
+              </Typography>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                onClick={handleAccountMenuOpen}
+                sx={{ ml: 2 }}
+              >
+                <MenuOpenOutlined />
+              </IconButton>
+            </>
+          )}
+        </Toolbar>
       </AppBar>
       {renderMenu}
     </Box>

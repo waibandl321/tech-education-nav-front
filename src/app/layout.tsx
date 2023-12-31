@@ -26,11 +26,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Box sx={{ flexGrow: 1, display: { xs: "block", sm: "none" } }}>
         <MobileHeader />
       </Box>
-      <Container
-        sx={{ py: 4, height: "calc(100dvh - 112px)", overflow: "auto" }}
-      >
-        {children}
-      </Container>
+      {/* <Box sx={{ height: "calc(100dvh - 112px)", overflow: "auto" }}> */}
+      <Box sx={{ minHeight: "calc(100dvh - 112px)" }}>{children}</Box>
       <Footer />
     </>
   );

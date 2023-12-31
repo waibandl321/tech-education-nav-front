@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
+import { Container } from "@mui/material";
 
 export default function UserReview({
   centers,
@@ -17,7 +18,9 @@ export default function UserReview({
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <UserReviewPane centers={centers} courses={courses} />
+        <Container maxWidth="md" sx={{ py: 5 }}>
+          <UserReviewPane centers={centers} courses={courses} />
+        </Container>
       </Layout>
     </>
   );
