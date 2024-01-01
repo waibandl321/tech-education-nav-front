@@ -178,7 +178,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
               </Box>
               <Box>
                 <Typography
-                  textAlign="right"
+                  justifyContent="flex-start"
                   display="flex"
                   alignItems="center"
                 >
@@ -199,7 +199,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                   </Link>
                 </Typography>
                 <Typography
-                  textAlign="right"
+                  justifyContent="flex-start"
                   display="flex"
                   alignItems="center"
                   marginTop={0.5}
