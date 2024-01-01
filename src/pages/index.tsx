@@ -170,17 +170,12 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
               alignItems="center"
               sx={{ mb: 1 }}
             >
-              <Typography
-                component="h2"
-                variant="h6"
-                display="flex"
-                alignItems="center"
-              >
-                <span>口コミ一覧</span>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <h2>口コミ一覧</h2>
                 <Typography variant="subtitle2" color="GrayText" marginLeft={2}>
                   {reviewList.length}件のレビュー
                 </Typography>
-              </Typography>
+              </Box>
               <Box>
                 <Typography
                   textAlign="right"
