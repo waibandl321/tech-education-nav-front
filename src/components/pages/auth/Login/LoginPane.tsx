@@ -21,6 +21,7 @@ export default function LoginPane() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            borderRadius: 3,
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>

@@ -14,13 +14,14 @@ export default function Register() {
   const { signUpSubmit } = useRegister();
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="sm" sx={{ py: 5 }}>
       <Card
         sx={{
           p: isMobile ? 2 : 6,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: 3,
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -28,10 +29,6 @@ export default function Register() {
         </Avatar>
         <Typography component="h1" variant="h5">
           会員登録
-        </Typography>
-        <Typography sx={{ mt: 3 }}>
-          メールアドレス、パスワードを送信すると、メールアドレス宛に認証コードが送信されます。
-          「認証コード」の確認は次の画面で行います。
         </Typography>
         <RegisterForm onSubmit={signUpSubmit} />
         <RegisterLinks />

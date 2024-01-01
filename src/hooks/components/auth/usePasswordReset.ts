@@ -24,8 +24,7 @@ const usePasswordReset = () => {
         router.replace("/auth/reset-password-confirm");
         setAlertMessage({
           type: "success",
-          message:
-            "メールアドレスに認証コードを送信しました。認証コードと新しいパスワードを入力してください。",
+          message: "メールアドレスに認証コードを送信しました。",
         });
         break;
       case "DONE":

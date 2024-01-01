@@ -20,6 +20,7 @@ import { CentersAndCoursesPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { useLoading } from "@/contexts/LoadingContext";
 import ReviewListSection from "@/components/common/ReviewListSection";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Link from "next/link";
 
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
@@ -163,23 +164,65 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
         {/* 一覧 */}
         {selectedCenter && selectedCourse && (
           <Container sx={{ mt: 5, pb: 6 }}>
-            <Grid container justifyContent="space-between" alignItems="center">
-              <h2>口コミ一覧</h2>
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ mb: 1 }}
+            >
+              <Typography
+                component="h2"
+                variant="h6"
+                display="flex"
+                alignItems="center"
+              >
+                <span>口コミ一覧</span>
+                <Typography variant="subtitle2" color="GrayText" marginLeft={2}>
+                  {reviewList.length}件のレビュー
+                </Typography>
+              </Typography>
               <Box>
-                <Typography textAlign="right">
+                <Typography
+                  textAlign="right"
+                  display="flex"
+                  alignItems="center"
+                >
                   <span style={{ marginRight: 8 }}>
                     スクール詳細（公式サイト）:
                   </span>
-                  <Link href={selectedCenter.websiteURL ?? ""} target="_brank">
-                    {selectedCenter.name}
+                  <Link
+                    color="primary"
+                    href={selectedCenter.websiteURL ?? ""}
+                    target="_brank"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <OpenInNewIcon
+                      fontSize="small"
+                      sx={{ mr: 1 }}
+                    ></OpenInNewIcon>
+                    <span>{selectedCenter.name}</span>
                   </Link>
                 </Typography>
-                <Typography textAlign="right">
+                <Typography
+                  textAlign="right"
+                  display="flex"
+                  alignItems="center"
+                  marginTop={0.5}
+                >
                   <span style={{ marginRight: 8 }}>
                     コース詳細（公式サイト）:
                   </span>
-                  <Link href={selectedCourse.courseURL ?? ""} target="_brank">
-                    {selectedCourse.courseName}
+                  <Link
+                    color="primary"
+                    href={selectedCourse.courseURL ?? ""}
+                    target="_brank"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <OpenInNewIcon
+                      fontSize="small"
+                      sx={{ mr: 1 }}
+                    ></OpenInNewIcon>
+                    <span>{selectedCourse.courseName}</span>
                   </Link>
                 </Typography>
               </Box>

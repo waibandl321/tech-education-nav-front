@@ -13,11 +13,7 @@ export default function PasswordResetRequest() {
   const { requestPasswordReset } = usePasswordReset();
 
   return (
-    <Container
-      sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6, minHeight: "75vh" }}
-      component="main"
-      maxWidth="sm"
-    >
+    <Container sx={{ py: 5 }} component="main" maxWidth="sm">
       <Card
         sx={{
           p: isMobile ? 2 : 6,
@@ -34,7 +30,6 @@ export default function PasswordResetRequest() {
         </Typography>
         <Typography sx={{ mt: 3 }}>
           メールアドレスを入力して認証コードをお受け取りください。
-          次の画面でパスワードの再設定を行います。
         </Typography>
         <Box sx={{ mt: 4 }}>
           <PasswordRequestForm onSubmit={requestPasswordReset} />

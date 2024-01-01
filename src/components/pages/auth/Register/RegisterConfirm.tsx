@@ -22,17 +22,14 @@ export default function RegisterConfirm() {
   const { confirmSignUpSubmit } = useRegister();
 
   return (
-    <Container
-      sx={isMobile ? { px: 2, py: 4 } : { px: 4, py: 6 }}
-      component="main"
-      maxWidth="sm"
-    >
+    <Container sx={{ py: 5 }} component="main" maxWidth="sm">
       <Card
         sx={{
           p: isMobile ? 2 : 6,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: 3,
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>

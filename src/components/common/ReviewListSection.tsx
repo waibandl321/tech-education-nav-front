@@ -12,6 +12,7 @@ import React from "react";
 import { CourseReview } from "@/API";
 import { useFormOptions } from "@/hooks/utils/useFormOptions";
 import Masonry from "@mui/lab/Masonry";
+import dayjs from "dayjs";
 
 export default function ReviewListSection({
   reviewList,
@@ -46,6 +47,14 @@ export default function ReviewListSection({
                 {item.reviewTitle}
               </Typography>
               <Typography marginTop={1}>{item.reviewDetail}</Typography>
+              <Typography
+                variant="subtitle2"
+                color="textSecondary"
+                marginTop={0.5}
+                textAlign="right"
+              >
+                {dayjs(item.createdAt).format("YYYY-MM-DD")}に口コミ
+              </Typography>
             </CardContent>
             {/* <CardActions disableSpacing sx={{ px: 0 }}>
               <IconButton aria-label="add to favorites">

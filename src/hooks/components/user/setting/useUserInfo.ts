@@ -1,4 +1,3 @@
-// hooks/useUserInfo.js
 import { useState, useEffect, useCallback } from "react";
 import { useAccountContext } from "@/contexts/AccountContext";
 import { useLoading } from "@/contexts/LoadingContext";
@@ -11,7 +10,7 @@ import useAPIRequest from "@/hooks/utils/useAPIRequest";
 export function useUserInfo() {
   const [user, setUser] = useState({} as User);
   const { apiGetUserByCognitoSub } = useUser();
-  const { accountInfomation } = useAccountContext();
+  const { accountInfomation, setLoginUser } = useAccountContext();
   const { setLoading } = useLoading();
   const { setAlertMessage } = useMessageAlert();
   const { apiUpdateUser } = useUser();
@@ -55,6 +54,7 @@ export function useUserInfo() {
       if (!result.isSuccess || !result.data) {
         throw new Error("");
       }
+      setLoginUser(result.data);
       setAlertMessage({
         type: "success",
         message: "データを保存しました。",

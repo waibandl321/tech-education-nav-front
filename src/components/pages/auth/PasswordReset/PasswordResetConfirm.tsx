@@ -15,7 +15,7 @@ export default function PasswordResetConfirm() {
   const { confirmPasswordReset } = usePasswordReset();
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="sm" sx={{ py: 5 }}>
       <Card
         sx={{
           p: isMobile ? 2 : 6,

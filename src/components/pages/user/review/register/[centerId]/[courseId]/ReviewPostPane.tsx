@@ -164,9 +164,9 @@ export default function ReviewPostPane({
         <Divider sx={{ my: 2 }}></Divider>
         <Typography fontWeight={700}>口コミの詳細</Typography>
         <Typography variant="body2" sx={{ my: 1 }}>
-          スクールの良かった/悪かった（改善してほしい）ことは何ですか？
+          スクールの良かった点/悪かった点は何ですか？
           <br />
-          また、受講したことでどのような結果を得ることができましたか？
+          また、受講してどのような結果を得ることができましたか？
         </Typography>
         <Textarea
           name="reviewDetail"

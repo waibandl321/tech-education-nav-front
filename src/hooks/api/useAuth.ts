@@ -83,17 +83,6 @@ export default function useAuth() {
   }: ConfirmResetPasswordInput) =>
     confirmResetPassword({ username, confirmationCode, newPassword });
 
-  /**
-   * Update email
-   */
-  const apiUpdateUserAttr = async (updatedEmail: string) =>
-    updateUserAttributes({
-      userAttributes: {
-        email: updatedEmail,
-        name: updatedEmail,
-      },
-    });
-
   return {
     apiConfirmSignUp,
     resendSignUpAuthCode,
@@ -101,6 +90,5 @@ export default function useAuth() {
     apiSignin,
     apiResetPassword,
     apiConfirmResetPassword,
-    apiUpdateUserAttr,
   };
 }

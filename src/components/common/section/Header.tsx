@@ -8,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuOpenOutlined from "@mui/icons-material/MenuOpenOutlined";
 import { Button, Typography } from "@mui/material";
-// useRouter
 import { useRouter } from "next/navigation";
 import useSignOut from "@/hooks/components/auth/useSignOut";
 import { useAccountContext } from "@/contexts/AccountContext";
