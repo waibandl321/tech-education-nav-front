@@ -1,5 +1,5 @@
 import Layout from "@/app/layout";
-import LoginPane from "@/components/pages/auth/Login/pane/LoginPane";
+import LoginPane from "@/components/pages/auth/Login/LoginPane";
 import Head from "next/head";
 
 export default function Login() {

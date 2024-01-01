@@ -5,8 +5,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Card, useMediaQuery } from "@mui/material";
 import useRegister from "@/hooks/components/auth/useRegister";
-import RegisterForm from "../section/RegisterForm";
-import RegisterLinks from "../section/RegisterLinks";
+import RegisterForm from "./section/RegisterForm";
+import RegisterLinks from "./section/RegisterLinks";
 
 export default function Register() {
   // hooks
