@@ -13,7 +13,7 @@ import useRegister from "@/hooks/components/auth/useRegister";
 
 export default function RegisterConfirm() {
   // hooks
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const {
     register,
     handleSubmit,

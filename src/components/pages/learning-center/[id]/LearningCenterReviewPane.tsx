@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 
 export default function LearningCenterReviewPane() {
   const router = useRouter();
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
 
   return (
     <>

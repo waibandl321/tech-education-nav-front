@@ -5,7 +5,6 @@ import {
   Divider,
   Box,
   Grid,
-  Container,
   Autocomplete,
   TextField,
   Stepper,
@@ -13,6 +12,7 @@ import {
   StepLabel,
   InputAdornment,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import TerminalIcon from "@mui/icons-material/Terminal";
@@ -22,7 +22,6 @@ import { GetServerSideProps } from "next";
 import { LearningCenter, LearningCenterCourse } from "@/API";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import FormButtons from "@/components/common/parts/FormButtons";
-import { ensureString } from "@/hooks/utils/useConvertData";
 
 export const steps = ["スクールとコースを選択", "口コミ投稿"];
 
@@ -31,6 +30,7 @@ export default function ReviewRegister({
   courses,
 }: CentersAndCoursesPropType) {
   const router = useRouter();
+  const isMobile = useMediaQuery("(max-width:640px)");
   // state
   const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
     null
@@ -81,11 +81,14 @@ export default function ReviewRegister({
   };
 
   return (
-    <Card sx={{ p: 4, borderRadius: "16px" }} elevation={3}>
+    <Card
+      sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
+      elevation={3}
+    >
       <Typography component="h2" variant="h5" textAlign="center">
         口コミ投稿
       </Typography>
-      <CardContent>
+      <CardContent sx={{ px: 0 }}>
         <Stepper activeStep={0} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
@@ -95,7 +98,7 @@ export default function ReviewRegister({
         </Stepper>
       </CardContent>
       <Divider></Divider>
-      <CardContent>
+      <CardContent sx={{ px: 0 }}>
         <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item md={6} xs={12}>
             <Autocomplete

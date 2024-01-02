@@ -22,7 +22,7 @@ import EditUserProfileForm from "./edit/section/EditUserProfileForm";
 
 export default function UserSetting() {
   // hooks
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const { user, setUser, saveUserProfile } = useUserInfo();
   const { getGenderText } = useFormOptions();
   const [isOpenEditUserDialog, setIsOpenEditUserDialog] = useState(false);
@@ -45,7 +45,10 @@ export default function UserSetting() {
   };
 
   return (
-    <Card sx={{ px: 3, py: 4, borderRadius: "16px" }} elevation={3}>
+    <Card
+      sx={{ px: isMobile ? 2 : 3, py: isMobile ? 2 : 4, borderRadius: "16px" }}
+      elevation={3}
+    >
       <Grid container>
         <Typography component="h2" variant={isMobile ? "h6" : "h5"}>
           プロフィール情報

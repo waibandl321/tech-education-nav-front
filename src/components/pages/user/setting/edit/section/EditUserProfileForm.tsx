@@ -30,7 +30,7 @@ export default function EditUserProfileForm({
   ) => void;
   onSubmit: () => Promise<void>;
 }) {
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const { prefectures, genders, getBirthDayFields } = useFormOptions();
   const {
     register,

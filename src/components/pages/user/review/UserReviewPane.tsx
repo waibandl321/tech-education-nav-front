@@ -1,12 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Container,
-  Divider,
-  Rating,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, Rating, Typography } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import useReviewPost from "@/hooks/api/useReviewPost";
@@ -55,7 +47,9 @@ export default function UserReview({
 
   return (
     <>
-      <h2>あなたの投稿</h2>
+      <Typography component="h2" variant="h5" marginBottom={3}>
+        あなたの投稿
+      </Typography>
       {userReviews.length === 0 && (
         <Card sx={{ pb: 6 }} elevation={0}>
           <Typography>投稿はありません。</Typography>

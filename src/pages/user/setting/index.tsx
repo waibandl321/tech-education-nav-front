@@ -1,9 +1,10 @@
 import Layout from "@/app/layout";
 import UserSettingPane from "@/components/pages/user/setting/UserSettingPane";
-import { Container } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 import Head from "next/head";
 
 export default function UserSetting() {
+  const isMobile = useMediaQuery("(max-width:640px)");
   return (
     <>
       <Head>
@@ -12,7 +13,7 @@ export default function UserSetting() {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <Container maxWidth="md" sx={{ py: 5 }}>
+        <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
           <UserSettingPane />
         </Container>
       </Layout>

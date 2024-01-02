@@ -46,7 +46,7 @@ export default function ReviewPostPane({
   // hooks
   const router = useRouter();
   const { setAlertMessage } = useMessageAlert();
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const { apiCreateCourseReview } = useReviewPost();
   const { accountInfomation, loginUser } = useAccountContext();
   const { setLoading } = useLoading();
@@ -111,7 +111,10 @@ export default function ReviewPostPane({
   };
 
   return (
-    <Card sx={{ p: 4, borderRadius: "16px" }} elevation={3}>
+    <Card
+      sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
+      elevation={3}
+    >
       <Typography component="h2" variant="h5" textAlign="center">
         口コミ投稿
       </Typography>
@@ -150,6 +153,11 @@ export default function ReviewPostPane({
         />
         <Divider sx={{ my: 2 }}></Divider>
         <Typography fontWeight={700}>タイトル</Typography>
+        <Typography variant="body2" sx={{ my: 1 }}>
+          受講してどのような結果を得ることができましたか？
+          <br />
+          例:「受講開始から3ヶ月でエンジニア転職成功！」など
+        </Typography>
         <TextField
           margin="normal"
           fullWidth
@@ -165,8 +173,6 @@ export default function ReviewPostPane({
         <Typography fontWeight={700}>口コミの詳細</Typography>
         <Typography variant="body2" sx={{ my: 1 }}>
           スクールの良かった点/悪かった点は何ですか？
-          <br />
-          また、受講してどのような結果を得ることができましたか？
         </Typography>
         <Textarea
           name="reviewDetail"

@@ -69,7 +69,7 @@ export default function Header() {
           </Link>
           <Link
             style={{ textDecoration: "none", color: "#1976d2", marginLeft: 40 }}
-            href="/"
+            href="/search"
           >
             口コミを探す
           </Link>

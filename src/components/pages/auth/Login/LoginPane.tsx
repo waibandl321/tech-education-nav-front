@@ -9,7 +9,7 @@ import LoginLinks from "./section/LoginLinks";
 
 export default function LoginPane() {
   // hooks
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const { login } = useLogin();
 
   return (

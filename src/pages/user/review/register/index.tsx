@@ -4,12 +4,13 @@ import Head from "next/head";
 import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { GetServerSideProps } from "next";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
-import { Container } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 
 export default function ReviewRegister({
   centers,
   courses,
 }: CentersAndCoursesPropType) {
+  const isMobile = useMediaQuery("(max-width:640px)");
   return (
     <>
       <Head>
@@ -18,7 +19,7 @@ export default function ReviewRegister({
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <Container maxWidth="md" sx={{ py: 5 }}>
+        <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
           <ReviewRegisterPane centers={centers} courses={courses} />
         </Container>
       </Layout>

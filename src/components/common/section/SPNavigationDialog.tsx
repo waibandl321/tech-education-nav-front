@@ -48,7 +48,7 @@ export default function SPNavigationDialog({
   const handleSignOut = useSignOut();
   const { isLoggedIn } = useAccountContext();
 
-  const menus = [
+  const myMenus = [
     {
       text: "あなたの投稿",
       callbackFunc: () => router.push("/user/review"),
@@ -58,6 +58,18 @@ export default function SPNavigationDialog({
       callbackFunc: () => router.push("/user/setting"),
     },
   ];
+  const reviewMenus = [
+    {
+      text: "口コミを探す",
+      callbackFunc: () => router.push("/search"),
+    },
+  ];
+  if (isLoggedIn) {
+    reviewMenus.push({
+      text: "口コミを投稿する",
+      callbackFunc: () => router.push("/user/review/register"),
+    });
+  }
 
   return (
     <Dialog
@@ -66,18 +78,11 @@ export default function SPNavigationDialog({
       onClose={onClose}
       TransitionComponent={Transition}
     >
-      <AppBar sx={{ position: "relative", backgroundColor: "#87CEEB" }}>
-        <Toolbar>
-          <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-            メニュー
-          </Typography>
+      <AppBar sx={{ position: "relative", backgroundColor: "#fff" }}>
+        <Toolbar sx={{ color: "#666" }}>
+          <Typography>メニュー</Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={onClose}
-            aria-label="close"
-          >
+          <IconButton edge="start" onClick={onClose} aria-label="close">
             <CloseIcon />
           </IconButton>
         </Toolbar>
@@ -111,13 +116,27 @@ export default function SPNavigationDialog({
 
       <Divider />
       <List>
-        <ListSubheader>口コミ・評判を探す</ListSubheader>
-        <Card sx={{ m: "0 16px" }}></Card>
+        <ListSubheader>口コミ</ListSubheader>
+        {reviewMenus.map((item, index) => (
+          <ListItem
+            key={index}
+            button
+            secondaryAction={
+              <IconButton edge="end" aria-label="link">
+                <ChevronRightOutlinedIcon />
+              </IconButton>
+            }
+            sx={{ borderTop: "1px solid rgba(0, 0, 0, 0.12)" }}
+            onClick={() => item.callbackFunc()}
+          >
+            <ListItemText primary={item.text} />
+          </ListItem>
+        ))}
       </List>
       {isLoggedIn && (
         <List>
           <ListSubheader>マイメニュー</ListSubheader>
-          {menus.map((item, index) => (
+          {myMenus.map((item, index) => (
             <ListItem
               key={index}
               button

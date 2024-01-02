@@ -18,7 +18,7 @@ export default function FormButtons({
   handleBack?: () => void;
 }) {
   // sp device
-  const isSpDevice = useMediaQuery("(max-width:480px)");
+  const isSpDevice = useMediaQuery("(max-width:640px)");
 
   return (
     <>
@@ -26,6 +26,7 @@ export default function FormButtons({
         <Box textAlign="center" sx={{ mt: 4, px: 2 }}>
           <Button
             variant="contained"
+            color="primary"
             size="large"
             sx={{
               width: isSpDevice ? "100%" : 400,

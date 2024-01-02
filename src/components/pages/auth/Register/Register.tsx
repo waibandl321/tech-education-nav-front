@@ -10,7 +10,7 @@ import RegisterLinks from "./section/RegisterLinks";
 
 export default function Register() {
   // hooks
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const { signUpSubmit } = useRegister();
 
   return (

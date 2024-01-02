@@ -21,7 +21,7 @@ import { useRouter } from "next/router";
 
 export default function LearningCenterPane() {
   const router = useRouter();
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
 
   const handleMoveReviewList = () => {
     router.push("/learning-center/1/reviews");

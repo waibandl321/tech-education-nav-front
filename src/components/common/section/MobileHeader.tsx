@@ -32,14 +32,14 @@ export default function MobileHeader() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#87CEEB" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#fff" }}>
         <Toolbar>
           <Button
             variant="text"
             sx={{
               m: "0 24px 0 0",
-              color: "white",
               fontSize: 20,
+              color: "#666",
             }}
             onClick={() => router.push("/")}
           >
@@ -52,7 +52,7 @@ export default function MobileHeader() {
               size="large"
               aria-label="open drawer"
               onClick={handleMobileMenuOpen} // ハンドラを設定
-              color="inherit"
+              color="primary"
             >
               <MenuIcon />
             </IconButton>

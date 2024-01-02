@@ -4,12 +4,13 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
-import { Container } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 
 export default function UserReview({
   centers,
   courses,
 }: CentersAndCoursesPropType) {
+  const isMobile = useMediaQuery("(max-width:640px)");
   return (
     <>
       <Head>
@@ -18,7 +19,7 @@ export default function UserReview({
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <Container maxWidth="md" sx={{ py: 5 }}>
+        <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
           <UserReviewPane centers={centers} courses={courses} />
         </Container>
       </Layout>

@@ -14,7 +14,7 @@ export default function RegisterForm({
   onSubmit: SubmitHandler<AuthRegisterFormType>;
 }) {
   // hooks
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const router = useRouter();
   const {
     register,

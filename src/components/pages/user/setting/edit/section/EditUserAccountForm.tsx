@@ -14,7 +14,7 @@ export default function EditUserAccountForm({
   handlerFormChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => Promise<void>;
 }) {
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const {
     register,
     setValue,

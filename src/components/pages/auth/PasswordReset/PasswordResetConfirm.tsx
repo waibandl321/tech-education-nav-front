@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 export default function PasswordResetConfirm() {
   // hooks
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const router = useRouter();
   const { confirmPasswordReset } = usePasswordReset();
 

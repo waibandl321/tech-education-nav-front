@@ -6,7 +6,7 @@ import { useMediaQuery } from "@mui/material";
 
 export default function RegisterLinks() {
   const router = useRouter();
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
 
   return (
     <Box sx={{ mt: isMobile ? 2 : 4 }}>

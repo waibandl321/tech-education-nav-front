@@ -9,7 +9,7 @@ import PasswordRequestForm from "@/components/pages/auth/PasswordReset/section/P
 
 export default function PasswordResetRequest() {
   // hooks
-  const isMobile = useMediaQuery("(max-width:480px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
   const { requestPasswordReset } = usePasswordReset();
 
   return (

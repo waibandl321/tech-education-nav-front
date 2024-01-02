@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardContent,
   Paper,
+  useMediaQuery,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountBox";
 import React from "react";
@@ -19,6 +20,7 @@ export default function ReviewListSection({
 }: {
   reviewList: Array<CourseReview>;
 }) {
+  const isMobile = useMediaQuery("(max-width:640px)");
   const { getGenderText } = useFormOptions();
   const subHeaderText = (item: CourseReview) => {
     return `${item.userAge}歳 /${getGenderText(item.userGender)}/前職: ${
@@ -27,7 +29,7 @@ export default function ReviewListSection({
   };
 
   return (
-    <Masonry columns={2} spacing={2}>
+    <Masonry columns={isMobile ? 1 : 2} spacing={2}>
       {reviewList.map((item) => (
         <Paper key={item.id} elevation={3} sx={{ p: 2, borderRadius: 2 }}>
           <Card elevation={0}>
