@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { getCourseReview } from "../graphql/queries";
@@ -26,33 +32,58 @@ export default function CourseReviewUpdateForm(props) {
   } = props;
   const initialValues = {
     userId: "",
+    userDisplayName: "",
+    userGender: "",
+    userAge: "",
+    userPreviousJob: "",
     learningCenterId: "",
     learningCenterCourseId: "",
-    gotResults: "",
-    message: "",
-    otherMemo: "",
+    reviewTitle: "",
+    reviewDetail: "",
+    rating: "",
+    isPublished: false,
   };
   const [userId, setUserId] = React.useState(initialValues.userId);
+  const [userDisplayName, setUserDisplayName] = React.useState(
+    initialValues.userDisplayName
+  );
+  const [userGender, setUserGender] = React.useState(initialValues.userGender);
+  const [userAge, setUserAge] = React.useState(initialValues.userAge);
+  const [userPreviousJob, setUserPreviousJob] = React.useState(
+    initialValues.userPreviousJob
+  );
   const [learningCenterId, setLearningCenterId] = React.useState(
     initialValues.learningCenterId
   );
   const [learningCenterCourseId, setLearningCenterCourseId] = React.useState(
     initialValues.learningCenterCourseId
   );
-  const [gotResults, setGotResults] = React.useState(initialValues.gotResults);
-  const [message, setMessage] = React.useState(initialValues.message);
-  const [otherMemo, setOtherMemo] = React.useState(initialValues.otherMemo);
+  const [reviewTitle, setReviewTitle] = React.useState(
+    initialValues.reviewTitle
+  );
+  const [reviewDetail, setReviewDetail] = React.useState(
+    initialValues.reviewDetail
+  );
+  const [rating, setRating] = React.useState(initialValues.rating);
+  const [isPublished, setIsPublished] = React.useState(
+    initialValues.isPublished
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = courseReviewRecord
       ? { ...initialValues, ...courseReviewRecord }
       : initialValues;
     setUserId(cleanValues.userId);
+    setUserDisplayName(cleanValues.userDisplayName);
+    setUserGender(cleanValues.userGender);
+    setUserAge(cleanValues.userAge);
+    setUserPreviousJob(cleanValues.userPreviousJob);
     setLearningCenterId(cleanValues.learningCenterId);
     setLearningCenterCourseId(cleanValues.learningCenterCourseId);
-    setGotResults(cleanValues.gotResults);
-    setMessage(cleanValues.message);
-    setOtherMemo(cleanValues.otherMemo);
+    setReviewTitle(cleanValues.reviewTitle);
+    setReviewDetail(cleanValues.reviewDetail);
+    setRating(cleanValues.rating);
+    setIsPublished(cleanValues.isPublished);
     setErrors({});
   };
   const [courseReviewRecord, setCourseReviewRecord] = React.useState(
@@ -75,11 +106,16 @@ export default function CourseReviewUpdateForm(props) {
   React.useEffect(resetStateValues, [courseReviewRecord]);
   const validations = {
     userId: [{ type: "Required" }],
+    userDisplayName: [],
+    userGender: [],
+    userAge: [],
+    userPreviousJob: [],
     learningCenterId: [{ type: "Required" }],
     learningCenterCourseId: [{ type: "Required" }],
-    gotResults: [],
-    message: [],
-    otherMemo: [],
+    reviewTitle: [{ type: "Required" }],
+    reviewDetail: [{ type: "Required" }],
+    rating: [{ type: "Required" }],
+    isPublished: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -108,11 +144,16 @@ export default function CourseReviewUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           userId,
+          userDisplayName: userDisplayName ?? null,
+          userGender: userGender ?? null,
+          userAge: userAge ?? null,
+          userPreviousJob: userPreviousJob ?? null,
           learningCenterId,
           learningCenterCourseId,
-          gotResults: gotResults ?? null,
-          message: message ?? null,
-          otherMemo: otherMemo ?? null,
+          reviewTitle,
+          reviewDetail,
+          rating,
+          isPublished,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -174,11 +215,16 @@ export default function CourseReviewUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               userId: value,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob,
               learningCenterId,
               learningCenterCourseId,
-              gotResults,
-              message,
-              otherMemo,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished,
             };
             const result = onChange(modelFields);
             value = result?.userId ?? value;
@@ -194,6 +240,142 @@ export default function CourseReviewUpdateForm(props) {
         {...getOverrideProps(overrides, "userId")}
       ></TextField>
       <TextField
+        label="User display name"
+        isRequired={false}
+        isReadOnly={false}
+        value={userDisplayName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userId,
+              userDisplayName: value,
+              userGender,
+              userAge,
+              userPreviousJob,
+              learningCenterId,
+              learningCenterCourseId,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished,
+            };
+            const result = onChange(modelFields);
+            value = result?.userDisplayName ?? value;
+          }
+          if (errors.userDisplayName?.hasError) {
+            runValidationTasks("userDisplayName", value);
+          }
+          setUserDisplayName(value);
+        }}
+        onBlur={() => runValidationTasks("userDisplayName", userDisplayName)}
+        errorMessage={errors.userDisplayName?.errorMessage}
+        hasError={errors.userDisplayName?.hasError}
+        {...getOverrideProps(overrides, "userDisplayName")}
+      ></TextField>
+      <TextField
+        label="User gender"
+        isRequired={false}
+        isReadOnly={false}
+        value={userGender}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userId,
+              userDisplayName,
+              userGender: value,
+              userAge,
+              userPreviousJob,
+              learningCenterId,
+              learningCenterCourseId,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished,
+            };
+            const result = onChange(modelFields);
+            value = result?.userGender ?? value;
+          }
+          if (errors.userGender?.hasError) {
+            runValidationTasks("userGender", value);
+          }
+          setUserGender(value);
+        }}
+        onBlur={() => runValidationTasks("userGender", userGender)}
+        errorMessage={errors.userGender?.errorMessage}
+        hasError={errors.userGender?.hasError}
+        {...getOverrideProps(overrides, "userGender")}
+      ></TextField>
+      <TextField
+        label="User age"
+        isRequired={false}
+        isReadOnly={false}
+        value={userAge}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userId,
+              userDisplayName,
+              userGender,
+              userAge: value,
+              userPreviousJob,
+              learningCenterId,
+              learningCenterCourseId,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished,
+            };
+            const result = onChange(modelFields);
+            value = result?.userAge ?? value;
+          }
+          if (errors.userAge?.hasError) {
+            runValidationTasks("userAge", value);
+          }
+          setUserAge(value);
+        }}
+        onBlur={() => runValidationTasks("userAge", userAge)}
+        errorMessage={errors.userAge?.errorMessage}
+        hasError={errors.userAge?.hasError}
+        {...getOverrideProps(overrides, "userAge")}
+      ></TextField>
+      <TextField
+        label="User previous job"
+        isRequired={false}
+        isReadOnly={false}
+        value={userPreviousJob}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userId,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob: value,
+              learningCenterId,
+              learningCenterCourseId,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished,
+            };
+            const result = onChange(modelFields);
+            value = result?.userPreviousJob ?? value;
+          }
+          if (errors.userPreviousJob?.hasError) {
+            runValidationTasks("userPreviousJob", value);
+          }
+          setUserPreviousJob(value);
+        }}
+        onBlur={() => runValidationTasks("userPreviousJob", userPreviousJob)}
+        errorMessage={errors.userPreviousJob?.errorMessage}
+        hasError={errors.userPreviousJob?.hasError}
+        {...getOverrideProps(overrides, "userPreviousJob")}
+      ></TextField>
+      <TextField
         label="Learning center id"
         isRequired={true}
         isReadOnly={false}
@@ -203,11 +385,16 @@ export default function CourseReviewUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               userId,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob,
               learningCenterId: value,
               learningCenterCourseId,
-              gotResults,
-              message,
-              otherMemo,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished,
             };
             const result = onChange(modelFields);
             value = result?.learningCenterId ?? value;
@@ -232,11 +419,16 @@ export default function CourseReviewUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               userId,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob,
               learningCenterId,
               learningCenterCourseId: value,
-              gotResults,
-              message,
-              otherMemo,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished,
             };
             const result = onChange(modelFields);
             value = result?.learningCenterCourseId ?? value;
@@ -254,92 +446,145 @@ export default function CourseReviewUpdateForm(props) {
         {...getOverrideProps(overrides, "learningCenterCourseId")}
       ></TextField>
       <TextField
-        label="Got results"
-        isRequired={false}
+        label="Review title"
+        isRequired={true}
         isReadOnly={false}
-        value={gotResults}
+        value={reviewTitle}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               userId,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob,
               learningCenterId,
               learningCenterCourseId,
-              gotResults: value,
-              message,
-              otherMemo,
+              reviewTitle: value,
+              reviewDetail,
+              rating,
+              isPublished,
             };
             const result = onChange(modelFields);
-            value = result?.gotResults ?? value;
+            value = result?.reviewTitle ?? value;
           }
-          if (errors.gotResults?.hasError) {
-            runValidationTasks("gotResults", value);
+          if (errors.reviewTitle?.hasError) {
+            runValidationTasks("reviewTitle", value);
           }
-          setGotResults(value);
+          setReviewTitle(value);
         }}
-        onBlur={() => runValidationTasks("gotResults", gotResults)}
-        errorMessage={errors.gotResults?.errorMessage}
-        hasError={errors.gotResults?.hasError}
-        {...getOverrideProps(overrides, "gotResults")}
+        onBlur={() => runValidationTasks("reviewTitle", reviewTitle)}
+        errorMessage={errors.reviewTitle?.errorMessage}
+        hasError={errors.reviewTitle?.hasError}
+        {...getOverrideProps(overrides, "reviewTitle")}
       ></TextField>
       <TextField
-        label="Message"
-        isRequired={false}
+        label="Review detail"
+        isRequired={true}
         isReadOnly={false}
-        value={message}
+        value={reviewDetail}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               userId,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob,
               learningCenterId,
               learningCenterCourseId,
-              gotResults,
-              message: value,
-              otherMemo,
+              reviewTitle,
+              reviewDetail: value,
+              rating,
+              isPublished,
             };
             const result = onChange(modelFields);
-            value = result?.message ?? value;
+            value = result?.reviewDetail ?? value;
           }
-          if (errors.message?.hasError) {
-            runValidationTasks("message", value);
+          if (errors.reviewDetail?.hasError) {
+            runValidationTasks("reviewDetail", value);
           }
-          setMessage(value);
+          setReviewDetail(value);
         }}
-        onBlur={() => runValidationTasks("message", message)}
-        errorMessage={errors.message?.errorMessage}
-        hasError={errors.message?.hasError}
-        {...getOverrideProps(overrides, "message")}
+        onBlur={() => runValidationTasks("reviewDetail", reviewDetail)}
+        errorMessage={errors.reviewDetail?.errorMessage}
+        hasError={errors.reviewDetail?.hasError}
+        {...getOverrideProps(overrides, "reviewDetail")}
       ></TextField>
       <TextField
-        label="Other memo"
-        isRequired={false}
+        label="Rating"
+        isRequired={true}
         isReadOnly={false}
-        value={otherMemo}
+        type="number"
+        step="any"
+        value={rating}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
               userId,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob,
               learningCenterId,
               learningCenterCourseId,
-              gotResults,
-              message,
-              otherMemo: value,
+              reviewTitle,
+              reviewDetail,
+              rating: value,
+              isPublished,
             };
             const result = onChange(modelFields);
-            value = result?.otherMemo ?? value;
+            value = result?.rating ?? value;
           }
-          if (errors.otherMemo?.hasError) {
-            runValidationTasks("otherMemo", value);
+          if (errors.rating?.hasError) {
+            runValidationTasks("rating", value);
           }
-          setOtherMemo(value);
+          setRating(value);
         }}
-        onBlur={() => runValidationTasks("otherMemo", otherMemo)}
-        errorMessage={errors.otherMemo?.errorMessage}
-        hasError={errors.otherMemo?.hasError}
-        {...getOverrideProps(overrides, "otherMemo")}
+        onBlur={() => runValidationTasks("rating", rating)}
+        errorMessage={errors.rating?.errorMessage}
+        hasError={errors.rating?.hasError}
+        {...getOverrideProps(overrides, "rating")}
       ></TextField>
+      <SwitchField
+        label="Is published"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={isPublished}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              userId,
+              userDisplayName,
+              userGender,
+              userAge,
+              userPreviousJob,
+              learningCenterId,
+              learningCenterCourseId,
+              reviewTitle,
+              reviewDetail,
+              rating,
+              isPublished: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.isPublished ?? value;
+          }
+          if (errors.isPublished?.hasError) {
+            runValidationTasks("isPublished", value);
+          }
+          setIsPublished(value);
+        }}
+        onBlur={() => runValidationTasks("isPublished", isPublished)}
+        errorMessage={errors.isPublished?.errorMessage}
+        hasError={errors.isPublished?.hasError}
+        {...getOverrideProps(overrides, "isPublished")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

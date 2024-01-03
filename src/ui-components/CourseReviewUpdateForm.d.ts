@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { CourseReview } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
@@ -24,29 +24,44 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type CourseReviewUpdateFormInputValues = {
     userId?: string;
+    userDisplayName?: string;
+    userGender?: string;
+    userAge?: string;
+    userPreviousJob?: string;
     learningCenterId?: string;
     learningCenterCourseId?: string;
-    gotResults?: string;
-    message?: string;
-    otherMemo?: string;
+    reviewTitle?: string;
+    reviewDetail?: string;
+    rating?: number;
+    isPublished?: boolean;
 };
 export declare type CourseReviewUpdateFormValidationValues = {
     userId?: ValidationFunction<string>;
+    userDisplayName?: ValidationFunction<string>;
+    userGender?: ValidationFunction<string>;
+    userAge?: ValidationFunction<string>;
+    userPreviousJob?: ValidationFunction<string>;
     learningCenterId?: ValidationFunction<string>;
     learningCenterCourseId?: ValidationFunction<string>;
-    gotResults?: ValidationFunction<string>;
-    message?: ValidationFunction<string>;
-    otherMemo?: ValidationFunction<string>;
+    reviewTitle?: ValidationFunction<string>;
+    reviewDetail?: ValidationFunction<string>;
+    rating?: ValidationFunction<number>;
+    isPublished?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CourseReviewUpdateFormOverridesProps = {
     CourseReviewUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     userId?: PrimitiveOverrideProps<TextFieldProps>;
+    userDisplayName?: PrimitiveOverrideProps<TextFieldProps>;
+    userGender?: PrimitiveOverrideProps<TextFieldProps>;
+    userAge?: PrimitiveOverrideProps<TextFieldProps>;
+    userPreviousJob?: PrimitiveOverrideProps<TextFieldProps>;
     learningCenterId?: PrimitiveOverrideProps<TextFieldProps>;
     learningCenterCourseId?: PrimitiveOverrideProps<TextFieldProps>;
-    gotResults?: PrimitiveOverrideProps<TextFieldProps>;
-    message?: PrimitiveOverrideProps<TextFieldProps>;
-    otherMemo?: PrimitiveOverrideProps<TextFieldProps>;
+    reviewTitle?: PrimitiveOverrideProps<TextFieldProps>;
+    reviewDetail?: PrimitiveOverrideProps<TextFieldProps>;
+    rating?: PrimitiveOverrideProps<TextFieldProps>;
+    isPublished?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type CourseReviewUpdateFormProps = React.PropsWithChildren<{
     overrides?: CourseReviewUpdateFormOverridesProps | undefined | null;

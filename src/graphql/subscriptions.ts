@@ -145,10 +145,6 @@ export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearni
     logoImageURL
     establishmentYear
     representative
-    learningCenterCourses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -173,10 +169,6 @@ export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearni
     logoImageURL
     establishmentYear
     representative
-    learningCenterCourses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -201,10 +193,6 @@ export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearni
     logoImageURL
     establishmentYear
     representative
-    learningCenterCourses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -225,25 +213,6 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
     courseName
     courseURL
     couseDetail
-    learningCenter {
-      id
-      name
-      memo
-      operatingCompany
-      headquartersLocation
-      websiteURL
-      logoImageURL
-      establishmentYear
-      representative
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -264,25 +233,6 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
     courseName
     courseURL
     couseDetail
-    learningCenter {
-      id
-      name
-      memo
-      operatingCompany
-      headquartersLocation
-      websiteURL
-      logoImageURL
-      establishmentYear
-      representative
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -303,25 +253,6 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
     courseName
     courseURL
     couseDetail
-    learningCenter {
-      id
-      name
-      memo
-      operatingCompany
-      headquartersLocation
-      websiteURL
-      logoImageURL
-      establishmentYear
-      representative
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner

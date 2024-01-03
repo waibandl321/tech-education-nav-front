@@ -33,7 +33,6 @@ type LearningCenter
   logoImageURL: String
   establishmentYear: Int
   representative: String
-  learningCenterCourses: [LearningCenterCourse] @hasMany(fields: ["id"])
 }
 
 type LearningCenterCourse
@@ -44,8 +43,6 @@ type LearningCenterCourse
   courseName: String
   courseURL: String
   couseDetail: String
-  learningCenter: LearningCenter @belongsTo(fields: ["learningCenterId"])
-  courseReviews: [CourseReview] @hasMany(fields: ["id"])
 }
 
 type CourseReview

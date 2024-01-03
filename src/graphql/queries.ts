@@ -99,10 +99,6 @@ export const getLearningCenter = /* GraphQL */ `query GetLearningCenter($id: ID!
     logoImageURL
     establishmentYear
     representative
-    learningCenterCourses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
@@ -149,25 +145,6 @@ export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCou
     courseName
     courseURL
     couseDetail
-    learningCenter {
-      id
-      name
-      memo
-      operatingCompany
-      headquartersLocation
-      websiteURL
-      logoImageURL
-      establishmentYear
-      representative
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    courseReviews {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     owner
