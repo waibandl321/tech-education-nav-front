@@ -14,6 +14,15 @@ import { useAccountContext } from "@/contexts/AccountContext";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";
 
+const LinkStyle = {
+  textDecoration: "none",
+  color: "#1976d2",
+  padding: "12px 16px",
+  display: "block",
+  borderRadius: 8,
+  marginLeft: 16,
+};
+
 export default function Header() {
   const router = useRouter();
   const handleSignOut = useSignOut();
@@ -68,13 +77,21 @@ export default function Header() {
             テック教育ナビ
           </Link>
           <Link
-            style={{ textDecoration: "none", color: "#1976d2", marginLeft: 40 }}
+            style={{
+              ...LinkStyle,
+              marginLeft: 32,
+              border: "1px solid #1976d2",
+            }}
             href="/search"
           >
             口コミを探す
           </Link>
           <Link
-            style={{ textDecoration: "none", color: "#1976d2", marginLeft: 16 }}
+            style={{
+              ...LinkStyle,
+              backgroundColor: "#1976d2",
+              color: "#fff",
+            }}
             href="/user/review/register"
           >
             口コミを投稿する

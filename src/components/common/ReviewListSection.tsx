@@ -29,7 +29,7 @@ export default function ReviewListSection({
   };
 
   return (
-    <Masonry columns={isMobile ? 1 : 2} spacing={2}>
+    <Masonry columns={isMobile ? 1 : 2} spacing={2} sx={{ margin: 0 }}>
       {reviewList.map((item) => (
         <Paper key={item.id} elevation={3} sx={{ p: 2, borderRadius: 2 }}>
           <Card elevation={0}>
@@ -48,7 +48,9 @@ export default function ReviewListSection({
               <Typography fontWeight={700} marginTop={1}>
                 {item.reviewTitle}
               </Typography>
-              <Typography marginTop={1}>{item.reviewDetail}</Typography>
+              <Typography marginTop={1} whiteSpace="pre-line">
+                {item.reviewDetail}
+              </Typography>
               <Typography
                 variant="subtitle2"
                 color="textSecondary"

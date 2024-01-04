@@ -1,3 +1,4 @@
+"use client";
 import Layout from "@/app/layout";
 import Head from "next/head";
 import { Card, Container, Typography, useMediaQuery } from "@mui/material";

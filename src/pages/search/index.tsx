@@ -171,38 +171,6 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
         {/* 一覧 */}
         {selectedCenter && selectedCourse && (
           <Container sx={{ pb: 6 }}>
-            <Grid container spacing={2} sx={{ mt: 2 }}>
-              <Grid item xs={isMobile ? 12 : 6}>
-                <Button
-                  fullWidth
-                  size="large"
-                  href={selectedCenter.websiteURL ?? ""}
-                  target="_brank"
-                  variant="contained"
-                >
-                  <OpenInNewIcon
-                    fontSize="small"
-                    sx={{ mr: 1 }}
-                  ></OpenInNewIcon>
-                  <span>「{selectedCenter.name}」の公式サイト</span>
-                </Button>
-              </Grid>
-              <Grid item xs={isMobile ? 12 : 6}>
-                <Button
-                  fullWidth
-                  size="large"
-                  href={selectedCourse.courseURL ?? ""}
-                  target="_brank"
-                  variant="contained"
-                >
-                  <OpenInNewIcon
-                    fontSize="small"
-                    sx={{ mr: 1 }}
-                  ></OpenInNewIcon>
-                  <span>「{selectedCourse.courseName}」の公式サイト</span>
-                </Button>
-              </Grid>
-            </Grid>
             <Grid
               container
               justifyContent="space-between"
@@ -214,6 +182,36 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                 <Typography variant="subtitle2" color="GrayText" marginLeft={2}>
                   {reviewList.length}件のレビュー
                 </Typography>
+              </Box>
+              <Box
+                sx={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}
+              >
+                <Button
+                  size="large"
+                  href={selectedCenter.websiteURL ?? ""}
+                  target="_brank"
+                  variant="contained"
+                  sx={{ whiteSpace: "nowrap", mr: 2, mb: 1, fontSize: 14 }}
+                >
+                  <OpenInNewIcon
+                    fontSize="small"
+                    sx={{ mr: 1 }}
+                  ></OpenInNewIcon>
+                  <span>スクールの公式サイトを見る</span>
+                </Button>
+                <Button
+                  size="large"
+                  href={selectedCourse.courseURL ?? ""}
+                  target="_brank"
+                  variant="contained"
+                  sx={{ whiteSpace: "nowrap", mb: 1, fontSize: 14 }}
+                >
+                  <OpenInNewIcon
+                    fontSize="small"
+                    sx={{ mr: 1 }}
+                  ></OpenInNewIcon>
+                  <span>コース詳細（公式サイト）を見る</span>
+                </Button>
               </Box>
             </Grid>
             {/* 件数あり */}

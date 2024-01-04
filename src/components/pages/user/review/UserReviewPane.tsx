@@ -82,7 +82,7 @@ export default function UserReview({
             <Typography variant="body1" marginTop={1} fontWeight={700}>
               {item.reviewTitle}
             </Typography>
-            <Typography variant="body1" marginTop={1}>
+            <Typography variant="body1" marginTop={1} whiteSpace="pre-line">
               {item.reviewDetail}
             </Typography>
           </CardContent>

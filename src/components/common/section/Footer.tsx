@@ -12,7 +12,7 @@ export default function Footer() {
         lineHeight: "48px",
       }}
     >
-      © 2023 テック教育ナビ. All Rights Reserved.
+      © 2024 テック教育ナビ. All Rights Reserved.
     </Card>
   );
 }

@@ -39,7 +39,7 @@ export default function Index() {
               variant="h5"
               lineHeight={2}
             >
-              リアルな体験談が、あなたの挑戦の勇気になる。
+              リアルな体験談が、あなたの挑戦を後押しする。
               <br />
             </Typography>
             <Grid container justifyContent="center" marginTop={2}>
