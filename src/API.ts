@@ -2,18 +2,38 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateTodoInput = {
+export type CreateUserInput = {
   id?: string | null,
-  name: string,
-  description?: string | null,
+  cognitoSub: string,
+  displayId: string,
+  name?: string | null,
+  nameKana?: string | null,
+  gender?: string | null,
+  birthYear?: number | null,
+  birthMonth?: number | null,
+  birthDate?: number | null,
+  prefecture?: string | null,
+  previousJob?: string | null,
+  isRegisterUserInfo?: boolean | null,
+  isDeleted?: boolean | null,
 };
 
-export type ModelTodoConditionInput = {
+export type ModelUserConditionInput = {
+  cognitoSub?: ModelStringInput | null,
+  displayId?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelTodoConditionInput | null > | null,
-  or?: Array< ModelTodoConditionInput | null > | null,
-  not?: ModelTodoConditionInput | null,
+  nameKana?: ModelStringInput | null,
+  gender?: ModelStringInput | null,
+  birthYear?: ModelIntInput | null,
+  birthMonth?: ModelIntInput | null,
+  birthDate?: ModelIntInput | null,
+  prefecture?: ModelStringInput | null,
+  previousJob?: ModelStringInput | null,
+  isRegisterUserInfo?: ModelBooleanInput | null,
+  isDeleted?: ModelBooleanInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -56,57 +76,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Todo = {
-  __typename: "Todo",
-  id: string,
-  name: string,
-  description?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateTodoInput = {
-  id: string,
-  name?: string | null,
-  description?: string | null,
-};
-
-export type DeleteTodoInput = {
-  id: string,
-};
-
-export type CreateUserInput = {
-  id?: string | null,
-  cognitoSub: string,
-  displayId: string,
-  name?: string | null,
-  nameKana?: string | null,
-  gender?: string | null,
-  birthYear?: number | null,
-  birthMonth?: number | null,
-  birthDate?: number | null,
-  prefecture?: string | null,
-  previousJob?: string | null,
-  isRegisterUserInfo?: boolean | null,
-};
-
-export type ModelUserConditionInput = {
-  cognitoSub?: ModelStringInput | null,
-  displayId?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  nameKana?: ModelStringInput | null,
-  gender?: ModelStringInput | null,
-  birthYear?: ModelIntInput | null,
-  birthMonth?: ModelIntInput | null,
-  birthDate?: ModelIntInput | null,
-  prefecture?: ModelStringInput | null,
-  previousJob?: ModelStringInput | null,
-  isRegisterUserInfo?: ModelBooleanInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-};
-
 export type ModelIntInput = {
   ne?: number | null,
   eq?: number | null,
@@ -140,6 +109,7 @@ export type User = {
   prefecture?: string | null,
   previousJob?: string | null,
   isRegisterUserInfo?: boolean | null,
+  isDeleted?: boolean | null,
   createdAt: string,
   updatedAt: string,
   owner?: string | null,
@@ -158,6 +128,7 @@ export type UpdateUserInput = {
   prefecture?: string | null,
   previousJob?: string | null,
   isRegisterUserInfo?: boolean | null,
+  isDeleted?: boolean | null,
 };
 
 export type DeleteUserInput = {
@@ -174,6 +145,7 @@ export type CreateLearningCenterInput = {
   logoImageURL?: string | null,
   establishmentYear?: number | null,
   representative?: string | null,
+  isDeleted?: boolean | null,
 };
 
 export type ModelLearningCenterConditionInput = {
@@ -185,6 +157,7 @@ export type ModelLearningCenterConditionInput = {
   logoImageURL?: ModelStringInput | null,
   establishmentYear?: ModelIntInput | null,
   representative?: ModelStringInput | null,
+  isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelLearningCenterConditionInput | null > | null,
   or?: Array< ModelLearningCenterConditionInput | null > | null,
   not?: ModelLearningCenterConditionInput | null,
@@ -201,6 +174,7 @@ export type LearningCenter = {
   logoImageURL?: string | null,
   establishmentYear?: number | null,
   representative?: string | null,
+  isDeleted?: boolean | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -215,6 +189,7 @@ export type UpdateLearningCenterInput = {
   logoImageURL?: string | null,
   establishmentYear?: number | null,
   representative?: string | null,
+  isDeleted?: boolean | null,
 };
 
 export type DeleteLearningCenterInput = {
@@ -227,6 +202,7 @@ export type CreateLearningCenterCourseInput = {
   courseName?: string | null,
   courseURL?: string | null,
   couseDetail?: string | null,
+  isDeleted?: boolean | null,
 };
 
 export type ModelLearningCenterCourseConditionInput = {
@@ -234,6 +210,7 @@ export type ModelLearningCenterCourseConditionInput = {
   courseName?: ModelStringInput | null,
   courseURL?: ModelStringInput | null,
   couseDetail?: ModelStringInput | null,
+  isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelLearningCenterCourseConditionInput | null > | null,
   or?: Array< ModelLearningCenterCourseConditionInput | null > | null,
   not?: ModelLearningCenterCourseConditionInput | null,
@@ -262,6 +239,7 @@ export type LearningCenterCourse = {
   courseName?: string | null,
   courseURL?: string | null,
   couseDetail?: string | null,
+  isDeleted?: boolean | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -272,6 +250,7 @@ export type UpdateLearningCenterCourseInput = {
   courseName?: string | null,
   courseURL?: string | null,
   couseDetail?: string | null,
+  isDeleted?: boolean | null,
 };
 
 export type DeleteLearningCenterCourseInput = {
@@ -291,6 +270,7 @@ export type CreateCourseReviewInput = {
   reviewDetail: string,
   rating: number,
   isPublished: boolean,
+  isDeleted?: boolean | null,
 };
 
 export type ModelCourseReviewConditionInput = {
@@ -305,6 +285,7 @@ export type ModelCourseReviewConditionInput = {
   reviewDetail?: ModelStringInput | null,
   rating?: ModelIntInput | null,
   isPublished?: ModelBooleanInput | null,
+  isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelCourseReviewConditionInput | null > | null,
   or?: Array< ModelCourseReviewConditionInput | null > | null,
   not?: ModelCourseReviewConditionInput | null,
@@ -324,6 +305,7 @@ export type CourseReview = {
   reviewDetail: string,
   rating: number,
   isPublished: boolean,
+  isDeleted?: boolean | null,
   createdAt: string,
   updatedAt: string,
   owner?: string | null,
@@ -342,25 +324,11 @@ export type UpdateCourseReviewInput = {
   reviewDetail?: string | null,
   rating?: number | null,
   isPublished?: boolean | null,
+  isDeleted?: boolean | null,
 };
 
 export type DeleteCourseReviewInput = {
   id: string,
-};
-
-export type ModelTodoFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelTodoFilterInput | null > | null,
-  or?: Array< ModelTodoFilterInput | null > | null,
-  not?: ModelTodoFilterInput | null,
-};
-
-export type ModelTodoConnection = {
-  __typename: "ModelTodoConnection",
-  items:  Array<Todo | null >,
-  nextToken?: string | null,
 };
 
 export type ModelUserFilterInput = {
@@ -376,6 +344,7 @@ export type ModelUserFilterInput = {
   prefecture?: ModelStringInput | null,
   previousJob?: ModelStringInput | null,
   isRegisterUserInfo?: ModelBooleanInput | null,
+  isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -397,6 +366,7 @@ export type ModelLearningCenterFilterInput = {
   logoImageURL?: ModelStringInput | null,
   establishmentYear?: ModelIntInput | null,
   representative?: ModelStringInput | null,
+  isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelLearningCenterFilterInput | null > | null,
   or?: Array< ModelLearningCenterFilterInput | null > | null,
   not?: ModelLearningCenterFilterInput | null,
@@ -414,6 +384,7 @@ export type ModelLearningCenterCourseFilterInput = {
   courseName?: ModelStringInput | null,
   courseURL?: ModelStringInput | null,
   couseDetail?: ModelStringInput | null,
+  isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelLearningCenterCourseFilterInput | null > | null,
   or?: Array< ModelLearningCenterCourseFilterInput | null > | null,
   not?: ModelLearningCenterCourseFilterInput | null,
@@ -438,6 +409,7 @@ export type ModelCourseReviewFilterInput = {
   reviewDetail?: ModelStringInput | null,
   rating?: ModelIntInput | null,
   isPublished?: ModelBooleanInput | null,
+  isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelCourseReviewFilterInput | null > | null,
   or?: Array< ModelCourseReviewFilterInput | null > | null,
   not?: ModelCourseReviewFilterInput | null,
@@ -449,12 +421,22 @@ export type ModelCourseReviewConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionTodoFilterInput = {
+export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  cognitoSub?: ModelSubscriptionStringInput | null,
+  displayId?: ModelSubscriptionStringInput | null,
   name?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionTodoFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTodoFilterInput | null > | null,
+  nameKana?: ModelSubscriptionStringInput | null,
+  gender?: ModelSubscriptionStringInput | null,
+  birthYear?: ModelSubscriptionIntInput | null,
+  birthMonth?: ModelSubscriptionIntInput | null,
+  birthDate?: ModelSubscriptionIntInput | null,
+  prefecture?: ModelSubscriptionStringInput | null,
+  previousJob?: ModelSubscriptionStringInput | null,
+  isRegisterUserInfo?: ModelSubscriptionBooleanInput | null,
+  isDeleted?: ModelSubscriptionBooleanInput | null,
+  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -487,23 +469,6 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionUserFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  cognitoSub?: ModelSubscriptionStringInput | null,
-  displayId?: ModelSubscriptionStringInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  nameKana?: ModelSubscriptionStringInput | null,
-  gender?: ModelSubscriptionStringInput | null,
-  birthYear?: ModelSubscriptionIntInput | null,
-  birthMonth?: ModelSubscriptionIntInput | null,
-  birthDate?: ModelSubscriptionIntInput | null,
-  prefecture?: ModelSubscriptionStringInput | null,
-  previousJob?: ModelSubscriptionStringInput | null,
-  isRegisterUserInfo?: ModelSubscriptionBooleanInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-};
-
 export type ModelSubscriptionIntInput = {
   ne?: number | null,
   eq?: number | null,
@@ -531,6 +496,7 @@ export type ModelSubscriptionLearningCenterFilterInput = {
   logoImageURL?: ModelSubscriptionStringInput | null,
   establishmentYear?: ModelSubscriptionIntInput | null,
   representative?: ModelSubscriptionStringInput | null,
+  isDeleted?: ModelSubscriptionBooleanInput | null,
   and?: Array< ModelSubscriptionLearningCenterFilterInput | null > | null,
   or?: Array< ModelSubscriptionLearningCenterFilterInput | null > | null,
 };
@@ -541,6 +507,7 @@ export type ModelSubscriptionLearningCenterCourseFilterInput = {
   courseName?: ModelSubscriptionStringInput | null,
   courseURL?: ModelSubscriptionStringInput | null,
   couseDetail?: ModelSubscriptionStringInput | null,
+  isDeleted?: ModelSubscriptionBooleanInput | null,
   and?: Array< ModelSubscriptionLearningCenterCourseFilterInput | null > | null,
   or?: Array< ModelSubscriptionLearningCenterCourseFilterInput | null > | null,
 };
@@ -558,56 +525,9 @@ export type ModelSubscriptionCourseReviewFilterInput = {
   reviewDetail?: ModelSubscriptionStringInput | null,
   rating?: ModelSubscriptionIntInput | null,
   isPublished?: ModelSubscriptionBooleanInput | null,
+  isDeleted?: ModelSubscriptionBooleanInput | null,
   and?: Array< ModelSubscriptionCourseReviewFilterInput | null > | null,
   or?: Array< ModelSubscriptionCourseReviewFilterInput | null > | null,
-};
-
-export type CreateTodoMutationVariables = {
-  input: CreateTodoInput,
-  condition?: ModelTodoConditionInput | null,
-};
-
-export type CreateTodoMutation = {
-  createTodo?:  {
-    __typename: "Todo",
-    id: string,
-    name: string,
-    description?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateTodoMutationVariables = {
-  input: UpdateTodoInput,
-  condition?: ModelTodoConditionInput | null,
-};
-
-export type UpdateTodoMutation = {
-  updateTodo?:  {
-    __typename: "Todo",
-    id: string,
-    name: string,
-    description?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteTodoMutationVariables = {
-  input: DeleteTodoInput,
-  condition?: ModelTodoConditionInput | null,
-};
-
-export type DeleteTodoMutation = {
-  deleteTodo?:  {
-    __typename: "Todo",
-    id: string,
-    name: string,
-    description?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -630,6 +550,7 @@ export type CreateUserMutation = {
     prefecture?: string | null,
     previousJob?: string | null,
     isRegisterUserInfo?: boolean | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -656,6 +577,7 @@ export type UpdateUserMutation = {
     prefecture?: string | null,
     previousJob?: string | null,
     isRegisterUserInfo?: boolean | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -682,6 +604,7 @@ export type DeleteUserMutation = {
     prefecture?: string | null,
     previousJob?: string | null,
     isRegisterUserInfo?: boolean | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -705,6 +628,7 @@ export type CreateLearningCenterMutation = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -727,6 +651,7 @@ export type UpdateLearningCenterMutation = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -749,6 +674,7 @@ export type DeleteLearningCenterMutation = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -767,6 +693,7 @@ export type CreateLearningCenterCourseMutation = {
     courseName?: string | null,
     courseURL?: string | null,
     couseDetail?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -785,6 +712,7 @@ export type UpdateLearningCenterCourseMutation = {
     courseName?: string | null,
     courseURL?: string | null,
     couseDetail?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -803,6 +731,7 @@ export type DeleteLearningCenterCourseMutation = {
     courseName?: string | null,
     courseURL?: string | null,
     couseDetail?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -828,6 +757,7 @@ export type CreateCourseReviewMutation = {
     reviewDetail: string,
     rating: number,
     isPublished: boolean,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -854,6 +784,7 @@ export type UpdateCourseReviewMutation = {
     reviewDetail: string,
     rating: number,
     isPublished: boolean,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -880,45 +811,10 @@ export type DeleteCourseReviewMutation = {
     reviewDetail: string,
     rating: number,
     isPublished: boolean,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
-  } | null,
-};
-
-export type GetTodoQueryVariables = {
-  id: string,
-};
-
-export type GetTodoQuery = {
-  getTodo?:  {
-    __typename: "Todo",
-    id: string,
-    name: string,
-    description?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListTodosQueryVariables = {
-  filter?: ModelTodoFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListTodosQuery = {
-  listTodos?:  {
-    __typename: "ModelTodoConnection",
-    items:  Array< {
-      __typename: "Todo",
-      id: string,
-      name: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
   } | null,
 };
 
@@ -941,6 +837,7 @@ export type GetUserQuery = {
     prefecture?: string | null,
     previousJob?: string | null,
     isRegisterUserInfo?: boolean | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -970,6 +867,7 @@ export type ListUsersQuery = {
       prefecture?: string | null,
       previousJob?: string | null,
       isRegisterUserInfo?: boolean | null,
+      isDeleted?: boolean | null,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
@@ -994,6 +892,7 @@ export type GetLearningCenterQuery = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1019,6 +918,7 @@ export type ListLearningCentersQuery = {
       logoImageURL?: string | null,
       establishmentYear?: number | null,
       representative?: string | null,
+      isDeleted?: boolean | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1038,6 +938,7 @@ export type GetLearningCenterCourseQuery = {
     courseName?: string | null,
     courseURL?: string | null,
     couseDetail?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1059,6 +960,7 @@ export type ListLearningCenterCoursesQuery = {
       courseName?: string | null,
       courseURL?: string | null,
       couseDetail?: string | null,
+      isDeleted?: boolean | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1085,6 +987,7 @@ export type GetCourseReviewQuery = {
     reviewDetail: string,
     rating: number,
     isPublished: boolean,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1114,56 +1017,12 @@ export type ListCourseReviewsQuery = {
       reviewDetail: string,
       rating: number,
       isPublished: boolean,
+      isDeleted?: boolean | null,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
-  } | null,
-};
-
-export type OnCreateTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
-};
-
-export type OnCreateTodoSubscription = {
-  onCreateTodo?:  {
-    __typename: "Todo",
-    id: string,
-    name: string,
-    description?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
-};
-
-export type OnUpdateTodoSubscription = {
-  onUpdateTodo?:  {
-    __typename: "Todo",
-    id: string,
-    name: string,
-    description?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
-};
-
-export type OnDeleteTodoSubscription = {
-  onDeleteTodo?:  {
-    __typename: "Todo",
-    id: string,
-    name: string,
-    description?: string | null,
-    createdAt: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -1187,6 +1046,7 @@ export type OnCreateUserSubscription = {
     prefecture?: string | null,
     previousJob?: string | null,
     isRegisterUserInfo?: boolean | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1213,6 +1073,7 @@ export type OnUpdateUserSubscription = {
     prefecture?: string | null,
     previousJob?: string | null,
     isRegisterUserInfo?: boolean | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1239,6 +1100,7 @@ export type OnDeleteUserSubscription = {
     prefecture?: string | null,
     previousJob?: string | null,
     isRegisterUserInfo?: boolean | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1261,6 +1123,7 @@ export type OnCreateLearningCenterSubscription = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1282,6 +1145,7 @@ export type OnUpdateLearningCenterSubscription = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1303,6 +1167,7 @@ export type OnDeleteLearningCenterSubscription = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1320,6 +1185,7 @@ export type OnCreateLearningCenterCourseSubscription = {
     courseName?: string | null,
     courseURL?: string | null,
     couseDetail?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1337,6 +1203,7 @@ export type OnUpdateLearningCenterCourseSubscription = {
     courseName?: string | null,
     courseURL?: string | null,
     couseDetail?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1354,6 +1221,7 @@ export type OnDeleteLearningCenterCourseSubscription = {
     courseName?: string | null,
     courseURL?: string | null,
     couseDetail?: string | null,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1379,6 +1247,7 @@ export type OnCreateCourseReviewSubscription = {
     reviewDetail: string,
     rating: number,
     isPublished: boolean,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1405,6 +1274,7 @@ export type OnUpdateCourseReviewSubscription = {
     reviewDetail: string,
     rating: number,
     isPublished: boolean,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1431,6 +1301,7 @@ export type OnDeleteCourseReviewSubscription = {
     reviewDetail: string,
     rating: number,
     isPublished: boolean,
+    isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,

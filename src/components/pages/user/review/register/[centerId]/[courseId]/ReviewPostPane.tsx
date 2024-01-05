@@ -32,6 +32,7 @@ interface ReviewFormType {
   reviewDetail: string;
   rating: number;
   isPublished: boolean;
+  isDeleted: boolean;
 }
 
 /**
@@ -56,6 +57,7 @@ export default function ReviewPostPane({
     reviewDetail: "",
     rating: 0,
     isPublished: false,
+    isDeleted: false,
   });
 
   // 入力変更ハンドラ
