@@ -76,7 +76,7 @@ export default function UserReview({
               color="textSecondary"
               marginTop={0.5}
             >
-              {dayjs(item.createdAt).format("YYYY-MM-DD")}に口コミ
+              {dayjs(item.createdAt).format("YYYY-MM-DD")}に投稿
             </Typography>
             <Rating readOnly value={item.rating} size="small" sx={{ mt: 1 }} />
             <Typography variant="body1" marginTop={1} fontWeight={700}>

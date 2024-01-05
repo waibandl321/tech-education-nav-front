@@ -57,7 +57,7 @@ export default function ReviewListSection({
                 marginTop={0.5}
                 textAlign="right"
               >
-                {dayjs(item.createdAt).format("YYYY-MM-DD")}に口コミ
+                {dayjs(item.createdAt).format("YYYY-MM-DD")}に投稿
               </Typography>
             </CardContent>
             {/* <CardActions disableSpacing sx={{ px: 0 }}>

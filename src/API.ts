@@ -203,7 +203,6 @@ export type LearningCenter = {
   representative?: string | null,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateLearningCenterInput = {
@@ -265,7 +264,6 @@ export type LearningCenterCourse = {
   couseDetail?: string | null,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateLearningCenterCourseInput = {
@@ -709,7 +707,6 @@ export type CreateLearningCenterMutation = {
     representative?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -732,7 +729,6 @@ export type UpdateLearningCenterMutation = {
     representative?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -755,7 +751,6 @@ export type DeleteLearningCenterMutation = {
     representative?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -774,7 +769,6 @@ export type CreateLearningCenterCourseMutation = {
     couseDetail?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -793,7 +787,6 @@ export type UpdateLearningCenterCourseMutation = {
     couseDetail?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -812,7 +805,6 @@ export type DeleteLearningCenterCourseMutation = {
     couseDetail?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1004,7 +996,6 @@ export type GetLearningCenterQuery = {
     representative?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1030,7 +1021,6 @@ export type ListLearningCentersQuery = {
       representative?: string | null,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1050,7 +1040,6 @@ export type GetLearningCenterCourseQuery = {
     couseDetail?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1072,7 +1061,6 @@ export type ListLearningCenterCoursesQuery = {
       couseDetail?: string | null,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1259,7 +1247,6 @@ export type OnDeleteUserSubscription = {
 
 export type OnCreateLearningCenterSubscriptionVariables = {
   filter?: ModelSubscriptionLearningCenterFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateLearningCenterSubscription = {
@@ -1276,13 +1263,11 @@ export type OnCreateLearningCenterSubscription = {
     representative?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateLearningCenterSubscriptionVariables = {
   filter?: ModelSubscriptionLearningCenterFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateLearningCenterSubscription = {
@@ -1299,13 +1284,11 @@ export type OnUpdateLearningCenterSubscription = {
     representative?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteLearningCenterSubscriptionVariables = {
   filter?: ModelSubscriptionLearningCenterFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteLearningCenterSubscription = {
@@ -1322,13 +1305,11 @@ export type OnDeleteLearningCenterSubscription = {
     representative?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnCreateLearningCenterCourseSubscriptionVariables = {
   filter?: ModelSubscriptionLearningCenterCourseFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateLearningCenterCourseSubscription = {
@@ -1341,13 +1322,11 @@ export type OnCreateLearningCenterCourseSubscription = {
     couseDetail?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateLearningCenterCourseSubscriptionVariables = {
   filter?: ModelSubscriptionLearningCenterCourseFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateLearningCenterCourseSubscription = {
@@ -1360,13 +1339,11 @@ export type OnUpdateLearningCenterCourseSubscription = {
     couseDetail?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteLearningCenterCourseSubscriptionVariables = {
   filter?: ModelSubscriptionLearningCenterCourseFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteLearningCenterCourseSubscription = {
@@ -1379,7 +1356,6 @@ export type OnDeleteLearningCenterCourseSubscription = {
     couseDetail?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
