@@ -33,12 +33,12 @@ const useLogin = () => {
       setLoginUser(getUserResult.data);
     } else if (getUserResult.data && !getUserResult.data.isRegisterUserInfo) {
       // ユーザー情報が存在するが、プロフィールは未登録
-      redirectPath = "/user/setting/edit/profile";
+      redirectPath = "/user/setting/";
       alertMessage += "ユーザー情報を登録してください。";
     } else if (!getUserResult.data) {
       // ユーザー情報が存在しない
       await apiCreateUser(userId);
-      redirectPath = "/user/setting/edit/profile";
+      redirectPath = "/user/setting/";
       alertMessage += "ユーザー情報を登録してください。";
     }
 
