@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Button, Card, Container, useMediaQuery } from "@mui/material";
-import usePasswordReset from "@/hooks/components/auth/usePasswordReset";
+import usePasswordReset from "@/components/hooks/auth/usePasswordReset";
 import PasswordConfirmForm from "./section/PasswordConfirmForm";
 import { useRouter } from "next/router";
 

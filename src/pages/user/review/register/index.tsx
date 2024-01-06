@@ -1,7 +1,7 @@
 import Layout from "@/app/layout";
 import ReviewRegisterPane from "@/components/pages/user/review/register/ReviewRegisterPane";
 import Head from "next/head";
-import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
+import { fetchSchoolData } from "@/hooks/server/fetchData";
 import { GetServerSideProps } from "next";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import { Container, useMediaQuery } from "@mui/material";

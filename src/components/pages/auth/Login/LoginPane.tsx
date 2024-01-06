@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card, Container, useMediaQuery } from "@mui/material";
-import useLogin from "@/hooks/components/auth/useLogin";
+import useLogin from "@/components/hooks/auth/useLogin";
 import LoginForm from "./section/LoginForm";
 import LoginLinks from "./section/LoginLinks";
 

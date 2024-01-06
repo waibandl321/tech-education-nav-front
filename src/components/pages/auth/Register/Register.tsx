@@ -4,7 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Card, useMediaQuery } from "@mui/material";
-import useRegister from "@/hooks/components/auth/useRegister";
+import useRegister from "@/components/hooks/auth/useRegister";
 import RegisterForm from "./section/RegisterForm";
 import RegisterLinks from "./section/RegisterLinks";
 

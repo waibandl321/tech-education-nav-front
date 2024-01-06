@@ -1,6 +1,6 @@
 import Layout from "@/app/layout";
 import ReviewPostPane from "@/components/pages/user/review/register/[centerId]/[courseId]/ReviewPostPane";
-import { fetchSchoolCourseDetail } from "@/hooks/server/fetchSchoolData";
+import { fetchSchoolCourseDetail } from "@/hooks/server/fetchData";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { ensureString } from "@/hooks/utils/useConvertData";

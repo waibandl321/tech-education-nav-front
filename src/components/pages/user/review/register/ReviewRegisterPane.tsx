@@ -1,4 +1,4 @@
-import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
+import { fetchSchoolData } from "@/hooks/server/fetchData";
 import {
   Card,
   CardContent,

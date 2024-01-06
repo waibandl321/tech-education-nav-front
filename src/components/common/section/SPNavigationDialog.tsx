@@ -15,7 +15,7 @@ import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import { TransitionProps } from "@mui/material/transitions";
 import { Box, Button, Card, Grid, ListSubheader, Slide } from "@mui/material";
 import { useRouter } from "next/router";
-import useSignOut from "@/hooks/components/auth/useSignOut";
+import useSignOut from "@/components/hooks/auth/useSignOut";
 import { useAccountContext } from "@/contexts/AccountContext";
 
 // props型

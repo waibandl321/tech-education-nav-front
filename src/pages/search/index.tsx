@@ -17,13 +17,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
 import { CourseReview, LearningCenter, LearningCenterCourse } from "@/API";
-import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
+import { fetchSchoolData } from "@/hooks/server/fetchData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import useReviewPost from "@/hooks/api/useReviewPost";
 import { useLoading } from "@/contexts/LoadingContext";
 import ReviewListSection from "@/components/common/ReviewListSection";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import Link from "next/link";
 
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // hook
@@ -118,6 +117,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      label="スクール"
                       placeholder="スクールを選択してください"
                       InputProps={{
                         ...params.InputProps,
@@ -150,6 +150,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      label="コース"
                       placeholder="コースを選択してください"
                       InputProps={{
                         ...params.InputProps,

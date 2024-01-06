@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import { Card, useMediaQuery } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { AuthRegisterConfirmFormType } from "@/types/FormType";
-import useRegister from "@/hooks/components/auth/useRegister";
+import useRegister from "@/components/hooks/auth/useRegister";
 
 export default function RegisterConfirm() {
   // hooks

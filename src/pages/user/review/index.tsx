@@ -2,7 +2,7 @@ import Layout from "@/app/layout";
 import UserReviewPane from "@/components/pages/user/review/UserReviewPane";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { fetchSchoolData } from "@/hooks/server/fetchSchoolData";
+import { fetchSchoolData } from "@/hooks/server/fetchData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import { Container, useMediaQuery } from "@mui/material";
 

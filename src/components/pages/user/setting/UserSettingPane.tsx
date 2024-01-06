@@ -15,7 +15,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useUserInfo } from "@/hooks/components/user/setting/useUserInfo";
+import { useUserInfo } from "@/components/hooks/user/useUserInfo";
 import { useFormOptions } from "@/hooks/utils/useFormOptions";
 import { useState } from "react";
 import EditUserProfileForm from "./edit/section/EditUserProfileForm";

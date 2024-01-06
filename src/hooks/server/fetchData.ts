@@ -36,6 +36,7 @@ export const fetchSchoolData = async () => {
   }
 };
 
+// centerIdとcourseIdから詳細情報をサーバーサイドで取得する
 export const fetchSchoolCourseDetail = async (
   centerId: string,
   courseId: string

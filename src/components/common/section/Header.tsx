@@ -9,7 +9,7 @@ import Menu from "@mui/material/Menu";
 import MenuOpenOutlined from "@mui/icons-material/MenuOpenOutlined";
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import useSignOut from "@/hooks/components/auth/useSignOut";
+import useSignOut from "@/components/hooks/auth/useSignOut";
 import { useAccountContext } from "@/contexts/AccountContext";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";

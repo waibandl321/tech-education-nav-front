@@ -1,12 +1,8 @@
 import { LiteralUnion, RegisterOptions } from "react-hook-form";
 
-/**
- * フォームのバリデーションhook
- */
+// フォームのバリデーションhook
 export default function useValidation() {
-  /**
-   * Email形式 正規表現
-   */
+  // Email形式 正規表現
   const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   /**
