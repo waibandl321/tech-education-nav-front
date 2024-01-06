@@ -99,22 +99,26 @@ export default function Header() {
           <Box sx={{ flexGrow: 1 }} />
           {!isLoggedIn && (
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ m: "0 8px" }}
+              <Link
+                style={{
+                  ...LinkStyle,
+                  backgroundColor: "#1976d2",
+                  color: "#fff",
+                }}
                 href="/auth/login"
               >
                 ログイン
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{ m: "0 8px" }}
+              </Link>
+              <Link
+                style={{
+                  ...LinkStyle,
+                  border: "1px solid #1976d2",
+                  color: "#1976d2",
+                }}
                 href="/auth/register"
               >
                 会員登録
-              </Button>
+              </Link>
             </Box>
           )}
           {isLoggedIn && (

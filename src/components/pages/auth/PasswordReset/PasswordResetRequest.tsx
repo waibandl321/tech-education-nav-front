@@ -26,7 +26,7 @@ export default function PasswordResetRequest() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          パスワードの再設定
+          パスワード再設定
         </Typography>
         <Typography sx={{ mt: 3 }}>
           メールアドレスを入力して認証コードをお受け取りください。

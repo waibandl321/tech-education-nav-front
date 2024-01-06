@@ -28,7 +28,7 @@ export default function PasswordResetConfirm() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          パスワードの再設定
+          パスワード再設定
         </Typography>
         <Typography sx={{ mt: 3 }}>
           登録されたメールアドレスに認証コードを送信しました。認証コードと新しいパスワードを入力して会員登録を完了させてください。

@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import SPNavigationDialog from "@/components/common/section/SPNavigationDialog";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 /**
  * スマホ用ヘッダー コンポーネント
@@ -34,25 +35,20 @@ export default function MobileHeader() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#fff" }}>
         <Toolbar>
-          <Button
-            variant="text"
-            sx={{
-              m: "0 24px 0 0",
-              fontSize: 20,
-              color: "#666",
-            }}
-            onClick={() => router.push("/")}
+          <Link
+            style={{ textDecoration: "none", color: "#666", fontSize: 20 }}
+            href="/"
           >
             テック教育ナビ
-          </Button>
+          </Link>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="open drawer"
-              onClick={handleMobileMenuOpen} // ハンドラを設定
-              color="primary"
+              onClick={handleMobileMenuOpen}
+              color="default"
             >
               <MenuIcon />
             </IconButton>

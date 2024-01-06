@@ -3,14 +3,26 @@ import {
   Typography,
   Paper,
   useMediaQuery,
-  Button,
-  Grid,
+  Box,
 } from "@mui/material";
 import React from "react";
-import { useRouter } from "next/router";
+import Link from "next/link";
+
+const linkStyle = {
+  height: "60px",
+  lineHeight: "60px",
+  fontSize: "20px",
+  textDecoration: "none",
+  backgroundColor: "#1976d2",
+  color: "#fff",
+  borderRadius: 8,
+  width: "300px",
+  display: "flex",
+  justifyContent: "center",
+};
+
 export default function TopPane() {
   const isMobile = useMediaQuery("(max-width:640px)");
-  const router = useRouter();
 
   return (
     <Paper
@@ -31,19 +43,11 @@ export default function TopPane() {
           リアルな体験談が、あなたの挑戦を後押しする。
           <br />
         </Typography>
-        <Grid container justifyContent="center" marginTop={2}>
-          <Grid item xs={isMobile ? 12 : 6}>
-            <Button
-              size="large"
-              sx={{ height: 60, fontSize: 20 }}
-              variant="contained"
-              fullWidth
-              onClick={() => router.push("/search")}
-            >
-              口コミを探す
-            </Button>
-          </Grid>
-        </Grid>
+        <Box marginTop={2} display="flex" justifyContent="center">
+          <Link style={linkStyle} href="/search">
+            口コミを探す
+          </Link>
+        </Box>
       </Container>
     </Paper>
   );

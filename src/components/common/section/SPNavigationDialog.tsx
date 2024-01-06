@@ -13,10 +13,19 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import { TransitionProps } from "@mui/material/transitions";
-import { Box, Button, Card, Grid, ListSubheader, Slide } from "@mui/material";
+import { Box, Button, Grid, ListSubheader, Slide } from "@mui/material";
 import { useRouter } from "next/router";
 import useSignOut from "@/components/hooks/auth/useSignOut";
 import { useAccountContext } from "@/contexts/AccountContext";
+import Link from "next/link";
+
+const LinkStyle = {
+  textDecoration: "none",
+  color: "#1976d2",
+  padding: "12px 16px",
+  display: "block",
+  borderRadius: 8,
+};
 
 // props型
 interface SPNavigationDialogProps {
@@ -60,6 +69,10 @@ export default function SPNavigationDialog({
   ];
   const reviewMenus = [
     {
+      text: "TOP",
+      callbackFunc: () => router.push("/"),
+    },
+    {
       text: "口コミを探す",
       callbackFunc: () => router.push("/search"),
     },
@@ -89,26 +102,30 @@ export default function SPNavigationDialog({
       </AppBar>
       {!isLoggedIn && (
         <Box sx={{ m: "24px 16px", textAlign: "center" }}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid xs={6} item>
-              <Button
-                size="large"
-                variant="contained"
-                fullWidth
+              <Link
+                style={{
+                  ...LinkStyle,
+                  backgroundColor: "#1976d2",
+                  color: "#fff",
+                }}
                 href="/auth/login"
               >
                 ログイン
-              </Button>
+              </Link>
             </Grid>
             <Grid xs={6} item>
-              <Button
-                size="large"
-                variant="outlined"
-                fullWidth
+              <Link
+                style={{
+                  ...LinkStyle,
+                  border: "1px solid #1976d2",
+                  color: "#1976d2",
+                }}
                 href="/auth/register"
               >
                 会員登録
-              </Button>
+              </Link>
             </Grid>
           </Grid>
         </Box>
