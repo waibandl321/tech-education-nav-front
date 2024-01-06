@@ -113,87 +113,91 @@ export default function ReviewPostPane({
   };
 
   return (
-    <Card
-      sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
-      elevation={3}
-    >
-      <Typography component="h2" variant="h5" textAlign="center">
-        口コミ投稿
-      </Typography>
-      <CardContent sx={{ px: 0 }}>
-        <Stepper activeStep={1} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </CardContent>
-      <CardContent sx={{ px: 0 }}>
-        <List>
-          <ListItem sx={{ px: 0 }}>
-            <SchoolIcon sx={{ mr: 1 }}></SchoolIcon>
-            {center.name}
-          </ListItem>
-          <ListItem sx={{ px: 0 }}>
-            <TerminalIcon sx={{ mr: 1 }}></TerminalIcon>
-            {course.courseName}
-          </ListItem>
-        </List>
-      </CardContent>
+    <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
+      <Card
+        sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
+        elevation={3}
+      >
+        <Typography component="h2" variant="h5" textAlign="center">
+          口コミ投稿
+        </Typography>
+        <CardContent sx={{ px: 0 }}>
+          <Stepper activeStep={1} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </CardContent>
+        <CardContent sx={{ px: 0 }}>
+          <List>
+            <ListItem sx={{ px: 0 }}>
+              <SchoolIcon sx={{ mr: 1 }}></SchoolIcon>
+              {center.name}
+            </ListItem>
+            <ListItem sx={{ px: 0 }}>
+              <TerminalIcon sx={{ mr: 1 }}></TerminalIcon>
+              {course.courseName}
+            </ListItem>
+          </List>
+        </CardContent>
 
-      <CardContent sx={{ px: 0 }}>
-        <Typography fontWeight={700}>総合評価</Typography>
-        <Rating
-          name="rating"
-          value={reviewFormData.rating}
-          size="large"
-          onChange={(event, newValue) => {
-            handleChangeRating(newValue);
-          }}
-          sx={{ mt: 1 }}
+        <CardContent sx={{ px: 0 }}>
+          <Typography fontWeight={700}>総合評価</Typography>
+          <Rating
+            name="rating"
+            value={reviewFormData.rating}
+            size="large"
+            onChange={(event, newValue) => {
+              handleChangeRating(newValue);
+            }}
+            sx={{ mt: 1 }}
+          />
+          <Divider sx={{ my: 2 }}></Divider>
+          <Typography fontWeight={700}>タイトル</Typography>
+          <Typography variant="body2" sx={{ my: 1 }}>
+            受講してどのような結果を得ることができましたか？
+            <br />
+            例:「受講開始から3ヶ月でエンジニア転職成功！」など
+          </Typography>
+          <TextField
+            margin="normal"
+            fullWidth
+            placeholder="最も伝えたいことを一言で！"
+            required
+            autoComplete="off"
+            sx={{ background: "#fff" }}
+            name="reviewTitle"
+            value={reviewFormData.reviewTitle}
+            onChange={handleInputChange}
+          />
+          <Divider sx={{ my: 2 }}></Divider>
+          <Typography fontWeight={700}>口コミの詳細</Typography>
+          <Typography variant="body2" sx={{ my: 1 }}>
+            スクールの良かった点/悪かった点は何ですか？
+          </Typography>
+          <Textarea
+            name="reviewDetail"
+            inputValue={reviewFormData.reviewDetail}
+            onInputChange={handleInputChange}
+            placeholder="スクールでの自分の体験や感想を共有しましょう。"
+          ></Textarea>
+        </CardContent>
+        <FormButtons
+          submitText="投稿"
+          backText="戻る"
+          isDisabled={
+            !reviewFormData.reviewTitle || !reviewFormData.reviewDetail
+          }
+          handleSubmit={handleSubmit}
+          handleBack={() =>
+            router.push(
+              `/user/review/register?centerId=${center.id}&courseId=${course.id}`
+            )
+          }
         />
-        <Divider sx={{ my: 2 }}></Divider>
-        <Typography fontWeight={700}>タイトル</Typography>
-        <Typography variant="body2" sx={{ my: 1 }}>
-          受講してどのような結果を得ることができましたか？
-          <br />
-          例:「受講開始から3ヶ月でエンジニア転職成功！」など
-        </Typography>
-        <TextField
-          margin="normal"
-          fullWidth
-          placeholder="最も伝えたいことを一言で！"
-          required
-          autoComplete="off"
-          sx={{ background: "#fff" }}
-          name="reviewTitle"
-          value={reviewFormData.reviewTitle}
-          onChange={handleInputChange}
-        />
-        <Divider sx={{ my: 2 }}></Divider>
-        <Typography fontWeight={700}>口コミの詳細</Typography>
-        <Typography variant="body2" sx={{ my: 1 }}>
-          スクールの良かった点/悪かった点は何ですか？
-        </Typography>
-        <Textarea
-          name="reviewDetail"
-          inputValue={reviewFormData.reviewDetail}
-          onInputChange={handleInputChange}
-          placeholder="スクールでの自分の体験や感想を共有しましょう。"
-        ></Textarea>
-      </CardContent>
-      <FormButtons
-        submitText="投稿"
-        backText="戻る"
-        isDisabled={!reviewFormData.reviewTitle || !reviewFormData.reviewDetail}
-        handleSubmit={handleSubmit}
-        handleBack={() =>
-          router.push(
-            `/user/review/register?centerId=${center.id}&courseId=${course.id}`
-          )
-        }
-      />
-    </Card>
+      </Card>
+    </Container>
   );
 }

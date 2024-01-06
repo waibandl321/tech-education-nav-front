@@ -1,4 +1,3 @@
-"use client";
 import Layout from "@/app/layout";
 import RegisterPane from "@/components/pages/auth/Register/Register";
 import Head from "next/head";

@@ -13,6 +13,7 @@ import {
   InputAdornment,
   Typography,
   useMediaQuery,
+  Container,
 } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import TerminalIcon from "@mui/icons-material/Terminal";
@@ -81,90 +82,95 @@ export default function ReviewRegister({
   };
 
   return (
-    <Card
-      sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
-      elevation={3}
-    >
-      <Typography component="h2" variant="h5" textAlign="center">
-        口コミ投稿
-      </Typography>
-      <CardContent sx={{ px: 0 }}>
-        <Stepper activeStep={0} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </CardContent>
-      <Divider></Divider>
-      <CardContent sx={{ px: 0 }}>
-        <Grid container spacing={2} sx={{ mt: 2 }}>
-          <Grid item md={6} xs={12}>
-            <Autocomplete
-              id="learningCenterSelect"
-              value={selectedCenter}
-              options={centers}
-              noOptionsText="データがありません"
-              getOptionLabel={(option) => option.name ?? ""}
-              onChange={(event: any, newValue: LearningCenter | null) => {
-                setSelectedCenter(newValue);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder="受講したスクールを選択してください"
-                  InputProps={{
-                    ...params.InputProps,
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SchoolIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-              fullWidth
-            />
+    <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
+      <Card
+        sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
+        elevation={3}
+      >
+        <Typography component="h2" variant="h5" textAlign="center">
+          口コミ投稿
+        </Typography>
+        <CardContent sx={{ px: 0 }}>
+          <Stepper activeStep={0} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </CardContent>
+        <Divider></Divider>
+        <CardContent sx={{ px: 0 }}>
+          <Grid container spacing={2} sx={{ mt: 2 }}>
+            <Grid item md={6} xs={12}>
+              <Autocomplete
+                id="learningCenterSelect"
+                value={selectedCenter}
+                options={centers}
+                noOptionsText="データがありません"
+                getOptionLabel={(option) => option.name ?? ""}
+                onChange={(event: any, newValue: LearningCenter | null) => {
+                  setSelectedCenter(newValue);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="受講したスクールを選択してください"
+                    InputProps={{
+                      ...params.InputProps,
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SchoolIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+                fullWidth
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Autocomplete
+                fullWidth
+                disabled={!selectedCenter}
+                id="learningCourseSelect"
+                value={selectedCourse}
+                options={courseOptions}
+                noOptionsText="データがありません"
+                getOptionLabel={(option) => option.courseName ?? ""}
+                onChange={(
+                  event: any,
+                  newValue: LearningCenterCourse | null
+                ) => {
+                  setSelectedCourse(newValue);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="受講したコースを選択してください"
+                    InputProps={{
+                      ...params.InputProps,
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <TerminalIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+              />
+            </Grid>
           </Grid>
-          <Grid item md={6} xs={12}>
-            <Autocomplete
-              fullWidth
-              disabled={!selectedCenter}
-              id="learningCourseSelect"
-              value={selectedCourse}
-              options={courseOptions}
-              noOptionsText="データがありません"
-              getOptionLabel={(option) => option.courseName ?? ""}
-              onChange={(event: any, newValue: LearningCenterCourse | null) => {
-                setSelectedCourse(newValue);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder="受講したコースを選択してください"
-                  InputProps={{
-                    ...params.InputProps,
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <TerminalIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
+          <Box maxWidth={600} sx={{ mx: "auto", mt: 4 }}>
+            <FormButtons
+              submitText="次へ"
+              handleSubmit={handleMoveToPostPage}
+              isDisabled={!selectedCenter || !selectedCourse}
             />
-          </Grid>
-        </Grid>
-        <Box maxWidth={600} sx={{ mx: "auto", mt: 4 }}>
-          <FormButtons
-            submitText="次へ"
-            handleSubmit={handleMoveToPostPage}
-            isDisabled={!selectedCenter || !selectedCourse}
-          />
-        </Box>
-      </CardContent>
-    </Card>
+          </Box>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }
 

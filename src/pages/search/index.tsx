@@ -62,7 +62,7 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
     }
   }, [selectedCenter, selectedCourse]);
 
-  // 口コミ表示
+  // 口コミ取得
   const handleViewReviews = async () => {
     if (!selectedCenter?.id || !selectedCourse?.id) return;
     setLoading(true);
@@ -111,6 +111,9 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                   options={centers}
                   noOptionsText="データがありません"
                   getOptionLabel={(option) => option.name ?? ""}
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
+                  }
                   onChange={(event: any, newValue: LearningCenter | null) => {
                     setSelectedCenter(newValue);
                   }}
@@ -139,6 +142,9 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
                   id="learningCourseSelect"
                   value={selectedCourse}
                   options={courseOptions}
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
+                  }
                   noOptionsText="データがありません"
                   getOptionLabel={(option) => option.courseName ?? ""}
                   onChange={(

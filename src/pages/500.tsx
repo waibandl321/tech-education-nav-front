@@ -1,9 +1,8 @@
 import React from "react";
-import { Container, Typography, Button, Box } from "@mui/material";
-import Link from "next/link";
+import { Container, Typography } from "@mui/material";
 import Layout from "@/app/layout";
 
-export default function Custom404() {
+export default function Custom500() {
   return (
     <Layout>
       <Container

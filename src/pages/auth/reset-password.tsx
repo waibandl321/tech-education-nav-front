@@ -1,4 +1,3 @@
-"use client";
 import Layout from "@/app/layout";
 import PasswordResetRequest from "@/components/pages/auth/PasswordReset/PasswordResetRequest";
 import Head from "next/head";

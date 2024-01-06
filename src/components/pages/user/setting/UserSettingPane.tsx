@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Card,
+  Container,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -45,67 +46,75 @@ export default function UserSetting() {
   };
 
   return (
-    <Card
-      sx={{ px: isMobile ? 2 : 3, py: isMobile ? 2 : 4, borderRadius: "16px" }}
-      elevation={3}
-    >
-      <Grid container>
-        <Typography component="h2" variant={isMobile ? "h6" : "h5"}>
-          プロフィール情報
-        </Typography>
-        <Box sx={{ flexGrow: 1 }} />
-        <Button
-          variant="text"
-          sx={{ px: 0 }}
-          onClick={() => setIsOpenEditUserDialog(true)}
-        >
-          編集
-        </Button>
-      </Grid>
-      <Divider sx={{ mt: 2 }}></Divider>
-      <Table sx={{ tableLayout: "fixed" }} aria-label="simple table">
-        <TableBody>
-          <TableRow>
-            <TableCell>氏名</TableCell>
-            <TableCell>{user.name || ""}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>性別</TableCell>
-            <TableCell>{getGenderText(user.gender)}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>生年月日</TableCell>
-            <TableCell>
-              {user.birthYear}/{user.birthMonth}/{user.birthDate}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>現住所</TableCell>
-            <TableCell>{user.prefecture}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>前職</TableCell>
-            <TableCell>{user.previousJob}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-      <Dialog
-        onClose={() => setIsOpenEditUserDialog(false)}
-        open={isOpenEditUserDialog}
-        fullWidth
+    <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
+      <Card
+        sx={{
+          px: isMobile ? 2 : 3,
+          py: isMobile ? 2 : 4,
+          borderRadius: "16px",
+        }}
+        elevation={3}
       >
-        <DialogTitle display="flex" justifyContent="space-between">
-          <span>プロフィール編集</span>
-          <Button onClick={() => setIsOpenEditUserDialog(false)}>閉じる</Button>
-        </DialogTitle>
-        <DialogContent>
-          <EditUserProfileForm
-            user={user}
-            handlerFormChange={handlerUserFormChange}
-            onSubmit={handlerSubmitUserEdit}
-          />
-        </DialogContent>
-      </Dialog>
-    </Card>
+        <Grid container>
+          <Typography component="h2" variant={isMobile ? "h6" : "h5"}>
+            プロフィール情報
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button
+            variant="text"
+            sx={{ px: 0 }}
+            onClick={() => setIsOpenEditUserDialog(true)}
+          >
+            編集
+          </Button>
+        </Grid>
+        <Divider sx={{ mt: 2 }}></Divider>
+        <Table sx={{ tableLayout: "fixed" }} aria-label="simple table">
+          <TableBody>
+            <TableRow>
+              <TableCell>氏名</TableCell>
+              <TableCell>{user.name || ""}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>性別</TableCell>
+              <TableCell>{getGenderText(user.gender)}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>生年月日</TableCell>
+              <TableCell>
+                {user.birthYear}/{user.birthMonth}/{user.birthDate}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>現住所</TableCell>
+              <TableCell>{user.prefecture}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>前職</TableCell>
+              <TableCell>{user.previousJob}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <Dialog
+          onClose={() => setIsOpenEditUserDialog(false)}
+          open={isOpenEditUserDialog}
+          fullWidth
+        >
+          <DialogTitle display="flex" justifyContent="space-between">
+            <span>プロフィール編集</span>
+            <Button onClick={() => setIsOpenEditUserDialog(false)}>
+              閉じる
+            </Button>
+          </DialogTitle>
+          <DialogContent>
+            <EditUserProfileForm
+              user={user}
+              handlerFormChange={handlerUserFormChange}
+              onSubmit={handlerSubmitUserEdit}
+            />
+          </DialogContent>
+        </Dialog>
+      </Card>
+    </Container>
   );
 }
