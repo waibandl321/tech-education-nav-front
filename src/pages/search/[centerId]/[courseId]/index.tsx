@@ -52,8 +52,7 @@ export default function SearchResult({
     <>
       <Head>
         <title>
-          【{centerDetail.name}】コース:{courseDetail.courseName}の口コミ一覧|
-          テック教育ナビ
+          {`【${centerDetail.name}】コース: ${courseDetail.courseName}の口コミ一覧 | テック教育ナビ`}
         </title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
