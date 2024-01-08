@@ -2,6 +2,7 @@ import { generateClient } from "aws-amplify/api";
 import {
   getLearningCenter,
   getLearningCenterCourse,
+  listCourseReviews,
   listLearningCenterCourses,
   listLearningCenters,
 } from "@/graphql/queries";
@@ -62,6 +63,39 @@ export const fetchSchoolCourseDetail = async (
     return {
       center: null,
       course: null,
+    };
+  }
+};
+
+// コースのレビュー一覧を取得する
+export const fetchCourseReviews = async (
+  centerId: string,
+  courseId: string
+) => {
+  try {
+    const result = await client.graphql({
+      authMode: "apiKey",
+      query: listCourseReviews,
+      variables: {
+        filter: {
+          learningCenterId: {
+            eq: centerId,
+          },
+          learningCenterCourseId: {
+            eq: courseId,
+          },
+          isPublished: {
+            eq: true,
+          },
+        },
+      },
+    });
+    return {
+      reviews: result.data.listCourseReviews.items,
+    };
+  } catch (error) {
+    return {
+      reviews: [],
     };
   }
 };

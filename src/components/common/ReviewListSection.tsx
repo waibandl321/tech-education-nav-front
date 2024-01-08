@@ -21,11 +21,11 @@ export default function ReviewListSection({
   reviewList: Array<CourseReview>;
 }) {
   const isMobile = useMediaQuery("(max-width:640px)");
-  const { getGenderText } = useFormOptions();
+  const { getGenderText, getPrefectureText } = useFormOptions();
   const subHeaderText = (item: CourseReview) => {
-    return `${item.userAge}歳 /${getGenderText(item.userGender)}/前職: ${
-      item.userPreviousJob
-    }`;
+    return `${item.userAge}歳/${getGenderText(
+      item.userGender
+    )}/${getPrefectureText(item.userPrefecture)}`;
   };
 
   return (
@@ -39,7 +39,7 @@ export default function ReviewListSection({
                   <AccountCircle></AccountCircle>
                 </Avatar>
               }
-              title={item.userDisplayName}
+              title={item.userDisplayId}
               subheader={subHeaderText(item)}
               sx={{ p: 0 }}
             />
