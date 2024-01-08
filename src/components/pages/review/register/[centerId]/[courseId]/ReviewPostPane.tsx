@@ -20,9 +20,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Textarea from "@/components/common/parts/TextareaComponent";
 import FormButtons from "@/components/common/parts/FormButtons";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
-import useReview, {
-  ReviewFormDataType,
-} from "@/components/hooks/auth/useReview";
+import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 
 /**

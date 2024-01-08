@@ -18,9 +18,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
-import useReview, {
-  ReviewFormDataType,
-} from "@/components/hooks/auth/useReview";
+import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
 import useReviewPost from "@/hooks/api/useReview";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
