@@ -1,19 +1,14 @@
 import { GetServerSideProps } from "next";
 import {
-  Autocomplete,
   Box,
   Container,
   Grid,
-  TextField,
   Typography,
-  InputAdornment,
   Paper,
   useMediaQuery,
   Button,
 } from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
-import TerminalIcon from "@mui/icons-material/Terminal";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
 import { CourseReview, LearningCenter, LearningCenterCourse } from "@/API";
@@ -23,6 +18,7 @@ import useReviewPost from "@/hooks/api/useReview";
 import { useLoading } from "@/contexts/LoadingContext";
 import ReviewListSection from "@/components/common/ReviewListSection";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";
 
 export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   // hook
@@ -37,11 +33,6 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
   const [selectedCourse, setSelectedCourse] =
     useState<LearningCenterCourse | null>(null);
   const [reviewList, setReviewList] = useState<Array<CourseReview>>([]);
-
-  // コース選択オプション: スクールの選択状態に応じて動的に変化する
-  const courseOptions: Array<LearningCenterCourse> = useMemo(() => {
-    return courses.filter((v) => v.learningCenterId === selectedCenter?.id);
-  }, [selectedCenter, courses]);
 
   useEffect(() => {
     // コースが選択されている状態でスクールが削除された場合、コースを初期化
@@ -100,79 +91,17 @@ export default function Home({ centers, courses }: CentersAndCoursesPropType) {
             <Typography textAlign="center" component={"h2"} variant="h5">
               口コミを検索
             </Typography>
-            <Typography textAlign="center" marginTop={2}>
+            <Typography textAlign="center" marginTop={2} marginBottom={3}>
               スクールとコースを選択すると検索が実行されます。
             </Typography>
-            <Grid container spacing={2} sx={{ mt: 3 }}>
-              <Grid item md={6} xs={12}>
-                <Autocomplete
-                  id="learningCenterSelect"
-                  value={selectedCenter}
-                  options={centers}
-                  noOptionsText="データがありません"
-                  getOptionLabel={(option) => option.name ?? ""}
-                  isOptionEqualToValue={(option, value) =>
-                    option.id === value.id
-                  }
-                  onChange={(event: any, newValue: LearningCenter | null) => {
-                    setSelectedCenter(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="スクール"
-                      placeholder="スクールを選択してください"
-                      InputProps={{
-                        ...params.InputProps,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SchoolIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                  fullWidth
-                  sx={{ backgroundColor: "#fff", borderRadius: 1 }}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <Autocomplete
-                  disabled={!selectedCenter}
-                  id="learningCourseSelect"
-                  value={selectedCourse}
-                  options={courseOptions}
-                  isOptionEqualToValue={(option, value) =>
-                    option.id === value.id
-                  }
-                  noOptionsText="データがありません"
-                  getOptionLabel={(option) => option.courseName ?? ""}
-                  onChange={(
-                    event: any,
-                    newValue: LearningCenterCourse | null
-                  ) => {
-                    setSelectedCourse(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="コース"
-                      placeholder="コースを選択してください"
-                      InputProps={{
-                        ...params.InputProps,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <TerminalIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                  fullWidth
-                  sx={{ backgroundColor: "#fff", borderRadius: 1 }}
-                />
-              </Grid>
-            </Grid>
+            <AutoCompleteSchoolCourse
+              centers={centers}
+              courses={courses}
+              selectedCenter={selectedCenter}
+              selectedCourse={selectedCourse}
+              setSelectedCenter={setSelectedCenter}
+              setSelectedCourse={setSelectedCourse}
+            />
           </Container>
         </Paper>
         {/* 一覧 */}

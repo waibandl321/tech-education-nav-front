@@ -4,19 +4,13 @@ import {
   CardContent,
   Divider,
   Box,
-  Grid,
-  Autocomplete,
-  TextField,
   Stepper,
   Step,
   StepLabel,
-  InputAdornment,
   Typography,
   useMediaQuery,
   Container,
 } from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
-import TerminalIcon from "@mui/icons-material/Terminal";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { GetServerSideProps } from "next";
@@ -30,6 +24,7 @@ import { useSearchParams } from "next/navigation";
 import DateRangePicker from "@/components/common/parts/DateRangePicker";
 import dayjs from "dayjs";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
+import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";
 
 export default function ReviewRegisterSelectPane({
   centers,
@@ -53,12 +48,6 @@ export default function ReviewRegisterSelectPane({
   );
   const [selectedCourse, setSelectedCourse] =
     useState<LearningCenterCourse | null>(null);
-
-  // コース選択オプション: スクールの選択状態に応じて動的に変化する
-  const courseOptions: Array<LearningCenterCourse> = useMemo(() => {
-    if (!courses) return [];
-    return courses.filter((v) => v.learningCenterId === selectedCenter?.id);
-  }, [selectedCenter, courses]);
 
   useEffect(() => {
     // コースが選択されている状態でスクールが削除された場合、コースを初期化
@@ -157,66 +146,14 @@ export default function ReviewRegisterSelectPane({
           <Typography fontWeight={700} marginBottom={2}>
             受講したスクールとコースを選択
           </Typography>
-          <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
-              <Autocomplete
-                id="learningCenterSelect"
-                value={selectedCenter}
-                options={centers}
-                noOptionsText="データがありません"
-                getOptionLabel={(option) => option.name ?? ""}
-                onChange={(event: any, newValue: LearningCenter | null) => {
-                  setSelectedCenter(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="受講したスクールを選択してください"
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SchoolIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                )}
-                fullWidth
-              />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <Autocomplete
-                fullWidth
-                disabled={!selectedCenter}
-                id="learningCourseSelect"
-                value={selectedCourse}
-                options={courseOptions}
-                noOptionsText="データがありません"
-                getOptionLabel={(option) => option.courseName ?? ""}
-                onChange={(
-                  event: any,
-                  newValue: LearningCenterCourse | null
-                ) => {
-                  setSelectedCourse(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="受講したコースを選択してください"
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <TerminalIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
+          <AutoCompleteSchoolCourse
+            centers={centers}
+            courses={courses}
+            selectedCenter={selectedCenter}
+            selectedCourse={selectedCourse}
+            setSelectedCenter={setSelectedCenter}
+            setSelectedCourse={setSelectedCourse}
+          />
           <Divider sx={{ my: 3 }}></Divider>
           <Typography fontWeight={700} marginBottom={2}>
             受講期間
