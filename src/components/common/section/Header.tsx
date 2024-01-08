@@ -3,15 +3,9 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuOpenOutlined from "@mui/icons-material/MenuOpenOutlined";
-import { Button, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { Button } from "@mui/material";
 import useSignOut from "@/components/hooks/auth/useSignOut";
-import { useAccountContext } from "@/contexts/AccountContext";
-import PersonIcon from "@mui/icons-material/Person";
+// import { useAccountContext } from "@/contexts/AccountContext";
 import Link from "next/link";
 
 const LinkStyle = {
@@ -24,47 +18,8 @@ const LinkStyle = {
 };
 
 export default function Header() {
-  const router = useRouter();
   const handleSignOut = useSignOut();
-  const { isLoggedIn, loginUser } = useAccountContext();
-
-  // アカウントメニュー
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleAccountMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={() => router.push("/user/review")}>
-        あなたの投稿
-      </MenuItem>
-      <MenuItem onClick={() => router.push("/user/setting")}>
-        プロフィール
-      </MenuItem>
-      <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
-    </Menu>
-  );
+  // const { isLoggedIn } = useAccountContext();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -92,12 +47,12 @@ export default function Header() {
               backgroundColor: "#1976d2",
               color: "#fff",
             }}
-            href="/user/review/register"
+            href="/review/register/profile"
           >
             口コミを投稿する
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          {!isLoggedIn && (
+          {/* {!isLoggedIn && (
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Link
                 style={{
@@ -121,27 +76,9 @@ export default function Header() {
               </Link>
             </Box>
           )}
-          {isLoggedIn && (
-            <>
-              <Typography color="GrayText" display="flex" alignItems="center">
-                <PersonIcon sx={{ mr: 1 }}></PersonIcon>
-                <span>{loginUser?.name ?? ""}さん</span>
-              </Typography>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                onClick={handleAccountMenuOpen}
-                sx={{ ml: 2 }}
-              >
-                <MenuOpenOutlined />
-              </IconButton>
-            </>
-          )}
+          {isLoggedIn && <Button onClick={handleSignOut}>ログアウト</Button>} */}
         </Toolbar>
       </AppBar>
-      {renderMenu}
     </Box>
   );
 }

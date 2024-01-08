@@ -19,7 +19,7 @@ import Head from "next/head";
 import { CourseReview, LearningCenter, LearningCenterCourse } from "@/API";
 import { fetchSchoolData } from "@/hooks/server/fetchData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
-import useReviewPost from "@/hooks/api/useReviewPost";
+import useReviewPost from "@/hooks/api/useReview";
 import { useLoading } from "@/contexts/LoadingContext";
 import ReviewListSection from "@/components/common/ReviewListSection";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";

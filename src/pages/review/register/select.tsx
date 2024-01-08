@@ -1,23 +1,23 @@
 import Layout from "@/app/layout";
-import UserReviewPane from "@/components/pages/user/review/UserReviewPane";
-import { GetServerSideProps } from "next";
+import ReviewRegisterSelectPane from "@/components/pages/review/register/ReviewRegisterSelectPane";
 import Head from "next/head";
 import { fetchSchoolData } from "@/hooks/server/fetchData";
+import { GetServerSideProps } from "next";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 
-export default function UserReview({
+export default function ReviewRegisterSelect({
   centers,
   courses,
 }: CentersAndCoursesPropType) {
   return (
     <>
       <Head>
-        <title>あなたの投稿 | テック教育ナビ</title>
+        <title>【口コミ投稿】スクールとコースを選択 | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <UserReviewPane centers={centers} courses={courses} />
+        <ReviewRegisterSelectPane centers={centers} courses={courses} />
       </Layout>
     </>
   );

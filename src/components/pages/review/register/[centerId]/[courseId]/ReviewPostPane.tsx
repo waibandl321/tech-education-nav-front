@@ -15,25 +15,15 @@ import {
 import SchoolIcon from "@mui/icons-material/School";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Textarea from "@/components/common/parts/TextareaComponent";
 import FormButtons from "@/components/common/parts/FormButtons";
-import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
-import useReviewPost from "@/hooks/api/useReviewPost";
-import { CreateCourseReviewInput } from "@/API";
-import { useAccountContext } from "@/contexts/AccountContext";
-import { useLoading } from "@/contexts/LoadingContext";
-import { calculateAge } from "@/hooks/utils/useConvertData";
-import { steps } from "@/components/pages/user/review/register/ReviewRegisterPane";
-interface ReviewFormType {
-  reviewTitle: string;
-  reviewDetail: string;
-  rating: number;
-  isPublished: boolean;
-  isDeleted: boolean;
-}
+import useReview, {
+  ReviewFormDataType,
+} from "@/components/hooks/auth/useReview";
+import useSessionStorage from "@/hooks/utils/useSessionStorage";
 
 /**
  * 口コミ投稿画面
@@ -46,19 +36,16 @@ export default function ReviewPostPane({
 }: CenterAndCourseDetailPropType) {
   // hooks
   const router = useRouter();
-  const { setAlertMessage } = useMessageAlert();
+  const { steps, initReviewFormData } = useReview();
+  const { sessionStorageValue, setSessionStorageValue } = useSessionStorage(
+    "REVIEW_FORM_DATA",
+    ""
+  );
   const isMobile = useMediaQuery("(max-width:640px)");
-  const { apiCreateCourseReview } = useReviewPost();
-  const { accountInfomation, loginUser } = useAccountContext();
-  const { setLoading } = useLoading();
+
   // state
-  const [reviewFormData, setReviewFormData] = useState<ReviewFormType>({
-    reviewTitle: "",
-    reviewDetail: "",
-    rating: 0,
-    isPublished: false,
-    isDeleted: false,
-  });
+  const [reviewFormData, setReviewFormData] =
+    useState<ReviewFormDataType>(initReviewFormData);
 
   // 入力変更ハンドラ
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -78,39 +65,20 @@ export default function ReviewPostPane({
 
   // データ送信の非同期処理をここに追加する
   const handleSubmit = async () => {
-    if (!accountInfomation.userId) return;
-    setLoading(true);
-    try {
-      const request: CreateCourseReviewInput = {
-        userId: accountInfomation.userId,
-        userDisplayName: loginUser?.displayId,
-        userGender: loginUser?.gender,
-        userPreviousJob: loginUser?.previousJob,
-        userAge: String(
-          calculateAge(
-            loginUser?.birthYear ?? 0,
-            loginUser?.birthMonth ?? 0,
-            loginUser?.birthDate ?? 0
-          )
-        ),
-        learningCenterId: center.id,
-        learningCenterCourseId: course.id,
+    setSessionStorageValue(
+      JSON.stringify({
         ...reviewFormData,
-      };
-      const createResult = await apiCreateCourseReview(request);
-      if (createResult.isSuccess) {
-        router.push("/user/review/register/complete");
-      }
-    } catch (error) {
-      console.error(error);
-      setAlertMessage({
-        type: "error",
-        message: `口コミ情報の登録に失敗しました。しばらく時間を置いてから、再度お試しください。`,
-      });
-    } finally {
-      setLoading(false);
-    }
+      })
+    );
+    router.push(`/review/register/${center.id}/${course.id}/confirm`);
   };
+
+  useEffect(() => {
+    // セッションストレージの口コミデータをセット
+    if (sessionStorageValue) {
+      setReviewFormData(JSON.parse(sessionStorageValue));
+    }
+  }, [sessionStorageValue]);
 
   return (
     <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
@@ -118,19 +86,25 @@ export default function ReviewPostPane({
         sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
         elevation={3}
       >
-        <Typography component="h2" variant="h5" textAlign="center">
+        <Typography
+          component="h2"
+          fontSize={24}
+          textAlign="center"
+          marginBottom={2}
+        >
           口コミ投稿
         </Typography>
         <CardContent sx={{ px: 0 }}>
-          <Stepper activeStep={1} alternativeLabel>
+          <Stepper activeStep={2} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
-        </CardContent>
-        <CardContent sx={{ px: 0 }}>
+
+          <Divider sx={{ mt: 3 }}></Divider>
+
           <List>
             <ListItem sx={{ px: 0 }}>
               <SchoolIcon sx={{ mr: 1 }}></SchoolIcon>
@@ -141,9 +115,7 @@ export default function ReviewPostPane({
               {course.courseName}
             </ListItem>
           </List>
-        </CardContent>
-
-        <CardContent sx={{ px: 0 }}>
+          <Divider sx={{ mb: 3 }}></Divider>
           <Typography fontWeight={700}>総合評価</Typography>
           <Rating
             name="rating"
@@ -155,11 +127,11 @@ export default function ReviewPostPane({
             sx={{ mt: 1 }}
           />
           <Divider sx={{ my: 2 }}></Divider>
-          <Typography fontWeight={700}>タイトル</Typography>
+          <Typography fontWeight={700}>
+            スクールを受講して得られた結果
+          </Typography>
           <Typography variant="body2" sx={{ my: 1 }}>
-            受講してどのような結果を得ることができましたか？
-            <br />
-            例:「受講開始から3ヶ月でエンジニア転職成功！」など
+            例:「受講開始から3ヶ月でエンジニア転職成功」「受講期間中にフリーランスを案件して20万円稼いだ」など
           </Typography>
           <TextField
             margin="normal"
@@ -185,7 +157,7 @@ export default function ReviewPostPane({
           ></Textarea>
         </CardContent>
         <FormButtons
-          submitText="投稿"
+          submitText="確認画面へ"
           backText="戻る"
           isDisabled={
             !reviewFormData.reviewTitle || !reviewFormData.reviewDetail
@@ -193,7 +165,7 @@ export default function ReviewPostPane({
           handleSubmit={handleSubmit}
           handleBack={() =>
             router.push(
-              `/user/review/register?centerId=${center.id}&courseId=${course.id}`
+              `/review/register/select?centerId=${center.id}&courseId=${course.id}`
             )
           }
         />

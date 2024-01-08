@@ -1,6 +1,6 @@
 import Layout from "@/app/layout";
 import Head from "next/head";
-import ReviewCompletePane from "@/components/pages/user/review/register/ReviewCompletePane";
+import ReviewCompletePane from "@/components/pages/review/register/ReviewCompletePane";
 
 // 口コミ投稿完了画面
 export default function Complete() {

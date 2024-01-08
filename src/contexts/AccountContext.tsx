@@ -6,8 +6,6 @@ import React, {
   useState,
 } from "react";
 import { useLoading } from "./LoadingContext";
-import { User } from "@/API";
-import useUser from "@/hooks/api/useUser";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 export interface AccountInfomation {
@@ -25,8 +23,6 @@ interface AccountContextType {
   isLoggedIn: boolean;
   accountInfomation: AccountInfomation;
   setAccountInfomation: (accountInfo: AccountInfomation) => void;
-  loginUser: User | null | undefined;
-  setLoginUser: (user: User) => void;
 }
 
 // プロバイダーのプロパティの型定義（子コンポーネントを受け取る）
@@ -43,11 +39,9 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
 }) => {
   // hooks
   const { setLoading } = useLoading();
-  const { apiGetUserByCognitoSub } = useUser();
   const [accountInfomation, setAccountInfomation] = useState<AccountInfomation>(
     {}
   );
-  const [loginUser, setLoginUser] = useState<User | null>(null);
 
   // アカウントのログイン状態: userIdがあればログインしていると判定
   const isLoggedIn = !!accountInfomation?.userId;
@@ -70,11 +64,6 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
         userId,
         email,
       });
-      // ログインユーザー情報を取得する
-      const getLoginUserResult = await apiGetUserByCognitoSub(userId);
-      if (getLoginUserResult.data) {
-        setLoginUser(getLoginUserResult.data);
-      }
     } catch (error) {
       setAccountInfomation(initAccountInfomation);
       console.error(error);
@@ -93,8 +82,6 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
         isLoggedIn,
         accountInfomation,
         setAccountInfomation,
-        loginUser,
-        setLoginUser,
       }}
     >
       {children}

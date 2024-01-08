@@ -4,7 +4,7 @@ import { generateClient } from "aws-amplify/api";
 import { CourseReview, CreateCourseReviewInput } from "@/API";
 import useAPIResponse from "./useAPIResponse";
 
-export default function useReviewPost() {
+export default function useReview() {
   const { getErrorMessage } = useAPIResponse();
   const client = generateClient();
 
@@ -43,39 +43,13 @@ export default function useReviewPost() {
     }
   };
 
-  const apiGetCourseReviewsByUserId = async (
-    userId: string
-  ): Promise<ApiResponse<Array<CourseReview>>> => {
-    try {
-      const result = await client.graphql({
-        authMode: "apiKey",
-        query: queries.listCourseReviews,
-        variables: {
-          filter: {
-            userId: {
-              eq: userId,
-            },
-          },
-        },
-      });
-      return {
-        isSuccess: true,
-        data: result.data.listCourseReviews.items,
-      };
-    } catch (error) {
-      return {
-        isSuccess: false,
-        error: getErrorMessage(error),
-      };
-    }
-  };
-
   // 作成
   const apiCreateCourseReview = async (
     reviewInput: CreateCourseReviewInput
   ) => {
     try {
       const result = await client.graphql({
+        authMode: "apiKey",
         query: mutations.createCourseReview,
         variables: { input: reviewInput },
       });
@@ -93,7 +67,6 @@ export default function useReviewPost() {
   };
 
   return {
-    apiGetCourseReviewsByUserId,
     apiGetCourseReviewsByIds,
     apiCreateCourseReview,
   };

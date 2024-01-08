@@ -16,7 +16,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import { Box, Button, Grid, ListSubheader, Slide } from "@mui/material";
 import { useRouter } from "next/router";
 import useSignOut from "@/components/hooks/auth/useSignOut";
-import { useAccountContext } from "@/contexts/AccountContext";
+// import { useAccountContext } from "@/contexts/AccountContext";
 import Link from "next/link";
 
 const LinkStyle = {
@@ -55,18 +55,7 @@ export default function SPNavigationDialog({
   // hook
   const router = useRouter();
   const handleSignOut = useSignOut();
-  const { isLoggedIn } = useAccountContext();
-
-  const myMenus = [
-    {
-      text: "あなたの投稿",
-      callbackFunc: () => router.push("/user/review"),
-    },
-    {
-      text: "プロフィール・各種設定",
-      callbackFunc: () => router.push("/user/setting"),
-    },
-  ];
+  // const { isLoggedIn } = useAccountContext();
   const reviewMenus = [
     {
       text: "TOP",
@@ -77,12 +66,12 @@ export default function SPNavigationDialog({
       callbackFunc: () => router.push("/search"),
     },
   ];
-  if (isLoggedIn) {
-    reviewMenus.push({
-      text: "口コミを投稿する",
-      callbackFunc: () => router.push("/user/review/register"),
-    });
-  }
+  // if (isLoggedIn) {
+  //   reviewMenus.push({
+  //     text: "口コミを投稿する",
+  //     callbackFunc: () => router.push("/review/register/profile"),
+  //   });
+  // }
 
   return (
     <Dialog
@@ -100,7 +89,7 @@ export default function SPNavigationDialog({
           </IconButton>
         </Toolbar>
       </AppBar>
-      {!isLoggedIn && (
+      {/* {!isLoggedIn && (
         <Box sx={{ m: "24px 16px", textAlign: "center" }}>
           <Grid container spacing={1}>
             <Grid xs={6} item>
@@ -129,7 +118,7 @@ export default function SPNavigationDialog({
             </Grid>
           </Grid>
         </Box>
-      )}
+      )} */}
 
       <Divider />
       <List>
@@ -150,27 +139,6 @@ export default function SPNavigationDialog({
           </ListItem>
         ))}
       </List>
-      {isLoggedIn && (
-        <List>
-          <ListSubheader>マイメニュー</ListSubheader>
-          {myMenus.map((item, index) => (
-            <ListItem
-              key={index}
-              button
-              secondaryAction={
-                <IconButton edge="end" aria-label="link">
-                  <ChevronRightOutlinedIcon />
-                </IconButton>
-              }
-              sx={{ borderTop: "1px solid rgba(0, 0, 0, 0.12)" }}
-              onClick={() => item.callbackFunc()}
-            >
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-          <Divider />
-        </List>
-      )}
 
       <Box sx={{ m: "40px 0 0", textAlign: "center" }}>
         <Button

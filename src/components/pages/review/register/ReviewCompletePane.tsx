@@ -6,7 +6,7 @@ export default function ReviewCompletePane() {
     <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
       <Card variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
         <Typography>
-          口コミ情報を登録しました。
+          口コミを投稿いただきありがとうございます！
           <br />
           ご投稿いただいた口コミは、1件ずつチェックしております。
           <br />

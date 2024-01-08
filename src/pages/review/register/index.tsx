@@ -1,5 +1,5 @@
 import Layout from "@/app/layout";
-import ReviewPostPane from "@/components/pages/user/review/register/[centerId]/[courseId]/ReviewPostPane";
+import ReviewPostPane from "@/components/pages/review/register/[centerId]/[courseId]/ReviewPostPane";
 import { fetchSchoolCourseDetail } from "@/hooks/server/fetchData";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
@@ -7,14 +7,14 @@ import { ensureString } from "@/hooks/utils/useConvertData";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
 
 // 口コミ投稿 入力画面
-export default function Comment({
+export default function Profile({
   center,
   course,
 }: CenterAndCourseDetailPropType) {
   return (
     <>
       <Head>
-        <title>【口コミ投稿】あなたの体験を共有 | テック教育ナビ</title>
+        <title>【口コミ投稿】プロフィール | テック教育ナビ</title>
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
