@@ -17,7 +17,7 @@ export default function useValidation() {
       case "required":
         return "メールアドレスの入力は必須です";
       case "pattern":
-        return "メールアドレスの形式で入力してください";
+        return "メールアドレスが不正です。";
       default:
         break;
     }
