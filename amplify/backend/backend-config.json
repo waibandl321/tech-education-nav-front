@@ -72,7 +72,8 @@
         {
           "attributes": [
             "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput"
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
           ],
           "category": "api",
           "resourceName": "techeducationnav"
@@ -80,6 +81,40 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_techeducationnavd0f3d630_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "techeducationnavd0f3d630"
+        }
+      ]
+    },
+    "AMPLIFY_function_techeducationnavd0f3d630_emailFrom": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "techeducationnavd0f3d630"
+        }
+      ]
+    },
+    "AMPLIFY_function_techeducationnavd0f3d630_region": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "techeducationnavd0f3d630"
+        }
+      ]
+    },
+    "AMPLIFY_function_techeducationnavd0f3d630_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "techeducationnavd0f3d630"
+        }
+      ]
     }
   },
   "storage": {

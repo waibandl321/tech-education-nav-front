@@ -22,7 +22,12 @@
         "s334cc9079": {}
       },
       "function": {
-        "techeducationnavd0f3d630": {}
+        "techeducationnavd0f3d630": {
+          "region": "ap-northeast-1",
+          "emailFrom": "waibandl321@gmail.com",
+          "deploymentBucketName": "amplify-techeducationnav-dev-65431-deployment",
+          "s3Key": "amplify-builds/techeducationnavd0f3d630-744968706b3169334f41-build.zip"
+        }
       }
     }
   }
