@@ -20,7 +20,6 @@ import useSessionStorage from "@/hooks/utils/useSessionStorage";
 
 const initProfile = {
   displayId: "",
-  email: "",
   gender: "",
   prefecture: "",
   age: null as null | number,

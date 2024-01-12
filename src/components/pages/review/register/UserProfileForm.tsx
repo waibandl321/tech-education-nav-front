@@ -49,7 +49,6 @@ export default function UserProfileForm({
 
   useEffect(() => {
     // useFormのdefaultValuesを使っている場合は、setValueで初期値を設定する
-    setValue("email", userInfo.email || "");
     setValue("gender", userInfo.gender || "");
     setValue("age", userInfo.age);
     setValue("prefecture", userInfo.prefecture || "");
@@ -57,27 +56,6 @@ export default function UserProfileForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box>
-        <Typography fontWeight={700}>メールアドレス</Typography>
-        <TextField
-          size="small"
-          value={userInfo.email || ""}
-          {...register("email", {
-            required: {
-              value: true,
-              message: "氏名は入力必須の項目です。",
-            },
-            onChange: (event) => handlerFormChange(event),
-          })}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-          margin="normal"
-          fullWidth
-          id="email"
-          autoComplete="email"
-          sx={{ mt: 1 }}
-        />
-      </Box>
       <Box sx={{ mt: 3 }}>
         <Typography fontWeight={700}>性別</Typography>
         <RadioGroup

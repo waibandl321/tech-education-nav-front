@@ -28,6 +28,7 @@ import FormButtons from "@/components/common/parts/FormButtons";
 import { useFormOptions } from "@/hooks/utils/useFormOptions";
 import dayjs from "dayjs";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
+import { useAccountContext } from "@/contexts/AccountContext";
 
 export default function ReviewRegisterConfirmPane({
   center,
@@ -41,6 +42,7 @@ export default function ReviewRegisterConfirmPane({
   const { setLoading } = useLoading();
   const { setAlertMessage } = useMessageAlert();
   const { getGenderText, getPrefectureText } = useFormOptions();
+  const { accountInfomation } = useAccountContext();
   const {
     sessionStorageValue: savedProfile,
     removeSessionStorageValue: removeSavedProfile,
@@ -63,9 +65,15 @@ export default function ReviewRegisterConfirmPane({
   }, [savedProfile, savedReview]);
 
   const handleSubmit = async () => {
+    if (!accountInfomation.userId)
+      return setAlertMessage({
+        type: "error",
+        message: "認証ユーザーの情報が取得できませんでした。",
+      });
     setLoading(true);
     try {
       const request: CreateCourseReviewInput = {
+        userId: accountInfomation.userId,
         userDisplayId: userInfo?.displayId,
         userGender: userInfo?.gender,
         userPrefecture: userInfo?.prefecture,
@@ -86,7 +94,7 @@ export default function ReviewRegisterConfirmPane({
         removeSavedProfile();
         removeSavedReview();
         // 完了画面に遷移
-        router.push("/review/register/complete");
+        await router.push("/review/register/complete");
       }
     } catch (error) {
       console.error(error);

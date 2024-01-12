@@ -45,8 +45,8 @@ type CourseReview
     ]
   ) {
   id: ID!
+  userId: String!
   userDisplayId: String
-  userEmail: String
   userGender: String
   userAge: String
   userPrefecture: String

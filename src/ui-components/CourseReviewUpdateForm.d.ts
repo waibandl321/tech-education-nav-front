@@ -23,8 +23,8 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type CourseReviewUpdateFormInputValues = {
+    userId?: string;
     userDisplayId?: string;
-    userEmail?: string;
     userGender?: string;
     userAge?: string;
     userPrefecture?: string;
@@ -39,8 +39,8 @@ export declare type CourseReviewUpdateFormInputValues = {
     isDeleted?: boolean;
 };
 export declare type CourseReviewUpdateFormValidationValues = {
+    userId?: ValidationFunction<string>;
     userDisplayId?: ValidationFunction<string>;
-    userEmail?: ValidationFunction<string>;
     userGender?: ValidationFunction<string>;
     userAge?: ValidationFunction<string>;
     userPrefecture?: ValidationFunction<string>;
@@ -57,8 +57,8 @@ export declare type CourseReviewUpdateFormValidationValues = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CourseReviewUpdateFormOverridesProps = {
     CourseReviewUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    userId?: PrimitiveOverrideProps<TextFieldProps>;
     userDisplayId?: PrimitiveOverrideProps<TextFieldProps>;
-    userEmail?: PrimitiveOverrideProps<TextFieldProps>;
     userGender?: PrimitiveOverrideProps<TextFieldProps>;
     userAge?: PrimitiveOverrideProps<TextFieldProps>;
     userPrefecture?: PrimitiveOverrideProps<TextFieldProps>;

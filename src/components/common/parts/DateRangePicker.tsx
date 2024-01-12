@@ -87,7 +87,7 @@ export default function DateRangePicker({
         format="YYYY年MM月"
         views={pickerType}
         maxDate={dayjs()}
-        minDate={startDate}
+        minDate={dayjs(startDate)}
         onError={(newError) => setEndError(newError)}
         slotProps={{
           textField: {
