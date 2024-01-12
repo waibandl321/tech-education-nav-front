@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import { MessageAlertProvider } from "@/contexts/MessageAlertContext";
-// import { AccountProvider } from "@/contexts/AccountContext";
+import { AccountProvider } from "@/contexts/AccountContext";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -33,9 +33,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <LoadingProvider>
-      <MessageAlertProvider>
-        <Component {...pageProps} />
-      </MessageAlertProvider>
+      <AccountProvider>
+        <MessageAlertProvider>
+          <Component {...pageProps} />
+        </MessageAlertProvider>
+      </AccountProvider>
     </LoadingProvider>
   );
 }

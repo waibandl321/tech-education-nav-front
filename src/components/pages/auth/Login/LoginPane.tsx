@@ -8,11 +8,15 @@ import LoginForm from "./section/LoginForm";
 import LoginLinks from "./section/LoginLinks";
 import { useSearchParams } from "next/navigation";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 // リダイレクト種別
 const redirectTypes = [
-  { key: "review_post", message: "レビューの投稿にはログインが必要です。" },
+  {
+    key: "review_post",
+    message: "口コミの投稿にはログインが必要です。",
+    path: "/review/register/profile",
+  },
 ] as const;
 
 // リダイレクト種別 ユニオン型

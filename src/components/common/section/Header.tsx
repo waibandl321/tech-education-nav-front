@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { Button } from "@mui/material";
 import useSignOut from "@/components/hooks/auth/useSignOut";
-// import { useAccountContext } from "@/contexts/AccountContext";
+import { useAccountContext } from "@/contexts/AccountContext";
 import Link from "next/link";
 
 const LinkStyle = {
@@ -19,7 +19,7 @@ const LinkStyle = {
 
 export default function Header() {
   const handleSignOut = useSignOut();
-  // const { isLoggedIn } = useAccountContext();
+  const { isLoggedIn } = useAccountContext();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -52,19 +52,7 @@ export default function Header() {
             口コミを投稿する
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link
-              style={{
-                ...LinkStyle,
-                backgroundColor: "grey",
-                color: "#fff",
-              }}
-              href="/contact"
-            >
-              お問い合わせ
-            </Link>
-          </Box>
-          {/* {!isLoggedIn && (
+          {!isLoggedIn && (
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Link
                 style={{
@@ -88,7 +76,19 @@ export default function Header() {
               </Link>
             </Box>
           )}
-          {isLoggedIn && <Button onClick={handleSignOut}>ログアウト</Button>} */}
+          {isLoggedIn && <Button onClick={handleSignOut}>ログアウト</Button>}
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Link
+              style={{
+                ...LinkStyle,
+                backgroundColor: "grey",
+                color: "#fff",
+              }}
+              href="/contact"
+            >
+              お問い合わせ
+            </Link>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
