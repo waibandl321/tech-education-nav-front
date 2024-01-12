@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import UserProfileForm from "@/components/pages/review/register/UserProfileForm";
 import { useRouter } from "next/router";
-import useReview from "@/components/hooks/useReview";
+import useReview from "@/components/hooks/auth/useReview";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";

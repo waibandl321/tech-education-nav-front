@@ -17,9 +17,12 @@ import TerminalIcon from "@mui/icons-material/Terminal";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Textarea from "@/components/common/parts/TextareaComponent";
 import FormButtons from "@/components/common/parts/FormButtons";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
-import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
+import useReview, {
+  ReviewFormDataType,
+} from "@/components/hooks/auth/useReview";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 
 /**
@@ -146,19 +149,12 @@ export default function ReviewPostPane({
           <Typography variant="body2" sx={{ my: 1 }}>
             スクールの良かった点/悪かった点は何ですか？
           </Typography>
-          <TextField
-            margin="normal"
-            fullWidth
-            placeholder="スクールでの自分の体験や感想を共有しましょう。"
-            required
-            autoComplete="off"
-            multiline
-            minRows={4}
-            sx={{ background: "#fff" }}
+          <Textarea
             name="reviewDetail"
-            value={reviewFormData.reviewDetail}
-            onChange={handleInputChange}
-          />
+            inputValue={reviewFormData.reviewDetail}
+            onInputChange={handleInputChange}
+            placeholder="スクールでの自分の体験や感想を共有しましょう。"
+          ></Textarea>
         </CardContent>
         <FormButtons
           submitText="確認画面へ"

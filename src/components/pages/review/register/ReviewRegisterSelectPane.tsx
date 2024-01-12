@@ -17,7 +17,9 @@ import { GetServerSideProps } from "next";
 import { LearningCenter, LearningCenterCourse } from "@/API";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import FormButtons from "@/components/common/parts/FormButtons";
-import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
+import useReview, {
+  ReviewFormDataType,
+} from "@/components/hooks/auth/useReview";
 import { useSearchParams } from "next/navigation";
 import DateRangePicker from "@/components/common/parts/DateRangePicker";
 import dayjs from "dayjs";

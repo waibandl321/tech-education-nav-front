@@ -52,18 +52,6 @@ export default function Header() {
             口コミを投稿する
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link
-              style={{
-                ...LinkStyle,
-                backgroundColor: "grey",
-                color: "#fff",
-              }}
-              href="/contact"
-            >
-              お問い合わせ
-            </Link>
-          </Box>
           {/* {!isLoggedIn && (
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Link
