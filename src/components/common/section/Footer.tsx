@@ -1,4 +1,5 @@
 import { Card } from "@mui/material";
+import dayjs from "dayjs";
 
 /**
  * フッター コンポーネント
@@ -12,7 +13,7 @@ export default function Footer() {
         lineHeight: "48px",
       }}
     >
-      © 2024 テック教育ナビ. All Rights Reserved.
+      © {dayjs().get("year")} テック教育ナビ. All Rights Reserved.
     </Card>
   );
 }

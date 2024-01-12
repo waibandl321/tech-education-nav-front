@@ -40,12 +40,12 @@ export default function AutoCompleteSchoolCourse({
           options={centers}
           noOptionsText="データがありません"
           getOptionLabel={(option) => option.name ?? ""}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           onChange={(event: any, newValue: LearningCenter | null) => {
             setSelectedCenter(newValue);
           }}
           renderInput={(params) => (
             <TextField
-              sx={{ backgroundColor: "#fff" }}
               {...params}
               placeholder="受講したスクールを選択してください"
               InputProps={{
@@ -56,6 +56,7 @@ export default function AutoCompleteSchoolCourse({
                   </InputAdornment>
                 ),
               }}
+              sx={{ backgroundColor: "#fff" }}
             />
           )}
           fullWidth
@@ -70,6 +71,7 @@ export default function AutoCompleteSchoolCourse({
           options={courseOptions}
           noOptionsText="データがありません"
           getOptionLabel={(option) => option.courseName ?? ""}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           onChange={(event: any, newValue: LearningCenterCourse | null) => {
             setSelectedCourse(newValue);
           }}
