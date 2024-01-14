@@ -7,11 +7,12 @@ import { Button } from "@mui/material";
 import useSignOut from "@/components/hooks/auth/useSignOut";
 import { useAccountContext } from "@/contexts/AccountContext";
 import Link from "next/link";
+import { useLoading } from "@/contexts/LoadingContext";
 
 const LinkStyle = {
   textDecoration: "none",
   color: "#1976d2",
-  padding: "12px 16px",
+  padding: "12px",
   display: "block",
   borderRadius: 8,
   marginLeft: 16,
@@ -19,6 +20,7 @@ const LinkStyle = {
 
 export default function Header() {
   const handleSignOut = useSignOut();
+  const { isLoading } = useLoading();
   const { isLoggedIn } = useAccountContext();
 
   return (
@@ -52,31 +54,6 @@ export default function Header() {
             口コミを投稿する
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          {!isLoggedIn && (
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Link
-                style={{
-                  ...LinkStyle,
-                  backgroundColor: "#1976d2",
-                  color: "#fff",
-                }}
-                href="/auth/login"
-              >
-                ログイン
-              </Link>
-              <Link
-                style={{
-                  ...LinkStyle,
-                  border: "1px solid #1976d2",
-                  color: "#1976d2",
-                }}
-                href="/auth/register"
-              >
-                会員登録
-              </Link>
-            </Box>
-          )}
-          {isLoggedIn && <Button onClick={handleSignOut}>ログアウト</Button>}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Link
               style={{
@@ -89,6 +66,39 @@ export default function Header() {
               お問い合わせ
             </Link>
           </Box>
+          {!isLoading && (
+            <>
+              {!isLoggedIn && (
+                <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                  <Link
+                    style={{
+                      ...LinkStyle,
+                      backgroundColor: "#1976d2",
+                      color: "#fff",
+                    }}
+                    href="/auth/login"
+                  >
+                    ログイン
+                  </Link>
+                  <Link
+                    style={{
+                      ...LinkStyle,
+                      border: "1px solid #1976d2",
+                      color: "#1976d2",
+                    }}
+                    href="/auth/register"
+                  >
+                    会員登録
+                  </Link>
+                </Box>
+              )}
+              {isLoggedIn && (
+                <Button onClick={handleSignOut} sx={{ ml: 2 }}>
+                  ログアウト
+                </Button>
+              )}
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
