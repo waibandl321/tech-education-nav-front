@@ -24,17 +24,13 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  if (request.url.includes("review/register")) {
-    return NextResponse.redirect(
-      new URL("/auth/login?redirect_type=review_post", request.url)
-    );
-  }
-
   // 未認証の場合はログイン画面にリダイレクト
-  return NextResponse.redirect(new URL("/auth/login", request.url));
+  return NextResponse.redirect(
+    new URL("/auth/login?redirect_type=review_post", request.url)
+  );
 }
 
 // パスマッチング: '/review/:path*' は /review 以下のすべてのパスにマッチする
 export const config = {
-  matcher: "/review/:path*",
+  matcher: "/review/register/:path*",
 };

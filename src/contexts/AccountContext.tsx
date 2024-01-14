@@ -51,6 +51,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     setLoading(true);
     try {
       const res = await fetchAuthSession();
+      console.log("fetchAuthSession", res);
       const userId = res.tokens?.idToken?.payload.sub;
       const email = res.tokens?.idToken?.payload.email
         ? String(res.tokens?.idToken?.payload.email)

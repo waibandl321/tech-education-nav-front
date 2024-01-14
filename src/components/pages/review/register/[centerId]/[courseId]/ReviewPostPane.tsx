@@ -133,7 +133,6 @@ export default function ReviewPostPane({
           <TextField
             margin="normal"
             fullWidth
-            placeholder="最も伝えたいことを一言で！"
             required
             autoComplete="off"
             sx={{ background: "#fff" }}
@@ -145,6 +144,8 @@ export default function ReviewPostPane({
           <Typography fontWeight={700}>口コミの詳細</Typography>
           <Typography variant="body2" sx={{ my: 1 }}>
             スクールの良かった点/悪かった点は何ですか？
+            <br />
+            また、これから受講する後輩に向けてメッセージをお願いします。
           </Typography>
           <TextField
             margin="normal"
