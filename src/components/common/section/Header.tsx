@@ -3,32 +3,32 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { Button } from "@mui/material";
-import useSignOut from "@/components/hooks/auth/useSignOut";
-import { useAccountContext } from "@/contexts/AccountContext";
 import Link from "next/link";
-import { useLoading } from "@/contexts/LoadingContext";
+// import useSignOut from "@/components/hooks/auth/useSignOut";
+// import { useAccountContext } from "@/contexts/AccountContext";
+// import { useLoading } from "@/contexts/LoadingContext";
 
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import SearchIcon from "@mui/icons-material/Search";
+import SendIcon from "@mui/icons-material/Send";
 import PostAdd from "@mui/icons-material/PostAddRounded";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useRouter } from "next/router";
+import { Button } from "@mui/material";
 
-const LinkStyle = {
-  textDecoration: "none",
-  color: "#1976d2",
-  padding: "12px",
-  display: "block",
-  borderRadius: 8,
-  marginLeft: 16,
-};
+// const LinkStyle = {
+//   textDecoration: "none",
+//   color: "#1976d2",
+//   padding: "12px",
+//   display: "block",
+//   borderRadius: 8,
+//   marginLeft: 16,
+// };
 
 export default function Header() {
-  const handleSignOut = useSignOut();
-  const { isLoading } = useLoading();
-  const { isLoggedIn } = useAccountContext();
+  // const handleSignOut = useSignOut();
+  // const { isLoading } = useLoading();
+  // const { isLoggedIn } = useAccountContext();
   const router = useRouter();
 
   return (
@@ -77,16 +77,15 @@ export default function Header() {
           </Link> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link
-              style={{
-                ...LinkStyle,
-                backgroundColor: "grey",
-                color: "#fff",
-              }}
-              href="/contact"
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => router.push("/contact")}
+              size="large"
+              startIcon={<SendIcon />}
             >
               お問い合わせ
-            </Link>
+            </Button>
           </Box>
           {/* {!isLoading && (
             <>
