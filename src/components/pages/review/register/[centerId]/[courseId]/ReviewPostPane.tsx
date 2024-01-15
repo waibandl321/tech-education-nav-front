@@ -128,7 +128,7 @@ export default function ReviewPostPane({
             スクールを受講して得られた結果
           </Typography>
           <Typography variant="body2" sx={{ my: 1 }}>
-            例:「受講開始から3ヶ月でエンジニア転職成功」「受講期間中にフリーランスを案件して20万円稼いだ」など
+            例:「受講開始から3ヶ月でエンジニア転職成功」「受講期間中に案件を獲得して20万円稼いだ」など
           </Typography>
           <TextField
             margin="normal"

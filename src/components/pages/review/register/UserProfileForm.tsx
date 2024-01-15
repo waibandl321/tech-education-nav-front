@@ -111,7 +111,7 @@ export default function UserProfileForm({
         <Grid container sx={{ mt: 1 }}>
           <Grid item minWidth={200}>
             <Select
-              value={userInfo?.prefecture || ""}
+              value={userInfo.prefecture || ""}
               {...register("prefecture", {
                 required: {
                   value: true,
@@ -150,6 +150,7 @@ export default function UserProfileForm({
             fontSize: 18,
           }}
           type="submit"
+          disabled={!userInfo.prefecture || !userInfo.gender || !userInfo.age}
         >
           次へ
         </Button>

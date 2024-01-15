@@ -24,9 +24,11 @@ export default function ReviewListSection({
   const isMobile = useMediaQuery("(max-width:640px)");
   const { getGenderText, getPrefectureText } = useFormOptions();
   const subHeaderText = (item: CourseReview) => {
-    return `${item.userAge}歳/${getGenderText(
-      item.userGender
-    )}/${getPrefectureText(item.userPrefecture)}`;
+    return `受講期間: ${item.studyLengthMonths}ヶ月/${
+      item.userAge
+    }歳/${getGenderText(item.userGender)}/${getPrefectureText(
+      item.userPrefecture
+    )}`;
   };
 
   return (

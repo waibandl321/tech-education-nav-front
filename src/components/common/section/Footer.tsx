@@ -1,12 +1,9 @@
+"use client";
 import { Card, useMediaQuery } from "@mui/material";
 import dayjs from "dayjs";
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
-import Link from "next/link";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import PostAdd from "@mui/icons-material/PostAddRounded";
 import { useRouter } from "next/router";

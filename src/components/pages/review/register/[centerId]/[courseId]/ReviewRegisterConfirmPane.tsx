@@ -22,7 +22,7 @@ import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
 import useReviewPost from "@/hooks/api/useReview";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
-import { UserProfileType } from "../../ReviewRegisterProfilePane";
+import { UserProfileType, initProfile } from "../../ReviewRegisterProfilePane";
 import { CreateCourseReviewInput } from "@/API";
 import FormButtons from "@/components/common/parts/FormButtons";
 import { useFormOptions } from "@/hooks/utils/useFormOptions";
@@ -52,7 +52,7 @@ export default function ReviewRegisterConfirmPane({
     removeSessionStorageValue: removeSavedReview,
   } = useSessionStorage("REVIEW_FORM_DATA", "");
   // state
-  const [userInfo, setUserInfo] = useState<UserProfileType | null>(null);
+  const [userInfo, setUserInfo] = useState<UserProfileType>(initProfile);
   const [reviewInfo, setReviewInfo] = useState<ReviewFormDataType | null>(null);
 
   useEffect(() => {
@@ -72,8 +72,7 @@ export default function ReviewRegisterConfirmPane({
         userGender: userInfo?.gender,
         userPrefecture: userInfo?.prefecture,
         userAge: String(userInfo?.age),
-        courseStartMonth: dayjs(reviewInfo?.courseStartMonth).valueOf(),
-        courseEndMonth: dayjs(reviewInfo?.courseEndMonth).valueOf(),
+        studyLengthMonths: reviewInfo?.studyLengthMonths ?? 0,
         learningCenterId: center.id,
         learningCenterCourseId: course.id,
         rating: reviewInfo?.rating ?? 0,
@@ -177,9 +176,7 @@ export default function ReviewRegisterConfirmPane({
             <ListItem sx={{ px: 0 }} dense>
               <ListItemText
                 primary="受講期間"
-                secondary={`${dayjs(reviewInfo?.courseStartMonth).format(
-                  "YYYY年MM月"
-                )} ~ ${dayjs(reviewInfo?.courseEndMonth).format("YYYY年MM月")}`}
+                secondary={`${dayjs(reviewInfo?.studyLengthMonths)}ヶ月`}
               />
             </ListItem>
             <ListItem sx={{ px: 0 }} dense>
