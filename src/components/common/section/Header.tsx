@@ -7,23 +7,19 @@ import Link from "next/link";
 // import useSignOut from "@/components/hooks/auth/useSignOut";
 // import { useAccountContext } from "@/contexts/AccountContext";
 // import { useLoading } from "@/contexts/LoadingContext";
-
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
 import PostAdd from "@mui/icons-material/PostAddRounded";
 import { useRouter } from "next/router";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
-// const LinkStyle = {
-//   textDecoration: "none",
-//   color: "#1976d2",
-//   padding: "12px",
-//   display: "block",
-//   borderRadius: 8,
-//   marginLeft: 16,
-// };
+const LinkStyle = {
+  textDecoration: "none",
+  padding: "4px",
+  display: "block",
+  borderRadius: 8,
+  marginLeft: 16,
+};
 
 export default function Header() {
   // const handleSignOut = useSignOut();
@@ -41,40 +37,27 @@ export default function Header() {
           >
             テック教育ナビ
           </Link>
-          <BottomNavigation showLabels sx={{ ml: 3 }}>
-            <BottomNavigationAction
-              label="口コミを探す"
-              icon={<SearchIcon />}
-              sx={{ whiteSpace: "nowrap", lineHeight: 2 }}
-              onClick={() => router.push("/search")}
-            />
-            <BottomNavigationAction
-              label="口コミを投稿する"
-              icon={<PostAdd />}
-              sx={{ whiteSpace: "nowrap", lineHeight: 2 }}
-              onClick={() => router.push("/review/register/profile")}
-            />
-          </BottomNavigation>
-          {/* <Link
+          <Link
             style={{
               ...LinkStyle,
+              textAlign: "center",
               marginLeft: 32,
-              border: "1px solid #1976d2",
             }}
             href="/search"
           >
-            口コミを探す
+            <SearchIcon />
+            <Typography>口コミを探す</Typography>
           </Link>
           <Link
             style={{
               ...LinkStyle,
-              backgroundColor: "#1976d2",
-              color: "#fff",
+              textAlign: "center",
             }}
             href="/review/register/profile"
           >
-            口コミを投稿する
-          </Link> */}
+            <PostAdd />
+            <Typography>口コミを投稿する</Typography>
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Button

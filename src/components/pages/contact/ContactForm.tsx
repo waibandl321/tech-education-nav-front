@@ -48,10 +48,15 @@ export default function ContactForm() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
+    <Container maxWidth="md" sx={{ py: isMobile ? 0 : 5 }}>
       <Card
-        sx={{ py: 4, px: isMobile ? 2 : 4, borderRadius: "16px" }}
-        elevation={3}
+        sx={{
+          py: 4,
+          px: isMobile ? 0 : 4,
+          borderRadius: "16px",
+          backgroundColor: isMobile ? "transparent" : "#fff",
+        }}
+        elevation={isMobile ? 0 : 3}
       >
         <Typography
           component="h2"
@@ -61,7 +66,7 @@ export default function ContactForm() {
         >
           お問い合わせ
         </Typography>
-        <CardContent>
+        <CardContent sx={{ padding: isMobile ? 0 : 2 }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               fullWidth
@@ -77,6 +82,7 @@ export default function ContactForm() {
               })}
               error={!!errors.userName}
               helperText={errors.userName?.message}
+              sx={{ backgroundColor: "#fff" }}
             />
             <TextField
               fullWidth
@@ -91,7 +97,7 @@ export default function ContactForm() {
               })}
               error={!!errors.userEmail}
               helperText={useGetEmailInputError(errors.userEmail?.type)}
-              sx={{ mt: 4 }}
+              sx={{ mt: 4, backgroundColor: "#fff" }}
             />
             <TextField
               fullWidth
@@ -109,7 +115,7 @@ export default function ContactForm() {
               helperText={errors.messageInfo?.message}
               multiline
               minRows={3}
-              sx={{ mt: 4 }}
+              sx={{ mt: 4, backgroundColor: "#fff" }}
             />
             <Box sx={{ my: 6 }}>
               <Button

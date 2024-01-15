@@ -89,7 +89,6 @@ export default function UserProfileForm({
       <Box sx={{ mt: 3 }}>
         <Typography fontWeight={700}>年齢</Typography>
         <TextField
-          size="small"
           value={userInfo.age || ""}
           {...register("age", {
             required: {
@@ -112,7 +111,6 @@ export default function UserProfileForm({
         <Grid container sx={{ mt: 1 }}>
           <Grid item minWidth={200}>
             <Select
-              size="small"
               value={userInfo?.prefecture || ""}
               {...register("prefecture", {
                 required: {
@@ -141,7 +139,7 @@ export default function UserProfileForm({
         )}
       </Box>
       <Divider sx={{ my: 3 }}></Divider>
-      <Box sx={{ mt: 3 }} textAlign="center">
+      <Box sx={{ mt: 3, px: 2 }} textAlign="center">
         <Button
           variant="contained"
           color="primary"

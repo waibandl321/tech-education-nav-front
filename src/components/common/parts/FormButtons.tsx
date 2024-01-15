@@ -18,7 +18,12 @@ export default function FormButtons({
   handleBack?: () => void;
 }) {
   // sp device
-  const isSpDevice = useMediaQuery("(max-width:640px)");
+  const isMobile = useMediaQuery("(max-width:640px)");
+  const ButtonStyle = {
+    width: isMobile ? "100%" : 400,
+    height: 52,
+    fontSize: 18,
+  };
 
   return (
     <>
@@ -28,11 +33,7 @@ export default function FormButtons({
             variant="contained"
             color="primary"
             size="large"
-            sx={{
-              width: isSpDevice ? "100%" : 400,
-              height: 52,
-              fontSize: 18,
-            }}
+            sx={ButtonStyle}
             onClick={handleSubmit}
             disabled={isDisabled}
           >
@@ -47,11 +48,7 @@ export default function FormButtons({
             color="inherit"
             variant="outlined"
             size="large"
-            sx={{
-              width: isSpDevice ? "100%" : 400,
-              height: 52,
-              fontSize: 18,
-            }}
+            sx={ButtonStyle}
             onClick={handleBack}
           >
             {backText}

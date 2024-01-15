@@ -1,5 +1,5 @@
 import Header from "@/components/common/section/Header";
-import MobileHeader from "@/components/common/section/MobileHeader";
+import MobileNav from "@/components/common/section/MobileNav";
 import Footer from "@/components/common/section/Footer";
 import { Amplify } from "aws-amplify";
 import config from "@/amplifyconfiguration.json";
@@ -24,10 +24,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Header />
       </Box>
       <Box sx={{ flexGrow: 1, display: { xs: "block", sm: "none" } }}>
-        <MobileHeader />
+        <MobileNav />
       </Box>
-      {/* <Box sx={{ height: "calc(100dvh - 112px)", overflow: "auto" }}> */}
-      <Box sx={{ minHeight: "calc(100dvh - 112px)" }}>{children}</Box>
+      <Box sx={{ paddingBottom: 13 }}>{children}</Box>
       <Footer />
     </>
   );

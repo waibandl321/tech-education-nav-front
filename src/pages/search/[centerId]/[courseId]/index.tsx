@@ -102,27 +102,25 @@ export default function SearchResult({
                   size="large"
                   href={centerDetail.websiteURL ?? ""}
                   target="_brank"
-                  variant="contained"
-                  sx={{ whiteSpace: "nowrap", mr: 2, mb: 1, fontSize: 14 }}
+                  sx={{ mr: 2, mb: 1, fontSize: 14 }}
                 >
                   <OpenInNewIcon
                     fontSize="small"
                     sx={{ mr: 1 }}
                   ></OpenInNewIcon>
-                  <span>「{centerDetail.name}」公式サイト</span>
+                  <span>スクール詳細</span>
                 </Button>
                 <Button
                   size="large"
                   href={courseDetail.courseURL ?? ""}
                   target="_brank"
-                  variant="contained"
-                  sx={{ whiteSpace: "nowrap", mb: 1, fontSize: 14 }}
+                  sx={{ mb: 1, fontSize: 14 }}
                 >
                   <OpenInNewIcon
                     fontSize="small"
                     sx={{ mr: 1 }}
                   ></OpenInNewIcon>
-                  <span>「{courseDetail.courseName}」コース詳細</span>
+                  <span>コース詳細</span>
                 </Button>
               </Box>
             </Grid>
