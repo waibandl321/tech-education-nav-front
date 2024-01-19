@@ -1,4 +1,4 @@
-import Layout from "@/app/layout";
+// import Layout from "@/app/layout";
 import PasswordResetConfirm from "@/components/pages/auth/PasswordReset/PasswordResetConfirm";
 import Head from "next/head";
 
@@ -10,9 +10,9 @@ export default function ResetPasswordConfirm() {
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
-      <Layout>
-        <PasswordResetConfirm />
-      </Layout>
+      {/* <Layout> */}
+      <PasswordResetConfirm />
+      {/* </Layout> */}
     </>
   );
 }
