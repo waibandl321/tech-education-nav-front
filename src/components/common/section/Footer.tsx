@@ -24,7 +24,7 @@ export default function Footer() {
           <BottomNavigationAction
             label="口コミ検索"
             icon={<SearchIcon />}
-            onClick={() => router.push("/search")}
+            onClick={() => router.push("/reviews")}
             sx={{ lineHeight: 2 }}
           />
           <BottomNavigationAction

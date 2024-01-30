@@ -8,6 +8,40 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getDevelopmentTool = /* GraphQL */ `query GetDevelopmentTool($id: ID!) {
+  getDevelopmentTool(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetDevelopmentToolQueryVariables,
+  APITypes.GetDevelopmentToolQuery
+>;
+export const listDevelopmentTools = /* GraphQL */ `query ListDevelopmentTools(
+  $filter: ModelDevelopmentToolFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDevelopmentTools(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListDevelopmentToolsQueryVariables,
+  APITypes.ListDevelopmentToolsQuery
+>;
 export const getProgrammingLanguage = /* GraphQL */ `query GetProgrammingLanguage($id: ID!) {
   getProgrammingLanguage(id: $id) {
     id
@@ -46,9 +80,78 @@ export const listProgrammingLanguages = /* GraphQL */ `query ListProgrammingLang
   APITypes.ListProgrammingLanguagesQueryVariables,
   APITypes.ListProgrammingLanguagesQuery
 >;
+export const getPaymentMethod = /* GraphQL */ `query GetPaymentMethod($id: ID!) {
+  getPaymentMethod(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetPaymentMethodQueryVariables,
+  APITypes.GetPaymentMethodQuery
+>;
+export const listPaymentMethods = /* GraphQL */ `query ListPaymentMethods(
+  $filter: ModelPaymentMethodFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPaymentMethods(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListPaymentMethodsQueryVariables,
+  APITypes.ListPaymentMethodsQuery
+>;
+export const getCreditCard = /* GraphQL */ `query GetCreditCard($id: ID!) {
+  getCreditCard(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetCreditCardQueryVariables,
+  APITypes.GetCreditCardQuery
+>;
+export const listCreditCards = /* GraphQL */ `query ListCreditCards(
+  $filter: ModelCreditCardFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCreditCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListCreditCardsQueryVariables,
+  APITypes.ListCreditCardsQuery
+>;
 export const getFramework = /* GraphQL */ `query GetFramework($id: ID!) {
   getFramework(id: $id) {
     id
+    programmingLanguageId
     name
     createdAt
     updatedAt
@@ -67,6 +170,7 @@ export const listFrameworks = /* GraphQL */ `query ListFrameworks(
   listFrameworks(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      programmingLanguageId
       name
       createdAt
       updatedAt
@@ -171,23 +275,38 @@ export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCou
     courseName
     courseURL
     couseDetail
-    duration
-    price
+    plans {
+      id
+      planName
+      planMemo
+      duration
+      price
+      splitPrice
+      __typename
+    }
+    cancelPolicy
     isAvailableMoneyBack
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
     onSale
     saleMemo
+    isMadeToOrder
+    madeToOrderDetail
+    isJobIntroductionAvailable
+    jobIntroductionDetail
+    isJobHuntingSupport
+    jobHuntingSupportDetail
     purposes
     jobTypes
     programmingLanguages
     frameworks
+    developmentTools
     paymentOptions
+    creditCards
     attendanceType
     locationPref
     locationCity
-    isMadeToOrder
     especiallyAudiences
     isDeleted
     createdAt
@@ -215,23 +334,29 @@ export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenter
       courseName
       courseURL
       couseDetail
-      duration
-      price
+      cancelPolicy
       isAvailableMoneyBack
       moneyBackDetail
       isAvailableSubsidy
       subsidyMemo
       onSale
       saleMemo
+      isMadeToOrder
+      madeToOrderDetail
+      isJobIntroductionAvailable
+      jobIntroductionDetail
+      isJobHuntingSupport
+      jobHuntingSupportDetail
       purposes
       jobTypes
       programmingLanguages
       frameworks
+      developmentTools
       paymentOptions
+      creditCards
       attendanceType
       locationPref
       locationCity
-      isMadeToOrder
       especiallyAudiences
       isDeleted
       createdAt

@@ -9,13 +9,13 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getFramework } from "../graphql/queries";
-import { updateFramework } from "../graphql/mutations";
+import { getCreditCard } from "../graphql/queries";
+import { updateCreditCard } from "../graphql/mutations";
 const client = generateClient();
-export default function FrameworkUpdateForm(props) {
+export default function CreditCardUpdateForm(props) {
   const {
     id: idProp,
-    framework: frameworkModelProp,
+    creditCard: creditCardModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -25,41 +25,35 @@ export default function FrameworkUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    programmingLanguageId: "",
     name: "",
   };
-  const [programmingLanguageId, setProgrammingLanguageId] = React.useState(
-    initialValues.programmingLanguageId
-  );
   const [name, setName] = React.useState(initialValues.name);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = frameworkRecord
-      ? { ...initialValues, ...frameworkRecord }
+    const cleanValues = creditCardRecord
+      ? { ...initialValues, ...creditCardRecord }
       : initialValues;
-    setProgrammingLanguageId(cleanValues.programmingLanguageId);
     setName(cleanValues.name);
     setErrors({});
   };
-  const [frameworkRecord, setFrameworkRecord] =
-    React.useState(frameworkModelProp);
+  const [creditCardRecord, setCreditCardRecord] =
+    React.useState(creditCardModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await client.graphql({
-              query: getFramework.replaceAll("__typename", ""),
+              query: getCreditCard.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
-          )?.data?.getFramework
-        : frameworkModelProp;
-      setFrameworkRecord(record);
+          )?.data?.getCreditCard
+        : creditCardModelProp;
+      setCreditCardRecord(record);
     };
     queryData();
-  }, [idProp, frameworkModelProp]);
-  React.useEffect(resetStateValues, [frameworkRecord]);
+  }, [idProp, creditCardModelProp]);
+  React.useEffect(resetStateValues, [creditCardRecord]);
   const validations = {
-    programmingLanguageId: [],
     name: [{ type: "Required" }],
   };
   const runValidationTasks = async (
@@ -88,7 +82,6 @@ export default function FrameworkUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          programmingLanguageId: programmingLanguageId ?? null,
           name,
         };
         const validationResponses = await Promise.all(
@@ -120,10 +113,10 @@ export default function FrameworkUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateFramework.replaceAll("__typename", ""),
+            query: updateCreditCard.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: frameworkRecord.id,
+                id: creditCardRecord.id,
                 ...modelFields,
               },
             },
@@ -138,36 +131,9 @@ export default function FrameworkUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "FrameworkUpdateForm")}
+      {...getOverrideProps(overrides, "CreditCardUpdateForm")}
       {...rest}
     >
-      <TextField
-        label="Programming language id"
-        isRequired={false}
-        isReadOnly={false}
-        value={programmingLanguageId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              programmingLanguageId: value,
-              name,
-            };
-            const result = onChange(modelFields);
-            value = result?.programmingLanguageId ?? value;
-          }
-          if (errors.programmingLanguageId?.hasError) {
-            runValidationTasks("programmingLanguageId", value);
-          }
-          setProgrammingLanguageId(value);
-        }}
-        onBlur={() =>
-          runValidationTasks("programmingLanguageId", programmingLanguageId)
-        }
-        errorMessage={errors.programmingLanguageId?.errorMessage}
-        hasError={errors.programmingLanguageId?.hasError}
-        {...getOverrideProps(overrides, "programmingLanguageId")}
-      ></TextField>
       <TextField
         label="Name"
         isRequired={true}
@@ -177,7 +143,6 @@ export default function FrameworkUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              programmingLanguageId,
               name: value,
             };
             const result = onChange(modelFields);
@@ -204,7 +169,7 @@ export default function FrameworkUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || frameworkModelProp)}
+          isDisabled={!(idProp || creditCardModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -216,7 +181,7 @@ export default function FrameworkUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || frameworkModelProp) ||
+              !(idProp || creditCardModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

@@ -21,28 +21,25 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type FrameworkCreateFormInputValues = {
-    programmingLanguageId?: string;
+export declare type DevelopmentToolCreateFormInputValues = {
     name?: string;
 };
-export declare type FrameworkCreateFormValidationValues = {
-    programmingLanguageId?: ValidationFunction<string>;
+export declare type DevelopmentToolCreateFormValidationValues = {
     name?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type FrameworkCreateFormOverridesProps = {
-    FrameworkCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    programmingLanguageId?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type DevelopmentToolCreateFormOverridesProps = {
+    DevelopmentToolCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type FrameworkCreateFormProps = React.PropsWithChildren<{
-    overrides?: FrameworkCreateFormOverridesProps | undefined | null;
+export declare type DevelopmentToolCreateFormProps = React.PropsWithChildren<{
+    overrides?: DevelopmentToolCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: FrameworkCreateFormInputValues) => FrameworkCreateFormInputValues;
-    onSuccess?: (fields: FrameworkCreateFormInputValues) => void;
-    onError?: (fields: FrameworkCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: FrameworkCreateFormInputValues) => FrameworkCreateFormInputValues;
-    onValidate?: FrameworkCreateFormValidationValues;
+    onSubmit?: (fields: DevelopmentToolCreateFormInputValues) => DevelopmentToolCreateFormInputValues;
+    onSuccess?: (fields: DevelopmentToolCreateFormInputValues) => void;
+    onError?: (fields: DevelopmentToolCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: DevelopmentToolCreateFormInputValues) => DevelopmentToolCreateFormInputValues;
+    onValidate?: DevelopmentToolCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function FrameworkCreateForm(props: FrameworkCreateFormProps): React.ReactElement;
+export default function DevelopmentToolCreateForm(props: DevelopmentToolCreateFormProps): React.ReactElement;

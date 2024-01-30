@@ -21,28 +21,25 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type FrameworkCreateFormInputValues = {
-    programmingLanguageId?: string;
+export declare type CreditCardCreateFormInputValues = {
     name?: string;
 };
-export declare type FrameworkCreateFormValidationValues = {
-    programmingLanguageId?: ValidationFunction<string>;
+export declare type CreditCardCreateFormValidationValues = {
     name?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type FrameworkCreateFormOverridesProps = {
-    FrameworkCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    programmingLanguageId?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type CreditCardCreateFormOverridesProps = {
+    CreditCardCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type FrameworkCreateFormProps = React.PropsWithChildren<{
-    overrides?: FrameworkCreateFormOverridesProps | undefined | null;
+export declare type CreditCardCreateFormProps = React.PropsWithChildren<{
+    overrides?: CreditCardCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: FrameworkCreateFormInputValues) => FrameworkCreateFormInputValues;
-    onSuccess?: (fields: FrameworkCreateFormInputValues) => void;
-    onError?: (fields: FrameworkCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: FrameworkCreateFormInputValues) => FrameworkCreateFormInputValues;
-    onValidate?: FrameworkCreateFormValidationValues;
+    onSubmit?: (fields: CreditCardCreateFormInputValues) => CreditCardCreateFormInputValues;
+    onSuccess?: (fields: CreditCardCreateFormInputValues) => void;
+    onError?: (fields: CreditCardCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: CreditCardCreateFormInputValues) => CreditCardCreateFormInputValues;
+    onValidate?: CreditCardCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function FrameworkCreateForm(props: FrameworkCreateFormProps): React.ReactElement;
+export default function CreditCardCreateForm(props: CreditCardCreateFormProps): React.ReactElement;

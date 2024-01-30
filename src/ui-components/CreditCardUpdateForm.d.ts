@@ -6,6 +6,7 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { CreditCard } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -21,28 +22,26 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type FrameworkCreateFormInputValues = {
-    programmingLanguageId?: string;
+export declare type CreditCardUpdateFormInputValues = {
     name?: string;
 };
-export declare type FrameworkCreateFormValidationValues = {
-    programmingLanguageId?: ValidationFunction<string>;
+export declare type CreditCardUpdateFormValidationValues = {
     name?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type FrameworkCreateFormOverridesProps = {
-    FrameworkCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    programmingLanguageId?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type CreditCardUpdateFormOverridesProps = {
+    CreditCardUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type FrameworkCreateFormProps = React.PropsWithChildren<{
-    overrides?: FrameworkCreateFormOverridesProps | undefined | null;
+export declare type CreditCardUpdateFormProps = React.PropsWithChildren<{
+    overrides?: CreditCardUpdateFormOverridesProps | undefined | null;
 } & {
-    clearOnSuccess?: boolean;
-    onSubmit?: (fields: FrameworkCreateFormInputValues) => FrameworkCreateFormInputValues;
-    onSuccess?: (fields: FrameworkCreateFormInputValues) => void;
-    onError?: (fields: FrameworkCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: FrameworkCreateFormInputValues) => FrameworkCreateFormInputValues;
-    onValidate?: FrameworkCreateFormValidationValues;
+    id?: string;
+    creditCard?: CreditCard;
+    onSubmit?: (fields: CreditCardUpdateFormInputValues) => CreditCardUpdateFormInputValues;
+    onSuccess?: (fields: CreditCardUpdateFormInputValues) => void;
+    onError?: (fields: CreditCardUpdateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: CreditCardUpdateFormInputValues) => CreditCardUpdateFormInputValues;
+    onValidate?: CreditCardUpdateFormValidationValues;
 } & React.CSSProperties>;
-export default function FrameworkCreateForm(props: FrameworkCreateFormProps): React.ReactElement;
+export default function CreditCardUpdateForm(props: CreditCardUpdateFormProps): React.ReactElement;

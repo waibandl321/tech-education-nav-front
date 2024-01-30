@@ -43,7 +43,7 @@ export default function Header() {
               textAlign: "center",
               marginLeft: 32,
             }}
-            href="/search"
+            href="/reviews"
           >
             <SearchIcon />
             <Typography>口コミを探す</Typography>
