@@ -8,7 +8,8 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getDevelopmentTool = /* GraphQL */ `query GetDevelopmentTool($id: ID!) {
+export const getDevelopmentTool =
+  /* GraphQL */ `query GetDevelopmentTool($id: ID!) {
   getDevelopmentTool(id: $id) {
     id
     name
@@ -18,9 +19,9 @@ export const getDevelopmentTool = /* GraphQL */ `query GetDevelopmentTool($id: I
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetDevelopmentToolQueryVariables,
-  APITypes.GetDevelopmentToolQuery
->;
+    APITypes.GetDevelopmentToolQueryVariables,
+    APITypes.GetDevelopmentToolQuery
+  >;
 export const listDevelopmentTools = /* GraphQL */ `query ListDevelopmentTools(
   $filter: ModelDevelopmentToolFilterInput
   $limit: Int
@@ -42,7 +43,8 @@ export const listDevelopmentTools = /* GraphQL */ `query ListDevelopmentTools(
   APITypes.ListDevelopmentToolsQueryVariables,
   APITypes.ListDevelopmentToolsQuery
 >;
-export const getProgrammingLanguage = /* GraphQL */ `query GetProgrammingLanguage($id: ID!) {
+export const getProgrammingLanguage =
+  /* GraphQL */ `query GetProgrammingLanguage($id: ID!) {
   getProgrammingLanguage(id: $id) {
     id
     name
@@ -52,10 +54,11 @@ export const getProgrammingLanguage = /* GraphQL */ `query GetProgrammingLanguag
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetProgrammingLanguageQueryVariables,
-  APITypes.GetProgrammingLanguageQuery
->;
-export const listProgrammingLanguages = /* GraphQL */ `query ListProgrammingLanguages(
+    APITypes.GetProgrammingLanguageQueryVariables,
+    APITypes.GetProgrammingLanguageQuery
+  >;
+export const listProgrammingLanguages =
+  /* GraphQL */ `query ListProgrammingLanguages(
   $filter: ModelProgrammingLanguageFilterInput
   $limit: Int
   $nextToken: String
@@ -77,10 +80,11 @@ export const listProgrammingLanguages = /* GraphQL */ `query ListProgrammingLang
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListProgrammingLanguagesQueryVariables,
-  APITypes.ListProgrammingLanguagesQuery
->;
-export const getPaymentMethod = /* GraphQL */ `query GetPaymentMethod($id: ID!) {
+    APITypes.ListProgrammingLanguagesQueryVariables,
+    APITypes.ListProgrammingLanguagesQuery
+  >;
+export const getPaymentMethod =
+  /* GraphQL */ `query GetPaymentMethod($id: ID!) {
   getPaymentMethod(id: $id) {
     id
     name
@@ -90,9 +94,9 @@ export const getPaymentMethod = /* GraphQL */ `query GetPaymentMethod($id: ID!) 
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetPaymentMethodQueryVariables,
-  APITypes.GetPaymentMethodQuery
->;
+    APITypes.GetPaymentMethodQueryVariables,
+    APITypes.GetPaymentMethodQuery
+  >;
 export const listPaymentMethods = /* GraphQL */ `query ListPaymentMethods(
   $filter: ModelPaymentMethodFilterInput
   $limit: Int
@@ -218,7 +222,8 @@ export const listJobTypes = /* GraphQL */ `query ListJobTypes(
   APITypes.ListJobTypesQueryVariables,
   APITypes.ListJobTypesQuery
 >;
-export const getLearningCenter = /* GraphQL */ `query GetLearningCenter($id: ID!) {
+export const getLearningCenter =
+  /* GraphQL */ `query GetLearningCenter($id: ID!) {
   getLearningCenter(id: $id) {
     id
     name
@@ -236,9 +241,9 @@ export const getLearningCenter = /* GraphQL */ `query GetLearningCenter($id: ID!
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetLearningCenterQueryVariables,
-  APITypes.GetLearningCenterQuery
->;
+    APITypes.GetLearningCenterQueryVariables,
+    APITypes.GetLearningCenterQuery
+  >;
 export const listLearningCenters = /* GraphQL */ `query ListLearningCenters(
   $filter: ModelLearningCenterFilterInput
   $limit: Int
@@ -268,7 +273,8 @@ export const listLearningCenters = /* GraphQL */ `query ListLearningCenters(
   APITypes.ListLearningCentersQueryVariables,
   APITypes.ListLearningCentersQuery
 >;
-export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCourse($id: ID!) {
+export const getLearningCenterCourse =
+  /* GraphQL */ `query GetLearningCenterCourse($id: ID!) {
   getLearningCenterCourse(id: $id) {
     id
     learningCenterId
@@ -315,10 +321,11 @@ export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCou
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetLearningCenterCourseQueryVariables,
-  APITypes.GetLearningCenterCourseQuery
->;
-export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenterCourses(
+    APITypes.GetLearningCenterCourseQueryVariables,
+    APITypes.GetLearningCenterCourseQuery
+  >;
+export const listLearningCenterCourses =
+  /* GraphQL */ `query ListLearningCenterCourses(
   $filter: ModelLearningCenterCourseFilterInput
   $limit: Int
   $nextToken: String
@@ -334,6 +341,15 @@ export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenter
       courseName
       courseURL
       couseDetail
+      plans {
+        id
+        planName
+        planMemo
+        duration
+        price
+        splitPrice
+        __typename
+      }
       cancelPolicy
       isAvailableMoneyBack
       moneyBackDetail
@@ -368,9 +384,9 @@ export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenter
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListLearningCenterCoursesQueryVariables,
-  APITypes.ListLearningCenterCoursesQuery
->;
+    APITypes.ListLearningCenterCoursesQueryVariables,
+    APITypes.ListLearningCenterCoursesQuery
+  >;
 export const getCourseReview = /* GraphQL */ `query GetCourseReview($id: ID!) {
   getCourseReview(id: $id) {
     id
