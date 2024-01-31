@@ -313,6 +313,9 @@ export const createLearningCenter = /* GraphQL */ `mutation CreateLearningCenter
     logoImageURL
     establishmentYear
     representative
+    cancelPolicy
+    paymentOptions
+    creditCards
     isDeleted
     createdAt
     updatedAt
@@ -337,6 +340,9 @@ export const updateLearningCenter = /* GraphQL */ `mutation UpdateLearningCenter
     logoImageURL
     establishmentYear
     representative
+    cancelPolicy
+    paymentOptions
+    creditCards
     isDeleted
     createdAt
     updatedAt
@@ -361,6 +367,9 @@ export const deleteLearningCenter = /* GraphQL */ `mutation DeleteLearningCenter
     logoImageURL
     establishmentYear
     representative
+    cancelPolicy
+    paymentOptions
+    creditCards
     isDeleted
     createdAt
     updatedAt
@@ -390,7 +399,6 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
       splitPrice
       __typename
     }
-    cancelPolicy
     isAvailableMoneyBack
     moneyBackDetail
     isAvailableSubsidy
@@ -408,8 +416,6 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
     programmingLanguages
     frameworks
     developmentTools
-    paymentOptions
-    creditCards
     attendanceType
     locationPref
     locationCity
@@ -443,7 +449,6 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
       splitPrice
       __typename
     }
-    cancelPolicy
     isAvailableMoneyBack
     moneyBackDetail
     isAvailableSubsidy
@@ -461,8 +466,6 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
     programmingLanguages
     frameworks
     developmentTools
-    paymentOptions
-    creditCards
     attendanceType
     locationPref
     locationCity
@@ -496,7 +499,6 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
       splitPrice
       __typename
     }
-    cancelPolicy
     isAvailableMoneyBack
     moneyBackDetail
     isAvailableSubsidy
@@ -514,8 +516,6 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
     programmingLanguages
     frameworks
     developmentTools
-    paymentOptions
-    creditCards
     attendanceType
     locationPref
     locationCity

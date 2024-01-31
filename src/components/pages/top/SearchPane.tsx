@@ -20,7 +20,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  Divider,
   Table,
   TableBody,
   TableCell,
@@ -45,8 +44,6 @@ import {
   PurposeLabels,
   priceOptions,
 } from "@/const";
-import Image from "next/image";
-import dummyImage from "@/assets/img/dirty-code.jpg";
 import Link from "next/link";
 
 export default function SearchPane({

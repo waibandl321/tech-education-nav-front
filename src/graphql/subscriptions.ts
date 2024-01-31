@@ -282,6 +282,9 @@ export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearni
     logoImageURL
     establishmentYear
     representative
+    cancelPolicy
+    paymentOptions
+    creditCards
     isDeleted
     createdAt
     updatedAt
@@ -305,6 +308,9 @@ export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearni
     logoImageURL
     establishmentYear
     representative
+    cancelPolicy
+    paymentOptions
+    creditCards
     isDeleted
     createdAt
     updatedAt
@@ -328,6 +334,9 @@ export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearni
     logoImageURL
     establishmentYear
     representative
+    cancelPolicy
+    paymentOptions
+    creditCards
     isDeleted
     createdAt
     updatedAt
@@ -356,7 +365,6 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
       splitPrice
       __typename
     }
-    cancelPolicy
     isAvailableMoneyBack
     moneyBackDetail
     isAvailableSubsidy
@@ -374,8 +382,6 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
     programmingLanguages
     frameworks
     developmentTools
-    paymentOptions
-    creditCards
     attendanceType
     locationPref
     locationCity
@@ -408,7 +414,6 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
       splitPrice
       __typename
     }
-    cancelPolicy
     isAvailableMoneyBack
     moneyBackDetail
     isAvailableSubsidy
@@ -426,8 +431,6 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
     programmingLanguages
     frameworks
     developmentTools
-    paymentOptions
-    creditCards
     attendanceType
     locationPref
     locationCity
@@ -460,7 +463,6 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
       splitPrice
       __typename
     }
-    cancelPolicy
     isAvailableMoneyBack
     moneyBackDetail
     isAvailableSubsidy
@@ -478,8 +480,6 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
     programmingLanguages
     frameworks
     developmentTools
-    paymentOptions
-    creditCards
     attendanceType
     locationPref
     locationCity
