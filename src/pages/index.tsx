@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "@/app/layout";
+import PCSearchLayout from "@/app/search-layout";
 import Head from "next/head";
-import TopPane from "@/components/pages/top/TopPane";
 import { GetServerSideProps } from "next";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import {
@@ -14,7 +14,9 @@ import {
   PaymentMethod,
   ProgrammingLanguage,
 } from "@/API";
-import SearchPane from "@/components/pages/top/SearchPane";
+import SearchPane from "@/components/pages/top/pc/PCSearchPane";
+import SPSearchPane from "@/components/pages/top/sp/SPSearchPane";
+import { useMediaQuery } from "@mui/material";
 
 export default function Index({
   centers,
@@ -35,6 +37,8 @@ export default function Index({
   paymentMethods: Array<PaymentMethod>;
   creditCards: Array<CreditCard>;
 }) {
+  const isMobile = useMediaQuery("(max-width:640px)");
+
   return (
     <>
       <Head>
@@ -42,19 +46,34 @@ export default function Index({
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
-      <Layout>
-        {/* <TopPane /> */}
-        <SearchPane
-          centers={centers}
-          courses={courses}
-          languages={languages}
-          frameworks={frameworks}
-          developmentTools={developmentTools}
-          jobTypes={jobTypes}
-          paymentMethods={paymentMethods}
-          creditCards={creditCards}
-        />
-      </Layout>
+
+      {isMobile ? (
+        <Layout>
+          <SPSearchPane
+            centers={centers}
+            courses={courses}
+            languages={languages}
+            frameworks={frameworks}
+            developmentTools={developmentTools}
+            jobTypes={jobTypes}
+            paymentMethods={paymentMethods}
+            creditCards={creditCards}
+          />
+        </Layout>
+      ) : (
+        <PCSearchLayout>
+          <SearchPane
+            centers={centers}
+            courses={courses}
+            languages={languages}
+            frameworks={frameworks}
+            developmentTools={developmentTools}
+            jobTypes={jobTypes}
+            paymentMethods={paymentMethods}
+            creditCards={creditCards}
+          />
+        </PCSearchLayout>
+      )}
     </>
   );
 }

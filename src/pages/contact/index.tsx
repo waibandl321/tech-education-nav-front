@@ -18,6 +18,7 @@ export default function Contact() {
           sx={{
             borderRadius: 0,
             backgroundColor: "#f8f8f8",
+            flexGrow: 1,
           }}
         >
           <ContactForm />

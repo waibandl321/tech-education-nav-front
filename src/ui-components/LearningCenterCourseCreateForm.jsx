@@ -209,9 +209,12 @@ export default function LearningCenterCourseCreateForm(props) {
     jobHuntingSupportDetail: "",
     purposes: [],
     jobTypes: [],
+    developmentCategories: [],
+    developmentProducts: [],
     programmingLanguages: [],
     frameworks: [],
     developmentTools: [],
+    qualifications: [],
     attendanceType: "",
     locationPref: "",
     locationCity: "",
@@ -259,12 +262,21 @@ export default function LearningCenterCourseCreateForm(props) {
   );
   const [purposes, setPurposes] = React.useState(initialValues.purposes);
   const [jobTypes, setJobTypes] = React.useState(initialValues.jobTypes);
+  const [developmentCategories, setDevelopmentCategories] = React.useState(
+    initialValues.developmentCategories
+  );
+  const [developmentProducts, setDevelopmentProducts] = React.useState(
+    initialValues.developmentProducts
+  );
   const [programmingLanguages, setProgrammingLanguages] = React.useState(
     initialValues.programmingLanguages
   );
   const [frameworks, setFrameworks] = React.useState(initialValues.frameworks);
   const [developmentTools, setDevelopmentTools] = React.useState(
     initialValues.developmentTools
+  );
+  const [qualifications, setQualifications] = React.useState(
+    initialValues.qualifications
   );
   const [attendanceType, setAttendanceType] = React.useState(
     initialValues.attendanceType
@@ -301,12 +313,18 @@ export default function LearningCenterCourseCreateForm(props) {
     setCurrentPurposesValue("");
     setJobTypes(initialValues.jobTypes);
     setCurrentJobTypesValue("");
+    setDevelopmentCategories(initialValues.developmentCategories);
+    setCurrentDevelopmentCategoriesValue("");
+    setDevelopmentProducts(initialValues.developmentProducts);
+    setCurrentDevelopmentProductsValue("");
     setProgrammingLanguages(initialValues.programmingLanguages);
     setCurrentProgrammingLanguagesValue("");
     setFrameworks(initialValues.frameworks);
     setCurrentFrameworksValue("");
     setDevelopmentTools(initialValues.developmentTools);
     setCurrentDevelopmentToolsValue("");
+    setQualifications(initialValues.qualifications);
+    setCurrentQualificationsValue("");
     setAttendanceType(initialValues.attendanceType);
     setLocationPref(initialValues.locationPref);
     setLocationCity(initialValues.locationCity);
@@ -320,6 +338,14 @@ export default function LearningCenterCourseCreateForm(props) {
   const [currentJobTypesValue, setCurrentJobTypesValue] = React.useState("");
   const jobTypesRef = React.createRef();
   const [
+    currentDevelopmentCategoriesValue,
+    setCurrentDevelopmentCategoriesValue,
+  ] = React.useState("");
+  const developmentCategoriesRef = React.createRef();
+  const [currentDevelopmentProductsValue, setCurrentDevelopmentProductsValue] =
+    React.useState("");
+  const developmentProductsRef = React.createRef();
+  const [
     currentProgrammingLanguagesValue,
     setCurrentProgrammingLanguagesValue,
   ] = React.useState("");
@@ -330,6 +356,9 @@ export default function LearningCenterCourseCreateForm(props) {
   const [currentDevelopmentToolsValue, setCurrentDevelopmentToolsValue] =
     React.useState("");
   const developmentToolsRef = React.createRef();
+  const [currentQualificationsValue, setCurrentQualificationsValue] =
+    React.useState("");
+  const qualificationsRef = React.createRef();
   const [currentEspeciallyAudiencesValue, setCurrentEspeciallyAudiencesValue] =
     React.useState("");
   const especiallyAudiencesRef = React.createRef();
@@ -377,9 +406,12 @@ export default function LearningCenterCourseCreateForm(props) {
     jobHuntingSupportDetail: [],
     purposes: [],
     jobTypes: [],
+    developmentCategories: [],
+    developmentProducts: [],
     programmingLanguages: [],
     frameworks: [],
     developmentTools: [],
+    qualifications: [],
     attendanceType: [],
     locationPref: [],
     locationCity: [],
@@ -430,9 +462,12 @@ export default function LearningCenterCourseCreateForm(props) {
           jobHuntingSupportDetail,
           purposes,
           jobTypes,
+          developmentCategories,
+          developmentProducts,
           programmingLanguages,
           frameworks,
           developmentTools,
+          qualifications,
           attendanceType,
           locationPref,
           locationCity,
@@ -518,9 +553,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -567,9 +605,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -616,9 +657,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -665,9 +709,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -714,9 +761,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -765,9 +815,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -814,9 +867,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -865,9 +921,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -914,9 +973,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -963,9 +1025,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1012,9 +1077,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1061,9 +1129,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1112,9 +1183,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1166,9 +1240,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1217,9 +1294,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1268,9 +1348,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail: value,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1315,9 +1398,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes: values,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1417,9 +1503,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes: values,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1487,9 +1576,174 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories: values,
+              developmentProducts,
+              programmingLanguages,
+              frameworks,
+              developmentTools,
+              qualifications,
+              attendanceType,
+              locationPref,
+              locationCity,
+              especiallyAudiences,
+              isDeleted,
+            };
+            const result = onChange(modelFields);
+            values = result?.developmentCategories ?? values;
+          }
+          setDevelopmentCategories(values);
+          setCurrentDevelopmentCategoriesValue("");
+        }}
+        currentFieldValue={currentDevelopmentCategoriesValue}
+        label={"Development categories"}
+        items={developmentCategories}
+        hasError={errors?.developmentCategories?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "developmentCategories",
+            currentDevelopmentCategoriesValue
+          )
+        }
+        errorMessage={errors?.developmentCategories?.errorMessage}
+        setFieldValue={setCurrentDevelopmentCategoriesValue}
+        inputFieldRef={developmentCategoriesRef}
+        defaultFieldValue={""}
+      >
+        <TextField
+          label="Development categories"
+          isRequired={false}
+          isReadOnly={false}
+          value={currentDevelopmentCategoriesValue}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (errors.developmentCategories?.hasError) {
+              runValidationTasks("developmentCategories", value);
+            }
+            setCurrentDevelopmentCategoriesValue(value);
+          }}
+          onBlur={() =>
+            runValidationTasks(
+              "developmentCategories",
+              currentDevelopmentCategoriesValue
+            )
+          }
+          errorMessage={errors.developmentCategories?.errorMessage}
+          hasError={errors.developmentCategories?.hasError}
+          ref={developmentCategoriesRef}
+          labelHidden={true}
+          {...getOverrideProps(overrides, "developmentCategories")}
+        ></TextField>
+      </ArrayField>
+      <ArrayField
+        onChange={async (items) => {
+          let values = items;
+          if (onChange) {
+            const modelFields = {
+              learningCenterId,
+              courseName,
+              courseURL,
+              couseDetail,
+              isAvailableMoneyBack,
+              moneyBackDetail,
+              isAvailableSubsidy,
+              subsidyMemo,
+              onSale,
+              saleMemo,
+              isMadeToOrder,
+              madeToOrderDetail,
+              isJobIntroductionAvailable,
+              jobIntroductionDetail,
+              isJobHuntingSupport,
+              jobHuntingSupportDetail,
+              purposes,
+              jobTypes,
+              developmentCategories,
+              developmentProducts: values,
+              programmingLanguages,
+              frameworks,
+              developmentTools,
+              qualifications,
+              attendanceType,
+              locationPref,
+              locationCity,
+              especiallyAudiences,
+              isDeleted,
+            };
+            const result = onChange(modelFields);
+            values = result?.developmentProducts ?? values;
+          }
+          setDevelopmentProducts(values);
+          setCurrentDevelopmentProductsValue("");
+        }}
+        currentFieldValue={currentDevelopmentProductsValue}
+        label={"Development products"}
+        items={developmentProducts}
+        hasError={errors?.developmentProducts?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "developmentProducts",
+            currentDevelopmentProductsValue
+          )
+        }
+        errorMessage={errors?.developmentProducts?.errorMessage}
+        setFieldValue={setCurrentDevelopmentProductsValue}
+        inputFieldRef={developmentProductsRef}
+        defaultFieldValue={""}
+      >
+        <TextField
+          label="Development products"
+          isRequired={false}
+          isReadOnly={false}
+          value={currentDevelopmentProductsValue}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (errors.developmentProducts?.hasError) {
+              runValidationTasks("developmentProducts", value);
+            }
+            setCurrentDevelopmentProductsValue(value);
+          }}
+          onBlur={() =>
+            runValidationTasks(
+              "developmentProducts",
+              currentDevelopmentProductsValue
+            )
+          }
+          errorMessage={errors.developmentProducts?.errorMessage}
+          hasError={errors.developmentProducts?.hasError}
+          ref={developmentProductsRef}
+          labelHidden={true}
+          {...getOverrideProps(overrides, "developmentProducts")}
+        ></TextField>
+      </ArrayField>
+      <ArrayField
+        onChange={async (items) => {
+          let values = items;
+          if (onChange) {
+            const modelFields = {
+              learningCenterId,
+              courseName,
+              courseURL,
+              couseDetail,
+              isAvailableMoneyBack,
+              moneyBackDetail,
+              isAvailableSubsidy,
+              subsidyMemo,
+              onSale,
+              saleMemo,
+              isMadeToOrder,
+              madeToOrderDetail,
+              isJobIntroductionAvailable,
+              jobIntroductionDetail,
+              isJobHuntingSupport,
+              jobHuntingSupportDetail,
+              purposes,
+              jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages: values,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1565,9 +1819,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks: values,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1637,9 +1894,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools: values,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1689,6 +1949,81 @@ export default function LearningCenterCourseCreateForm(props) {
           {...getOverrideProps(overrides, "developmentTools")}
         ></TextField>
       </ArrayField>
+      <ArrayField
+        onChange={async (items) => {
+          let values = items;
+          if (onChange) {
+            const modelFields = {
+              learningCenterId,
+              courseName,
+              courseURL,
+              couseDetail,
+              isAvailableMoneyBack,
+              moneyBackDetail,
+              isAvailableSubsidy,
+              subsidyMemo,
+              onSale,
+              saleMemo,
+              isMadeToOrder,
+              madeToOrderDetail,
+              isJobIntroductionAvailable,
+              jobIntroductionDetail,
+              isJobHuntingSupport,
+              jobHuntingSupportDetail,
+              purposes,
+              jobTypes,
+              developmentCategories,
+              developmentProducts,
+              programmingLanguages,
+              frameworks,
+              developmentTools,
+              qualifications: values,
+              attendanceType,
+              locationPref,
+              locationCity,
+              especiallyAudiences,
+              isDeleted,
+            };
+            const result = onChange(modelFields);
+            values = result?.qualifications ?? values;
+          }
+          setQualifications(values);
+          setCurrentQualificationsValue("");
+        }}
+        currentFieldValue={currentQualificationsValue}
+        label={"Qualifications"}
+        items={qualifications}
+        hasError={errors?.qualifications?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("qualifications", currentQualificationsValue)
+        }
+        errorMessage={errors?.qualifications?.errorMessage}
+        setFieldValue={setCurrentQualificationsValue}
+        inputFieldRef={qualificationsRef}
+        defaultFieldValue={""}
+      >
+        <TextField
+          label="Qualifications"
+          isRequired={false}
+          isReadOnly={false}
+          value={currentQualificationsValue}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (errors.qualifications?.hasError) {
+              runValidationTasks("qualifications", value);
+            }
+            setCurrentQualificationsValue(value);
+          }}
+          onBlur={() =>
+            runValidationTasks("qualifications", currentQualificationsValue)
+          }
+          errorMessage={errors.qualifications?.errorMessage}
+          hasError={errors.qualifications?.hasError}
+          ref={qualificationsRef}
+          labelHidden={true}
+          {...getOverrideProps(overrides, "qualifications")}
+        ></TextField>
+      </ArrayField>
       <SelectField
         label="Attendance type"
         placeholder="Please select an option"
@@ -1716,9 +2051,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType: value,
               locationPref,
               locationCity,
@@ -1781,9 +2119,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref: value,
               locationCity,
@@ -1830,9 +2171,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity: value,
@@ -1875,9 +2219,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,
@@ -1994,9 +2341,12 @@ export default function LearningCenterCourseCreateForm(props) {
               jobHuntingSupportDetail,
               purposes,
               jobTypes,
+              developmentCategories,
+              developmentProducts,
               programmingLanguages,
               frameworks,
               developmentTools,
+              qualifications,
               attendanceType,
               locationPref,
               locationCity,

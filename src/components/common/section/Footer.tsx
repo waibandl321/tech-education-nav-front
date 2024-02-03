@@ -19,7 +19,7 @@ export default function Footer() {
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
       elevation={3}
     >
-      {isMobile && (
+      {/* {isMobile && (
         <BottomNavigation showLabels>
           <BottomNavigationAction
             label="口コミ検索"
@@ -40,7 +40,7 @@ export default function Footer() {
             sx={{ lineHeight: 2 }}
           />
         </BottomNavigation>
-      )}
+      )} */}
       <Card
         sx={{
           textAlign: "center",

@@ -8,6 +8,156 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createDevelopmentCategory = /* GraphQL */ `mutation CreateDevelopmentCategory(
+  $input: CreateDevelopmentCategoryInput!
+  $condition: ModelDevelopmentCategoryConditionInput
+) {
+  createDevelopmentCategory(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateDevelopmentCategoryMutationVariables,
+  APITypes.CreateDevelopmentCategoryMutation
+>;
+export const updateDevelopmentCategory = /* GraphQL */ `mutation UpdateDevelopmentCategory(
+  $input: UpdateDevelopmentCategoryInput!
+  $condition: ModelDevelopmentCategoryConditionInput
+) {
+  updateDevelopmentCategory(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateDevelopmentCategoryMutationVariables,
+  APITypes.UpdateDevelopmentCategoryMutation
+>;
+export const deleteDevelopmentCategory = /* GraphQL */ `mutation DeleteDevelopmentCategory(
+  $input: DeleteDevelopmentCategoryInput!
+  $condition: ModelDevelopmentCategoryConditionInput
+) {
+  deleteDevelopmentCategory(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteDevelopmentCategoryMutationVariables,
+  APITypes.DeleteDevelopmentCategoryMutation
+>;
+export const createDevelopmentProduct = /* GraphQL */ `mutation CreateDevelopmentProduct(
+  $input: CreateDevelopmentProductInput!
+  $condition: ModelDevelopmentProductConditionInput
+) {
+  createDevelopmentProduct(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateDevelopmentProductMutationVariables,
+  APITypes.CreateDevelopmentProductMutation
+>;
+export const updateDevelopmentProduct = /* GraphQL */ `mutation UpdateDevelopmentProduct(
+  $input: UpdateDevelopmentProductInput!
+  $condition: ModelDevelopmentProductConditionInput
+) {
+  updateDevelopmentProduct(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateDevelopmentProductMutationVariables,
+  APITypes.UpdateDevelopmentProductMutation
+>;
+export const deleteDevelopmentProduct = /* GraphQL */ `mutation DeleteDevelopmentProduct(
+  $input: DeleteDevelopmentProductInput!
+  $condition: ModelDevelopmentProductConditionInput
+) {
+  deleteDevelopmentProduct(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteDevelopmentProductMutationVariables,
+  APITypes.DeleteDevelopmentProductMutation
+>;
+export const createQualification = /* GraphQL */ `mutation CreateQualification(
+  $input: CreateQualificationInput!
+  $condition: ModelQualificationConditionInput
+) {
+  createQualification(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateQualificationMutationVariables,
+  APITypes.CreateQualificationMutation
+>;
+export const updateQualification = /* GraphQL */ `mutation UpdateQualification(
+  $input: UpdateQualificationInput!
+  $condition: ModelQualificationConditionInput
+) {
+  updateQualification(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateQualificationMutationVariables,
+  APITypes.UpdateQualificationMutation
+>;
+export const deleteQualification = /* GraphQL */ `mutation DeleteQualification(
+  $input: DeleteQualificationInput!
+  $condition: ModelQualificationConditionInput
+) {
+  deleteQualification(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteQualificationMutationVariables,
+  APITypes.DeleteQualificationMutation
+>;
 export const createDevelopmentTool = /* GraphQL */ `mutation CreateDevelopmentTool(
   $input: CreateDevelopmentToolInput!
   $condition: ModelDevelopmentToolConditionInput
@@ -313,6 +463,7 @@ export const createLearningCenter = /* GraphQL */ `mutation CreateLearningCenter
     logoImageURL
     establishmentYear
     representative
+    admissionFee
     cancelPolicy
     paymentOptions
     creditCards
@@ -340,6 +491,7 @@ export const updateLearningCenter = /* GraphQL */ `mutation UpdateLearningCenter
     logoImageURL
     establishmentYear
     representative
+    admissionFee
     cancelPolicy
     paymentOptions
     creditCards
@@ -367,6 +519,7 @@ export const deleteLearningCenter = /* GraphQL */ `mutation DeleteLearningCenter
     logoImageURL
     establishmentYear
     representative
+    admissionFee
     cancelPolicy
     paymentOptions
     creditCards
@@ -413,9 +566,12 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
     jobHuntingSupportDetail
     purposes
     jobTypes
+    developmentCategories
+    developmentProducts
     programmingLanguages
     frameworks
     developmentTools
+    qualifications
     attendanceType
     locationPref
     locationCity
@@ -463,9 +619,12 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
     jobHuntingSupportDetail
     purposes
     jobTypes
+    developmentCategories
+    developmentProducts
     programmingLanguages
     frameworks
     developmentTools
+    qualifications
     attendanceType
     locationPref
     locationCity
@@ -513,9 +672,12 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
     jobHuntingSupportDetail
     purposes
     jobTypes
+    developmentCategories
+    developmentProducts
     programmingLanguages
     frameworks
     developmentTools
+    qualifications
     attendanceType
     locationPref
     locationCity

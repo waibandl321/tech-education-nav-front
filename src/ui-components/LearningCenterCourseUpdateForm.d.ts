@@ -41,9 +41,12 @@ export declare type LearningCenterCourseUpdateFormInputValues = {
     jobHuntingSupportDetail?: string;
     purposes?: string[];
     jobTypes?: string[];
+    developmentCategories?: string[];
+    developmentProducts?: string[];
     programmingLanguages?: string[];
     frameworks?: string[];
     developmentTools?: string[];
+    qualifications?: string[];
     attendanceType?: string;
     locationPref?: string;
     locationCity?: string;
@@ -69,9 +72,12 @@ export declare type LearningCenterCourseUpdateFormValidationValues = {
     jobHuntingSupportDetail?: ValidationFunction<string>;
     purposes?: ValidationFunction<string>;
     jobTypes?: ValidationFunction<string>;
+    developmentCategories?: ValidationFunction<string>;
+    developmentProducts?: ValidationFunction<string>;
     programmingLanguages?: ValidationFunction<string>;
     frameworks?: ValidationFunction<string>;
     developmentTools?: ValidationFunction<string>;
+    qualifications?: ValidationFunction<string>;
     attendanceType?: ValidationFunction<string>;
     locationPref?: ValidationFunction<string>;
     locationCity?: ValidationFunction<string>;
@@ -99,9 +105,12 @@ export declare type LearningCenterCourseUpdateFormOverridesProps = {
     jobHuntingSupportDetail?: PrimitiveOverrideProps<TextFieldProps>;
     purposes?: PrimitiveOverrideProps<SelectFieldProps>;
     jobTypes?: PrimitiveOverrideProps<TextFieldProps>;
+    developmentCategories?: PrimitiveOverrideProps<TextFieldProps>;
+    developmentProducts?: PrimitiveOverrideProps<TextFieldProps>;
     programmingLanguages?: PrimitiveOverrideProps<TextFieldProps>;
     frameworks?: PrimitiveOverrideProps<TextFieldProps>;
     developmentTools?: PrimitiveOverrideProps<TextFieldProps>;
+    qualifications?: PrimitiveOverrideProps<TextFieldProps>;
     attendanceType?: PrimitiveOverrideProps<SelectFieldProps>;
     locationPref?: PrimitiveOverrideProps<TextFieldProps>;
     locationCity?: PrimitiveOverrideProps<TextFieldProps>;

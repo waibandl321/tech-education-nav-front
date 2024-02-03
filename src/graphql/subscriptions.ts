@@ -8,6 +8,147 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateDevelopmentCategory = /* GraphQL */ `subscription OnCreateDevelopmentCategory(
+  $filter: ModelSubscriptionDevelopmentCategoryFilterInput
+) {
+  onCreateDevelopmentCategory(filter: $filter) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateDevelopmentCategorySubscriptionVariables,
+  APITypes.OnCreateDevelopmentCategorySubscription
+>;
+export const onUpdateDevelopmentCategory = /* GraphQL */ `subscription OnUpdateDevelopmentCategory(
+  $filter: ModelSubscriptionDevelopmentCategoryFilterInput
+) {
+  onUpdateDevelopmentCategory(filter: $filter) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateDevelopmentCategorySubscriptionVariables,
+  APITypes.OnUpdateDevelopmentCategorySubscription
+>;
+export const onDeleteDevelopmentCategory = /* GraphQL */ `subscription OnDeleteDevelopmentCategory(
+  $filter: ModelSubscriptionDevelopmentCategoryFilterInput
+) {
+  onDeleteDevelopmentCategory(filter: $filter) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteDevelopmentCategorySubscriptionVariables,
+  APITypes.OnDeleteDevelopmentCategorySubscription
+>;
+export const onCreateDevelopmentProduct = /* GraphQL */ `subscription OnCreateDevelopmentProduct(
+  $filter: ModelSubscriptionDevelopmentProductFilterInput
+) {
+  onCreateDevelopmentProduct(filter: $filter) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateDevelopmentProductSubscriptionVariables,
+  APITypes.OnCreateDevelopmentProductSubscription
+>;
+export const onUpdateDevelopmentProduct = /* GraphQL */ `subscription OnUpdateDevelopmentProduct(
+  $filter: ModelSubscriptionDevelopmentProductFilterInput
+) {
+  onUpdateDevelopmentProduct(filter: $filter) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateDevelopmentProductSubscriptionVariables,
+  APITypes.OnUpdateDevelopmentProductSubscription
+>;
+export const onDeleteDevelopmentProduct = /* GraphQL */ `subscription OnDeleteDevelopmentProduct(
+  $filter: ModelSubscriptionDevelopmentProductFilterInput
+) {
+  onDeleteDevelopmentProduct(filter: $filter) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteDevelopmentProductSubscriptionVariables,
+  APITypes.OnDeleteDevelopmentProductSubscription
+>;
+export const onCreateQualification = /* GraphQL */ `subscription OnCreateQualification(
+  $filter: ModelSubscriptionQualificationFilterInput
+) {
+  onCreateQualification(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateQualificationSubscriptionVariables,
+  APITypes.OnCreateQualificationSubscription
+>;
+export const onUpdateQualification = /* GraphQL */ `subscription OnUpdateQualification(
+  $filter: ModelSubscriptionQualificationFilterInput
+) {
+  onUpdateQualification(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateQualificationSubscriptionVariables,
+  APITypes.OnUpdateQualificationSubscription
+>;
+export const onDeleteQualification = /* GraphQL */ `subscription OnDeleteQualification(
+  $filter: ModelSubscriptionQualificationFilterInput
+) {
+  onDeleteQualification(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteQualificationSubscriptionVariables,
+  APITypes.OnDeleteQualificationSubscription
+>;
 export const onCreateDevelopmentTool = /* GraphQL */ `subscription OnCreateDevelopmentTool(
   $filter: ModelSubscriptionDevelopmentToolFilterInput
 ) {
@@ -282,6 +423,7 @@ export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearni
     logoImageURL
     establishmentYear
     representative
+    admissionFee
     cancelPolicy
     paymentOptions
     creditCards
@@ -308,6 +450,7 @@ export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearni
     logoImageURL
     establishmentYear
     representative
+    admissionFee
     cancelPolicy
     paymentOptions
     creditCards
@@ -334,6 +477,7 @@ export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearni
     logoImageURL
     establishmentYear
     representative
+    admissionFee
     cancelPolicy
     paymentOptions
     creditCards
@@ -379,9 +523,12 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
     jobHuntingSupportDetail
     purposes
     jobTypes
+    developmentCategories
+    developmentProducts
     programmingLanguages
     frameworks
     developmentTools
+    qualifications
     attendanceType
     locationPref
     locationCity
@@ -428,9 +575,12 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
     jobHuntingSupportDetail
     purposes
     jobTypes
+    developmentCategories
+    developmentProducts
     programmingLanguages
     frameworks
     developmentTools
+    qualifications
     attendanceType
     locationPref
     locationCity
@@ -477,9 +627,12 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
     jobHuntingSupportDetail
     purposes
     jobTypes
+    developmentCategories
+    developmentProducts
     programmingLanguages
     frameworks
     developmentTools
+    qualifications
     attendanceType
     locationPref
     locationCity

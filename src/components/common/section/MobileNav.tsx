@@ -18,7 +18,7 @@ export default function MobileHeader() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#fff" }}>
+      <AppBar position="fixed" sx={{ backgroundColor: "#fff" }}>
         <Toolbar>
           <Link
             style={{ textDecoration: "none", color: "#666", fontSize: 20 }}

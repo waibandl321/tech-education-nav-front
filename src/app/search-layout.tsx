@@ -21,10 +21,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <LoadingOverlay />
       <MesageAlert />
-      <Box>
+      <Box sx={{ display: "flex" }}>
         <CssBaseline />
         {isMobile ? <MobileNav /> : <Header />}
-        <Box sx={{ pb: 8, pt: isMobile ? 0 : 6 }}>
+        <Box sx={{ display: "flex", pb: 8 }}>
           <CssBaseline />
           {children}
         </Box>

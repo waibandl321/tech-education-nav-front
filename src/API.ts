@@ -2,16 +2,18 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateDevelopmentToolInput = {
+export type CreateDevelopmentCategoryInput = {
   id?: string | null,
   name: string,
+  memo: string,
 };
 
-export type ModelDevelopmentToolConditionInput = {
+export type ModelDevelopmentCategoryConditionInput = {
   name?: ModelStringInput | null,
-  and?: Array< ModelDevelopmentToolConditionInput | null > | null,
-  or?: Array< ModelDevelopmentToolConditionInput | null > | null,
-  not?: ModelDevelopmentToolConditionInput | null,
+  memo?: ModelStringInput | null,
+  and?: Array< ModelDevelopmentCategoryConditionInput | null > | null,
+  or?: Array< ModelDevelopmentCategoryConditionInput | null > | null,
+  not?: ModelDevelopmentCategoryConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -52,6 +54,99 @@ export type ModelSizeInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
+};
+
+export type DevelopmentCategory = {
+  __typename: "DevelopmentCategory",
+  id: string,
+  name: string,
+  memo: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateDevelopmentCategoryInput = {
+  id: string,
+  name?: string | null,
+  memo?: string | null,
+};
+
+export type DeleteDevelopmentCategoryInput = {
+  id: string,
+};
+
+export type CreateDevelopmentProductInput = {
+  id?: string | null,
+  name: string,
+  memo: string,
+};
+
+export type ModelDevelopmentProductConditionInput = {
+  name?: ModelStringInput | null,
+  memo?: ModelStringInput | null,
+  and?: Array< ModelDevelopmentProductConditionInput | null > | null,
+  or?: Array< ModelDevelopmentProductConditionInput | null > | null,
+  not?: ModelDevelopmentProductConditionInput | null,
+};
+
+export type DevelopmentProduct = {
+  __typename: "DevelopmentProduct",
+  id: string,
+  name: string,
+  memo: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateDevelopmentProductInput = {
+  id: string,
+  name?: string | null,
+  memo?: string | null,
+};
+
+export type DeleteDevelopmentProductInput = {
+  id: string,
+};
+
+export type CreateQualificationInput = {
+  id?: string | null,
+  name: string,
+};
+
+export type ModelQualificationConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelQualificationConditionInput | null > | null,
+  or?: Array< ModelQualificationConditionInput | null > | null,
+  not?: ModelQualificationConditionInput | null,
+};
+
+export type Qualification = {
+  __typename: "Qualification",
+  id: string,
+  name: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateQualificationInput = {
+  id: string,
+  name?: string | null,
+};
+
+export type DeleteQualificationInput = {
+  id: string,
+};
+
+export type CreateDevelopmentToolInput = {
+  id?: string | null,
+  name: string,
+};
+
+export type ModelDevelopmentToolConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelDevelopmentToolConditionInput | null > | null,
+  or?: Array< ModelDevelopmentToolConditionInput | null > | null,
+  not?: ModelDevelopmentToolConditionInput | null,
 };
 
 export type DevelopmentTool = {
@@ -246,6 +341,7 @@ export type CreateLearningCenterInput = {
   logoImageURL?: string | null,
   establishmentYear?: number | null,
   representative?: string | null,
+  admissionFee?: number | null,
   cancelPolicy?: string | null,
   paymentOptions?: Array< string | null > | null,
   creditCards?: Array< string | null > | null,
@@ -261,6 +357,7 @@ export type ModelLearningCenterConditionInput = {
   logoImageURL?: ModelStringInput | null,
   establishmentYear?: ModelIntInput | null,
   representative?: ModelStringInput | null,
+  admissionFee?: ModelFloatInput | null,
   cancelPolicy?: ModelStringInput | null,
   paymentOptions?: ModelStringInput | null,
   creditCards?: ModelStringInput | null,
@@ -271,6 +368,18 @@ export type ModelLearningCenterConditionInput = {
 };
 
 export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelFloatInput = {
   ne?: number | null,
   eq?: number | null,
   le?: number | null,
@@ -300,6 +409,7 @@ export type LearningCenter = {
   logoImageURL?: string | null,
   establishmentYear?: number | null,
   representative?: string | null,
+  admissionFee?: number | null,
   cancelPolicy?: string | null,
   paymentOptions?: Array< string | null > | null,
   creditCards?: Array< string | null > | null,
@@ -318,6 +428,7 @@ export type UpdateLearningCenterInput = {
   logoImageURL?: string | null,
   establishmentYear?: number | null,
   representative?: string | null,
+  admissionFee?: number | null,
   cancelPolicy?: string | null,
   paymentOptions?: Array< string | null > | null,
   creditCards?: Array< string | null > | null,
@@ -349,9 +460,12 @@ export type CreateLearningCenterCourseInput = {
   jobHuntingSupportDetail?: string | null,
   purposes?: Array< Purpose | null > | null,
   jobTypes?: Array< string | null > | null,
+  developmentCategories?: Array< string | null > | null,
+  developmentProducts?: Array< string | null > | null,
   programmingLanguages?: Array< string | null > | null,
   frameworks?: Array< string | null > | null,
   developmentTools?: Array< string | null > | null,
+  qualifications?: Array< string | null > | null,
   attendanceType?: AttendanceType | null,
   locationPref?: string | null,
   locationCity?: string | null,
@@ -415,9 +529,12 @@ export type ModelLearningCenterCourseConditionInput = {
   jobHuntingSupportDetail?: ModelStringInput | null,
   purposes?: ModelPurposeListInput | null,
   jobTypes?: ModelStringInput | null,
+  developmentCategories?: ModelStringInput | null,
+  developmentProducts?: ModelStringInput | null,
   programmingLanguages?: ModelStringInput | null,
   frameworks?: ModelStringInput | null,
   developmentTools?: ModelStringInput | null,
+  qualifications?: ModelStringInput | null,
   attendanceType?: ModelAttendanceTypeInput | null,
   locationPref?: ModelStringInput | null,
   locationCity?: ModelStringInput | null,
@@ -469,9 +586,12 @@ export type LearningCenterCourse = {
   jobHuntingSupportDetail?: string | null,
   purposes?: Array< Purpose | null > | null,
   jobTypes?: Array< string | null > | null,
+  developmentCategories?: Array< string | null > | null,
+  developmentProducts?: Array< string | null > | null,
   programmingLanguages?: Array< string | null > | null,
   frameworks?: Array< string | null > | null,
   developmentTools?: Array< string | null > | null,
+  qualifications?: Array< string | null > | null,
   attendanceType?: AttendanceType | null,
   locationPref?: string | null,
   locationCity?: string | null,
@@ -512,9 +632,12 @@ export type UpdateLearningCenterCourseInput = {
   jobHuntingSupportDetail?: string | null,
   purposes?: Array< Purpose | null > | null,
   jobTypes?: Array< string | null > | null,
+  developmentCategories?: Array< string | null > | null,
+  developmentProducts?: Array< string | null > | null,
   programmingLanguages?: Array< string | null > | null,
   frameworks?: Array< string | null > | null,
   developmentTools?: Array< string | null > | null,
+  qualifications?: Array< string | null > | null,
   attendanceType?: AttendanceType | null,
   locationPref?: string | null,
   locationCity?: string | null,
@@ -636,6 +759,50 @@ export type DeleteContactInput = {
   id: string,
 };
 
+export type ModelDevelopmentCategoryFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  memo?: ModelStringInput | null,
+  and?: Array< ModelDevelopmentCategoryFilterInput | null > | null,
+  or?: Array< ModelDevelopmentCategoryFilterInput | null > | null,
+  not?: ModelDevelopmentCategoryFilterInput | null,
+};
+
+export type ModelDevelopmentCategoryConnection = {
+  __typename: "ModelDevelopmentCategoryConnection",
+  items:  Array<DevelopmentCategory | null >,
+  nextToken?: string | null,
+};
+
+export type ModelDevelopmentProductFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  memo?: ModelStringInput | null,
+  and?: Array< ModelDevelopmentProductFilterInput | null > | null,
+  or?: Array< ModelDevelopmentProductFilterInput | null > | null,
+  not?: ModelDevelopmentProductFilterInput | null,
+};
+
+export type ModelDevelopmentProductConnection = {
+  __typename: "ModelDevelopmentProductConnection",
+  items:  Array<DevelopmentProduct | null >,
+  nextToken?: string | null,
+};
+
+export type ModelQualificationFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelQualificationFilterInput | null > | null,
+  or?: Array< ModelQualificationFilterInput | null > | null,
+  not?: ModelQualificationFilterInput | null,
+};
+
+export type ModelQualificationConnection = {
+  __typename: "ModelQualificationConnection",
+  items:  Array<Qualification | null >,
+  nextToken?: string | null,
+};
+
 export type ModelDevelopmentToolFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -731,6 +898,7 @@ export type ModelLearningCenterFilterInput = {
   logoImageURL?: ModelStringInput | null,
   establishmentYear?: ModelIntInput | null,
   representative?: ModelStringInput | null,
+  admissionFee?: ModelFloatInput | null,
   cancelPolicy?: ModelStringInput | null,
   paymentOptions?: ModelStringInput | null,
   creditCards?: ModelStringInput | null,
@@ -766,9 +934,12 @@ export type ModelLearningCenterCourseFilterInput = {
   jobHuntingSupportDetail?: ModelStringInput | null,
   purposes?: ModelPurposeListInput | null,
   jobTypes?: ModelStringInput | null,
+  developmentCategories?: ModelStringInput | null,
+  developmentProducts?: ModelStringInput | null,
   programmingLanguages?: ModelStringInput | null,
   frameworks?: ModelStringInput | null,
   developmentTools?: ModelStringInput | null,
+  qualifications?: ModelStringInput | null,
   attendanceType?: ModelAttendanceTypeInput | null,
   locationPref?: ModelStringInput | null,
   locationCity?: ModelStringInput | null,
@@ -826,11 +997,12 @@ export type ModelContactConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionDevelopmentToolFilterInput = {
+export type ModelSubscriptionDevelopmentCategoryFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionDevelopmentToolFilterInput | null > | null,
-  or?: Array< ModelSubscriptionDevelopmentToolFilterInput | null > | null,
+  memo?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionDevelopmentCategoryFilterInput | null > | null,
+  or?: Array< ModelSubscriptionDevelopmentCategoryFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -861,6 +1033,28 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionDevelopmentProductFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  memo?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionDevelopmentProductFilterInput | null > | null,
+  or?: Array< ModelSubscriptionDevelopmentProductFilterInput | null > | null,
+};
+
+export type ModelSubscriptionQualificationFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionQualificationFilterInput | null > | null,
+  or?: Array< ModelSubscriptionQualificationFilterInput | null > | null,
+};
+
+export type ModelSubscriptionDevelopmentToolFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionDevelopmentToolFilterInput | null > | null,
+  or?: Array< ModelSubscriptionDevelopmentToolFilterInput | null > | null,
 };
 
 export type ModelSubscriptionProgrammingLanguageFilterInput = {
@@ -909,6 +1103,7 @@ export type ModelSubscriptionLearningCenterFilterInput = {
   logoImageURL?: ModelSubscriptionStringInput | null,
   establishmentYear?: ModelSubscriptionIntInput | null,
   representative?: ModelSubscriptionStringInput | null,
+  admissionFee?: ModelSubscriptionFloatInput | null,
   cancelPolicy?: ModelSubscriptionStringInput | null,
   paymentOptions?: ModelSubscriptionStringInput | null,
   creditCards?: ModelSubscriptionStringInput | null,
@@ -918,6 +1113,18 @@ export type ModelSubscriptionLearningCenterFilterInput = {
 };
 
 export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionFloatInput = {
   ne?: number | null,
   eq?: number | null,
   le?: number | null,
@@ -954,9 +1161,12 @@ export type ModelSubscriptionLearningCenterCourseFilterInput = {
   jobHuntingSupportDetail?: ModelSubscriptionStringInput | null,
   purposes?: ModelSubscriptionStringInput | null,
   jobTypes?: ModelSubscriptionStringInput | null,
+  developmentCategories?: ModelSubscriptionStringInput | null,
+  developmentProducts?: ModelSubscriptionStringInput | null,
   programmingLanguages?: ModelSubscriptionStringInput | null,
   frameworks?: ModelSubscriptionStringInput | null,
   developmentTools?: ModelSubscriptionStringInput | null,
+  qualifications?: ModelSubscriptionStringInput | null,
   attendanceType?: ModelSubscriptionStringInput | null,
   locationPref?: ModelSubscriptionStringInput | null,
   locationCity?: ModelSubscriptionStringInput | null,
@@ -991,6 +1201,147 @@ export type ModelSubscriptionContactFilterInput = {
   messageInfo?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionContactFilterInput | null > | null,
   or?: Array< ModelSubscriptionContactFilterInput | null > | null,
+};
+
+export type CreateDevelopmentCategoryMutationVariables = {
+  input: CreateDevelopmentCategoryInput,
+  condition?: ModelDevelopmentCategoryConditionInput | null,
+};
+
+export type CreateDevelopmentCategoryMutation = {
+  createDevelopmentCategory?:  {
+    __typename: "DevelopmentCategory",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateDevelopmentCategoryMutationVariables = {
+  input: UpdateDevelopmentCategoryInput,
+  condition?: ModelDevelopmentCategoryConditionInput | null,
+};
+
+export type UpdateDevelopmentCategoryMutation = {
+  updateDevelopmentCategory?:  {
+    __typename: "DevelopmentCategory",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteDevelopmentCategoryMutationVariables = {
+  input: DeleteDevelopmentCategoryInput,
+  condition?: ModelDevelopmentCategoryConditionInput | null,
+};
+
+export type DeleteDevelopmentCategoryMutation = {
+  deleteDevelopmentCategory?:  {
+    __typename: "DevelopmentCategory",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateDevelopmentProductMutationVariables = {
+  input: CreateDevelopmentProductInput,
+  condition?: ModelDevelopmentProductConditionInput | null,
+};
+
+export type CreateDevelopmentProductMutation = {
+  createDevelopmentProduct?:  {
+    __typename: "DevelopmentProduct",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateDevelopmentProductMutationVariables = {
+  input: UpdateDevelopmentProductInput,
+  condition?: ModelDevelopmentProductConditionInput | null,
+};
+
+export type UpdateDevelopmentProductMutation = {
+  updateDevelopmentProduct?:  {
+    __typename: "DevelopmentProduct",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteDevelopmentProductMutationVariables = {
+  input: DeleteDevelopmentProductInput,
+  condition?: ModelDevelopmentProductConditionInput | null,
+};
+
+export type DeleteDevelopmentProductMutation = {
+  deleteDevelopmentProduct?:  {
+    __typename: "DevelopmentProduct",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateQualificationMutationVariables = {
+  input: CreateQualificationInput,
+  condition?: ModelQualificationConditionInput | null,
+};
+
+export type CreateQualificationMutation = {
+  createQualification?:  {
+    __typename: "Qualification",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateQualificationMutationVariables = {
+  input: UpdateQualificationInput,
+  condition?: ModelQualificationConditionInput | null,
+};
+
+export type UpdateQualificationMutation = {
+  updateQualification?:  {
+    __typename: "Qualification",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteQualificationMutationVariables = {
+  input: DeleteQualificationInput,
+  condition?: ModelQualificationConditionInput | null,
+};
+
+export type DeleteQualificationMutation = {
+  deleteQualification?:  {
+    __typename: "Qualification",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type CreateDevelopmentToolMutationVariables = {
@@ -1283,6 +1634,7 @@ export type CreateLearningCenterMutation = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    admissionFee?: number | null,
     cancelPolicy?: string | null,
     paymentOptions?: Array< string | null > | null,
     creditCards?: Array< string | null > | null,
@@ -1309,6 +1661,7 @@ export type UpdateLearningCenterMutation = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    admissionFee?: number | null,
     cancelPolicy?: string | null,
     paymentOptions?: Array< string | null > | null,
     creditCards?: Array< string | null > | null,
@@ -1335,6 +1688,7 @@ export type DeleteLearningCenterMutation = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    admissionFee?: number | null,
     cancelPolicy?: string | null,
     paymentOptions?: Array< string | null > | null,
     creditCards?: Array< string | null > | null,
@@ -1380,9 +1734,12 @@ export type CreateLearningCenterCourseMutation = {
     jobHuntingSupportDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
+    developmentCategories?: Array< string | null > | null,
+    developmentProducts?: Array< string | null > | null,
     programmingLanguages?: Array< string | null > | null,
     frameworks?: Array< string | null > | null,
     developmentTools?: Array< string | null > | null,
+    qualifications?: Array< string | null > | null,
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
@@ -1429,9 +1786,12 @@ export type UpdateLearningCenterCourseMutation = {
     jobHuntingSupportDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
+    developmentCategories?: Array< string | null > | null,
+    developmentProducts?: Array< string | null > | null,
     programmingLanguages?: Array< string | null > | null,
     frameworks?: Array< string | null > | null,
     developmentTools?: Array< string | null > | null,
+    qualifications?: Array< string | null > | null,
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
@@ -1478,9 +1838,12 @@ export type DeleteLearningCenterCourseMutation = {
     jobHuntingSupportDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
+    developmentCategories?: Array< string | null > | null,
+    developmentProducts?: Array< string | null > | null,
     programmingLanguages?: Array< string | null > | null,
     frameworks?: Array< string | null > | null,
     developmentTools?: Array< string | null > | null,
+    qualifications?: Array< string | null > | null,
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
@@ -1617,6 +1980,112 @@ export type DeleteContactMutation = {
     messageInfo: string,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type GetDevelopmentCategoryQueryVariables = {
+  id: string,
+};
+
+export type GetDevelopmentCategoryQuery = {
+  getDevelopmentCategory?:  {
+    __typename: "DevelopmentCategory",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListDevelopmentCategoriesQueryVariables = {
+  filter?: ModelDevelopmentCategoryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListDevelopmentCategoriesQuery = {
+  listDevelopmentCategories?:  {
+    __typename: "ModelDevelopmentCategoryConnection",
+    items:  Array< {
+      __typename: "DevelopmentCategory",
+      id: string,
+      name: string,
+      memo: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetDevelopmentProductQueryVariables = {
+  id: string,
+};
+
+export type GetDevelopmentProductQuery = {
+  getDevelopmentProduct?:  {
+    __typename: "DevelopmentProduct",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListDevelopmentProductsQueryVariables = {
+  filter?: ModelDevelopmentProductFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListDevelopmentProductsQuery = {
+  listDevelopmentProducts?:  {
+    __typename: "ModelDevelopmentProductConnection",
+    items:  Array< {
+      __typename: "DevelopmentProduct",
+      id: string,
+      name: string,
+      memo: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetQualificationQueryVariables = {
+  id: string,
+};
+
+export type GetQualificationQuery = {
+  getQualification?:  {
+    __typename: "Qualification",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListQualificationsQueryVariables = {
+  filter?: ModelQualificationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListQualificationsQuery = {
+  listQualifications?:  {
+    __typename: "ModelQualificationConnection",
+    items:  Array< {
+      __typename: "Qualification",
+      id: string,
+      name: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -1842,6 +2311,7 @@ export type GetLearningCenterQuery = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    admissionFee?: number | null,
     cancelPolicy?: string | null,
     paymentOptions?: Array< string | null > | null,
     creditCards?: Array< string | null > | null,
@@ -1871,6 +2341,7 @@ export type ListLearningCentersQuery = {
       logoImageURL?: string | null,
       establishmentYear?: number | null,
       representative?: string | null,
+      admissionFee?: number | null,
       cancelPolicy?: string | null,
       paymentOptions?: Array< string | null > | null,
       creditCards?: Array< string | null > | null,
@@ -1917,9 +2388,12 @@ export type GetLearningCenterCourseQuery = {
     jobHuntingSupportDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
+    developmentCategories?: Array< string | null > | null,
+    developmentProducts?: Array< string | null > | null,
     programmingLanguages?: Array< string | null > | null,
     frameworks?: Array< string | null > | null,
     developmentTools?: Array< string | null > | null,
+    qualifications?: Array< string | null > | null,
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
@@ -1960,9 +2434,12 @@ export type ListLearningCenterCoursesQuery = {
       jobHuntingSupportDetail?: string | null,
       purposes?: Array< Purpose | null > | null,
       jobTypes?: Array< string | null > | null,
+      developmentCategories?: Array< string | null > | null,
+      developmentProducts?: Array< string | null > | null,
       programmingLanguages?: Array< string | null > | null,
       frameworks?: Array< string | null > | null,
       developmentTools?: Array< string | null > | null,
+      qualifications?: Array< string | null > | null,
       attendanceType?: AttendanceType | null,
       locationPref?: string | null,
       locationCity?: string | null,
@@ -2066,6 +2543,138 @@ export type ListContactsQuery = {
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateDevelopmentCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionDevelopmentCategoryFilterInput | null,
+};
+
+export type OnCreateDevelopmentCategorySubscription = {
+  onCreateDevelopmentCategory?:  {
+    __typename: "DevelopmentCategory",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateDevelopmentCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionDevelopmentCategoryFilterInput | null,
+};
+
+export type OnUpdateDevelopmentCategorySubscription = {
+  onUpdateDevelopmentCategory?:  {
+    __typename: "DevelopmentCategory",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteDevelopmentCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionDevelopmentCategoryFilterInput | null,
+};
+
+export type OnDeleteDevelopmentCategorySubscription = {
+  onDeleteDevelopmentCategory?:  {
+    __typename: "DevelopmentCategory",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateDevelopmentProductSubscriptionVariables = {
+  filter?: ModelSubscriptionDevelopmentProductFilterInput | null,
+};
+
+export type OnCreateDevelopmentProductSubscription = {
+  onCreateDevelopmentProduct?:  {
+    __typename: "DevelopmentProduct",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateDevelopmentProductSubscriptionVariables = {
+  filter?: ModelSubscriptionDevelopmentProductFilterInput | null,
+};
+
+export type OnUpdateDevelopmentProductSubscription = {
+  onUpdateDevelopmentProduct?:  {
+    __typename: "DevelopmentProduct",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteDevelopmentProductSubscriptionVariables = {
+  filter?: ModelSubscriptionDevelopmentProductFilterInput | null,
+};
+
+export type OnDeleteDevelopmentProductSubscription = {
+  onDeleteDevelopmentProduct?:  {
+    __typename: "DevelopmentProduct",
+    id: string,
+    name: string,
+    memo: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateQualificationSubscriptionVariables = {
+  filter?: ModelSubscriptionQualificationFilterInput | null,
+};
+
+export type OnCreateQualificationSubscription = {
+  onCreateQualification?:  {
+    __typename: "Qualification",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateQualificationSubscriptionVariables = {
+  filter?: ModelSubscriptionQualificationFilterInput | null,
+};
+
+export type OnUpdateQualificationSubscription = {
+  onUpdateQualification?:  {
+    __typename: "Qualification",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteQualificationSubscriptionVariables = {
+  filter?: ModelSubscriptionQualificationFilterInput | null,
+};
+
+export type OnDeleteQualificationSubscription = {
+  onDeleteQualification?:  {
+    __typename: "Qualification",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -2340,6 +2949,7 @@ export type OnCreateLearningCenterSubscription = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    admissionFee?: number | null,
     cancelPolicy?: string | null,
     paymentOptions?: Array< string | null > | null,
     creditCards?: Array< string | null > | null,
@@ -2365,6 +2975,7 @@ export type OnUpdateLearningCenterSubscription = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    admissionFee?: number | null,
     cancelPolicy?: string | null,
     paymentOptions?: Array< string | null > | null,
     creditCards?: Array< string | null > | null,
@@ -2390,6 +3001,7 @@ export type OnDeleteLearningCenterSubscription = {
     logoImageURL?: string | null,
     establishmentYear?: number | null,
     representative?: string | null,
+    admissionFee?: number | null,
     cancelPolicy?: string | null,
     paymentOptions?: Array< string | null > | null,
     creditCards?: Array< string | null > | null,
@@ -2434,9 +3046,12 @@ export type OnCreateLearningCenterCourseSubscription = {
     jobHuntingSupportDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
+    developmentCategories?: Array< string | null > | null,
+    developmentProducts?: Array< string | null > | null,
     programmingLanguages?: Array< string | null > | null,
     frameworks?: Array< string | null > | null,
     developmentTools?: Array< string | null > | null,
+    qualifications?: Array< string | null > | null,
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
@@ -2482,9 +3097,12 @@ export type OnUpdateLearningCenterCourseSubscription = {
     jobHuntingSupportDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
+    developmentCategories?: Array< string | null > | null,
+    developmentProducts?: Array< string | null > | null,
     programmingLanguages?: Array< string | null > | null,
     frameworks?: Array< string | null > | null,
     developmentTools?: Array< string | null > | null,
+    qualifications?: Array< string | null > | null,
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
@@ -2530,9 +3148,12 @@ export type OnDeleteLearningCenterCourseSubscription = {
     jobHuntingSupportDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
+    developmentCategories?: Array< string | null > | null,
+    developmentProducts?: Array< string | null > | null,
     programmingLanguages?: Array< string | null > | null,
     frameworks?: Array< string | null > | null,
     developmentTools?: Array< string | null > | null,
+    qualifications?: Array< string | null > | null,
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
