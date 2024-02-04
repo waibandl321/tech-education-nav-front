@@ -11,6 +11,9 @@ import {
   listJobTypes,
   listPaymentMethods,
   listProgrammingLanguages,
+  listDevelopmentCategories,
+  listDevelopmentProducts,
+  listQualifications,
 } from "@/graphql/queries";
 
 const client = generateClient();
@@ -108,7 +111,7 @@ export const fetchCourseReviews = async (
 
 /**
  * 検索画面で必要なデータを取得
- * @returns スクール一覧、コース一覧、職種、言語、フレームワーク、開発ツール、支払い方法、クレジットカード
+ * @returns スクール一覧、コース一覧、職種、言語、フレームワーク、開発ツール、支払い方法、クレジットカード、資格、開発分野、開発プロダクト
  */
 export const fetchSearchPageData = async () => {
   try {
@@ -121,6 +124,9 @@ export const fetchSearchPageData = async () => {
       getJobTypesResult,
       getPaymentMethodsResult,
       getCreditCardsResult,
+      getDevelopmentCategories,
+      getDevelopmentProducts,
+      getQualifications,
     ] = await Promise.all([
       client.graphql({
         query: listLearningCenters,
@@ -154,6 +160,18 @@ export const fetchSearchPageData = async () => {
         query: listCreditCards,
         authMode: "apiKey",
       }),
+      client.graphql({
+        query: listDevelopmentCategories,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listDevelopmentProducts,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listQualifications,
+        authMode: "apiKey",
+      }),
     ]);
     return {
       centers: learningCentersResult.data.listLearningCenters.items,
@@ -164,6 +182,11 @@ export const fetchSearchPageData = async () => {
       jobTypes: getJobTypesResult.data.listJobTypes.items,
       paymentMethods: getPaymentMethodsResult.data.listPaymentMethods.items,
       creditCards: getCreditCardsResult.data.listCreditCards.items,
+      developmentCategories:
+        getDevelopmentCategories.data.listDevelopmentCategories.items,
+      developmentProducts:
+        getDevelopmentProducts.data.listDevelopmentProducts.items,
+      dualifications: getQualifications.data.listQualifications.items,
     };
   } catch (error) {
     console.error("Error fetching listLearningCenters:", error);
@@ -176,6 +199,9 @@ export const fetchSearchPageData = async () => {
       jobTypes: [],
       paymentMethods: [],
       creditCards: [],
+      developmentCategories: [],
+      developmentProducts: [],
+      dualifications: [],
     };
   }
 };

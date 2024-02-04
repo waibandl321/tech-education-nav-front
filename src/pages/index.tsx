@@ -6,6 +6,8 @@ import { GetServerSideProps } from "next";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import {
   CreditCard,
+  DevelopmentCategory,
+  DevelopmentProduct,
   DevelopmentTool,
   Framework,
   JobType,
@@ -13,6 +15,7 @@ import {
   LearningCenterCourse,
   PaymentMethod,
   ProgrammingLanguage,
+  Qualification,
 } from "@/API";
 import SearchPane from "@/components/pages/top/pc/PCSearchPane";
 import SPSearchPane from "@/components/pages/top/sp/SPSearchPane";
@@ -27,6 +30,9 @@ export default function Index({
   jobTypes,
   paymentMethods,
   creditCards,
+  developmentCategories,
+  developmentProducts,
+  dualifications,
 }: {
   centers: Array<LearningCenter>;
   courses: Array<LearningCenterCourse>;
@@ -36,6 +42,9 @@ export default function Index({
   jobTypes: Array<JobType>;
   paymentMethods: Array<PaymentMethod>;
   creditCards: Array<CreditCard>;
+  developmentCategories: Array<DevelopmentCategory>;
+  developmentProducts: Array<DevelopmentProduct>;
+  dualifications: Array<Qualification>;
 }) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
@@ -58,6 +67,9 @@ export default function Index({
             jobTypes={jobTypes}
             paymentMethods={paymentMethods}
             creditCards={creditCards}
+            developmentCategories={developmentCategories}
+            developmentProducts={developmentProducts}
+            dualifications={dualifications}
           />
         </Layout>
       ) : (
@@ -71,6 +83,9 @@ export default function Index({
             jobTypes={jobTypes}
             paymentMethods={paymentMethods}
             creditCards={creditCards}
+            developmentCategories={developmentCategories}
+            developmentProducts={developmentProducts}
+            dualifications={dualifications}
           />
         </PCSearchLayout>
       )}
@@ -91,6 +106,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
       jobTypes: result.jobTypes,
       paymentMethods: result.paymentMethods,
       creditCards: result.creditCards,
+      developmentCategories: result.developmentCategories,
+      developmentProducts: result.developmentProducts,
+      dualifications: result.dualifications,
     },
   };
 };

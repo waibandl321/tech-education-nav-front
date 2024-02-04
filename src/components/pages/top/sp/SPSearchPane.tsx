@@ -34,6 +34,9 @@ import {
   ProgrammingLanguage,
   PaymentMethod,
   CreditCard,
+  DevelopmentCategory,
+  DevelopmentProduct,
+  Qualification,
 } from "@/API";
 import React, { useMemo } from "react";
 import Link from "next/link";
@@ -78,6 +81,9 @@ export default function SPSearchPane({
   jobTypes,
   paymentMethods,
   creditCards,
+  developmentCategories,
+  developmentProducts,
+  dualifications,
 }: {
   centers: Array<LearningCenter>;
   courses: Array<LearningCenterCourse>;
@@ -87,6 +93,9 @@ export default function SPSearchPane({
   jobTypes: Array<JobType>;
   paymentMethods: Array<PaymentMethod>;
   creditCards: Array<CreditCard>;
+  developmentCategories: Array<DevelopmentCategory>;
+  developmentProducts: Array<DevelopmentProduct>;
+  dualifications: Array<Qualification>;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -170,6 +179,9 @@ export default function SPSearchPane({
               jobTypes={jobTypes}
               paymentMethods={paymentMethods}
               creditCards={creditCards}
+              developmentCategories={developmentCategories}
+              developmentProducts={developmentProducts}
+              dualifications={dualifications}
             />
           }
         </StyledBox>
