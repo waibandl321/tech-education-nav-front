@@ -31,14 +31,14 @@ export declare type LearningCenterCourseUpdateFormInputValues = {
     moneyBackDetail?: string;
     isAvailableSubsidy?: boolean;
     subsidyMemo?: string;
-    onSale?: boolean;
-    saleMemo?: string;
     isMadeToOrder?: boolean;
     madeToOrderDetail?: string;
     isJobIntroductionAvailable?: boolean;
     jobIntroductionDetail?: string;
     isJobHuntingSupport?: boolean;
     jobHuntingSupportDetail?: string;
+    isJobHuntingGuarantee?: boolean;
+    jobHuntingGuaranteeDetail?: string;
     purposes?: string[];
     jobTypes?: string[];
     developmentCategories?: string[];
@@ -50,7 +50,7 @@ export declare type LearningCenterCourseUpdateFormInputValues = {
     attendanceType?: string;
     locationPref?: string;
     locationCity?: string;
-    especiallyAudiences?: string[];
+    benefitUsers?: string[];
     isDeleted?: boolean;
 };
 export declare type LearningCenterCourseUpdateFormValidationValues = {
@@ -62,14 +62,14 @@ export declare type LearningCenterCourseUpdateFormValidationValues = {
     moneyBackDetail?: ValidationFunction<string>;
     isAvailableSubsidy?: ValidationFunction<boolean>;
     subsidyMemo?: ValidationFunction<string>;
-    onSale?: ValidationFunction<boolean>;
-    saleMemo?: ValidationFunction<string>;
     isMadeToOrder?: ValidationFunction<boolean>;
     madeToOrderDetail?: ValidationFunction<string>;
     isJobIntroductionAvailable?: ValidationFunction<boolean>;
     jobIntroductionDetail?: ValidationFunction<string>;
     isJobHuntingSupport?: ValidationFunction<boolean>;
     jobHuntingSupportDetail?: ValidationFunction<string>;
+    isJobHuntingGuarantee?: ValidationFunction<boolean>;
+    jobHuntingGuaranteeDetail?: ValidationFunction<string>;
     purposes?: ValidationFunction<string>;
     jobTypes?: ValidationFunction<string>;
     developmentCategories?: ValidationFunction<string>;
@@ -81,7 +81,7 @@ export declare type LearningCenterCourseUpdateFormValidationValues = {
     attendanceType?: ValidationFunction<string>;
     locationPref?: ValidationFunction<string>;
     locationCity?: ValidationFunction<string>;
-    especiallyAudiences?: ValidationFunction<string>;
+    benefitUsers?: ValidationFunction<string>;
     isDeleted?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -95,14 +95,14 @@ export declare type LearningCenterCourseUpdateFormOverridesProps = {
     moneyBackDetail?: PrimitiveOverrideProps<TextFieldProps>;
     isAvailableSubsidy?: PrimitiveOverrideProps<SwitchFieldProps>;
     subsidyMemo?: PrimitiveOverrideProps<TextFieldProps>;
-    onSale?: PrimitiveOverrideProps<SwitchFieldProps>;
-    saleMemo?: PrimitiveOverrideProps<TextFieldProps>;
     isMadeToOrder?: PrimitiveOverrideProps<SwitchFieldProps>;
     madeToOrderDetail?: PrimitiveOverrideProps<TextFieldProps>;
     isJobIntroductionAvailable?: PrimitiveOverrideProps<SwitchFieldProps>;
     jobIntroductionDetail?: PrimitiveOverrideProps<TextFieldProps>;
     isJobHuntingSupport?: PrimitiveOverrideProps<SwitchFieldProps>;
     jobHuntingSupportDetail?: PrimitiveOverrideProps<TextFieldProps>;
+    isJobHuntingGuarantee?: PrimitiveOverrideProps<SwitchFieldProps>;
+    jobHuntingGuaranteeDetail?: PrimitiveOverrideProps<TextFieldProps>;
     purposes?: PrimitiveOverrideProps<SelectFieldProps>;
     jobTypes?: PrimitiveOverrideProps<TextFieldProps>;
     developmentCategories?: PrimitiveOverrideProps<TextFieldProps>;
@@ -114,7 +114,7 @@ export declare type LearningCenterCourseUpdateFormOverridesProps = {
     attendanceType?: PrimitiveOverrideProps<SelectFieldProps>;
     locationPref?: PrimitiveOverrideProps<TextFieldProps>;
     locationCity?: PrimitiveOverrideProps<TextFieldProps>;
-    especiallyAudiences?: PrimitiveOverrideProps<SelectFieldProps>;
+    benefitUsers?: PrimitiveOverrideProps<TextFieldProps>;
     isDeleted?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type LearningCenterCourseUpdateFormProps = React.PropsWithChildren<{

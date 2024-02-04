@@ -199,14 +199,14 @@ export default function LearningCenterCourseCreateForm(props) {
     moneyBackDetail: "",
     isAvailableSubsidy: false,
     subsidyMemo: "",
-    onSale: false,
-    saleMemo: "",
     isMadeToOrder: false,
     madeToOrderDetail: "",
     isJobIntroductionAvailable: false,
     jobIntroductionDetail: "",
     isJobHuntingSupport: false,
     jobHuntingSupportDetail: "",
+    isJobHuntingGuarantee: false,
+    jobHuntingGuaranteeDetail: "",
     purposes: [],
     jobTypes: [],
     developmentCategories: [],
@@ -218,7 +218,7 @@ export default function LearningCenterCourseCreateForm(props) {
     attendanceType: "",
     locationPref: "",
     locationCity: "",
-    especiallyAudiences: [],
+    benefitUsers: [],
     isDeleted: false,
   };
   const [learningCenterId, setLearningCenterId] = React.useState(
@@ -241,8 +241,6 @@ export default function LearningCenterCourseCreateForm(props) {
   const [subsidyMemo, setSubsidyMemo] = React.useState(
     initialValues.subsidyMemo
   );
-  const [onSale, setOnSale] = React.useState(initialValues.onSale);
-  const [saleMemo, setSaleMemo] = React.useState(initialValues.saleMemo);
   const [isMadeToOrder, setIsMadeToOrder] = React.useState(
     initialValues.isMadeToOrder
   );
@@ -260,6 +258,11 @@ export default function LearningCenterCourseCreateForm(props) {
   const [jobHuntingSupportDetail, setJobHuntingSupportDetail] = React.useState(
     initialValues.jobHuntingSupportDetail
   );
+  const [isJobHuntingGuarantee, setIsJobHuntingGuarantee] = React.useState(
+    initialValues.isJobHuntingGuarantee
+  );
+  const [jobHuntingGuaranteeDetail, setJobHuntingGuaranteeDetail] =
+    React.useState(initialValues.jobHuntingGuaranteeDetail);
   const [purposes, setPurposes] = React.useState(initialValues.purposes);
   const [jobTypes, setJobTypes] = React.useState(initialValues.jobTypes);
   const [developmentCategories, setDevelopmentCategories] = React.useState(
@@ -287,8 +290,8 @@ export default function LearningCenterCourseCreateForm(props) {
   const [locationCity, setLocationCity] = React.useState(
     initialValues.locationCity
   );
-  const [especiallyAudiences, setEspeciallyAudiences] = React.useState(
-    initialValues.especiallyAudiences
+  const [benefitUsers, setBenefitUsers] = React.useState(
+    initialValues.benefitUsers
   );
   const [isDeleted, setIsDeleted] = React.useState(initialValues.isDeleted);
   const [errors, setErrors] = React.useState({});
@@ -301,14 +304,14 @@ export default function LearningCenterCourseCreateForm(props) {
     setMoneyBackDetail(initialValues.moneyBackDetail);
     setIsAvailableSubsidy(initialValues.isAvailableSubsidy);
     setSubsidyMemo(initialValues.subsidyMemo);
-    setOnSale(initialValues.onSale);
-    setSaleMemo(initialValues.saleMemo);
     setIsMadeToOrder(initialValues.isMadeToOrder);
     setMadeToOrderDetail(initialValues.madeToOrderDetail);
     setIsJobIntroductionAvailable(initialValues.isJobIntroductionAvailable);
     setJobIntroductionDetail(initialValues.jobIntroductionDetail);
     setIsJobHuntingSupport(initialValues.isJobHuntingSupport);
     setJobHuntingSupportDetail(initialValues.jobHuntingSupportDetail);
+    setIsJobHuntingGuarantee(initialValues.isJobHuntingGuarantee);
+    setJobHuntingGuaranteeDetail(initialValues.jobHuntingGuaranteeDetail);
     setPurposes(initialValues.purposes);
     setCurrentPurposesValue("");
     setJobTypes(initialValues.jobTypes);
@@ -328,8 +331,8 @@ export default function LearningCenterCourseCreateForm(props) {
     setAttendanceType(initialValues.attendanceType);
     setLocationPref(initialValues.locationPref);
     setLocationCity(initialValues.locationCity);
-    setEspeciallyAudiences(initialValues.especiallyAudiences);
-    setCurrentEspeciallyAudiencesValue("");
+    setBenefitUsers(initialValues.benefitUsers);
+    setCurrentBenefitUsersValue("");
     setIsDeleted(initialValues.isDeleted);
     setErrors({});
   };
@@ -359,9 +362,9 @@ export default function LearningCenterCourseCreateForm(props) {
   const [currentQualificationsValue, setCurrentQualificationsValue] =
     React.useState("");
   const qualificationsRef = React.createRef();
-  const [currentEspeciallyAudiencesValue, setCurrentEspeciallyAudiencesValue] =
+  const [currentBenefitUsersValue, setCurrentBenefitUsersValue] =
     React.useState("");
-  const especiallyAudiencesRef = React.createRef();
+  const benefitUsersRef = React.createRef();
   const getDisplayValue = {
     purposes: (r) => {
       const enumDisplayValueMap = {
@@ -371,18 +374,6 @@ export default function LearningCenterCourseCreateForm(props) {
         SIDE_JOB: "Side job",
         CERTIFICATION: "Certification",
         LEARNING: "Learning",
-      };
-      return enumDisplayValueMap[r];
-    },
-    especiallyAudiences: (r) => {
-      const enumDisplayValueMap = {
-        FOR_ELEMENTARY_STUDENTS: "For elementary students",
-        FOR_JUNIOR_HIGH_STUDENTS: "For junior high students",
-        FOR_HIGH_SCHOOL_STUDENTS: "For high school students",
-        FOR_UNIVERSITY_STUDENTS: "For university students",
-        FOR_HOUSEWIVES: "For housewives",
-        FOR_SENIORS: "For seniors",
-        FOR_PEOPLE_WITH_DISABILITIES: "For people with disabilities",
       };
       return enumDisplayValueMap[r];
     },
@@ -396,14 +387,14 @@ export default function LearningCenterCourseCreateForm(props) {
     moneyBackDetail: [],
     isAvailableSubsidy: [],
     subsidyMemo: [],
-    onSale: [],
-    saleMemo: [],
     isMadeToOrder: [],
     madeToOrderDetail: [],
     isJobIntroductionAvailable: [],
     jobIntroductionDetail: [],
     isJobHuntingSupport: [],
     jobHuntingSupportDetail: [],
+    isJobHuntingGuarantee: [],
+    jobHuntingGuaranteeDetail: [],
     purposes: [],
     jobTypes: [],
     developmentCategories: [],
@@ -415,7 +406,7 @@ export default function LearningCenterCourseCreateForm(props) {
     attendanceType: [],
     locationPref: [],
     locationCity: [],
-    especiallyAudiences: [],
+    benefitUsers: [],
     isDeleted: [],
   };
   const runValidationTasks = async (
@@ -452,14 +443,14 @@ export default function LearningCenterCourseCreateForm(props) {
           moneyBackDetail,
           isAvailableSubsidy,
           subsidyMemo,
-          onSale,
-          saleMemo,
           isMadeToOrder,
           madeToOrderDetail,
           isJobIntroductionAvailable,
           jobIntroductionDetail,
           isJobHuntingSupport,
           jobHuntingSupportDetail,
+          isJobHuntingGuarantee,
+          jobHuntingGuaranteeDetail,
           purposes,
           jobTypes,
           developmentCategories,
@@ -471,7 +462,7 @@ export default function LearningCenterCourseCreateForm(props) {
           attendanceType,
           locationPref,
           locationCity,
-          especiallyAudiences,
+          benefitUsers,
           isDeleted,
         };
         const validationResponses = await Promise.all(
@@ -543,14 +534,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -562,7 +553,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -595,14 +586,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -614,7 +605,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -647,14 +638,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -666,7 +657,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -699,14 +690,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -718,7 +709,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -751,14 +742,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -770,7 +761,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -805,14 +796,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail: value,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -824,7 +815,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -857,14 +848,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy: value,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -876,7 +867,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -911,14 +902,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo: value,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -930,7 +921,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -945,110 +936,6 @@ export default function LearningCenterCourseCreateForm(props) {
         errorMessage={errors.subsidyMemo?.errorMessage}
         hasError={errors.subsidyMemo?.hasError}
         {...getOverrideProps(overrides, "subsidyMemo")}
-      ></TextField>
-      <SwitchField
-        label="On sale"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={onSale}
-        onChange={(e) => {
-          let value = e.target.checked;
-          if (onChange) {
-            const modelFields = {
-              learningCenterId,
-              courseName,
-              courseURL,
-              couseDetail,
-              isAvailableMoneyBack,
-              moneyBackDetail,
-              isAvailableSubsidy,
-              subsidyMemo,
-              onSale: value,
-              saleMemo,
-              isMadeToOrder,
-              madeToOrderDetail,
-              isJobIntroductionAvailable,
-              jobIntroductionDetail,
-              isJobHuntingSupport,
-              jobHuntingSupportDetail,
-              purposes,
-              jobTypes,
-              developmentCategories,
-              developmentProducts,
-              programmingLanguages,
-              frameworks,
-              developmentTools,
-              qualifications,
-              attendanceType,
-              locationPref,
-              locationCity,
-              especiallyAudiences,
-              isDeleted,
-            };
-            const result = onChange(modelFields);
-            value = result?.onSale ?? value;
-          }
-          if (errors.onSale?.hasError) {
-            runValidationTasks("onSale", value);
-          }
-          setOnSale(value);
-        }}
-        onBlur={() => runValidationTasks("onSale", onSale)}
-        errorMessage={errors.onSale?.errorMessage}
-        hasError={errors.onSale?.hasError}
-        {...getOverrideProps(overrides, "onSale")}
-      ></SwitchField>
-      <TextField
-        label="Sale memo"
-        isRequired={false}
-        isReadOnly={false}
-        value={saleMemo}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              learningCenterId,
-              courseName,
-              courseURL,
-              couseDetail,
-              isAvailableMoneyBack,
-              moneyBackDetail,
-              isAvailableSubsidy,
-              subsidyMemo,
-              onSale,
-              saleMemo: value,
-              isMadeToOrder,
-              madeToOrderDetail,
-              isJobIntroductionAvailable,
-              jobIntroductionDetail,
-              isJobHuntingSupport,
-              jobHuntingSupportDetail,
-              purposes,
-              jobTypes,
-              developmentCategories,
-              developmentProducts,
-              programmingLanguages,
-              frameworks,
-              developmentTools,
-              qualifications,
-              attendanceType,
-              locationPref,
-              locationCity,
-              especiallyAudiences,
-              isDeleted,
-            };
-            const result = onChange(modelFields);
-            value = result?.saleMemo ?? value;
-          }
-          if (errors.saleMemo?.hasError) {
-            runValidationTasks("saleMemo", value);
-          }
-          setSaleMemo(value);
-        }}
-        onBlur={() => runValidationTasks("saleMemo", saleMemo)}
-        errorMessage={errors.saleMemo?.errorMessage}
-        hasError={errors.saleMemo?.hasError}
-        {...getOverrideProps(overrides, "saleMemo")}
       ></TextField>
       <SwitchField
         label="Is made to order"
@@ -1067,14 +954,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder: value,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1086,7 +973,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1119,14 +1006,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail: value,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1138,7 +1025,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1173,14 +1060,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable: value,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1192,7 +1079,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1230,14 +1117,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail: value,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1249,7 +1136,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1284,14 +1171,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport: value,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1303,7 +1190,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1338,14 +1225,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail: value,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1357,7 +1244,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1375,6 +1262,117 @@ export default function LearningCenterCourseCreateForm(props) {
         hasError={errors.jobHuntingSupportDetail?.hasError}
         {...getOverrideProps(overrides, "jobHuntingSupportDetail")}
       ></TextField>
+      <SwitchField
+        label="Is job hunting guarantee"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={isJobHuntingGuarantee}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              learningCenterId,
+              courseName,
+              courseURL,
+              couseDetail,
+              isAvailableMoneyBack,
+              moneyBackDetail,
+              isAvailableSubsidy,
+              subsidyMemo,
+              isMadeToOrder,
+              madeToOrderDetail,
+              isJobIntroductionAvailable,
+              jobIntroductionDetail,
+              isJobHuntingSupport,
+              jobHuntingSupportDetail,
+              isJobHuntingGuarantee: value,
+              jobHuntingGuaranteeDetail,
+              purposes,
+              jobTypes,
+              developmentCategories,
+              developmentProducts,
+              programmingLanguages,
+              frameworks,
+              developmentTools,
+              qualifications,
+              attendanceType,
+              locationPref,
+              locationCity,
+              benefitUsers,
+              isDeleted,
+            };
+            const result = onChange(modelFields);
+            value = result?.isJobHuntingGuarantee ?? value;
+          }
+          if (errors.isJobHuntingGuarantee?.hasError) {
+            runValidationTasks("isJobHuntingGuarantee", value);
+          }
+          setIsJobHuntingGuarantee(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("isJobHuntingGuarantee", isJobHuntingGuarantee)
+        }
+        errorMessage={errors.isJobHuntingGuarantee?.errorMessage}
+        hasError={errors.isJobHuntingGuarantee?.hasError}
+        {...getOverrideProps(overrides, "isJobHuntingGuarantee")}
+      ></SwitchField>
+      <TextField
+        label="Job hunting guarantee detail"
+        isRequired={false}
+        isReadOnly={false}
+        value={jobHuntingGuaranteeDetail}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              learningCenterId,
+              courseName,
+              courseURL,
+              couseDetail,
+              isAvailableMoneyBack,
+              moneyBackDetail,
+              isAvailableSubsidy,
+              subsidyMemo,
+              isMadeToOrder,
+              madeToOrderDetail,
+              isJobIntroductionAvailable,
+              jobIntroductionDetail,
+              isJobHuntingSupport,
+              jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail: value,
+              purposes,
+              jobTypes,
+              developmentCategories,
+              developmentProducts,
+              programmingLanguages,
+              frameworks,
+              developmentTools,
+              qualifications,
+              attendanceType,
+              locationPref,
+              locationCity,
+              benefitUsers,
+              isDeleted,
+            };
+            const result = onChange(modelFields);
+            value = result?.jobHuntingGuaranteeDetail ?? value;
+          }
+          if (errors.jobHuntingGuaranteeDetail?.hasError) {
+            runValidationTasks("jobHuntingGuaranteeDetail", value);
+          }
+          setJobHuntingGuaranteeDetail(value);
+        }}
+        onBlur={() =>
+          runValidationTasks(
+            "jobHuntingGuaranteeDetail",
+            jobHuntingGuaranteeDetail
+          )
+        }
+        errorMessage={errors.jobHuntingGuaranteeDetail?.errorMessage}
+        hasError={errors.jobHuntingGuaranteeDetail?.hasError}
+        {...getOverrideProps(overrides, "jobHuntingGuaranteeDetail")}
+      ></TextField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
@@ -1388,14 +1386,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes: values,
               jobTypes,
               developmentCategories,
@@ -1407,7 +1405,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1493,14 +1491,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes: values,
               developmentCategories,
@@ -1512,7 +1510,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1566,14 +1564,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories: values,
@@ -1585,7 +1583,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1647,14 +1645,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1666,7 +1664,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1728,14 +1726,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1747,7 +1745,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1809,14 +1807,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1828,7 +1826,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1884,14 +1882,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1903,7 +1901,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -1962,14 +1960,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -1981,7 +1979,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -2041,14 +2039,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -2060,7 +2058,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType: value,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -2109,14 +2107,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -2128,7 +2126,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref: value,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -2161,14 +2159,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -2180,7 +2178,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity: value,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted,
             };
             const result = onChange(modelFields);
@@ -2209,14 +2207,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -2228,91 +2226,48 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences: values,
+              benefitUsers: values,
               isDeleted,
             };
             const result = onChange(modelFields);
-            values = result?.especiallyAudiences ?? values;
+            values = result?.benefitUsers ?? values;
           }
-          setEspeciallyAudiences(values);
-          setCurrentEspeciallyAudiencesValue("");
+          setBenefitUsers(values);
+          setCurrentBenefitUsersValue("");
         }}
-        currentFieldValue={currentEspeciallyAudiencesValue}
-        label={"Especially audiences"}
-        items={especiallyAudiences}
-        hasError={errors?.especiallyAudiences?.hasError}
+        currentFieldValue={currentBenefitUsersValue}
+        label={"Benefit users"}
+        items={benefitUsers}
+        hasError={errors?.benefitUsers?.hasError}
         runValidationTasks={async () =>
-          await runValidationTasks(
-            "especiallyAudiences",
-            currentEspeciallyAudiencesValue
-          )
+          await runValidationTasks("benefitUsers", currentBenefitUsersValue)
         }
-        errorMessage={errors?.especiallyAudiences?.errorMessage}
-        getBadgeText={getDisplayValue.especiallyAudiences}
-        setFieldValue={setCurrentEspeciallyAudiencesValue}
-        inputFieldRef={especiallyAudiencesRef}
+        errorMessage={errors?.benefitUsers?.errorMessage}
+        setFieldValue={setCurrentBenefitUsersValue}
+        inputFieldRef={benefitUsersRef}
         defaultFieldValue={""}
       >
-        <SelectField
-          label="Especially audiences"
-          placeholder="Please select an option"
-          isDisabled={false}
-          value={currentEspeciallyAudiencesValue}
+        <TextField
+          label="Benefit users"
+          isRequired={false}
+          isReadOnly={false}
+          value={currentBenefitUsersValue}
           onChange={(e) => {
             let { value } = e.target;
-            if (errors.especiallyAudiences?.hasError) {
-              runValidationTasks("especiallyAudiences", value);
+            if (errors.benefitUsers?.hasError) {
+              runValidationTasks("benefitUsers", value);
             }
-            setCurrentEspeciallyAudiencesValue(value);
+            setCurrentBenefitUsersValue(value);
           }}
           onBlur={() =>
-            runValidationTasks(
-              "especiallyAudiences",
-              currentEspeciallyAudiencesValue
-            )
+            runValidationTasks("benefitUsers", currentBenefitUsersValue)
           }
-          errorMessage={errors.especiallyAudiences?.errorMessage}
-          hasError={errors.especiallyAudiences?.hasError}
-          ref={especiallyAudiencesRef}
+          errorMessage={errors.benefitUsers?.errorMessage}
+          hasError={errors.benefitUsers?.hasError}
+          ref={benefitUsersRef}
           labelHidden={true}
-          {...getOverrideProps(overrides, "especiallyAudiences")}
-        >
-          <option
-            children="For elementary students"
-            value="FOR_ELEMENTARY_STUDENTS"
-            {...getOverrideProps(overrides, "especiallyAudiencesoption0")}
-          ></option>
-          <option
-            children="For junior high students"
-            value="FOR_JUNIOR_HIGH_STUDENTS"
-            {...getOverrideProps(overrides, "especiallyAudiencesoption1")}
-          ></option>
-          <option
-            children="For high school students"
-            value="FOR_HIGH_SCHOOL_STUDENTS"
-            {...getOverrideProps(overrides, "especiallyAudiencesoption2")}
-          ></option>
-          <option
-            children="For university students"
-            value="FOR_UNIVERSITY_STUDENTS"
-            {...getOverrideProps(overrides, "especiallyAudiencesoption3")}
-          ></option>
-          <option
-            children="For housewives"
-            value="FOR_HOUSEWIVES"
-            {...getOverrideProps(overrides, "especiallyAudiencesoption4")}
-          ></option>
-          <option
-            children="For seniors"
-            value="FOR_SENIORS"
-            {...getOverrideProps(overrides, "especiallyAudiencesoption5")}
-          ></option>
-          <option
-            children="For people with disabilities"
-            value="FOR_PEOPLE_WITH_DISABILITIES"
-            {...getOverrideProps(overrides, "especiallyAudiencesoption6")}
-          ></option>
-        </SelectField>
+          {...getOverrideProps(overrides, "benefitUsers")}
+        ></TextField>
       </ArrayField>
       <SwitchField
         label="Is deleted"
@@ -2331,14 +2286,14 @@ export default function LearningCenterCourseCreateForm(props) {
               moneyBackDetail,
               isAvailableSubsidy,
               subsidyMemo,
-              onSale,
-              saleMemo,
               isMadeToOrder,
               madeToOrderDetail,
               isJobIntroductionAvailable,
               jobIntroductionDetail,
               isJobHuntingSupport,
               jobHuntingSupportDetail,
+              isJobHuntingGuarantee,
+              jobHuntingGuaranteeDetail,
               purposes,
               jobTypes,
               developmentCategories,
@@ -2350,7 +2305,7 @@ export default function LearningCenterCourseCreateForm(props) {
               attendanceType,
               locationPref,
               locationCity,
-              especiallyAudiences,
+              benefitUsers,
               isDeleted: value,
             };
             const result = onChange(modelFields);

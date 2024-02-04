@@ -410,6 +410,51 @@ export const onDeleteJobType = /* GraphQL */ `subscription OnDeleteJobType($filt
   APITypes.OnDeleteJobTypeSubscriptionVariables,
   APITypes.OnDeleteJobTypeSubscription
 >;
+export const onCreateBenefitUserCategory = /* GraphQL */ `subscription OnCreateBenefitUserCategory(
+  $filter: ModelSubscriptionBenefitUserCategoryFilterInput
+) {
+  onCreateBenefitUserCategory(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBenefitUserCategorySubscriptionVariables,
+  APITypes.OnCreateBenefitUserCategorySubscription
+>;
+export const onUpdateBenefitUserCategory = /* GraphQL */ `subscription OnUpdateBenefitUserCategory(
+  $filter: ModelSubscriptionBenefitUserCategoryFilterInput
+) {
+  onUpdateBenefitUserCategory(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBenefitUserCategorySubscriptionVariables,
+  APITypes.OnUpdateBenefitUserCategorySubscription
+>;
+export const onDeleteBenefitUserCategory = /* GraphQL */ `subscription OnDeleteBenefitUserCategory(
+  $filter: ModelSubscriptionBenefitUserCategoryFilterInput
+) {
+  onDeleteBenefitUserCategory(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBenefitUserCategorySubscriptionVariables,
+  APITypes.OnDeleteBenefitUserCategorySubscription
+>;
 export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearningCenter(
   $filter: ModelSubscriptionLearningCenterFilterInput
 ) {
@@ -513,14 +558,14 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
-    onSale
-    saleMemo
     isMadeToOrder
     madeToOrderDetail
     isJobIntroductionAvailable
     jobIntroductionDetail
     isJobHuntingSupport
     jobHuntingSupportDetail
+    isJobHuntingGuarantee
+    jobHuntingGuaranteeDetail
     purposes
     jobTypes
     developmentCategories
@@ -532,7 +577,7 @@ export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreate
     attendanceType
     locationPref
     locationCity
-    especiallyAudiences
+    benefitUsers
     isDeleted
     createdAt
     updatedAt
@@ -565,14 +610,14 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
-    onSale
-    saleMemo
     isMadeToOrder
     madeToOrderDetail
     isJobIntroductionAvailable
     jobIntroductionDetail
     isJobHuntingSupport
     jobHuntingSupportDetail
+    isJobHuntingGuarantee
+    jobHuntingGuaranteeDetail
     purposes
     jobTypes
     developmentCategories
@@ -584,7 +629,7 @@ export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdate
     attendanceType
     locationPref
     locationCity
-    especiallyAudiences
+    benefitUsers
     isDeleted
     createdAt
     updatedAt
@@ -617,14 +662,14 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
-    onSale
-    saleMemo
     isMadeToOrder
     madeToOrderDetail
     isJobIntroductionAvailable
     jobIntroductionDetail
     isJobHuntingSupport
     jobHuntingSupportDetail
+    isJobHuntingGuarantee
+    jobHuntingGuaranteeDetail
     purposes
     jobTypes
     developmentCategories
@@ -636,7 +681,7 @@ export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDelete
     attendanceType
     locationPref
     locationCity
-    especiallyAudiences
+    benefitUsers
     isDeleted
     createdAt
     updatedAt

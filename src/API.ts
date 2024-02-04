@@ -331,6 +331,35 @@ export type DeleteJobTypeInput = {
   id: string,
 };
 
+export type CreateBenefitUserCategoryInput = {
+  id?: string | null,
+  name: string,
+};
+
+export type ModelBenefitUserCategoryConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelBenefitUserCategoryConditionInput | null > | null,
+  or?: Array< ModelBenefitUserCategoryConditionInput | null > | null,
+  not?: ModelBenefitUserCategoryConditionInput | null,
+};
+
+export type BenefitUserCategory = {
+  __typename: "BenefitUserCategory",
+  id: string,
+  name: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateBenefitUserCategoryInput = {
+  id: string,
+  name?: string | null,
+};
+
+export type DeleteBenefitUserCategoryInput = {
+  id: string,
+};
+
 export type CreateLearningCenterInput = {
   id?: string | null,
   name?: string | null,
@@ -450,14 +479,14 @@ export type CreateLearningCenterCourseInput = {
   moneyBackDetail?: string | null,
   isAvailableSubsidy?: boolean | null,
   subsidyMemo?: string | null,
-  onSale?: boolean | null,
-  saleMemo?: string | null,
   isMadeToOrder?: boolean | null,
   madeToOrderDetail?: string | null,
   isJobIntroductionAvailable?: boolean | null,
   jobIntroductionDetail?: string | null,
   isJobHuntingSupport?: boolean | null,
   jobHuntingSupportDetail?: string | null,
+  isJobHuntingGuarantee?: boolean | null,
+  jobHuntingGuaranteeDetail?: string | null,
   purposes?: Array< Purpose | null > | null,
   jobTypes?: Array< string | null > | null,
   developmentCategories?: Array< string | null > | null,
@@ -469,7 +498,7 @@ export type CreateLearningCenterCourseInput = {
   attendanceType?: AttendanceType | null,
   locationPref?: string | null,
   locationCity?: string | null,
-  especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+  benefitUsers?: Array< string | null > | null,
   isDeleted?: boolean | null,
 };
 
@@ -499,17 +528,6 @@ export enum AttendanceType {
 }
 
 
-export enum EspeciallyAudience {
-  FOR_ELEMENTARY_STUDENTS = "FOR_ELEMENTARY_STUDENTS",
-  FOR_JUNIOR_HIGH_STUDENTS = "FOR_JUNIOR_HIGH_STUDENTS",
-  FOR_HIGH_SCHOOL_STUDENTS = "FOR_HIGH_SCHOOL_STUDENTS",
-  FOR_UNIVERSITY_STUDENTS = "FOR_UNIVERSITY_STUDENTS",
-  FOR_HOUSEWIVES = "FOR_HOUSEWIVES",
-  FOR_SENIORS = "FOR_SENIORS",
-  FOR_PEOPLE_WITH_DISABILITIES = "FOR_PEOPLE_WITH_DISABILITIES",
-}
-
-
 export type ModelLearningCenterCourseConditionInput = {
   learningCenterId?: ModelIDInput | null,
   courseName?: ModelStringInput | null,
@@ -519,14 +537,14 @@ export type ModelLearningCenterCourseConditionInput = {
   moneyBackDetail?: ModelStringInput | null,
   isAvailableSubsidy?: ModelBooleanInput | null,
   subsidyMemo?: ModelStringInput | null,
-  onSale?: ModelBooleanInput | null,
-  saleMemo?: ModelStringInput | null,
   isMadeToOrder?: ModelBooleanInput | null,
   madeToOrderDetail?: ModelStringInput | null,
   isJobIntroductionAvailable?: ModelBooleanInput | null,
   jobIntroductionDetail?: ModelStringInput | null,
   isJobHuntingSupport?: ModelBooleanInput | null,
   jobHuntingSupportDetail?: ModelStringInput | null,
+  isJobHuntingGuarantee?: ModelBooleanInput | null,
+  jobHuntingGuaranteeDetail?: ModelStringInput | null,
   purposes?: ModelPurposeListInput | null,
   jobTypes?: ModelStringInput | null,
   developmentCategories?: ModelStringInput | null,
@@ -538,7 +556,7 @@ export type ModelLearningCenterCourseConditionInput = {
   attendanceType?: ModelAttendanceTypeInput | null,
   locationPref?: ModelStringInput | null,
   locationCity?: ModelStringInput | null,
-  especiallyAudiences?: ModelEspeciallyAudienceListInput | null,
+  benefitUsers?: ModelStringInput | null,
   isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelLearningCenterCourseConditionInput | null > | null,
   or?: Array< ModelLearningCenterCourseConditionInput | null > | null,
@@ -557,13 +575,6 @@ export type ModelAttendanceTypeInput = {
   ne?: AttendanceType | null,
 };
 
-export type ModelEspeciallyAudienceListInput = {
-  eq?: Array< EspeciallyAudience | null > | null,
-  ne?: Array< EspeciallyAudience | null > | null,
-  contains?: EspeciallyAudience | null,
-  notContains?: EspeciallyAudience | null,
-};
-
 export type LearningCenterCourse = {
   __typename: "LearningCenterCourse",
   id: string,
@@ -576,14 +587,14 @@ export type LearningCenterCourse = {
   moneyBackDetail?: string | null,
   isAvailableSubsidy?: boolean | null,
   subsidyMemo?: string | null,
-  onSale?: boolean | null,
-  saleMemo?: string | null,
   isMadeToOrder?: boolean | null,
   madeToOrderDetail?: string | null,
   isJobIntroductionAvailable?: boolean | null,
   jobIntroductionDetail?: string | null,
   isJobHuntingSupport?: boolean | null,
   jobHuntingSupportDetail?: string | null,
+  isJobHuntingGuarantee?: boolean | null,
+  jobHuntingGuaranteeDetail?: string | null,
   purposes?: Array< Purpose | null > | null,
   jobTypes?: Array< string | null > | null,
   developmentCategories?: Array< string | null > | null,
@@ -595,7 +606,7 @@ export type LearningCenterCourse = {
   attendanceType?: AttendanceType | null,
   locationPref?: string | null,
   locationCity?: string | null,
-  especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+  benefitUsers?: Array< string | null > | null,
   isDeleted?: boolean | null,
   createdAt: string,
   updatedAt: string,
@@ -622,14 +633,14 @@ export type UpdateLearningCenterCourseInput = {
   moneyBackDetail?: string | null,
   isAvailableSubsidy?: boolean | null,
   subsidyMemo?: string | null,
-  onSale?: boolean | null,
-  saleMemo?: string | null,
   isMadeToOrder?: boolean | null,
   madeToOrderDetail?: string | null,
   isJobIntroductionAvailable?: boolean | null,
   jobIntroductionDetail?: string | null,
   isJobHuntingSupport?: boolean | null,
   jobHuntingSupportDetail?: string | null,
+  isJobHuntingGuarantee?: boolean | null,
+  jobHuntingGuaranteeDetail?: string | null,
   purposes?: Array< Purpose | null > | null,
   jobTypes?: Array< string | null > | null,
   developmentCategories?: Array< string | null > | null,
@@ -641,7 +652,7 @@ export type UpdateLearningCenterCourseInput = {
   attendanceType?: AttendanceType | null,
   locationPref?: string | null,
   locationCity?: string | null,
-  especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+  benefitUsers?: Array< string | null > | null,
   isDeleted?: boolean | null,
 };
 
@@ -888,6 +899,20 @@ export type ModelJobTypeConnection = {
   nextToken?: string | null,
 };
 
+export type ModelBenefitUserCategoryFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelBenefitUserCategoryFilterInput | null > | null,
+  or?: Array< ModelBenefitUserCategoryFilterInput | null > | null,
+  not?: ModelBenefitUserCategoryFilterInput | null,
+};
+
+export type ModelBenefitUserCategoryConnection = {
+  __typename: "ModelBenefitUserCategoryConnection",
+  items:  Array<BenefitUserCategory | null >,
+  nextToken?: string | null,
+};
+
 export type ModelLearningCenterFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -924,14 +949,14 @@ export type ModelLearningCenterCourseFilterInput = {
   moneyBackDetail?: ModelStringInput | null,
   isAvailableSubsidy?: ModelBooleanInput | null,
   subsidyMemo?: ModelStringInput | null,
-  onSale?: ModelBooleanInput | null,
-  saleMemo?: ModelStringInput | null,
   isMadeToOrder?: ModelBooleanInput | null,
   madeToOrderDetail?: ModelStringInput | null,
   isJobIntroductionAvailable?: ModelBooleanInput | null,
   jobIntroductionDetail?: ModelStringInput | null,
   isJobHuntingSupport?: ModelBooleanInput | null,
   jobHuntingSupportDetail?: ModelStringInput | null,
+  isJobHuntingGuarantee?: ModelBooleanInput | null,
+  jobHuntingGuaranteeDetail?: ModelStringInput | null,
   purposes?: ModelPurposeListInput | null,
   jobTypes?: ModelStringInput | null,
   developmentCategories?: ModelStringInput | null,
@@ -943,7 +968,7 @@ export type ModelLearningCenterCourseFilterInput = {
   attendanceType?: ModelAttendanceTypeInput | null,
   locationPref?: ModelStringInput | null,
   locationCity?: ModelStringInput | null,
-  especiallyAudiences?: ModelEspeciallyAudienceListInput | null,
+  benefitUsers?: ModelStringInput | null,
   isDeleted?: ModelBooleanInput | null,
   and?: Array< ModelLearningCenterCourseFilterInput | null > | null,
   or?: Array< ModelLearningCenterCourseFilterInput | null > | null,
@@ -1093,6 +1118,13 @@ export type ModelSubscriptionJobTypeFilterInput = {
   or?: Array< ModelSubscriptionJobTypeFilterInput | null > | null,
 };
 
+export type ModelSubscriptionBenefitUserCategoryFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBenefitUserCategoryFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBenefitUserCategoryFilterInput | null > | null,
+};
+
 export type ModelSubscriptionLearningCenterFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
@@ -1151,14 +1183,14 @@ export type ModelSubscriptionLearningCenterCourseFilterInput = {
   moneyBackDetail?: ModelSubscriptionStringInput | null,
   isAvailableSubsidy?: ModelSubscriptionBooleanInput | null,
   subsidyMemo?: ModelSubscriptionStringInput | null,
-  onSale?: ModelSubscriptionBooleanInput | null,
-  saleMemo?: ModelSubscriptionStringInput | null,
   isMadeToOrder?: ModelSubscriptionBooleanInput | null,
   madeToOrderDetail?: ModelSubscriptionStringInput | null,
   isJobIntroductionAvailable?: ModelSubscriptionBooleanInput | null,
   jobIntroductionDetail?: ModelSubscriptionStringInput | null,
   isJobHuntingSupport?: ModelSubscriptionBooleanInput | null,
   jobHuntingSupportDetail?: ModelSubscriptionStringInput | null,
+  isJobHuntingGuarantee?: ModelSubscriptionBooleanInput | null,
+  jobHuntingGuaranteeDetail?: ModelSubscriptionStringInput | null,
   purposes?: ModelSubscriptionStringInput | null,
   jobTypes?: ModelSubscriptionStringInput | null,
   developmentCategories?: ModelSubscriptionStringInput | null,
@@ -1170,7 +1202,7 @@ export type ModelSubscriptionLearningCenterCourseFilterInput = {
   attendanceType?: ModelSubscriptionStringInput | null,
   locationPref?: ModelSubscriptionStringInput | null,
   locationCity?: ModelSubscriptionStringInput | null,
-  especiallyAudiences?: ModelSubscriptionStringInput | null,
+  benefitUsers?: ModelSubscriptionStringInput | null,
   isDeleted?: ModelSubscriptionBooleanInput | null,
   and?: Array< ModelSubscriptionLearningCenterCourseFilterInput | null > | null,
   or?: Array< ModelSubscriptionLearningCenterCourseFilterInput | null > | null,
@@ -1617,6 +1649,51 @@ export type DeleteJobTypeMutation = {
   } | null,
 };
 
+export type CreateBenefitUserCategoryMutationVariables = {
+  input: CreateBenefitUserCategoryInput,
+  condition?: ModelBenefitUserCategoryConditionInput | null,
+};
+
+export type CreateBenefitUserCategoryMutation = {
+  createBenefitUserCategory?:  {
+    __typename: "BenefitUserCategory",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBenefitUserCategoryMutationVariables = {
+  input: UpdateBenefitUserCategoryInput,
+  condition?: ModelBenefitUserCategoryConditionInput | null,
+};
+
+export type UpdateBenefitUserCategoryMutation = {
+  updateBenefitUserCategory?:  {
+    __typename: "BenefitUserCategory",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBenefitUserCategoryMutationVariables = {
+  input: DeleteBenefitUserCategoryInput,
+  condition?: ModelBenefitUserCategoryConditionInput | null,
+};
+
+export type DeleteBenefitUserCategoryMutation = {
+  deleteBenefitUserCategory?:  {
+    __typename: "BenefitUserCategory",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateLearningCenterMutationVariables = {
   input: CreateLearningCenterInput,
   condition?: ModelLearningCenterConditionInput | null,
@@ -1724,14 +1801,14 @@ export type CreateLearningCenterCourseMutation = {
     moneyBackDetail?: string | null,
     isAvailableSubsidy?: boolean | null,
     subsidyMemo?: string | null,
-    onSale?: boolean | null,
-    saleMemo?: string | null,
     isMadeToOrder?: boolean | null,
     madeToOrderDetail?: string | null,
     isJobIntroductionAvailable?: boolean | null,
     jobIntroductionDetail?: string | null,
     isJobHuntingSupport?: boolean | null,
     jobHuntingSupportDetail?: string | null,
+    isJobHuntingGuarantee?: boolean | null,
+    jobHuntingGuaranteeDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
     developmentCategories?: Array< string | null > | null,
@@ -1743,7 +1820,7 @@ export type CreateLearningCenterCourseMutation = {
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
-    especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+    benefitUsers?: Array< string | null > | null,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
@@ -1776,14 +1853,14 @@ export type UpdateLearningCenterCourseMutation = {
     moneyBackDetail?: string | null,
     isAvailableSubsidy?: boolean | null,
     subsidyMemo?: string | null,
-    onSale?: boolean | null,
-    saleMemo?: string | null,
     isMadeToOrder?: boolean | null,
     madeToOrderDetail?: string | null,
     isJobIntroductionAvailable?: boolean | null,
     jobIntroductionDetail?: string | null,
     isJobHuntingSupport?: boolean | null,
     jobHuntingSupportDetail?: string | null,
+    isJobHuntingGuarantee?: boolean | null,
+    jobHuntingGuaranteeDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
     developmentCategories?: Array< string | null > | null,
@@ -1795,7 +1872,7 @@ export type UpdateLearningCenterCourseMutation = {
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
-    especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+    benefitUsers?: Array< string | null > | null,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
@@ -1828,14 +1905,14 @@ export type DeleteLearningCenterCourseMutation = {
     moneyBackDetail?: string | null,
     isAvailableSubsidy?: boolean | null,
     subsidyMemo?: string | null,
-    onSale?: boolean | null,
-    saleMemo?: string | null,
     isMadeToOrder?: boolean | null,
     madeToOrderDetail?: string | null,
     isJobIntroductionAvailable?: boolean | null,
     jobIntroductionDetail?: string | null,
     isJobHuntingSupport?: boolean | null,
     jobHuntingSupportDetail?: string | null,
+    isJobHuntingGuarantee?: boolean | null,
+    jobHuntingGuaranteeDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
     developmentCategories?: Array< string | null > | null,
@@ -1847,7 +1924,7 @@ export type DeleteLearningCenterCourseMutation = {
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
-    especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+    benefitUsers?: Array< string | null > | null,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
@@ -2295,6 +2372,40 @@ export type ListJobTypesQuery = {
   } | null,
 };
 
+export type GetBenefitUserCategoryQueryVariables = {
+  id: string,
+};
+
+export type GetBenefitUserCategoryQuery = {
+  getBenefitUserCategory?:  {
+    __typename: "BenefitUserCategory",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBenefitUserCategoriesQueryVariables = {
+  filter?: ModelBenefitUserCategoryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBenefitUserCategoriesQuery = {
+  listBenefitUserCategories?:  {
+    __typename: "ModelBenefitUserCategoryConnection",
+    items:  Array< {
+      __typename: "BenefitUserCategory",
+      id: string,
+      name: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetLearningCenterQueryVariables = {
   id: string,
 };
@@ -2378,14 +2489,14 @@ export type GetLearningCenterCourseQuery = {
     moneyBackDetail?: string | null,
     isAvailableSubsidy?: boolean | null,
     subsidyMemo?: string | null,
-    onSale?: boolean | null,
-    saleMemo?: string | null,
     isMadeToOrder?: boolean | null,
     madeToOrderDetail?: string | null,
     isJobIntroductionAvailable?: boolean | null,
     jobIntroductionDetail?: string | null,
     isJobHuntingSupport?: boolean | null,
     jobHuntingSupportDetail?: string | null,
+    isJobHuntingGuarantee?: boolean | null,
+    jobHuntingGuaranteeDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
     developmentCategories?: Array< string | null > | null,
@@ -2397,7 +2508,7 @@ export type GetLearningCenterCourseQuery = {
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
-    especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+    benefitUsers?: Array< string | null > | null,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
@@ -2424,14 +2535,14 @@ export type ListLearningCenterCoursesQuery = {
       moneyBackDetail?: string | null,
       isAvailableSubsidy?: boolean | null,
       subsidyMemo?: string | null,
-      onSale?: boolean | null,
-      saleMemo?: string | null,
       isMadeToOrder?: boolean | null,
       madeToOrderDetail?: string | null,
       isJobIntroductionAvailable?: boolean | null,
       jobIntroductionDetail?: string | null,
       isJobHuntingSupport?: boolean | null,
       jobHuntingSupportDetail?: string | null,
+      isJobHuntingGuarantee?: boolean | null,
+      jobHuntingGuaranteeDetail?: string | null,
       purposes?: Array< Purpose | null > | null,
       jobTypes?: Array< string | null > | null,
       developmentCategories?: Array< string | null > | null,
@@ -2443,7 +2554,7 @@ export type ListLearningCenterCoursesQuery = {
       attendanceType?: AttendanceType | null,
       locationPref?: string | null,
       locationCity?: string | null,
-      especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+      benefitUsers?: Array< string | null > | null,
       isDeleted?: boolean | null,
       createdAt: string,
       updatedAt: string,
@@ -2933,6 +3044,48 @@ export type OnDeleteJobTypeSubscription = {
   } | null,
 };
 
+export type OnCreateBenefitUserCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitUserCategoryFilterInput | null,
+};
+
+export type OnCreateBenefitUserCategorySubscription = {
+  onCreateBenefitUserCategory?:  {
+    __typename: "BenefitUserCategory",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBenefitUserCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitUserCategoryFilterInput | null,
+};
+
+export type OnUpdateBenefitUserCategorySubscription = {
+  onUpdateBenefitUserCategory?:  {
+    __typename: "BenefitUserCategory",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBenefitUserCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitUserCategoryFilterInput | null,
+};
+
+export type OnDeleteBenefitUserCategorySubscription = {
+  onDeleteBenefitUserCategory?:  {
+    __typename: "BenefitUserCategory",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateLearningCenterSubscriptionVariables = {
   filter?: ModelSubscriptionLearningCenterFilterInput | null,
 };
@@ -3036,14 +3189,14 @@ export type OnCreateLearningCenterCourseSubscription = {
     moneyBackDetail?: string | null,
     isAvailableSubsidy?: boolean | null,
     subsidyMemo?: string | null,
-    onSale?: boolean | null,
-    saleMemo?: string | null,
     isMadeToOrder?: boolean | null,
     madeToOrderDetail?: string | null,
     isJobIntroductionAvailable?: boolean | null,
     jobIntroductionDetail?: string | null,
     isJobHuntingSupport?: boolean | null,
     jobHuntingSupportDetail?: string | null,
+    isJobHuntingGuarantee?: boolean | null,
+    jobHuntingGuaranteeDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
     developmentCategories?: Array< string | null > | null,
@@ -3055,7 +3208,7 @@ export type OnCreateLearningCenterCourseSubscription = {
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
-    especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+    benefitUsers?: Array< string | null > | null,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
@@ -3087,14 +3240,14 @@ export type OnUpdateLearningCenterCourseSubscription = {
     moneyBackDetail?: string | null,
     isAvailableSubsidy?: boolean | null,
     subsidyMemo?: string | null,
-    onSale?: boolean | null,
-    saleMemo?: string | null,
     isMadeToOrder?: boolean | null,
     madeToOrderDetail?: string | null,
     isJobIntroductionAvailable?: boolean | null,
     jobIntroductionDetail?: string | null,
     isJobHuntingSupport?: boolean | null,
     jobHuntingSupportDetail?: string | null,
+    isJobHuntingGuarantee?: boolean | null,
+    jobHuntingGuaranteeDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
     developmentCategories?: Array< string | null > | null,
@@ -3106,7 +3259,7 @@ export type OnUpdateLearningCenterCourseSubscription = {
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
-    especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+    benefitUsers?: Array< string | null > | null,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,
@@ -3138,14 +3291,14 @@ export type OnDeleteLearningCenterCourseSubscription = {
     moneyBackDetail?: string | null,
     isAvailableSubsidy?: boolean | null,
     subsidyMemo?: string | null,
-    onSale?: boolean | null,
-    saleMemo?: string | null,
     isMadeToOrder?: boolean | null,
     madeToOrderDetail?: string | null,
     isJobIntroductionAvailable?: boolean | null,
     jobIntroductionDetail?: string | null,
     isJobHuntingSupport?: boolean | null,
     jobHuntingSupportDetail?: string | null,
+    isJobHuntingGuarantee?: boolean | null,
+    jobHuntingGuaranteeDetail?: string | null,
     purposes?: Array< Purpose | null > | null,
     jobTypes?: Array< string | null > | null,
     developmentCategories?: Array< string | null > | null,
@@ -3157,7 +3310,7 @@ export type OnDeleteLearningCenterCourseSubscription = {
     attendanceType?: AttendanceType | null,
     locationPref?: string | null,
     locationCity?: string | null,
-    especiallyAudiences?: Array< EspeciallyAudience | null > | null,
+    benefitUsers?: Array< string | null > | null,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,

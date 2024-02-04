@@ -8,8 +8,7 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getDevelopmentCategory =
-  /* GraphQL */ `query GetDevelopmentCategory($id: ID!) {
+export const getDevelopmentCategory = /* GraphQL */ `query GetDevelopmentCategory($id: ID!) {
   getDevelopmentCategory(id: $id) {
     id
     name
@@ -20,11 +19,10 @@ export const getDevelopmentCategory =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetDevelopmentCategoryQueryVariables,
-    APITypes.GetDevelopmentCategoryQuery
-  >;
-export const listDevelopmentCategories =
-  /* GraphQL */ `query ListDevelopmentCategories(
+  APITypes.GetDevelopmentCategoryQueryVariables,
+  APITypes.GetDevelopmentCategoryQuery
+>;
+export const listDevelopmentCategories = /* GraphQL */ `query ListDevelopmentCategories(
   $filter: ModelDevelopmentCategoryFilterInput
   $limit: Int
   $nextToken: String
@@ -47,11 +45,10 @@ export const listDevelopmentCategories =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListDevelopmentCategoriesQueryVariables,
-    APITypes.ListDevelopmentCategoriesQuery
-  >;
-export const getDevelopmentProduct =
-  /* GraphQL */ `query GetDevelopmentProduct($id: ID!) {
+  APITypes.ListDevelopmentCategoriesQueryVariables,
+  APITypes.ListDevelopmentCategoriesQuery
+>;
+export const getDevelopmentProduct = /* GraphQL */ `query GetDevelopmentProduct($id: ID!) {
   getDevelopmentProduct(id: $id) {
     id
     name
@@ -62,11 +59,10 @@ export const getDevelopmentProduct =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetDevelopmentProductQueryVariables,
-    APITypes.GetDevelopmentProductQuery
-  >;
-export const listDevelopmentProducts =
-  /* GraphQL */ `query ListDevelopmentProducts(
+  APITypes.GetDevelopmentProductQueryVariables,
+  APITypes.GetDevelopmentProductQuery
+>;
+export const listDevelopmentProducts = /* GraphQL */ `query ListDevelopmentProducts(
   $filter: ModelDevelopmentProductFilterInput
   $limit: Int
   $nextToken: String
@@ -89,11 +85,10 @@ export const listDevelopmentProducts =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListDevelopmentProductsQueryVariables,
-    APITypes.ListDevelopmentProductsQuery
-  >;
-export const getQualification =
-  /* GraphQL */ `query GetQualification($id: ID!) {
+  APITypes.ListDevelopmentProductsQueryVariables,
+  APITypes.ListDevelopmentProductsQuery
+>;
+export const getQualification = /* GraphQL */ `query GetQualification($id: ID!) {
   getQualification(id: $id) {
     id
     name
@@ -103,9 +98,9 @@ export const getQualification =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetQualificationQueryVariables,
-    APITypes.GetQualificationQuery
-  >;
+  APITypes.GetQualificationQueryVariables,
+  APITypes.GetQualificationQuery
+>;
 export const listQualifications = /* GraphQL */ `query ListQualifications(
   $filter: ModelQualificationFilterInput
   $limit: Int
@@ -127,8 +122,7 @@ export const listQualifications = /* GraphQL */ `query ListQualifications(
   APITypes.ListQualificationsQueryVariables,
   APITypes.ListQualificationsQuery
 >;
-export const getDevelopmentTool =
-  /* GraphQL */ `query GetDevelopmentTool($id: ID!) {
+export const getDevelopmentTool = /* GraphQL */ `query GetDevelopmentTool($id: ID!) {
   getDevelopmentTool(id: $id) {
     id
     name
@@ -138,9 +132,9 @@ export const getDevelopmentTool =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetDevelopmentToolQueryVariables,
-    APITypes.GetDevelopmentToolQuery
-  >;
+  APITypes.GetDevelopmentToolQueryVariables,
+  APITypes.GetDevelopmentToolQuery
+>;
 export const listDevelopmentTools = /* GraphQL */ `query ListDevelopmentTools(
   $filter: ModelDevelopmentToolFilterInput
   $limit: Int
@@ -162,8 +156,7 @@ export const listDevelopmentTools = /* GraphQL */ `query ListDevelopmentTools(
   APITypes.ListDevelopmentToolsQueryVariables,
   APITypes.ListDevelopmentToolsQuery
 >;
-export const getProgrammingLanguage =
-  /* GraphQL */ `query GetProgrammingLanguage($id: ID!) {
+export const getProgrammingLanguage = /* GraphQL */ `query GetProgrammingLanguage($id: ID!) {
   getProgrammingLanguage(id: $id) {
     id
     name
@@ -173,11 +166,10 @@ export const getProgrammingLanguage =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetProgrammingLanguageQueryVariables,
-    APITypes.GetProgrammingLanguageQuery
-  >;
-export const listProgrammingLanguages =
-  /* GraphQL */ `query ListProgrammingLanguages(
+  APITypes.GetProgrammingLanguageQueryVariables,
+  APITypes.GetProgrammingLanguageQuery
+>;
+export const listProgrammingLanguages = /* GraphQL */ `query ListProgrammingLanguages(
   $filter: ModelProgrammingLanguageFilterInput
   $limit: Int
   $nextToken: String
@@ -199,11 +191,10 @@ export const listProgrammingLanguages =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListProgrammingLanguagesQueryVariables,
-    APITypes.ListProgrammingLanguagesQuery
-  >;
-export const getPaymentMethod =
-  /* GraphQL */ `query GetPaymentMethod($id: ID!) {
+  APITypes.ListProgrammingLanguagesQueryVariables,
+  APITypes.ListProgrammingLanguagesQuery
+>;
+export const getPaymentMethod = /* GraphQL */ `query GetPaymentMethod($id: ID!) {
   getPaymentMethod(id: $id) {
     id
     name
@@ -213,9 +204,9 @@ export const getPaymentMethod =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetPaymentMethodQueryVariables,
-    APITypes.GetPaymentMethodQuery
-  >;
+  APITypes.GetPaymentMethodQueryVariables,
+  APITypes.GetPaymentMethodQuery
+>;
 export const listPaymentMethods = /* GraphQL */ `query ListPaymentMethods(
   $filter: ModelPaymentMethodFilterInput
   $limit: Int
@@ -341,8 +332,45 @@ export const listJobTypes = /* GraphQL */ `query ListJobTypes(
   APITypes.ListJobTypesQueryVariables,
   APITypes.ListJobTypesQuery
 >;
-export const getLearningCenter =
-  /* GraphQL */ `query GetLearningCenter($id: ID!) {
+export const getBenefitUserCategory = /* GraphQL */ `query GetBenefitUserCategory($id: ID!) {
+  getBenefitUserCategory(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBenefitUserCategoryQueryVariables,
+  APITypes.GetBenefitUserCategoryQuery
+>;
+export const listBenefitUserCategories = /* GraphQL */ `query ListBenefitUserCategories(
+  $filter: ModelBenefitUserCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBenefitUserCategories(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBenefitUserCategoriesQueryVariables,
+  APITypes.ListBenefitUserCategoriesQuery
+>;
+export const getLearningCenter = /* GraphQL */ `query GetLearningCenter($id: ID!) {
   getLearningCenter(id: $id) {
     id
     name
@@ -364,9 +392,9 @@ export const getLearningCenter =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetLearningCenterQueryVariables,
-    APITypes.GetLearningCenterQuery
-  >;
+  APITypes.GetLearningCenterQueryVariables,
+  APITypes.GetLearningCenterQuery
+>;
 export const listLearningCenters = /* GraphQL */ `query ListLearningCenters(
   $filter: ModelLearningCenterFilterInput
   $limit: Int
@@ -400,8 +428,7 @@ export const listLearningCenters = /* GraphQL */ `query ListLearningCenters(
   APITypes.ListLearningCentersQueryVariables,
   APITypes.ListLearningCentersQuery
 >;
-export const getLearningCenterCourse =
-  /* GraphQL */ `query GetLearningCenterCourse($id: ID!) {
+export const getLearningCenterCourse = /* GraphQL */ `query GetLearningCenterCourse($id: ID!) {
   getLearningCenterCourse(id: $id) {
     id
     learningCenterId
@@ -421,14 +448,14 @@ export const getLearningCenterCourse =
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
-    onSale
-    saleMemo
     isMadeToOrder
     madeToOrderDetail
     isJobIntroductionAvailable
     jobIntroductionDetail
     isJobHuntingSupport
     jobHuntingSupportDetail
+    isJobHuntingGuarantee
+    jobHuntingGuaranteeDetail
     purposes
     jobTypes
     developmentCategories
@@ -440,7 +467,7 @@ export const getLearningCenterCourse =
     attendanceType
     locationPref
     locationCity
-    especiallyAudiences
+    benefitUsers
     isDeleted
     createdAt
     updatedAt
@@ -448,11 +475,10 @@ export const getLearningCenterCourse =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetLearningCenterCourseQueryVariables,
-    APITypes.GetLearningCenterCourseQuery
-  >;
-export const listLearningCenterCourses =
-  /* GraphQL */ `query ListLearningCenterCourses(
+  APITypes.GetLearningCenterCourseQueryVariables,
+  APITypes.GetLearningCenterCourseQuery
+>;
+export const listLearningCenterCourses = /* GraphQL */ `query ListLearningCenterCourses(
   $filter: ModelLearningCenterCourseFilterInput
   $limit: Int
   $nextToken: String
@@ -468,27 +494,18 @@ export const listLearningCenterCourses =
       courseName
       courseURL
       couseDetail
-      plans {
-        id
-        planName
-        planMemo
-        duration
-        price
-        splitPrice
-        __typename
-      }
       isAvailableMoneyBack
       moneyBackDetail
       isAvailableSubsidy
       subsidyMemo
-      onSale
-      saleMemo
       isMadeToOrder
       madeToOrderDetail
       isJobIntroductionAvailable
       jobIntroductionDetail
       isJobHuntingSupport
       jobHuntingSupportDetail
+      isJobHuntingGuarantee
+      jobHuntingGuaranteeDetail
       purposes
       jobTypes
       developmentCategories
@@ -500,7 +517,7 @@ export const listLearningCenterCourses =
       attendanceType
       locationPref
       locationCity
-      especiallyAudiences
+      benefitUsers
       isDeleted
       createdAt
       updatedAt
@@ -511,9 +528,9 @@ export const listLearningCenterCourses =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListLearningCenterCoursesQueryVariables,
-    APITypes.ListLearningCenterCoursesQuery
-  >;
+  APITypes.ListLearningCenterCoursesQueryVariables,
+  APITypes.ListLearningCenterCoursesQuery
+>;
 export const getCourseReview = /* GraphQL */ `query GetCourseReview($id: ID!) {
   getCourseReview(id: $id) {
     id

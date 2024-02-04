@@ -4,6 +4,8 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+export { default as BenefitUserCategoryCreateForm } from "./BenefitUserCategoryCreateForm";
+export { default as BenefitUserCategoryUpdateForm } from "./BenefitUserCategoryUpdateForm";
 export { default as ContactCreateForm } from "./ContactCreateForm";
 export { default as ContactUpdateForm } from "./ContactUpdateForm";
 export { default as CourseReviewCreateForm } from "./CourseReviewCreateForm";

@@ -449,6 +449,54 @@ export const deleteJobType = /* GraphQL */ `mutation DeleteJobType(
   APITypes.DeleteJobTypeMutationVariables,
   APITypes.DeleteJobTypeMutation
 >;
+export const createBenefitUserCategory = /* GraphQL */ `mutation CreateBenefitUserCategory(
+  $input: CreateBenefitUserCategoryInput!
+  $condition: ModelBenefitUserCategoryConditionInput
+) {
+  createBenefitUserCategory(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBenefitUserCategoryMutationVariables,
+  APITypes.CreateBenefitUserCategoryMutation
+>;
+export const updateBenefitUserCategory = /* GraphQL */ `mutation UpdateBenefitUserCategory(
+  $input: UpdateBenefitUserCategoryInput!
+  $condition: ModelBenefitUserCategoryConditionInput
+) {
+  updateBenefitUserCategory(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBenefitUserCategoryMutationVariables,
+  APITypes.UpdateBenefitUserCategoryMutation
+>;
+export const deleteBenefitUserCategory = /* GraphQL */ `mutation DeleteBenefitUserCategory(
+  $input: DeleteBenefitUserCategoryInput!
+  $condition: ModelBenefitUserCategoryConditionInput
+) {
+  deleteBenefitUserCategory(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBenefitUserCategoryMutationVariables,
+  APITypes.DeleteBenefitUserCategoryMutation
+>;
 export const createLearningCenter = /* GraphQL */ `mutation CreateLearningCenter(
   $input: CreateLearningCenterInput!
   $condition: ModelLearningCenterConditionInput
@@ -556,14 +604,14 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
-    onSale
-    saleMemo
     isMadeToOrder
     madeToOrderDetail
     isJobIntroductionAvailable
     jobIntroductionDetail
     isJobHuntingSupport
     jobHuntingSupportDetail
+    isJobHuntingGuarantee
+    jobHuntingGuaranteeDetail
     purposes
     jobTypes
     developmentCategories
@@ -575,7 +623,7 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
     attendanceType
     locationPref
     locationCity
-    especiallyAudiences
+    benefitUsers
     isDeleted
     createdAt
     updatedAt
@@ -609,14 +657,14 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
-    onSale
-    saleMemo
     isMadeToOrder
     madeToOrderDetail
     isJobIntroductionAvailable
     jobIntroductionDetail
     isJobHuntingSupport
     jobHuntingSupportDetail
+    isJobHuntingGuarantee
+    jobHuntingGuaranteeDetail
     purposes
     jobTypes
     developmentCategories
@@ -628,7 +676,7 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
     attendanceType
     locationPref
     locationCity
-    especiallyAudiences
+    benefitUsers
     isDeleted
     createdAt
     updatedAt
@@ -662,14 +710,14 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
     moneyBackDetail
     isAvailableSubsidy
     subsidyMemo
-    onSale
-    saleMemo
     isMadeToOrder
     madeToOrderDetail
     isJobIntroductionAvailable
     jobIntroductionDetail
     isJobHuntingSupport
     jobHuntingSupportDetail
+    isJobHuntingGuarantee
+    jobHuntingGuaranteeDetail
     purposes
     jobTypes
     developmentCategories
@@ -681,7 +729,7 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
     attendanceType
     locationPref
     locationCity
-    especiallyAudiences
+    benefitUsers
     isDeleted
     createdAt
     updatedAt
