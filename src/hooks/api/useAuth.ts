@@ -8,6 +8,7 @@ import {
   resetPassword,
   ConfirmResetPasswordInput,
   confirmResetPassword,
+  fetchAuthSession,
 } from "aws-amplify/auth";
 
 export default function useAuth() {
@@ -79,6 +80,22 @@ export default function useAuth() {
   }: ConfirmResetPasswordInput) =>
     confirmResetPassword({ username, confirmationCode, newPassword });
 
+  /**
+   * セッションのリフレッシュ
+   * fetchAuthSession API は、認証トークンの有効期限が切れて有効な
+   * refreshTokenが存在する場合に、自動的にユーザのセッションをリフレッシュする。
+   * forceRefresh フラグを有効にして fetchAuthSession API をコールすることで、
+   * 明示的にセッションを更新することもできます。
+   */
+  async function currentSession() {
+    try {
+      const { tokens } = await fetchAuthSession({ forceRefresh: true });
+      console.log(tokens);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return {
     apiConfirmSignUp,
     resendSignUpAuthCode,
@@ -86,5 +103,6 @@ export default function useAuth() {
     apiSignin,
     apiResetPassword,
     apiConfirmResetPassword,
+    currentSession,
   };
 }

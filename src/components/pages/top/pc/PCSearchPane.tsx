@@ -3,7 +3,6 @@ import learningCenterDefaultImage from "@/assets/images/learning-center-default.
 import {
   Grid,
   Paper,
-  useMediaQuery,
   Box,
   Card,
   CardContent,
@@ -67,14 +66,14 @@ export default function SearchPane({
   developmentProducts: Array<DevelopmentProduct>;
   dualifications: Array<Qualification>;
 }) {
-  const isMobile = useMediaQuery("(max-width:640px)");
-
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(() => {
     return centers.map((center) => {
       const coursesByCenter = courses.filter(
         (v) => v.learningCenterId === center.id
       );
+      console.log("coursesByCenter", coursesByCenter);
+
       return {
         ...center,
         courses: coursesByCenter,
@@ -84,6 +83,8 @@ export default function SearchPane({
 
   // スクール > コースがplansを持っているかどうか
   const hasPlan = (center: ExtendedLearningCenter) => {
+    console.log(center.courses);
+
     return center.courses.some(
       (course) => course.plans && course.plans.length > 0
     );

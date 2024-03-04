@@ -2,18 +2,38 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateDevelopmentCategoryInput = {
+export type CreateCourseReviewInput = {
   id?: string | null,
-  name: string,
-  memo: string,
+  userDisplayId?: string | null,
+  userGender: string,
+  userAge: string,
+  userPrefecture: string,
+  studyLengthMonths: number,
+  learningCenterId: string,
+  learningCenterCourseId: string,
+  reviewTitle: string,
+  reviewDetail: string,
+  rating: number,
+  isPublished: boolean,
+  isDeleted?: boolean | null,
 };
 
-export type ModelDevelopmentCategoryConditionInput = {
-  name?: ModelStringInput | null,
-  memo?: ModelStringInput | null,
-  and?: Array< ModelDevelopmentCategoryConditionInput | null > | null,
-  or?: Array< ModelDevelopmentCategoryConditionInput | null > | null,
-  not?: ModelDevelopmentCategoryConditionInput | null,
+export type ModelCourseReviewConditionInput = {
+  userDisplayId?: ModelStringInput | null,
+  userGender?: ModelStringInput | null,
+  userAge?: ModelStringInput | null,
+  userPrefecture?: ModelStringInput | null,
+  studyLengthMonths?: ModelIntInput | null,
+  learningCenterId?: ModelIDInput | null,
+  learningCenterCourseId?: ModelIDInput | null,
+  reviewTitle?: ModelStringInput | null,
+  reviewDetail?: ModelStringInput | null,
+  rating?: ModelIntInput | null,
+  isPublished?: ModelBooleanInput | null,
+  isDeleted?: ModelBooleanInput | null,
+  and?: Array< ModelCourseReviewConditionInput | null > | null,
+  or?: Array< ModelCourseReviewConditionInput | null > | null,
+  not?: ModelCourseReviewConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,6 +74,74 @@ export type ModelSizeInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type CourseReview = {
+  __typename: "CourseReview",
+  id: string,
+  userDisplayId?: string | null,
+  userGender: string,
+  userAge: string,
+  userPrefecture: string,
+  studyLengthMonths: number,
+  learningCenterId: string,
+  learningCenterCourseId: string,
+  reviewTitle: string,
+  reviewDetail: string,
+  rating: number,
+  isPublished: boolean,
+  isDeleted?: boolean | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type CreateDevelopmentCategoryInput = {
+  id?: string | null,
+  name: string,
+  memo: string,
+};
+
+export type ModelDevelopmentCategoryConditionInput = {
+  name?: ModelStringInput | null,
+  memo?: ModelStringInput | null,
+  and?: Array< ModelDevelopmentCategoryConditionInput | null > | null,
+  or?: Array< ModelDevelopmentCategoryConditionInput | null > | null,
+  not?: ModelDevelopmentCategoryConditionInput | null,
 };
 
 export type DevelopmentCategory = {
@@ -267,22 +355,6 @@ export type ModelFrameworkConditionInput = {
   not?: ModelFrameworkConditionInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type Framework = {
   __typename: "Framework",
   id: string,
@@ -396,18 +468,6 @@ export type ModelLearningCenterConditionInput = {
   not?: ModelLearningCenterConditionInput | null,
 };
 
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type ModelFloatInput = {
   ne?: number | null,
   eq?: number | null,
@@ -416,13 +476,6 @@ export type ModelFloatInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
 };
@@ -658,59 +711,6 @@ export type UpdateLearningCenterCourseInput = {
 
 export type DeleteLearningCenterCourseInput = {
   id: string,
-};
-
-export type CreateCourseReviewInput = {
-  id?: string | null,
-  userDisplayId?: string | null,
-  userGender: string,
-  userAge: string,
-  userPrefecture: string,
-  studyLengthMonths: number,
-  learningCenterId: string,
-  learningCenterCourseId: string,
-  reviewTitle: string,
-  reviewDetail: string,
-  rating: number,
-  isPublished: boolean,
-  isDeleted?: boolean | null,
-};
-
-export type ModelCourseReviewConditionInput = {
-  userDisplayId?: ModelStringInput | null,
-  userGender?: ModelStringInput | null,
-  userAge?: ModelStringInput | null,
-  userPrefecture?: ModelStringInput | null,
-  studyLengthMonths?: ModelIntInput | null,
-  learningCenterId?: ModelIDInput | null,
-  learningCenterCourseId?: ModelIDInput | null,
-  reviewTitle?: ModelStringInput | null,
-  reviewDetail?: ModelStringInput | null,
-  rating?: ModelIntInput | null,
-  isPublished?: ModelBooleanInput | null,
-  isDeleted?: ModelBooleanInput | null,
-  and?: Array< ModelCourseReviewConditionInput | null > | null,
-  or?: Array< ModelCourseReviewConditionInput | null > | null,
-  not?: ModelCourseReviewConditionInput | null,
-};
-
-export type CourseReview = {
-  __typename: "CourseReview",
-  id: string,
-  userDisplayId?: string | null,
-  userGender: string,
-  userAge: string,
-  userPrefecture: string,
-  studyLengthMonths: number,
-  learningCenterId: string,
-  learningCenterCourseId: string,
-  reviewTitle: string,
-  reviewDetail: string,
-  rating: number,
-  isPublished: boolean,
-  isDeleted?: boolean | null,
-  createdAt: string,
-  updatedAt: string,
 };
 
 export type UpdateCourseReviewInput = {
@@ -1233,6 +1233,32 @@ export type ModelSubscriptionContactFilterInput = {
   messageInfo?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionContactFilterInput | null > | null,
   or?: Array< ModelSubscriptionContactFilterInput | null > | null,
+};
+
+export type CreateCourseReviewMutationVariables = {
+  input: CreateCourseReviewInput,
+  condition?: ModelCourseReviewConditionInput | null,
+};
+
+export type CreateCourseReviewMutation = {
+  createCourseReview?:  {
+    __typename: "CourseReview",
+    id: string,
+    userDisplayId?: string | null,
+    userGender: string,
+    userAge: string,
+    userPrefecture: string,
+    studyLengthMonths: number,
+    learningCenterId: string,
+    learningCenterCourseId: string,
+    reviewTitle: string,
+    reviewDetail: string,
+    rating: number,
+    isPublished: boolean,
+    isDeleted?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type CreateDevelopmentCategoryMutationVariables = {
@@ -1925,32 +1951,6 @@ export type DeleteLearningCenterCourseMutation = {
     locationPref?: string | null,
     locationCity?: string | null,
     benefitUsers?: Array< string | null > | null,
-    isDeleted?: boolean | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateCourseReviewMutationVariables = {
-  input: CreateCourseReviewInput,
-  condition?: ModelCourseReviewConditionInput | null,
-};
-
-export type CreateCourseReviewMutation = {
-  createCourseReview?:  {
-    __typename: "CourseReview",
-    id: string,
-    userDisplayId?: string | null,
-    userGender: string,
-    userAge: string,
-    userPrefecture: string,
-    studyLengthMonths: number,
-    learningCenterId: string,
-    learningCenterCourseId: string,
-    reviewTitle: string,
-    reviewDetail: string,
-    rating: number,
-    isPublished: boolean,
     isDeleted?: boolean | null,
     createdAt: string,
     updatedAt: string,

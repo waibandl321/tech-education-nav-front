@@ -8,6 +8,33 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createCourseReview = /* GraphQL */ `mutation CreateCourseReview(
+  $input: CreateCourseReviewInput!
+  $condition: ModelCourseReviewConditionInput
+) {
+  createCourseReview(input: $input, condition: $condition) {
+    id
+    userDisplayId
+    userGender
+    userAge
+    userPrefecture
+    studyLengthMonths
+    learningCenterId
+    learningCenterCourseId
+    reviewTitle
+    reviewDetail
+    rating
+    isPublished
+    isDeleted
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateCourseReviewMutationVariables,
+  APITypes.CreateCourseReviewMutation
+>;
 export const createDevelopmentCategory = /* GraphQL */ `mutation CreateDevelopmentCategory(
   $input: CreateDevelopmentCategoryInput!
   $condition: ModelDevelopmentCategoryConditionInput
@@ -739,33 +766,6 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
 ` as GeneratedMutation<
   APITypes.DeleteLearningCenterCourseMutationVariables,
   APITypes.DeleteLearningCenterCourseMutation
->;
-export const createCourseReview = /* GraphQL */ `mutation CreateCourseReview(
-  $input: CreateCourseReviewInput!
-  $condition: ModelCourseReviewConditionInput
-) {
-  createCourseReview(input: $input, condition: $condition) {
-    id
-    userDisplayId
-    userGender
-    userAge
-    userPrefecture
-    studyLengthMonths
-    learningCenterId
-    learningCenterCourseId
-    reviewTitle
-    reviewDetail
-    rating
-    isPublished
-    isDeleted
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateCourseReviewMutationVariables,
-  APITypes.CreateCourseReviewMutation
 >;
 export const updateCourseReview = /* GraphQL */ `mutation UpdateCourseReview(
   $input: UpdateCourseReviewInput!
