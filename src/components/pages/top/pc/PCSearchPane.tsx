@@ -1,7 +1,5 @@
 import SchoolIcon from "@mui/icons-material/School";
-import learningCenterDefaultImage from "@/assets/images/learning-center-default.webp";
 import {
-  Grid,
   Paper,
   Box,
   Card,
@@ -29,10 +27,10 @@ import {
   DevelopmentCategory,
   DevelopmentProduct,
   Qualification,
+  BenefitUserCategory,
 } from "@/API";
 import React, { useMemo } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import SearchNavigation from "../SearchNavigation";
 
 type ExtendedLearningCenter = LearningCenter & {
@@ -52,7 +50,8 @@ export default function SearchPane({
   creditCards,
   developmentCategories,
   developmentProducts,
-  dualifications,
+  qualifications,
+  benefitUserCategories,
 }: {
   centers: Array<LearningCenter>;
   courses: Array<LearningCenterCourse>;
@@ -64,7 +63,8 @@ export default function SearchPane({
   creditCards: Array<CreditCard>;
   developmentCategories: Array<DevelopmentCategory>;
   developmentProducts: Array<DevelopmentProduct>;
-  dualifications: Array<Qualification>;
+  qualifications: Array<Qualification>;
+  benefitUserCategories: Array<BenefitUserCategory>;
 }) {
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(() => {
@@ -99,73 +99,59 @@ export default function SearchPane({
             hasPlan(center) && (
               <Card key={center.id} sx={{ mx: 2, pb: 3 }} variant="outlined">
                 <CardContent>
-                  <Grid container>
-                    <Grid item md={3}>
-                      <Image
-                        alt={`${center.name} サムネイル`}
-                        src={learningCenterDefaultImage}
-                        objectFit="cover"
-                        style={{ maxWidth: "100%", height: "auto" }}
-                      />
-                    </Grid>
-                    <Grid item md={9} paddingLeft={2}>
-                      <Typography
-                        fontWeight={700}
-                        fontSize={18}
-                        display="flex"
-                        align="center"
-                      >
-                        <SchoolIcon sx={{ mr: 1 }} />
-                        <span>{center.name}</span>
-                      </Typography>
-                      {/* <Typography fontSize={14} sx={{ mt: 1 }}>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    display="flex"
+                    align="center"
+                  >
+                    <SchoolIcon sx={{ mr: 1 }} />
+                    <span>{center.name}</span>
+                  </Typography>
+                  {/* <Typography fontSize={14} sx={{ mt: 1 }}>
                         {center.memo}
                         </Typography> */}
-                      <TableContainer
-                        component={Paper}
-                        sx={{ mt: 1 }}
-                        variant="outlined"
-                      >
-                        <Table size="small">
-                          <TableBody>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                運営企業
-                              </TableCell>
-                              <TableCell>{center.operatingCompany}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                設立
-                              </TableCell>
-                              <TableCell>
-                                {center.establishmentYear}年
-                              </TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                代表者
-                              </TableCell>
-                              <TableCell>{center.representative}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                ---
-                              </TableCell>
-                              <TableCell>
-                                <Link
-                                  target="_blank"
-                                  href={center.websiteURL ?? "#"}
-                                >
-                                  公式サイト
-                                </Link>
-                              </TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </Grid>
-                  </Grid>
+                  <TableContainer
+                    component={Paper}
+                    sx={{ mt: 1 }}
+                    variant="outlined"
+                  >
+                    <Table size="small">
+                      <TableBody>
+                        <TableRow>
+                          <TableCell sx={{ background: "#f8f8f8" }}>
+                            運営企業
+                          </TableCell>
+                          <TableCell>{center.operatingCompany}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell sx={{ background: "#f8f8f8" }}>
+                            設立
+                          </TableCell>
+                          <TableCell>{center.establishmentYear}年</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell sx={{ background: "#f8f8f8" }}>
+                            代表者
+                          </TableCell>
+                          <TableCell>{center.representative}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell sx={{ background: "#f8f8f8" }}>
+                            ---
+                          </TableCell>
+                          <TableCell>
+                            <Link
+                              target="_blank"
+                              href={center.websiteURL ?? "#"}
+                            >
+                              公式サイト
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                   {center.courses.map(
                     (course) =>
                       course.plans &&
@@ -275,7 +261,8 @@ export default function SearchPane({
           creditCards={creditCards}
           developmentCategories={developmentCategories}
           developmentProducts={developmentProducts}
-          dualifications={dualifications}
+          qualifications={qualifications}
+          benefitUserCategories={benefitUserCategories}
         />
       </Drawer>
     </>

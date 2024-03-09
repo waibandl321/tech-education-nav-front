@@ -14,6 +14,7 @@ import {
   listDevelopmentCategories,
   listDevelopmentProducts,
   listQualifications,
+  listBenefitUserCategories,
 } from "@/graphql/queries";
 
 const client = generateClient();
@@ -111,7 +112,7 @@ export const fetchCourseReviews = async (
 
 /**
  * 検索画面で必要なデータを取得
- * @returns スクール一覧、コース一覧、職種、言語、フレームワーク、開発ツール、支払い方法、クレジットカード、資格、開発分野、開発プロダクト
+ * @returns スクール一覧、コース一覧、職種、言語、フレームワーク、開発ツール、支払い方法、クレジットカード、資格、開発分野、開発プロダクト、優待ユーザー
  */
 export const fetchSearchPageData = async () => {
   try {
@@ -127,6 +128,7 @@ export const fetchSearchPageData = async () => {
       getDevelopmentCategories,
       getDevelopmentProducts,
       getQualifications,
+      getBenefitUserCategories,
     ] = await Promise.all([
       client.graphql({
         query: listLearningCenters,
@@ -172,6 +174,10 @@ export const fetchSearchPageData = async () => {
         query: listQualifications,
         authMode: "apiKey",
       }),
+      client.graphql({
+        query: listBenefitUserCategories,
+        authMode: "apiKey",
+      }),
     ]);
     return {
       centers: learningCentersResult.data.listLearningCenters.items,
@@ -186,7 +192,9 @@ export const fetchSearchPageData = async () => {
         getDevelopmentCategories.data.listDevelopmentCategories.items,
       developmentProducts:
         getDevelopmentProducts.data.listDevelopmentProducts.items,
-      dualifications: getQualifications.data.listQualifications.items,
+      qualifications: getQualifications.data.listQualifications.items,
+      benefitUserCategories:
+        getBenefitUserCategories.data.listBenefitUserCategories.items,
     };
   } catch (error) {
     console.error("Error fetching listLearningCenters:", error);
@@ -201,7 +209,8 @@ export const fetchSearchPageData = async () => {
       creditCards: [],
       developmentCategories: [],
       developmentProducts: [],
-      dualifications: [],
+      qualifications: [],
+      benefitUserCategories: [],
     };
   }
 };

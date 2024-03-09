@@ -1,21 +1,10 @@
-import SchoolIcon from "@mui/icons-material/School";
-import learningCenterDefaultImage from "@/assets/images/learning-center-default.webp";
+import TuneIcon from "@mui/icons-material/Tune";
 import SearchNavigation from "@/components/pages/top/SearchNavigation";
 import {
-  Grid,
-  Paper,
   Box,
-  Card,
-  CardContent,
   Typography,
   List,
   ListItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   ListItemSecondaryAction,
   Button,
   styled,
@@ -37,11 +26,11 @@ import {
   DevelopmentCategory,
   DevelopmentProduct,
   Qualification,
+  BenefitUserCategory,
 } from "@/API";
 import React, { useMemo } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { Global } from "@emotion/react";
+import CourceDetailCard from "./CourceDetailCard";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -83,7 +72,8 @@ export default function SPSearchPane({
   creditCards,
   developmentCategories,
   developmentProducts,
-  dualifications,
+  qualifications,
+  benefitUserCategories,
 }: {
   centers: Array<LearningCenter>;
   courses: Array<LearningCenterCourse>;
@@ -95,7 +85,8 @@ export default function SPSearchPane({
   creditCards: Array<CreditCard>;
   developmentCategories: Array<DevelopmentCategory>;
   developmentProducts: Array<DevelopmentProduct>;
-  dualifications: Array<Qualification>;
+  qualifications: Array<Qualification>;
+  benefitUserCategories: Array<BenefitUserCategory>;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -129,7 +120,7 @@ export default function SPSearchPane({
       <Global
         styles={{
           ".MuiDrawer-root > .MuiPaper-root": {
-            height: `calc(80% - ${drawerBleeding}px)`,
+            height: `calc(90% - ${drawerBleeding}px)`,
             overflow: "visible",
           },
         }}
@@ -157,14 +148,18 @@ export default function SPSearchPane({
           }}
         >
           <Puller />
-          <Typography sx={{ p: 2, color: "text.secondary" }}>
-            絞り込み検索
+          <Typography
+            sx={{ p: 2, color: "text.secondary" }}
+            display="flex"
+            align="center"
+          >
+            <TuneIcon></TuneIcon>
+            <Typography sx={{ ml: 1 }}>絞り込み検索</Typography>
           </Typography>
         </StyledBox>
         <StyledBox
           sx={{
-            px: 2,
-            pb: 2,
+            p: 2,
             height: "100%",
             overflow: "auto",
           }}
@@ -181,7 +176,8 @@ export default function SPSearchPane({
               creditCards={creditCards}
               developmentCategories={developmentCategories}
               developmentProducts={developmentProducts}
-              dualifications={dualifications}
+              qualifications={qualifications}
+              benefitUserCategories={benefitUserCategories}
             />
           }
         </StyledBox>
@@ -210,155 +206,19 @@ export default function SPSearchPane({
         {items.map(
           (center) =>
             hasPlan(center) && (
-              <Card key={center.id} sx={{ m: 2, pb: 3 }} variant="outlined">
-                <CardContent>
-                  <Grid container>
-                    <Grid item md={3}>
-                      <Image
-                        alt={`${center.name} サムネイル`}
-                        src={learningCenterDefaultImage}
-                        objectFit="cover"
-                        style={{ maxWidth: "100%", height: "auto" }}
+              <>
+                {center.courses.map(
+                  (course) =>
+                    course.plans &&
+                    course.plans.length > 0 && (
+                      <CourceDetailCard
+                        key={course.id}
+                        center={center}
+                        course={course}
                       />
-                    </Grid>
-                    <Grid item md={9} paddingLeft={2}>
-                      <Typography
-                        fontWeight={700}
-                        fontSize={18}
-                        display="flex"
-                        align="center"
-                      >
-                        <SchoolIcon sx={{ mr: 1 }} />
-                        <span>{center.name}</span>
-                      </Typography>
-                      {/* <Typography fontSize={14} sx={{ mt: 1 }}>
-                        {center.memo}
-                        </Typography> */}
-                      <TableContainer
-                        component={Paper}
-                        sx={{ mt: 1 }}
-                        variant="outlined"
-                      >
-                        <Table size="small">
-                          <TableBody>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                運営企業
-                              </TableCell>
-                              <TableCell>{center.operatingCompany}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                設立
-                              </TableCell>
-                              <TableCell>
-                                {center.establishmentYear}年
-                              </TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                代表者
-                              </TableCell>
-                              <TableCell>{center.representative}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell sx={{ background: "#f8f8f8" }}>
-                                ---
-                              </TableCell>
-                              <TableCell>
-                                <Link
-                                  target="_blank"
-                                  href={center.websiteURL ?? "#"}
-                                >
-                                  公式サイト
-                                </Link>
-                              </TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </Grid>
-                  </Grid>
-                  {center.courses.map(
-                    (course) =>
-                      course.plans &&
-                      course.plans.length > 0 && (
-                        <Box key={course.id} sx={{ ml: 2, mt: 3 }}>
-                          <Typography fontWeight={700}>
-                            {course.courseName}
-                          </Typography>
-                          <Typography fontSize={14} whiteSpace="pre-line">
-                            {course.couseDetail}
-                          </Typography>
-                          {course.plans && course.plans.length > 0 && (
-                            <TableContainer
-                              key={course.id}
-                              component={Paper}
-                              sx={{ mt: 1, border: "none" }}
-                              variant="outlined"
-                            >
-                              <Table size="small" sx={{ tableLayout: "fixed" }}>
-                                <TableHead sx={{ backgroundColor: "#eee" }}>
-                                  <TableRow sx={{ whiteSpace: "nowrap" }}>
-                                    <TableCell>プラン名</TableCell>
-                                    <TableCell width={60}>受講期間</TableCell>
-                                    <TableCell>料金</TableCell>
-                                    <TableCell width={80}>---</TableCell>
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {course.plans.map((plan, index) => (
-                                    <TableRow key={index}>
-                                      <TableCell>{plan?.planName}</TableCell>
-                                      <TableCell>
-                                        {plan?.duration}ヶ月
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography
-                                          color="#f82055"
-                                          fontWeight="bold"
-                                          margin={0}
-                                        >
-                                          {plan?.price?.toLocaleString()}
-                                          <span
-                                            style={{
-                                              color: "#222",
-                                              fontWeight: "normal",
-                                              fontSize: 12,
-                                              marginLeft: 4,
-                                            }}
-                                          >
-                                            円
-                                          </span>
-                                        </Typography>
-                                        <Typography fontSize={12}>
-                                          月々
-                                          {plan?.splitPrice?.toLocaleString()}
-                                          円(24回払い)
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        {course.courseURL && (
-                                          <Link
-                                            target="_blank"
-                                            href={course.courseURL ?? "#"}
-                                            color="#1976d2"
-                                          >
-                                            詳細を見る
-                                          </Link>
-                                        )}
-                                      </TableCell>
-                                    </TableRow>
-                                  ))}
-                                </TableBody>
-                              </Table>
-                            </TableContainer>
-                          )}
-                        </Box>
-                      )
-                  )}
-                </CardContent>
-              </Card>
+                    )
+                )}
+              </>
             )
         )}
       </Box>

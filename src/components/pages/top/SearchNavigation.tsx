@@ -1,5 +1,4 @@
 import { sortBy } from "lodash";
-import ChevronRight from "@mui/icons-material/ChevronRight";
 import {
   useMediaQuery,
   Box,
@@ -12,12 +11,7 @@ import {
   Checkbox,
   FormGroup,
   OutlinedInput,
-  List,
-  ListItem,
-  ListItemButton,
   Slider,
-  InputLabel,
-  FormHelperText,
 } from "@mui/material";
 
 import {
@@ -32,6 +26,7 @@ import {
   DevelopmentCategory,
   DevelopmentProduct,
   Qualification,
+  BenefitUserCategory,
 } from "@/API";
 import React, { useMemo } from "react";
 import { AttendanceTypeLabels, PurposeLabels } from "@/const";
@@ -50,7 +45,8 @@ export default function SearchNavigation({
   creditCards,
   developmentCategories,
   developmentProducts,
-  dualifications,
+  qualifications,
+  benefitUserCategories,
 }: {
   centers: Array<LearningCenter>;
   courses: Array<LearningCenterCourse>;
@@ -62,18 +58,17 @@ export default function SearchNavigation({
   creditCards: Array<CreditCard>;
   developmentCategories: Array<DevelopmentCategory>;
   developmentProducts: Array<DevelopmentProduct>;
-  dualifications: Array<Qualification>;
+  qualifications: Array<Qualification>;
+  benefitUserCategories: Array<BenefitUserCategory>;
 }) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
   // 料金レンジ（仮）
-  const [value, setValue] = React.useState<number[]>([20, 37]);
-
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+  const [rangeValue, setRangeValue] = React.useState<number[]>([20, 37]);
+  const handleChangeRange = (event: Event, newValue: number | number[]) => {
+    setRangeValue(newValue as number[]);
   };
-
-  function valuetext(value: number) {
+  function rangeValueText(value: number) {
     return `${value}万円`;
   }
 
@@ -111,13 +106,13 @@ export default function SearchNavigation({
             textAlign="center"
             variant="body2"
             fontWeight={700}
-          >{`${value[0]}万円以上 〜 ${value[1]}万円以下`}</Typography>
+          >{`${rangeValue[0]}万円以上 〜 ${rangeValue[1]}万円以下`}</Typography>
           <Slider
             getAriaLabel={() => "Temperature range"}
-            value={value}
-            onChange={handleChange}
+            value={rangeValue}
+            onChange={handleChangeRange}
             valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
+            getAriaValueText={rangeValueText}
             step={5}
             min={MIN}
             max={MAX}
@@ -169,7 +164,6 @@ export default function SearchNavigation({
             control={<Checkbox name="isJobHuntingSupport" />}
             label="転職サポート"
           />
-          <FormHelperText>Be careful</FormHelperText>
         </Box>
         <Box>
           <FormControlLabel
@@ -218,20 +212,27 @@ export default function SearchNavigation({
       <Box sx={{ mt: 4 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            特別な受講対象者
+            優待ユーザー
           </Typography>
         </Box>
-        {/* <List>
-          {Object.entries(EspeciallyAudienceLabels).map(([key, item]) => (
-            <ListItem
-              key={key}
-              secondaryAction={<ChevronRight />}
-              disablePadding
-            >
-              <ListItemButton sx={{ p: 2 }}>{item.label}</ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
+        <FormControl fullWidth>
+          <Select
+            id="select-benefit-user-categories"
+            value={[""]}
+            name="benefitUserCategories"
+            input={<OutlinedInput fullWidth />}
+            multiple
+          >
+            <MenuItem value="">
+              <em>指定しない</em>
+            </MenuItem>
+            {benefitUserCategories.map((item) => (
+              <MenuItem key={item.id} value={item.id}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
 
       <Box sx={{ mt: 3 }}>
@@ -327,7 +328,7 @@ export default function SearchNavigation({
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            取得したい資格
+            取得できる資格
           </Typography>
         </Box>
         <Box>
@@ -335,14 +336,14 @@ export default function SearchNavigation({
             <Select
               id="select-job-types"
               value={[""]}
-              name="dualifications"
+              name="qualifications"
               input={<OutlinedInput fullWidth />}
               multiple
             >
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {dualifications.map((dualification) => (
+              {qualifications.map((dualification) => (
                 <MenuItem key={dualification.id} value={dualification.id}>
                   {dualification.name}
                 </MenuItem>
@@ -412,7 +413,7 @@ export default function SearchNavigation({
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            学びたい開発ツール
+            学びたいツール
           </Typography>
         </Box>
         <FormControl fullWidth>

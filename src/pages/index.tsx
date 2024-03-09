@@ -5,6 +5,7 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import {
+  BenefitUserCategory,
   CreditCard,
   DevelopmentCategory,
   DevelopmentProduct,
@@ -32,7 +33,8 @@ export default function Index({
   creditCards,
   developmentCategories,
   developmentProducts,
-  dualifications,
+  qualifications,
+  benefitUserCategories,
 }: {
   centers: Array<LearningCenter>;
   courses: Array<LearningCenterCourse>;
@@ -44,7 +46,8 @@ export default function Index({
   creditCards: Array<CreditCard>;
   developmentCategories: Array<DevelopmentCategory>;
   developmentProducts: Array<DevelopmentProduct>;
-  dualifications: Array<Qualification>;
+  qualifications: Array<Qualification>;
+  benefitUserCategories: Array<BenefitUserCategory>;
 }) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
@@ -69,7 +72,8 @@ export default function Index({
             creditCards={creditCards}
             developmentCategories={developmentCategories}
             developmentProducts={developmentProducts}
-            dualifications={dualifications}
+            qualifications={qualifications}
+            benefitUserCategories={benefitUserCategories}
           />
         </Layout>
       ) : (
@@ -85,7 +89,8 @@ export default function Index({
             creditCards={creditCards}
             developmentCategories={developmentCategories}
             developmentProducts={developmentProducts}
-            dualifications={dualifications}
+            qualifications={qualifications}
+            benefitUserCategories={benefitUserCategories}
           />
         </PCSearchLayout>
       )}
@@ -108,7 +113,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
       creditCards: result.creditCards,
       developmentCategories: result.developmentCategories,
       developmentProducts: result.developmentProducts,
-      dualifications: result.dualifications,
+      qualifications: result.qualifications,
+      benefitUserCategories: result.benefitUserCategories,
     },
   };
 };
