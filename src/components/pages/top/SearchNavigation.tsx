@@ -212,7 +212,7 @@ export default function SearchNavigation({
       <Box sx={{ mt: 4 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            優待ユーザー
+            特別割引の対象者
           </Typography>
         </Box>
         <FormControl fullWidth>
@@ -274,7 +274,7 @@ export default function SearchNavigation({
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            関わりたい開発分野
+            開発分野
           </Typography>
         </Box>
         <Box>
@@ -328,7 +328,7 @@ export default function SearchNavigation({
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            取得できる資格
+            資格
           </Typography>
         </Box>
         <Box>
