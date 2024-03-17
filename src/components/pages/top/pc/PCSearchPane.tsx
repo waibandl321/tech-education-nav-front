@@ -17,8 +17,8 @@ import {
   BenefitUserCategory,
 } from "@/API";
 import React, { useMemo } from "react";
-import SearchNavigation from "../SearchNavigation";
-import CourceDetailCard from "./CourceDetailCard";
+import SearchNavigation from "@/components/pages/top/SearchNavigation";
+import CourceDetailCard from "@/components/pages/top/pc/CourceDetailCard";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -26,7 +26,7 @@ type ExtendedLearningCenter = LearningCenter & {
 
 const drawerWidth = 360;
 
-export default function SearchPane({
+export default function PCSearchPane({
   centers,
   courses,
   languages,
@@ -80,9 +80,9 @@ export default function SearchPane({
       <Box component="main" sx={{ flexGrow: 1, mx: 2 }}>
         <Toolbar />
         {items.map(
-          (center) =>
+          (center, index) =>
             hasPlan(center) && (
-              <>
+              <React.Fragment key={center.id || index}>
                 {center.courses.map(
                   (course) =>
                     course.plans &&
@@ -94,7 +94,7 @@ export default function SearchPane({
                       />
                     )
                 )}
-              </>
+              </React.Fragment>
             )
         )}
       </Box>

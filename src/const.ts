@@ -31,16 +31,16 @@ export const CourseDataBooleanMap: Array<{
   name: string;
   color: ChipOwnProps["color"];
 }> = [
-  { key: "isAvailableMoneyBack", name: "返金保証", color: "primary" },
-  { key: "isAvailableSubsidy", name: "補助金", color: "secondary" },
+  { key: "isAvailableMoneyBack", name: "返金保証あり", color: "primary" },
+  { key: "isAvailableSubsidy", name: "補助金あり", color: "secondary" },
   {
     key: "isMadeToOrder",
     name: "オーダーメイドカリキュラム",
     color: "error",
   },
-  { key: "isJobIntroductionAvailable", name: "案件保証", color: "warning" },
-  { key: "isJobHuntingSupport", name: "転職サポート", color: "default" },
-  { key: "isJobHuntingGuarantee", name: "転職保証", color: "success" },
+  { key: "isJobIntroductionAvailable", name: "案件保証あり", color: "warning" },
+  { key: "isJobHuntingSupport", name: "転職サポートあり", color: "default" },
+  { key: "isJobHuntingGuarantee", name: "転職保証あり", color: "success" },
 ];
 
 // カラーマップ: カラーをランダムに割り当てる際に使用する

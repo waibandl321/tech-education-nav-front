@@ -18,7 +18,7 @@ import {
   ProgrammingLanguage,
   Qualification,
 } from "@/API";
-import SearchPane from "@/components/pages/top/pc/PCSearchPane";
+import PCSearchPane from "@/components/pages/top/pc/PCSearchPane";
 import SPSearchPane from "@/components/pages/top/sp/SPSearchPane";
 import { useMediaQuery } from "@mui/material";
 
@@ -78,7 +78,7 @@ export default function Index({
         </Layout>
       ) : (
         <PCSearchLayout>
-          <SearchPane
+          <PCSearchPane
             centers={centers}
             courses={courses}
             languages={languages}

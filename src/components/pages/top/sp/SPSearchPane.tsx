@@ -1,4 +1,6 @@
 import TuneIcon from "@mui/icons-material/Tune";
+import SwipeUpIcon from "@mui/icons-material/SwipeUp";
+import SwipeDownIcon from "@mui/icons-material/SwipeDown";
 import SearchNavigation from "@/components/pages/top/SearchNavigation";
 import {
   Box,
@@ -30,7 +32,7 @@ import {
 } from "@/API";
 import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
-import CourceDetailCard from "./CourceDetailCard";
+import CourceDetailCard from "@/components/pages/top/sp/CourceDetailCard";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -114,6 +116,15 @@ export default function SPSearchPane({
     );
   };
 
+  const SwipeIcon = () => {
+    if (open) {
+      return (
+        <SwipeDownIcon sx={{ color: "text.secondary", mr: 2 }}></SwipeDownIcon>
+      );
+    }
+    return <SwipeUpIcon sx={{ color: "text.secondary", mr: 2 }}></SwipeUpIcon>;
+  };
+
   return (
     <Root>
       <CssBaseline />
@@ -148,18 +159,28 @@ export default function SPSearchPane({
           }}
         >
           <Puller />
-          <Typography
-            sx={{ p: 2, color: "text.secondary" }}
+          <Box
             display="flex"
-            align="center"
+            alignItems="center"
+            justifyContent="space-between"
           >
-            <TuneIcon></TuneIcon>
-            <Typography sx={{ ml: 1 }}>絞り込み検索</Typography>
-          </Typography>
+            <Typography
+              sx={{ p: 2, color: "text.secondary" }}
+              display="flex"
+              align="center"
+            >
+              <TuneIcon></TuneIcon>
+              <Typography sx={{ ml: 1 }} component="span">
+                絞り込み検索
+              </Typography>
+            </Typography>
+            <SwipeIcon />
+          </Box>
         </StyledBox>
         <StyledBox
           sx={{
-            p: 2,
+            px: 2,
+            pb: 2,
             height: "100%",
             overflow: "auto",
           }}
@@ -204,9 +225,9 @@ export default function SPSearchPane({
           </List>
         </Box>
         {items.map(
-          (center) =>
+          (center, index) =>
             hasPlan(center) && (
-              <>
+              <React.Fragment key={center.id || index}>
                 {center.courses.map(
                   (course) =>
                     course.plans &&
@@ -218,7 +239,7 @@ export default function SPSearchPane({
                       />
                     )
                 )}
-              </>
+              </React.Fragment>
             )
         )}
       </Box>
