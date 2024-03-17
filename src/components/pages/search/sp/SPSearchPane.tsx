@@ -1,7 +1,7 @@
 import TuneIcon from "@mui/icons-material/Tune";
 import SwipeUpIcon from "@mui/icons-material/SwipeUp";
 import SwipeDownIcon from "@mui/icons-material/SwipeDown";
-import SearchNavigation from "@/components/pages/top/SearchNavigation";
+import SearchNavigation from "@/components/pages/search/SearchNavigation";
 import {
   Box,
   Typography,
@@ -32,7 +32,7 @@ import {
 } from "@/API";
 import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
-import CourceDetailCard from "@/components/pages/top/sp/CourceDetailCard";
+import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;

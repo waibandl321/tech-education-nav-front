@@ -1,4 +1,3 @@
-import Header from "@/components/common/section/Header";
 import MobileNav from "@/components/common/section/MobileNav";
 import Footer from "@/components/common/section/Footer";
 import { Amplify } from "aws-amplify";
@@ -15,15 +14,15 @@ import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 Amplify.configure(config, { ssr: true });
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function SPLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <LoadingOverlay />
       <MesageAlert />
       <Box>
         <CssBaseline />
-        <Header />
-        <Box sx={{ pb: 8, pt: 6 }}>
+        <MobileNav />
+        <Box sx={{ pb: 8, pt: 0 }}>
           <CssBaseline />
           {children}
         </Box>

@@ -17,8 +17,8 @@ import {
   BenefitUserCategory,
 } from "@/API";
 import React, { useMemo } from "react";
-import SearchNavigation from "@/components/pages/top/SearchNavigation";
-import CourceDetailCard from "@/components/pages/top/pc/CourceDetailCard";
+import SearchNavigation from "@/components/pages/search/SearchNavigation";
+import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
