@@ -11,10 +11,13 @@ import {
   Card,
   CardContent,
   Paper,
+  Chip,
 } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import { orderBy } from "lodash";
 import Link from "next/link";
+import { CourseDataBooleanMap } from "@/const";
+import { useMemo } from "react";
 
 export default function CourceDetailCard({
   center,
@@ -36,29 +39,44 @@ export default function CourceDetailCard({
     return Math.min(...validPrices);
   };
 
+  const chips = useMemo(() => {
+    return CourseDataBooleanMap.filter((item) => course[item.key] === true);
+  }, [course]);
+
   return (
     <>
-      <Card key={center.id} sx={{ mb: 2, pb: 3 }} variant="outlined">
+      <Card sx={{ mb: 2 }} variant="outlined">
         <CardContent>
-          <Box key={course.id}>
-            <Typography fontSize={12} display="flex" align="center">
-              <SchoolIcon sx={{ mr: 1, fontSize: 16 }} />
-              <span>{center.name}</span>
-            </Typography>
-            <Typography fontWeight={700}>{course.courseName}</Typography>
-            {course.plans && course.plans.length > 0 && (
-              <Typography
-                color="#f82055"
-                fontWeight="bold"
-                whiteSpace="pre-line"
-                marginBottom={2}
-              >
-                &yen;{findMinPlanPrice(course.plans)?.toLocaleString() ?? "---"}
-                〜
-              </Typography>
-            )}
+          <Box>
+            <Box display="flex" justifyContent="space-between">
+              <Box>
+                <Typography fontSize={12} display="flex" align="center">
+                  <SchoolIcon sx={{ mr: 1, fontSize: 16 }} />
+                  <span>{center.name}</span>
+                </Typography>
+                <Typography fontWeight={700}>{course.courseName}</Typography>
+                {course.plans && course.plans.length > 0 && (
+                  <Typography
+                    color="#f82055"
+                    fontWeight="bold"
+                    whiteSpace="pre-line"
+                  >
+                    &yen;
+                    {findMinPlanPrice(course.plans)?.toLocaleString() ?? "---"}
+                    〜
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                <Link href={course.courseURL ?? "#"} target="_blank">
+                  公式サイトを見る
+                </Link>
+              </Box>
+            </Box>
 
-            <Typography fontWeight={700}>料金プラン一覧</Typography>
+            <Typography fontWeight={700} marginTop={2}>
+              料金プラン一覧
+            </Typography>
 
             {course.plans && course.plans.length > 0 && (
               <TableContainer
@@ -122,6 +140,23 @@ export default function CourceDetailCard({
                 </Table>
               </TableContainer>
             )}
+
+            <Box marginTop={2}>
+              <Typography fontWeight={700}>コース詳細</Typography>
+              <Typography fontSize={14} whiteSpace="pre-line" marginTop={1}>
+                {course.couseDetail}
+              </Typography>
+              <Box marginTop={2}>
+                {chips.map((item) => (
+                  <Chip
+                    key={item.key}
+                    label={item.name}
+                    color={item.color}
+                    sx={{ mr: 1, fontWeight: "bold" }}
+                  />
+                ))}
+              </Box>
+            </Box>
           </Box>
         </CardContent>
       </Card>

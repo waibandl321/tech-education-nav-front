@@ -1,8 +1,9 @@
 /**
- * このファイルで定義されるデータの前提: 各オブジェクトのvalueの値は、以下のenumと等しいこと
- * バックエンドを更新した場合、こちらにも変更を反映すること
- * amplify/backend/api/techeducationnav/schema.graphql
+ * 定数定義
  */
+
+import { ChipOwnProps } from "@mui/material";
+import { LearningCenterCourse } from "./API";
 
 // 受講スタイル
 export const AttendanceTypeLabels = {
@@ -23,3 +24,31 @@ export const PurposeLabels = {
 
 // 金額の選択肢を生成（5万円刻みで100万円まで）
 export const priceOptions = Array.from({ length: 20 }, (_, i) => (i + 1) * 5);
+
+// GraphQLスキーマのbooleanデータマップ コース詳細のchipで使用する
+export const CourseDataBooleanMap: Array<{
+  key: keyof LearningCenterCourse;
+  name: string;
+  color: ChipOwnProps["color"];
+}> = [
+  { key: "isAvailableMoneyBack", name: "返金保証", color: "primary" },
+  { key: "isAvailableSubsidy", name: "補助金", color: "secondary" },
+  {
+    key: "isMadeToOrder",
+    name: "オーダーメイドカリキュラム",
+    color: "error",
+  },
+  { key: "isJobIntroductionAvailable", name: "案件保証", color: "warning" },
+  { key: "isJobHuntingSupport", name: "転職サポート", color: "default" },
+  { key: "isJobHuntingGuarantee", name: "転職保証", color: "success" },
+];
+
+// カラーマップ: カラーをランダムに割り当てる際に使用する
+export const MuiColorMap: Array<ChipOwnProps["color"]> = [
+  "primary",
+  "secondary",
+  "error",
+  "warning",
+  "info",
+  "success",
+];

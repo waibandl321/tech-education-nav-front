@@ -2,19 +2,19 @@ import { CoursePlan, LearningCenter, LearningCenterCourse } from "@/API";
 import {
   Box,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Card,
   CardContent,
-  Paper,
+  List,
+  ListItem,
+  Divider,
+  ListItemText,
+  Chip,
+  Button,
 } from "@mui/material";
-import CoursePlanDetail from "./CoursePlanDetail";
 import SchoolIcon from "@mui/icons-material/School";
 import { orderBy } from "lodash";
+import React, { useMemo } from "react";
+import { CourseDataBooleanMap } from "@/const";
 
 export default function CourceDetailCard({
   center,
@@ -36,9 +36,13 @@ export default function CourceDetailCard({
     return Math.min(...validPrices);
   };
 
+  const chips = useMemo(() => {
+    return CourseDataBooleanMap.filter((item) => course[item.key] === true);
+  }, [course]);
+
   return (
     <>
-      <Card key={center.id} sx={{ m: 2, pb: 3 }} variant="outlined">
+      <Card key={center.id} sx={{ m: 1, pb: 2 }} variant="outlined">
         <CardContent>
           <Box key={course.id}>
             <Typography fontSize={12} display="flex" align="center">
@@ -51,7 +55,6 @@ export default function CourceDetailCard({
                 color="#f82055"
                 fontWeight="bold"
                 whiteSpace="pre-line"
-                marginBottom={2}
               >
                 &yen;{findMinPlanPrice(course.plans)?.toLocaleString() ?? "---"}
                 〜
@@ -59,33 +62,80 @@ export default function CourceDetailCard({
             )}
 
             {course.plans && course.plans.length > 0 && (
-              <TableContainer
-                key={course.id}
-                component={Paper}
-                sx={{ mt: 1, border: "none" }}
-                variant="outlined"
-              >
-                <Table size="small" sx={{ tableLayout: "fixed" }}>
-                  <TableHead sx={{ backgroundColor: "#eee" }}>
-                    <TableRow sx={{ whiteSpace: "nowrap" }}>
-                      <TableCell>プラン一覧</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {orderBy(course.plans, "price", "asc").map(
-                      (plan, index) =>
-                        plan && (
-                          <TableRow key={index}>
-                            <TableCell>
-                              <CoursePlanDetail course={course} plan={plan} />
-                            </TableCell>
-                          </TableRow>
-                        )
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              <>
+                <List>
+                  {orderBy(course.plans, "price", "asc").map(
+                    (plan, index) =>
+                      plan && (
+                        <>
+                          <Divider />
+                          <ListItem sx={{ px: 0 }}>
+                            <ListItemText
+                              primary={
+                                <React.Fragment>
+                                  <Typography fontWeight="bold">
+                                    {plan?.planName}
+                                  </Typography>
+                                </React.Fragment>
+                              }
+                              secondary={
+                                <React.Fragment>
+                                  <Typography
+                                    sx={{ display: "inline", mr: 0.5 }}
+                                    component="span"
+                                    variant="body2"
+                                    color="text.primary"
+                                  >
+                                    受講期間:
+                                  </Typography>
+                                  {plan?.duration
+                                    ? `${plan?.duration}ヶ月`
+                                    : "無期限"}
+                                </React.Fragment>
+                              }
+                            />
+                            <Typography
+                              color="#f82055"
+                              fontWeight="bold"
+                              margin={0}
+                            >
+                              &yen;{plan?.price?.toLocaleString()}
+                            </Typography>
+                          </ListItem>
+                        </>
+                      )
+                  )}
+                  <Divider />
+                </List>
+              </>
             )}
+            <Box marginTop={2}>
+              <Typography fontWeight={700}>コース詳細</Typography>
+              <Typography fontSize={14} whiteSpace="pre-line" marginTop={1}>
+                {course.couseDetail}
+              </Typography>
+              <Box marginTop={2}>
+                {chips.map((item) => (
+                  <Chip
+                    key={item.key}
+                    label={item.name}
+                    color={item.color}
+                    sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
+                  />
+                ))}
+              </Box>
+            </Box>
+            <Box marginTop={2}>
+              <Button
+                variant="outlined"
+                href={course.courseURL ?? "#"}
+                target="_blank"
+                fullWidth
+                size="large"
+              >
+                公式サイトを見る
+              </Button>
+            </Box>
           </Box>
         </CardContent>
       </Card>

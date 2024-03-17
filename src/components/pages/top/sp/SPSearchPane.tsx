@@ -191,8 +191,8 @@ export default function SPSearchPane({
       >
         <Toolbar />
         <Box>
-          <List>
-            <ListItem>
+          <List sx={{ pb: 0 }}>
+            <ListItem sx={{ pb: 0 }}>
               <ListItemText
                 primary="詳細条件"
                 secondary="設定した条件が入る..."
