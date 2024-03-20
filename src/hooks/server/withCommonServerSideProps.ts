@@ -8,8 +8,18 @@ import { ParsedUrlQuery } from "querystring";
 /**
  * サーバーサイドレンダリングの共通処理
  * @param getServerSidePropsFunc コールバック関数（page固有の処理）
+ * コンポーネントからの呼び出し方は以下のようになる。
+ *
+ * 以下の場合、当該関数のviewportが自動的にコンポーネントにバインドされる
+ * export const getServerSideProps = withCommonServerSideProps()
+ *
  */
-
+// export const getServerSideProps = withCommonServerSideProps(async (context) => {
+//   // このページ特有のサーバーサイドロジック
+//   return {
+//     props: { /* 特有のprops */ },
+//   };
+// });
 export const withCommonServerSideProps =
   (getServerSidePropsFunc?: GetServerSideProps) =>
   async (context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {

@@ -8,3 +8,5 @@ export interface CenterAndCourseDetailPropType {
   center: LearningCenter;
   course: LearningCenterCourse;
 }
+
+export type DeviceType = "desktop" | "mobile";

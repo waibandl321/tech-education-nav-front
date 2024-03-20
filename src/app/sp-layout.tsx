@@ -8,7 +8,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "normalize.css";
 import "@/assets/css/style.css";
-import { Box, CssBaseline } from "@mui/material";
+import { Box, CssBaseline, Toolbar } from "@mui/material";
 import MesageAlert from "@/components/common/parts/MesageAlert";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
 
@@ -24,7 +24,10 @@ export default function SPLayout({ children }: { children: React.ReactNode }) {
         <MobileNav />
         <Box sx={{ pb: 8, pt: 0 }}>
           <CssBaseline />
-          {children}
+          <Box component="main" sx={{ flexGrow: 1 }}>
+            <Toolbar />
+            {children}
+          </Box>
         </Box>
       </Box>
       <Footer />

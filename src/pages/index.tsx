@@ -2,21 +2,13 @@ import React from "react";
 import Layout from "@/app/layout";
 import SPLayout from "@/app/sp-layout";
 import Head from "next/head";
-import {
-  Box,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Toolbar,
-  useMediaQuery,
-} from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { GetServerSideProps } from "next";
+import { Box } from "@mui/material";
+import SPHomeNavigation from "@/components/pages/home/sp/HomeNavigation";
+import PCHomeNavigation from "@/components/pages/home/pc/HomeNavigation";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
+import { DeviceType } from "@/types/CommonType";
 
-export default function Index({ viewport }: { viewport: string }) {
+export default function Index({ viewport }: { viewport: DeviceType }) {
   const isMobile = viewport === "mobile";
 
   return (
@@ -29,23 +21,12 @@ export default function Index({ viewport }: { viewport: string }) {
 
       {isMobile ? (
         <SPLayout>
-          <Box component="main" sx={{ flexGrow: 1, mx: 2 }}>
-            <Toolbar />
-            <Box>
-              <List>
-                <ListItem secondaryAction={<ChevronRightIcon />} disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary="Single-line item" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Box>
-          </Box>
+          <SPHomeNavigation />
         </SPLayout>
       ) : (
         <Layout>
           <Box component="main" sx={{ flexGrow: 1, mx: 2 }}>
-            あああああああ
+            <PCHomeNavigation />
           </Box>
         </Layout>
       )}

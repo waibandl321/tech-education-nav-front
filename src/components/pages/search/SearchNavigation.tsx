@@ -29,7 +29,7 @@ import {
   BenefitUserCategory,
 } from "@/API";
 import React, { useMemo } from "react";
-import { AttendanceTypeLabels, PurposeLabels } from "@/const";
+import { AttendanceTypeLabels, PurposeOptions } from "@/const";
 
 const MAX = 150;
 const MIN = 0;
@@ -198,9 +198,9 @@ export default function SearchNavigation({
         </Box>
         <Box>
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {Object.entries(PurposeLabels).map(([key, purpose]) => (
+            {PurposeOptions.map((purpose) => (
               <FormControlLabel
-                key={key}
+                key={purpose.value}
                 control={<Checkbox name="purposes" value={purpose.value} />}
                 label={purpose.label}
               />

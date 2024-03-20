@@ -210,20 +210,17 @@ export default function SPSearchPane({
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
-        <Box>
-          <List sx={{ pb: 0 }}>
-            <ListItem sx={{ pb: 0 }}>
-              <ListItemText
-                primary="詳細条件"
-                secondary="設定した条件が入る..."
-              />
-              <ListItemSecondaryAction>
-                <Button onClick={toggleDrawer(true)}>変更する</Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
-        </Box>
+        <List sx={{ pb: 0 }}>
+          <ListItem sx={{ pb: 0 }}>
+            <ListItemText
+              primary="詳細条件"
+              secondary="設定した条件が入る..."
+            />
+            <ListItemSecondaryAction>
+              <Button onClick={toggleDrawer(true)}>変更する</Button>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
         {items.map(
           (center, index) =>
             hasPlan(center) && (

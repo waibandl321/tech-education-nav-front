@@ -13,14 +13,14 @@ export const AttendanceTypeLabels = {
 };
 
 // 受講目的 オプション
-export const PurposeLabels = {
-  job: { value: "JOB", label: "就職/転職" },
-  freelance: { value: "FREELANCE", label: "フリーランス" },
-  entrepreneurship: { value: "ENTREPRENEURSHIP", label: "起業" },
-  sideJob: { value: "SIDE_JOB", label: "副業" },
-  certification: { value: "CERTIFICATION", label: "資格取得" },
-  learning: { value: "LEARNING", label: "学習/スキルアップ" },
-};
+export const PurposeOptions = [
+  { value: "JOB", label: "就職/転職" },
+  { value: "FREELANCE", label: "フリーランス" },
+  { value: "ENTREPRENEURSHIP", label: "起業" },
+  { value: "SIDE_JOB", label: "副業" },
+  { value: "CERTIFICATION", label: "資格取得" },
+  { value: "LEARNING", label: "学習/スキルアップ" },
+];
 
 // 金額の選択肢を生成（5万円刻みで100万円まで）
 export const priceOptions = Array.from({ length: 20 }, (_, i) => (i + 1) * 5);
@@ -35,13 +35,18 @@ export const CourseDataBooleanMap: Array<{
   { key: "isAvailableSubsidy", name: "補助金あり", color: "secondary" },
   {
     key: "isMadeToOrder",
-    name: "オーダーメイドカリキュラム",
+    name: "オーダーメイドカリキュラムあり",
     color: "error",
   },
-  { key: "isJobIntroductionAvailable", name: "案件保証あり", color: "warning" },
+  { key: "isJobIntroductionAvailable", name: "案件紹介あり", color: "warning" },
   { key: "isJobHuntingSupport", name: "転職サポートあり", color: "default" },
   { key: "isJobHuntingGuarantee", name: "転職保証あり", color: "success" },
-];
+] as const;
+
+export const CourseDataBooleanKeys = CourseDataBooleanMap.map((v) => v.key);
+
+export type CourseDataBooleanKeyType =
+  (typeof CourseDataBooleanMap)[number]["key"];
 
 // カラーマップ: カラーをランダムに割り当てる際に使用する
 export const MuiColorMap: Array<ChipOwnProps["color"]> = [

@@ -3,10 +3,11 @@ import Layout from "@/app/layout";
 import SPLayout from "@/app/sp-layout";
 import ContactForm from "@/components/pages/contact/ContactForm";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
+import { DeviceType } from "@/types/CommonType";
 import { Paper, Toolbar } from "@mui/material";
 import Head from "next/head";
 
-export default function Contact({ viewport }: { viewport: string }) {
+export default function Contact({ viewport }: { viewport: DeviceType }) {
   const isMobile = viewport === "mobile";
   return (
     <>

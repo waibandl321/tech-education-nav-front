@@ -68,8 +68,6 @@ export default function PCSearchPane({
 
   // スクール > コースがplansを持っているかどうか
   const hasPlan = (center: ExtendedLearningCenter) => {
-    console.log(center.courses);
-
     return center.courses.some(
       (course) => course.plans && course.plans.length > 0
     );
