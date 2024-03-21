@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
-
 import {
   DevelopmentTool,
   Framework,
@@ -26,7 +25,7 @@ type ExtendedLearningCenter = LearningCenter & {
 
 const drawerWidth = 360;
 
-export default function PCSearchPane({
+export default function SearchPane({
   centers,
   courses,
   languages,

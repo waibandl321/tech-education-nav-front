@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
 import ListItemText from "@mui/material/ListItemText";
 import {
   DevelopmentTool,
@@ -63,7 +62,7 @@ const Puller = styled("div")(({ theme }) => ({
 const drawerBleeding = 56;
 const drawerWidth = 300;
 
-export default function SPSearchPane({
+export default function SearchPane({
   centers,
   courses,
   languages,

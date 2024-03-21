@@ -17,8 +17,8 @@ import {
   ProgrammingLanguage,
   Qualification,
 } from "@/API";
-import PCSearchPane from "@/components/pages/search/pc/PCSearchPane";
-import SPSearchPane from "@/components/pages/search/sp/SPSearchPane";
+import PCSearchPane from "@/components/pages/search/pc/SearchPane";
+import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
 import SPLayout from "@/app/sp-layout";
 

@@ -16,8 +16,8 @@ import {
   ProgrammingLanguage,
   Qualification,
 } from "@/API";
-import PCSearchPane from "@/components/pages/search/pc/PCSearchPane";
-import SPSearchPane from "@/components/pages/search/sp/SPSearchPane";
+import PCSearchPane from "@/components/pages/search/pc/SearchPane";
+import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
@@ -60,7 +60,7 @@ export default function DevelopmentProductResults({
   const searchParams = useSearchParams();
   const toolsSearchParams = searchParams?.get("developmentProducts");
 
-  // フィルタ対象の開発したいサービス名一覧
+  // フィルタ対象の作りたいサービス名一覧
   const filteredDevelopmentProducts = developmentProducts
     .filter((item) => toolsSearchParams?.includes(item.id))
     .map((item) => item.name)
@@ -72,7 +72,7 @@ export default function DevelopmentProductResults({
       TOP
     </Link>,
     <Link key="2" color="primary" href="/search/development-product">
-      開発したいサービスを選択
+      サービスを選択
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>
       検索結果
@@ -83,12 +83,12 @@ export default function DevelopmentProductResults({
     <>
       <Head>
         <title>
-          {`${filteredDevelopmentProducts}を開発したい人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+          {`${filteredDevelopmentProducts}を作りたい人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
         </title>
         <meta
           name="description"
           content={`
-          ${filteredDevelopmentProducts}を開発したい人におすすめのプログラミングスクールのコース一覧を紹介します。
+          ${filteredDevelopmentProducts}を作りたい人におすすめのプログラミングスクールのコース一覧を紹介します。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
           `}
@@ -109,7 +109,7 @@ export default function DevelopmentProductResults({
             component={"h1"}
             padding={1}
             fontWeight={700}
-          >{`${filteredDevelopmentProducts}を開発したい人におすすめのプログラミングスクールのコース一覧`}</Typography>
+          >{`${filteredDevelopmentProducts}を作りたい人におすすめのプログラミングスクールのコース一覧`}</Typography>
           <SPSearchPane
             centers={centers}
             courses={courses}

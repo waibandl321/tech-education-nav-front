@@ -26,8 +26,8 @@ import {
 } from "@/API";
 import Link from "next/link";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
-import SPSearchPane from "@/components/pages/search/sp/SPSearchPane";
-import PCSearchPane from "@/components/pages/search/pc/PCSearchPane";
+import SPSearchPane from "@/components/pages/search/sp/SearchPane";
+import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 
 export default function SearchType({
   viewport,
@@ -78,13 +78,13 @@ export default function SearchType({
     <>
       <Head>
         <title>
-          開発分野一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
+          {`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
         </title>
         <meta
           name="description"
-          content="開発分野一覧、プログラミングスクールを言語から探す。
-        テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
-        職種、その他さまざまな詳細条件でプログラミングスクールを探せます。"
+          content={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧を紹介します。
+            テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
+            職種、その他さまざまな詳細条件でプログラミングスクールを探せます。`}
         />
         {/* その他のメタタグ */}
       </Head>
@@ -139,13 +139,13 @@ export default function SearchType({
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   const searchType = context.query.searchType as keyof LearningCenterCourse;
-
+  // フィルタに使用するkeyが一致するかをチェック
   function isCourseDataBooleanKey(key: any): key is CourseDataBooleanKeyType {
     return CourseDataBooleanKeys.includes(key);
   }
   // データ取得
   const result = await fetchSearchPageData();
-
+  // フィルタ
   const courses = result.courses.filter((course) => {
     // courseオブジェクトのキーがCourseDataBooleanKeysに含まれるかチェック
     const keys = Object.keys(course) as Array<keyof typeof course>;
