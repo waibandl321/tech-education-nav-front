@@ -15,53 +15,53 @@ export default function HomeNavigation() {
   return (
     <Box sx={{ p: 2 }}>
       <Box>
-        <ButtonGroup fullWidth variant="contained">
+        <ButtonGroup fullWidth variant="contained" sx={{ boxShadow: "none" }}>
           <Button
-            sx={{ display: "block", textAlign: "center", py: 3 }}
+            sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/language"
           >
             <CodeIcon fontSize="large" />
             <Typography fontSize={18}>プログラミング言語から探す</Typography>
           </Button>
           <Button
-            sx={{ display: "block", textAlign: "center", py: 3 }}
+            sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/development-tool"
           >
             <BuildIcon fontSize="large" />
             <Typography fontSize={18}>ツールから探す</Typography>
           </Button>
           <Button
-            sx={{ display: "block", textAlign: "center", py: 3 }}
+            sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/development-category"
           >
             <DeveloperModeIcon fontSize="large" />
             <Typography fontSize={18}>開発分野から探す</Typography>
           </Button>
           <Button
-            sx={{ display: "block", textAlign: "center", py: 3 }}
+            sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="search/development-product"
           >
             <LightbulbIcon fontSize="large" />
             <Typography fontSize={18}>作りたいサービスから探す</Typography>
           </Button>
         </ButtonGroup>
-        <ButtonGroup fullWidth variant="contained">
+        <ButtonGroup fullWidth variant="contained" sx={{ boxShadow: "none" }}>
           <Button
-            sx={{ display: "block", textAlign: "center", py: 3 }}
+            sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/qualification"
           >
             <SchoolIcon fontSize="large" />
             <Typography fontSize={18}>取得したい資格から探す</Typography>
           </Button>
           <Button
-            sx={{ display: "block", textAlign: "center", py: 3 }}
+            sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/job-type"
           >
             <WorkIcon fontSize="large" />
             <Typography fontSize={18}>なりたい職種から探す</Typography>
           </Button>
           <Button
-            sx={{ display: "block", textAlign: "center", py: 3 }}
+            sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/purpose"
           >
             <AssignmentIcon fontSize="large" />

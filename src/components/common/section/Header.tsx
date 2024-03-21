@@ -34,7 +34,7 @@ export default function Header() {
         >
           テック教育ナビ
         </Link>
-        <Link
+        {/* <Link
           style={{
             ...LinkStyle,
             textAlign: "center",
@@ -52,7 +52,7 @@ export default function Header() {
           href="/review/register/profile"
         >
           <Typography>口コミを投稿する</Typography>
-        </Link>
+        </Link> */}
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Button
