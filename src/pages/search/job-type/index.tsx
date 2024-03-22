@@ -7,6 +7,7 @@ import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/job-type/SearchSelect";
+import { Container } from "@mui/material";
 
 export default function JobType({
   viewport,
@@ -38,7 +39,9 @@ export default function JobType({
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSelect jobTypes={jobTypes} />
+          <Container maxWidth="sm">
+            <SearchSelect jobTypes={jobTypes} />
+          </Container>
         </Layout>
       )}
     </>

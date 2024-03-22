@@ -1,5 +1,5 @@
 import React from "react";
-import PCSearchLayout from "@/app/search-layout";
+import Layout from "@/app/layout";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
@@ -77,7 +77,7 @@ export default function Index({
           />
         </SPLayout>
       ) : (
-        <PCSearchLayout>
+        <Layout>
           <PCSearchPane
             centers={centers}
             courses={courses}
@@ -92,7 +92,7 @@ export default function Index({
             qualifications={qualifications}
             benefitUserCategories={benefitUserCategories}
           />
-        </PCSearchLayout>
+        </Layout>
       )}
     </>
   );

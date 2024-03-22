@@ -7,6 +7,7 @@ import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/language/SearchSelect";
+import { Container } from "@mui/material";
 
 export default function Language({
   viewport,
@@ -39,7 +40,9 @@ export default function Language({
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSelect languages={languages} />
+          <Container maxWidth="sm">
+            <SearchSelect languages={languages} />
+          </Container>
         </Layout>
       )}
     </>

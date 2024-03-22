@@ -1,5 +1,6 @@
 import React from "react";
-import PCSearchLayout from "@/app/search-layout";
+import SPLayout from "@/app/sp-layout";
+import Layout from "@/app/layout";
 import Head from "next/head";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import { PurposeOptions } from "@/const";
@@ -19,13 +20,12 @@ import {
 } from "@/API";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
-import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import { useSearchParams } from "next/navigation";
-import { Typography, Breadcrumbs } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Typography, Box } from "@mui/material";
 import Link from "next/link";
+import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
 export default function PurposeResults({
   viewport,
@@ -85,11 +85,11 @@ export default function PurposeResults({
     <>
       <Head>
         <title>
-          {`受講目的が${filteredPurposes}な人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+          {`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
         </title>
         <meta
           name="description"
-          content={`受講目的が${filteredPurposes}な人におすすめのプログラミングスクールのコース一覧を紹介します。
+          content={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
             `}
@@ -99,18 +99,10 @@ export default function PurposeResults({
 
       {isMobile ? (
         <SPLayout>
-          <Breadcrumbs
-            separator={<NavigateNextIcon fontSize="small" />}
-            aria-label="breadcrumb"
-            sx={{ px: 1, pt: 2, fontSize: 12 }}
-          >
-            {breadcrumbs}
-          </Breadcrumbs>
-          <Typography
-            component={"h1"}
-            padding={1}
-            fontWeight={700}
-          >{`受講目的が${filteredPurposes}な人におすすめのプログラミングスクールのコース一覧`}</Typography>
+          <SearchSubHeader
+            breadcrumbs={breadcrumbs}
+            title={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧`}
+          />
           <SPSearchPane
             centers={centers}
             courses={courses}
@@ -127,7 +119,11 @@ export default function PurposeResults({
           />
         </SPLayout>
       ) : (
-        <PCSearchLayout>
+        <Layout>
+          <SearchSubHeader
+            breadcrumbs={breadcrumbs}
+            title={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧`}
+          />
           <PCSearchPane
             centers={centers}
             courses={courses}
@@ -142,7 +138,7 @@ export default function PurposeResults({
             qualifications={qualifications}
             benefitUserCategories={benefitUserCategories}
           />
-        </PCSearchLayout>
+        </Layout>
       )}
     </>
   );

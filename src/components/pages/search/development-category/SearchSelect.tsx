@@ -9,11 +9,9 @@ import {
   FormGroup,
   Paper,
   Typography,
-  Breadcrumbs,
-  Toolbar,
 } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
+import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
 export default function SearchSelect({
   developmentCategories,
@@ -56,13 +54,7 @@ export default function SearchSelect({
   return (
     <>
       <Box sx={{ px: 1, pt: 2 }}>
-        <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-          sx={{ p: 1, fontSize: 12 }}
-        >
-          {breadcrumbs}
-        </Breadcrumbs>
+        <SearchSubHeader breadcrumbs={breadcrumbs} />
       </Box>
       <Box sx={{ p: 2 }}>
         <Typography borderLeft="5px solid #666" paddingLeft={2}>

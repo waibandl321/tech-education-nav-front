@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { ProgrammingLanguage } from "@/API";
 import {
   Box,
-  Breadcrumbs,
   Button,
   Card,
   Checkbox,
@@ -11,7 +10,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import Link from "next/link";
 
 export default function SearchSelect({
@@ -55,13 +54,7 @@ export default function SearchSelect({
   return (
     <>
       <Box sx={{ px: 1, pt: 2 }}>
-        <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-          sx={{ p: 1, fontSize: 12 }}
-        >
-          {breadcrumbs}
-        </Breadcrumbs>
+        <SearchSubHeader breadcrumbs={breadcrumbs} />
       </Box>
       <Box sx={{ p: 2 }}>
         <Typography borderLeft="5px solid #666" paddingLeft={2}>

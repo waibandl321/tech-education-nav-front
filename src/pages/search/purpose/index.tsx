@@ -5,6 +5,7 @@ import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/purpose/SearchSelect";
+import { Container } from "@mui/material";
 
 export default function Purpose({ viewport }: { viewport: DeviceType }) {
   const isMobile = viewport === "mobile";
@@ -30,7 +31,9 @@ export default function Purpose({ viewport }: { viewport: DeviceType }) {
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSelect />
+          <Container maxWidth="sm">
+            <SearchSelect />
+          </Container>
         </Layout>
       )}
     </>

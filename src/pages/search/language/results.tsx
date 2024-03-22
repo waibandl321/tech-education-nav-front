@@ -1,5 +1,6 @@
 import React from "react";
-import PCSearchLayout from "@/app/search-layout";
+import Layout from "@/app/layout";
+import SPLayout from "@/app/sp-layout";
 import Head from "next/head";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import {
@@ -18,13 +19,12 @@ import {
 } from "@/API";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
-import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import { useSearchParams } from "next/navigation";
-import { Typography, Breadcrumbs } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Typography } from "@mui/material";
 import Link from "next/link";
+import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
 export default function LanguageResults({
   viewport,
@@ -98,18 +98,10 @@ export default function LanguageResults({
 
       {isMobile ? (
         <SPLayout>
-          <Breadcrumbs
-            separator={<NavigateNextIcon fontSize="small" />}
-            aria-label="breadcrumb"
-            sx={{ px: 1, pt: 2, fontSize: 12 }}
-          >
-            {breadcrumbs}
-          </Breadcrumbs>
-          <Typography
-            component={"h1"}
-            padding={1}
-            fontWeight={700}
-          >{`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}</Typography>
+          <SearchSubHeader
+            breadcrumbs={breadcrumbs}
+            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
+          />
           <SPSearchPane
             centers={centers}
             courses={courses}
@@ -126,7 +118,11 @@ export default function LanguageResults({
           />
         </SPLayout>
       ) : (
-        <PCSearchLayout>
+        <Layout>
+          <SearchSubHeader
+            breadcrumbs={breadcrumbs}
+            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
+          />
           <PCSearchPane
             centers={centers}
             courses={courses}
@@ -141,7 +137,7 @@ export default function LanguageResults({
             qualifications={qualifications}
             benefitUserCategories={benefitUserCategories}
           />
-        </PCSearchLayout>
+        </Layout>
       )}
     </>
   );

@@ -7,6 +7,7 @@ import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/development-product/SearchSelect";
+import { Container } from "@mui/material";
 
 export default function DevelomentProduct({
   viewport,
@@ -39,7 +40,9 @@ export default function DevelomentProduct({
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSelect developmentProducts={developmentProducts} />
+          <Container maxWidth="sm">
+            <SearchSelect developmentProducts={developmentProducts} />
+          </Container>
         </Layout>
       )}
     </>

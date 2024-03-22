@@ -73,9 +73,8 @@ export default function SearchPane({
   };
 
   return (
-    <>
+    <Box sx={{ display: "flex", pb: 8 }}>
       <Box component="main" sx={{ flexGrow: 1, mx: 2 }}>
-        <Toolbar />
         {items.map(
           (center, index) =>
             hasPlan(center) && (
@@ -125,6 +124,6 @@ export default function SearchPane({
           benefitUserCategories={benefitUserCategories}
         />
       </Drawer>
-    </>
+    </Box>
   );
 }

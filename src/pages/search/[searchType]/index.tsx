@@ -2,7 +2,7 @@ import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSidePr
 import { DeviceType } from "@/types/CommonType";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import SPLayout from "@/app/sp-layout";
-import PCSearchLayout from "@/app/search-layout";
+import Layout from "@/app/layout";
 import Head from "next/head";
 import {
   CourseDataBooleanMap,
@@ -28,6 +28,7 @@ import Link from "next/link";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
+import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
 export default function SearchType({
   viewport,
@@ -90,15 +91,10 @@ export default function SearchType({
       </Head>
       {isMobile ? (
         <SPLayout>
-          <Box sx={{ px: 1, pt: 2 }}>
-            <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
-              aria-label="breadcrumb"
-              sx={{ p: 1, fontSize: 12 }}
-            >
-              {breadcrumbs}
-            </Breadcrumbs>
-          </Box>
+          <SearchSubHeader
+            breadcrumbs={breadcrumbs}
+            title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
+          />
           <SPSearchPane
             centers={centers}
             courses={courses}
@@ -115,7 +111,11 @@ export default function SearchType({
           />
         </SPLayout>
       ) : (
-        <PCSearchLayout>
+        <Layout>
+          <SearchSubHeader
+            breadcrumbs={breadcrumbs}
+            title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
+          />
           <PCSearchPane
             centers={centers}
             courses={courses}
@@ -130,7 +130,7 @@ export default function SearchType({
             qualifications={qualifications}
             benefitUserCategories={benefitUserCategories}
           />
-        </PCSearchLayout>
+        </Layout>
       )}
     </>
   );
