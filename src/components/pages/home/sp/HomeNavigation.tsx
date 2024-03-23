@@ -16,6 +16,7 @@ import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import WorkIcon from "@mui/icons-material/Work";
 import SchoolIcon from "@mui/icons-material/School";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import Link from "next/link";
 
 export default function HomeNavigation() {
   return (
@@ -24,6 +25,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
+            LinkComponent={Link}
             href="/search/programmingLanguages"
           >
             <CodeIcon fontSize="large" />
@@ -31,6 +33,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center" }}
+            LinkComponent={Link}
             href="/search/developmentTools"
           >
             <BuildIcon fontSize="large" />
@@ -40,6 +43,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
+            LinkComponent={Link}
             href="/search/developmentCategories"
           >
             <DeveloperModeIcon fontSize="large" />
@@ -47,6 +51,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center" }}
+            LinkComponent={Link}
             href="search/developmentProducts"
           >
             <LightbulbIcon fontSize="large" />
@@ -56,6 +61,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
+            LinkComponent={Link}
             href="/search/qualifications"
           >
             <SchoolIcon fontSize="large" />
@@ -63,6 +69,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center" }}
+            LinkComponent={Link}
             href="/search/jobTypes"
           >
             <WorkIcon fontSize="large" />
@@ -72,6 +79,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
+            LinkComponent={Link}
             href="/search/purposes"
           >
             <AssignmentIcon fontSize="large" />
@@ -85,27 +93,39 @@ export default function HomeNavigation() {
         </Typography>
         <List>
           <ListItem secondaryAction={<ChevronRightIcon />} disablePadding>
-            <ListItemButton href="/search/isAvailableMoneyBack/">
+            <ListItemButton
+              LinkComponent={Link}
+              href="/search/isAvailableMoneyBack/"
+            >
               <ListItemText primary="返金保証があるスクールを探す" />
             </ListItemButton>
           </ListItem>
           <ListItem secondaryAction={<ChevronRightIcon />} disablePadding>
-            <ListItemButton href="/search/isJobHuntingGuarantee/">
+            <ListItemButton
+              LinkComponent={Link}
+              href="/search/isJobHuntingGuarantee/"
+            >
               <ListItemText primary="転職保証があるスクールを探す" />
             </ListItemButton>
           </ListItem>
           <ListItem secondaryAction={<ChevronRightIcon />} disablePadding>
-            <ListItemButton href="/search/isJobIntroductionAvailable/">
+            <ListItemButton
+              LinkComponent={Link}
+              href="/search/isJobIntroductionAvailable/"
+            >
               <ListItemText primary="案件紹介のあるスクールを探す" />
             </ListItemButton>
           </ListItem>
           <ListItem secondaryAction={<ChevronRightIcon />} disablePadding>
-            <ListItemButton href="/search/isAvailableSubsidy/">
+            <ListItemButton
+              LinkComponent={Link}
+              href="/search/isAvailableSubsidy/"
+            >
               <ListItemText primary="補助金を使えるスクールを探す" />
             </ListItemButton>
           </ListItem>
           <ListItem secondaryAction={<ChevronRightIcon />} disablePadding>
-            <ListItemButton href="/search/isMadeToOrder/">
+            <ListItemButton LinkComponent={Link} href="/search/isMadeToOrder/">
               <ListItemText primary="オーダーメイドカリキュラムのスクールを探す" />
             </ListItemButton>
           </ListItem>

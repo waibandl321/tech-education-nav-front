@@ -112,10 +112,12 @@ export default function SearchType({
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
-          />
+          <Box sx={{ px: 2 }}>
+            <SearchSubHeader
+              breadcrumbs={breadcrumbs}
+              title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
+            />
+          </Box>
           <PCSearchPane
             centers={centers}
             courses={courses}

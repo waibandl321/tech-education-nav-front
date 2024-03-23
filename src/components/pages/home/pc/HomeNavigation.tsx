@@ -10,6 +10,7 @@ import SecurityIcon from "@mui/icons-material/Security";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import Link from "next/link";
 
 export default function HomeNavigation() {
   return (
@@ -19,6 +20,7 @@ export default function HomeNavigation() {
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/programmingLanguages"
+            LinkComponent={Link}
           >
             <CodeIcon fontSize="large" />
             <Typography fontSize={18}>プログラミング言語から探す</Typography>
@@ -26,6 +28,7 @@ export default function HomeNavigation() {
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/developmentTools"
+            LinkComponent={Link}
           >
             <BuildIcon fontSize="large" />
             <Typography fontSize={18}>ツールから探す</Typography>
@@ -33,6 +36,7 @@ export default function HomeNavigation() {
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="/search/developmentCategories"
+            LinkComponent={Link}
           >
             <DeveloperModeIcon fontSize="large" />
             <Typography fontSize={18}>開発分野から探す</Typography>
@@ -40,6 +44,7 @@ export default function HomeNavigation() {
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
             href="search/developmentProducts"
+            LinkComponent={Link}
           >
             <LightbulbIcon fontSize="large" />
             <Typography fontSize={18}>作りたいサービスから探す</Typography>
@@ -48,6 +53,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained" sx={{ boxShadow: "none" }}>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
+            LinkComponent={Link}
             href="/search/qualifications"
           >
             <SchoolIcon fontSize="large" />
@@ -55,6 +61,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
+            LinkComponent={Link}
             href="/search/jobTypes"
           >
             <WorkIcon fontSize="large" />
@@ -62,6 +69,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
+            LinkComponent={Link}
             href="/search/purposes"
           >
             <AssignmentIcon fontSize="large" />
@@ -82,6 +90,7 @@ export default function HomeNavigation() {
             variant="outlined"
             size="large"
             sx={{ display: "flex", mx: 1, py: 2, borderRadius: 1 }}
+            LinkComponent={Link}
             href="/search/isAvailableMoneyBack/"
             startIcon={<MoneyOffIcon />}
           >
@@ -91,6 +100,7 @@ export default function HomeNavigation() {
             variant="outlined"
             size="large"
             sx={{ display: "flex", mx: 1, py: 2, borderRadius: 1 }}
+            LinkComponent={Link}
             href="/search/isJobHuntingGuarantee/"
             startIcon={<SecurityIcon />}
           >
@@ -100,6 +110,7 @@ export default function HomeNavigation() {
             variant="outlined"
             size="large"
             sx={{ display: "flex", mx: 1, py: 2, borderRadius: 1 }}
+            LinkComponent={Link}
             href="/search/isJobIntroductionAvailable/"
             startIcon={<AssignmentTurnedInIcon />}
           >
@@ -113,6 +124,7 @@ export default function HomeNavigation() {
         >
           <Button
             sx={{ display: "flex", mx: 1, py: 2, borderRadius: 1 }}
+            LinkComponent={Link}
             href="/search/isAvailableSubsidy/"
             variant="outlined"
             size="large"
@@ -122,6 +134,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "flex", mx: 1, py: 2, borderRadius: 1 }}
+            LinkComponent={Link}
             href="/search/isMadeToOrder/"
             variant="outlined"
             size="large"
