@@ -71,7 +71,7 @@ export default function QualificationResults({
     <Link key="1" color="primary" href="/">
       TOP
     </Link>,
-    <Link key="2" color="primary" href="/search/qualification">
+    <Link key="2" color="primary" href="/search/qualifications">
       資格を選択
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>

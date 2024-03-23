@@ -32,7 +32,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
-            href="/search/development-category"
+            href="/search/developmentCategories"
           >
             <DeveloperModeIcon fontSize="large" />
             <Typography fontSize={18}>開発分野から探す</Typography>
@@ -48,7 +48,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained" sx={{ boxShadow: "none" }}>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
-            href="/search/qualification"
+            href="/search/qualifications"
           >
             <SchoolIcon fontSize="large" />
             <Typography fontSize={18}>取得したい資格から探す</Typography>

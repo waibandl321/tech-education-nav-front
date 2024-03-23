@@ -71,7 +71,7 @@ export default function DevelopmentCategoryResults({
     <Link key="1" color="primary" href="/">
       TOP
     </Link>,
-    <Link key="2" color="primary" href="/search/development-category">
+    <Link key="2" color="primary" href="/search/developmentCategories">
       開発分野を選択
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>

@@ -40,7 +40,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
-            href="/search/development-category"
+            href="/search/developmentCategories"
           >
             <DeveloperModeIcon fontSize="large" />
             <Typography>開発分野から探す</Typography>
@@ -56,7 +56,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
-            href="/search/qualification"
+            href="/search/qualifications"
           >
             <SchoolIcon fontSize="large" />
             <Typography>取得したい資格から探す</Typography>
