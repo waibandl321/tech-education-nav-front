@@ -22,7 +22,6 @@ interface SearchSelectProps<T extends Item> {
   items: Array<T>;
   title: string;
   selectionTypeParam: string;
-  selectionTypeKey: string;
   breadcrumbText: string;
 }
 
@@ -30,7 +29,6 @@ export default function SearchSelect<T extends Item>({
   items,
   title,
   selectionTypeParam,
-  selectionTypeKey,
   breadcrumbText,
 }: SearchSelectProps<T>) {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -46,10 +44,10 @@ export default function SearchSelect<T extends Item>({
   };
 
   const queryString = useMemo(() => {
-    return `${selectionTypeKey}=${encodeURIComponent(
+    return `${selectionTypeParam}=${encodeURIComponent(
       JSON.stringify(selectedItems)
     )}`;
-  }, [selectedItems, selectionTypeKey]);
+  }, [selectedItems, selectionTypeParam]);
 
   useEffect(() => {
     setIsSelected(selectedItems.length > 0);

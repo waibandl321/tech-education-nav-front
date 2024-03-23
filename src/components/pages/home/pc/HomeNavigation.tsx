@@ -18,14 +18,14 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained" sx={{ boxShadow: "none" }}>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
-            href="/search/language"
+            href="/search/programmingLanguages"
           >
             <CodeIcon fontSize="large" />
             <Typography fontSize={18}>プログラミング言語から探す</Typography>
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
-            href="/search/development-tool"
+            href="/search/developmentTools"
           >
             <BuildIcon fontSize="large" />
             <Typography fontSize={18}>ツールから探す</Typography>
@@ -39,7 +39,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
-            href="search/development-product"
+            href="search/developmentProducts"
           >
             <LightbulbIcon fontSize="large" />
             <Typography fontSize={18}>作りたいサービスから探す</Typography>
@@ -55,14 +55,14 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
-            href="/search/job-type"
+            href="/search/jobTypes"
           >
             <WorkIcon fontSize="large" />
             <Typography fontSize={18}>なりたい職種から探す</Typography>
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center", py: 3, m: 1 }}
-            href="/search/purpose"
+            href="/search/purposes"
           >
             <AssignmentIcon fontSize="large" />
             <Typography fontSize={18}>受講目的から探す</Typography>

@@ -73,7 +73,7 @@ export default function PurposeResults({
     <Link key="1" color="primary" href="/">
       TOP
     </Link>,
-    <Link key="2" color="primary" href="/search/purpose">
+    <Link key="2" color="primary" href="/search/purposes">
       受講目的を選択
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>

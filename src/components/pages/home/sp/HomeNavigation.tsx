@@ -24,14 +24,14 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
-            href="/search/language"
+            href="/search/programmingLanguages"
           >
             <CodeIcon fontSize="large" />
             <Typography>プログラミング言語から探す</Typography>
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center" }}
-            href="/search/development-tool"
+            href="/search/developmentTools"
           >
             <BuildIcon fontSize="large" />
             <Typography>ツールから探す</Typography>
@@ -47,7 +47,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center" }}
-            href="search/development-product"
+            href="search/developmentProducts"
           >
             <LightbulbIcon fontSize="large" />
             <Typography>作りたいサービスから探す</Typography>
@@ -63,7 +63,7 @@ export default function HomeNavigation() {
           </Button>
           <Button
             sx={{ display: "block", textAlign: "center" }}
-            href="/search/job-type"
+            href="/search/jobTypes"
           >
             <WorkIcon fontSize="large" />
             <Typography>なりたい職種から探す</Typography>
@@ -72,7 +72,7 @@ export default function HomeNavigation() {
         <ButtonGroup fullWidth variant="contained">
           <Button
             sx={{ display: "block", textAlign: "center" }}
-            href="/search/purpose"
+            href="/search/purposes"
           >
             <AssignmentIcon fontSize="large" />
             <Typography>受講目的から探す</Typography>

@@ -26,7 +26,7 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
-export default function LanguageResults({
+export default function DevelopmentToolResults({
   viewport,
   centers,
   courses,
@@ -58,11 +58,11 @@ export default function LanguageResults({
   const isMobile = viewport === "mobile";
   // url query
   const searchParams = useSearchParams();
-  const languagesSearchParams = searchParams?.get("programmingLanguages");
+  const toolsSearchParams = searchParams?.get("developmentTools");
 
-  // フィルタ対象の言語名一覧
-  const filteredLanguageNames = languages
-    .filter((item) => languagesSearchParams?.includes(item.id))
+  // フィルタ対象の開発ツール名一覧
+  const filteredDevelopmentTools = developmentTools
+    .filter((item) => toolsSearchParams?.includes(item.id))
     .map((item) => item.name)
     .join("、");
 
@@ -71,8 +71,8 @@ export default function LanguageResults({
     <Link key="1" color="primary" href="/">
       TOP
     </Link>,
-    <Link key="2" color="primary" href="/search/language">
-      プログラミング言語を選択
+    <Link key="2" color="primary" href="/search/developmentTools">
+      開発ツールを選択
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>
       検索結果
@@ -83,12 +83,12 @@ export default function LanguageResults({
     <>
       <Head>
         <title>
-          {`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
+          {`${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
         </title>
         <meta
           name="description"
           content="
-        ${filteredLanguageNames}を学べるプログラミングスクールのコース一覧を紹介します。
+        ${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧を紹介します。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
         "
@@ -100,7 +100,7 @@ export default function LanguageResults({
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
+            title={`${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧`}
           />
           <SPSearchPane
             centers={centers}
@@ -121,7 +121,7 @@ export default function LanguageResults({
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
+            title={`${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧`}
           />
           <PCSearchPane
             centers={centers}
@@ -146,15 +146,15 @@ export default function LanguageResults({
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   const result = await fetchSearchPageData();
-  // フィルタされた言語をcourses配列から検索
+  // フィルタされた開発ツールをcourses配列から検索
   const courses = result.courses.filter(
     (course) =>
-      course.programmingLanguages &&
-      course.programmingLanguages.some(
-        (language) =>
-          language &&
-          context.query.programmingLanguages &&
-          context.query.programmingLanguages.includes(language)
+      course.developmentTools &&
+      course.developmentTools.some(
+        (tool) =>
+          tool &&
+          context.query.developmentTools &&
+          context.query.developmentTools.includes(tool)
       )
   );
 

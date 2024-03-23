@@ -40,8 +40,7 @@ export default function DevelomentProduct({
             items={developmentProducts}
             breadcrumbText="サービスを選択"
             title="作りたいサービスからスクールを探す"
-            selectionTypeParam="development-product"
-            selectionTypeKey="developmentProducts"
+            selectionTypeParam="developmentProducts"
           />
         </SPLayout>
       ) : (
@@ -51,8 +50,7 @@ export default function DevelomentProduct({
               items={developmentProducts}
               breadcrumbText="サービスを選択"
               title="作りたいサービスからスクールを探す"
-              selectionTypeParam="development-product"
-              selectionTypeKey="developmentProducts"
+              selectionTypeParam="developmentProducts"
             />
           </Container>
         </Layout>

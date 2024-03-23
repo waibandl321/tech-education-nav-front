@@ -32,8 +32,7 @@ export default function Purpose({ viewport }: { viewport: DeviceType }) {
             items={PurposeOptions}
             breadcrumbText="受講目的を選択"
             title="受講目的からスクールを探す"
-            selectionTypeKey="purposes"
-            selectionTypeParam="purpose"
+            selectionTypeParam="purposes"
           />
         </SPLayout>
       ) : (
@@ -43,8 +42,7 @@ export default function Purpose({ viewport }: { viewport: DeviceType }) {
               items={PurposeOptions}
               breadcrumbText="受講目的を選択"
               title="受講目的からスクールを探す"
-              selectionTypeKey="purposes"
-              selectionTypeParam="purpose"
+              selectionTypeParam="purposes"
             />
           </Container>
         </Layout>

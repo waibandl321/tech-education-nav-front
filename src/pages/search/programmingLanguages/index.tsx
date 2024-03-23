@@ -1,20 +1,20 @@
 import React from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { fetchQualifications } from "@/hooks/server/fetchData";
-import { Qualification } from "@/API";
+import { fetchLanguages } from "@/hooks/server/fetchData";
+import { ProgrammingLanguage } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
-export default function Qualification({
+export default function Language({
   viewport,
-  qualifications,
+  languages,
 }: {
   viewport: DeviceType;
-  qualifications: Array<Qualification>;
+  languages: Array<ProgrammingLanguage>;
 }) {
   const isMobile = viewport === "mobile";
 
@@ -22,11 +22,12 @@ export default function Qualification({
     <>
       <Head>
         <title>
-          資格一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
+          プログラミング言語一覧【テック教育ナビ】プログラミングスクールの情報サイト
+          |{" "}
         </title>
         <meta
           name="description"
-          content="資格一覧、プログラミングスクールを言語から探す。
+          content="プログラミング言語一覧、プログラミングスクールを言語から探す。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。"
         />
@@ -36,22 +37,20 @@ export default function Qualification({
       {isMobile ? (
         <SPLayout>
           <SearchSelect
-            items={qualifications}
-            selectionTypeParam="qualification"
-            selectionTypeKey="qualifications"
-            title="取得したい資格からスクールを探す"
-            breadcrumbText="資格を選択"
+            items={languages}
+            selectionTypeParam="programmingLanguages"
+            title="学びたいプログラミング言語からスクールを探す"
+            breadcrumbText="プログラミング言語を選択"
           />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
             <SearchSelect
-              items={qualifications}
-              selectionTypeParam="qualification"
-              selectionTypeKey="qualifications"
-              title="取得したい資格からスクールを探す"
-              breadcrumbText="資格を選択"
+              items={languages}
+              selectionTypeParam="programmingLanguages"
+              title="学びたいプログラミング言語からスクールを探す"
+              breadcrumbText="プログラミング言語を選択"
             />
           </Container>
         </Layout>
@@ -62,10 +61,10 @@ export default function Qualification({
 
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async () => {
-  const result = await fetchQualifications();
+  const result = await fetchLanguages();
   return {
     props: {
-      qualifications: result.qualifications,
+      languages: result.languages,
     },
   };
 });

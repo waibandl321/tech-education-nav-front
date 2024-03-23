@@ -71,7 +71,7 @@ export default function DevelopmentProductResults({
     <Link key="1" color="primary" href="/">
       TOP
     </Link>,
-    <Link key="2" color="primary" href="/search/development-product">
+    <Link key="2" color="primary" href="/search/developmentProducts">
       サービスを選択
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>

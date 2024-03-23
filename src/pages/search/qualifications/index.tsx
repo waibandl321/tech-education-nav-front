@@ -1,20 +1,20 @@
 import React from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { fetchDevelopmentCategories } from "@/hooks/server/fetchData";
-import { DevelopmentCategory } from "@/API";
+import { fetchQualifications } from "@/hooks/server/fetchData";
+import { Qualification } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
-export default function DevelomentCategory({
+export default function Qualification({
   viewport,
-  developmentCategories,
+  qualifications,
 }: {
   viewport: DeviceType;
-  developmentCategories: Array<DevelopmentCategory>;
+  qualifications: Array<Qualification>;
 }) {
   const isMobile = viewport === "mobile";
 
@@ -22,11 +22,11 @@ export default function DevelomentCategory({
     <>
       <Head>
         <title>
-          開発分野一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
+          資格一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
         </title>
         <meta
           name="description"
-          content="開発分野一覧、プログラミングスクールを言語から探す。
+          content="資格一覧、プログラミングスクールを言語から探す。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。"
         />
@@ -36,22 +36,20 @@ export default function DevelomentCategory({
       {isMobile ? (
         <SPLayout>
           <SearchSelect
-            items={developmentCategories}
-            selectionTypeKey="developmentCategories"
-            selectionTypeParam="development-category"
-            breadcrumbText="開発分野を選択"
-            title="関わりたい開発分野からスクールを探す"
+            items={qualifications}
+            selectionTypeParam="qualifications"
+            title="取得したい資格からスクールを探す"
+            breadcrumbText="資格を選択"
           />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
             <SearchSelect
-              items={developmentCategories}
-              selectionTypeKey="developmentCategories"
-              selectionTypeParam="development-category"
-              breadcrumbText="開発分野を選択"
-              title="関わりたい開発分野からスクールを探す"
+              items={qualifications}
+              selectionTypeParam="qualifications"
+              title="取得したい資格からスクールを探す"
+              breadcrumbText="資格を選択"
             />
           </Container>
         </Layout>
@@ -62,10 +60,10 @@ export default function DevelomentCategory({
 
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async () => {
-  const result = await fetchDevelopmentCategories();
+  const result = await fetchQualifications();
   return {
     props: {
-      developmentCategories: result.developmentCategories,
+      qualifications: result.qualifications,
     },
   };
 });

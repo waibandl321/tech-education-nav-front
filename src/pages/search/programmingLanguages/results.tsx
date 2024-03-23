@@ -1,6 +1,6 @@
 import React from "react";
-import SPLayout from "@/app/sp-layout";
 import Layout from "@/app/layout";
+import SPLayout from "@/app/sp-layout";
 import Head from "next/head";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import {
@@ -26,7 +26,7 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
-export default function JobTypeResults({
+export default function LanguageResults({
   viewport,
   centers,
   courses,
@@ -58,11 +58,11 @@ export default function JobTypeResults({
   const isMobile = viewport === "mobile";
   // url query
   const searchParams = useSearchParams();
-  const jobTypesSearchParams = searchParams?.get("jobTypes");
+  const languagesSearchParams = searchParams?.get("programmingLanguages");
 
-  // フィルタ対象の職種名一覧
-  const filteredJobTypeNames = jobTypes
-    .filter((item) => jobTypesSearchParams?.includes(item.id))
+  // フィルタ対象の言語名一覧
+  const filteredLanguageNames = languages
+    .filter((item) => languagesSearchParams?.includes(item.id))
     .map((item) => item.name)
     .join("、");
 
@@ -71,8 +71,8 @@ export default function JobTypeResults({
     <Link key="1" color="primary" href="/">
       TOP
     </Link>,
-    <Link key="2" color="primary" href="/search/job-type">
-      職種を選択
+    <Link key="2" color="primary" href="/search/programmingLanguages">
+      プログラミング言語を選択
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>
       検索結果
@@ -83,14 +83,15 @@ export default function JobTypeResults({
     <>
       <Head>
         <title>
-          {`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+          {`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
         </title>
         <meta
           name="description"
-          content={`${filteredJobTypeNames}を目指す人におすすめのプログラミングスクールのコース一覧を紹介します。
-            テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
-            職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
-            `}
+          content="
+        ${filteredLanguageNames}を学べるプログラミングスクールのコース一覧を紹介します。
+        テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
+        職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
+        "
         />
         {/* その他のメタタグ */}
       </Head>
@@ -99,7 +100,7 @@ export default function JobTypeResults({
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
           />
           <SPSearchPane
             centers={centers}
@@ -120,7 +121,7 @@ export default function JobTypeResults({
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
           />
           <PCSearchPane
             centers={centers}
@@ -145,12 +146,15 @@ export default function JobTypeResults({
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   const result = await fetchSearchPageData();
-  // フィルタされた職種をcourses配列から検索
+  // フィルタされた言語をcourses配列から検索
   const courses = result.courses.filter(
     (course) =>
-      course.jobTypes &&
-      course.jobTypes.some(
-        (q) => q && context.query.jobTypes && context.query.jobTypes.includes(q)
+      course.programmingLanguages &&
+      course.programmingLanguages.some(
+        (language) =>
+          language &&
+          context.query.programmingLanguages &&
+          context.query.programmingLanguages.includes(language)
       )
   );
 

@@ -1,20 +1,20 @@
 import React from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { fetchDevelopmentTools } from "@/hooks/server/fetchData";
-import { DevelopmentTool } from "@/API";
+import { fetchDevelopmentCategories } from "@/hooks/server/fetchData";
+import { DevelopmentCategory } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
-export default function DevelopmentTool({
+export default function DevelomentCategory({
   viewport,
-  developmentTools,
+  developmentCategories,
 }: {
   viewport: DeviceType;
-  developmentTools: Array<DevelopmentTool>;
+  developmentCategories: Array<DevelopmentCategory>;
 }) {
   const isMobile = viewport === "mobile";
 
@@ -22,11 +22,11 @@ export default function DevelopmentTool({
     <>
       <Head>
         <title>
-          開発ツール一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
+          開発分野一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
         </title>
         <meta
           name="description"
-          content="開発ツール一覧、プログラミングスクールを言語から探す。
+          content="開発分野一覧、プログラミングスクールを言語から探す。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。"
         />
@@ -36,22 +36,20 @@ export default function DevelopmentTool({
       {isMobile ? (
         <SPLayout>
           <SearchSelect
-            items={developmentTools}
-            breadcrumbText="開発ツールを選択"
-            title="学びたい開発ツールからスクールを探す"
-            selectionTypeParam="development-tool"
-            selectionTypeKey="developmentTools"
+            items={developmentCategories}
+            selectionTypeParam="developmentCategories"
+            breadcrumbText="開発分野を選択"
+            title="関わりたい開発分野からスクールを探す"
           />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
             <SearchSelect
-              items={developmentTools}
-              breadcrumbText="開発ツールを選択"
-              title="学びたい開発ツールからスクールを探す"
-              selectionTypeParam="development-tool"
-              selectionTypeKey="developmentTools"
+              items={developmentCategories}
+              selectionTypeParam="developmentCategories"
+              breadcrumbText="開発分野を選択"
+              title="関わりたい開発分野からスクールを探す"
             />
           </Container>
         </Layout>
@@ -62,10 +60,10 @@ export default function DevelopmentTool({
 
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async () => {
-  const result = await fetchDevelopmentTools();
+  const result = await fetchDevelopmentCategories();
   return {
     props: {
-      developmentTools: result.developmentTools,
+      developmentCategories: result.developmentCategories,
     },
   };
 });
