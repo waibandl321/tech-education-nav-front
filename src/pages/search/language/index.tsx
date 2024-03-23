@@ -6,7 +6,7 @@ import { ProgrammingLanguage } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import SearchSelect from "@/components/pages/search/language/SearchSelect";
+import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
 export default function Language({
@@ -36,12 +36,24 @@ export default function Language({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSelect languages={languages} />
+          <SearchSelect
+            items={languages}
+            selectionTypeParam="language"
+            selectionTypeKey="programmingLanguages"
+            title="学びたいプログラミング言語からスクールを探す"
+            breadcrumbText="プログラミング言語を選択"
+          />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
-            <SearchSelect languages={languages} />
+            <SearchSelect
+              items={languages}
+              selectionTypeParam="language"
+              selectionTypeKey="programmingLanguages"
+              title="学びたいプログラミング言語からスクールを探す"
+              breadcrumbText="プログラミング言語を選択"
+            />
           </Container>
         </Layout>
       )}

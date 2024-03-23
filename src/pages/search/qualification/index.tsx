@@ -6,7 +6,7 @@ import { Qualification } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import SearchSelect from "@/components/pages/search/qualification/SearchSelect";
+import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
 export default function Qualification({
@@ -35,12 +35,24 @@ export default function Qualification({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSelect qualifications={qualifications} />
+          <SearchSelect
+            items={qualifications}
+            selectionTypeParam="qualification"
+            selectionTypeKey="qualifications"
+            title="取得したい資格からスクールを探す"
+            breadcrumbText="資格を選択"
+          />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
-            <SearchSelect qualifications={qualifications} />
+            <SearchSelect
+              items={qualifications}
+              selectionTypeParam="qualification"
+              selectionTypeKey="qualifications"
+              title="取得したい資格からスクールを探す"
+              breadcrumbText="資格を選択"
+            />
           </Container>
         </Layout>
       )}

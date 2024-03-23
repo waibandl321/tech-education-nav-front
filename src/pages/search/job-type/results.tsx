@@ -83,7 +83,7 @@ export default function JobTypeResults({
     <>
       <Head>
         <title>
-          {`職種:${filteredJobTypeNames}を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+          {`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
         </title>
         <meta
           name="description"
@@ -99,7 +99,7 @@ export default function JobTypeResults({
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`職種:${filteredJobTypeNames}を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+            title={`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
           />
           <SPSearchPane
             centers={centers}
@@ -120,7 +120,7 @@ export default function JobTypeResults({
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`職種:${filteredJobTypeNames}を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+            title={`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
           />
           <PCSearchPane
             centers={centers}

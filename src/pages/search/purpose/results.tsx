@@ -63,9 +63,9 @@ export default function PurposeResults({
 
   // フィルタ対象の受講目的一覧
   const filteredPurposes = PurposeOptions.filter((item) =>
-    purposesSearchParams?.includes(item.value)
+    purposesSearchParams?.includes(item.id)
   )
-    .map((item) => item.label)
+    .map((item) => item.name)
     .join("、");
 
   // パンくず

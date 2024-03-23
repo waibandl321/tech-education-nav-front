@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Qualification } from "@/API";
 import {
   Box,
   Button,
@@ -13,20 +12,33 @@ import {
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
-export default function SearchSelect({
-  qualifications,
-}: {
-  qualifications: Array<Qualification>;
-}) {
-  // 選択値
-  const [selectedQualifications, setSelectedQualifications] = useState<
-    string[]
-  >([]);
+interface Item {
+  id: string;
+  name: string;
+  memo?: string | null;
+}
+
+interface SearchSelectProps<T extends Item> {
+  items: Array<T>;
+  title: string;
+  selectionTypeParam: string;
+  selectionTypeKey: string;
+  breadcrumbText: string;
+}
+
+export default function SearchSelect<T extends Item>({
+  items,
+  title,
+  selectionTypeParam,
+  selectionTypeKey,
+  breadcrumbText,
+}: SearchSelectProps<T>) {
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setSelectedQualifications((currentSelected) =>
+    setSelectedItems((currentSelected) =>
       currentSelected.includes(value)
         ? currentSelected.filter((id) => id !== value)
         : [...currentSelected, value]
@@ -34,22 +46,21 @@ export default function SearchSelect({
   };
 
   const queryString = useMemo(() => {
-    return `qualifications=${encodeURIComponent(
-      JSON.stringify(selectedQualifications)
+    return `${selectionTypeKey}=${encodeURIComponent(
+      JSON.stringify(selectedItems)
     )}`;
-  }, [selectedQualifications]);
+  }, [selectedItems, selectionTypeKey]);
 
   useEffect(() => {
-    setIsSelected(selectedQualifications.length > 0);
-  }, [selectedQualifications]);
+    setIsSelected(selectedItems.length > 0);
+  }, [selectedItems]);
 
-  // パンくず
   const breadcrumbs = [
     <Link key="1" color="primary" href="/">
       TOP
     </Link>,
     <Typography key="2" color="text.primary" fontSize={12}>
-      資格を選択
+      {breadcrumbText}
     </Typography>,
   ];
 
@@ -60,16 +71,16 @@ export default function SearchSelect({
       </Box>
       <Box sx={{ p: 2 }}>
         <Typography borderLeft="5px solid #666" paddingLeft={2}>
-          取得したい資格からスクールを探す
+          {title}
         </Typography>
         <FormGroup sx={{ mt: 2 }}>
-          {qualifications.map((item) => (
+          {items.map((item) => (
             <FormControlLabel
               key={item.id}
               control={
                 <Checkbox
                   value={item.id}
-                  checked={selectedQualifications.includes(item.id)}
+                  checked={selectedItems.includes(item.id)}
                   onChange={handleChange}
                 />
               }
@@ -89,7 +100,7 @@ export default function SearchSelect({
             variant="contained"
             fullWidth
             disabled={!isSelected}
-            href={`/search/qualification/results?${queryString}`}
+            href={`/search/${selectionTypeParam}/results?${queryString}`}
           >
             検索
           </Button>

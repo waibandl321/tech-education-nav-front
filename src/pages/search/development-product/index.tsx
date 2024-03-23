@@ -6,7 +6,7 @@ import { DevelopmentProduct } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import SearchSelect from "@/components/pages/search/development-product/SearchSelect";
+import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
 export default function DevelomentProduct({
@@ -36,12 +36,24 @@ export default function DevelomentProduct({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSelect developmentProducts={developmentProducts} />
+          <SearchSelect
+            items={developmentProducts}
+            breadcrumbText="サービスを選択"
+            title="作りたいサービスからスクールを探す"
+            selectionTypeParam="development-product"
+            selectionTypeKey="developmentProducts"
+          />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
-            <SearchSelect developmentProducts={developmentProducts} />
+            <SearchSelect
+              items={developmentProducts}
+              breadcrumbText="サービスを選択"
+              title="作りたいサービスからスクールを探す"
+              selectionTypeParam="development-product"
+              selectionTypeKey="developmentProducts"
+            />
           </Container>
         </Layout>
       )}

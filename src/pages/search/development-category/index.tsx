@@ -6,7 +6,7 @@ import { DevelopmentCategory } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import SearchSelect from "@/components/pages/search/development-category/SearchSelect";
+import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
 export default function DevelomentCategory({
@@ -35,12 +35,24 @@ export default function DevelomentCategory({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSelect developmentCategories={developmentCategories} />
+          <SearchSelect
+            items={developmentCategories}
+            selectionTypeKey="developmentCategories"
+            selectionTypeParam="development-category"
+            breadcrumbText="開発分野を選択"
+            title="関わりたい開発分野からスクールを探す"
+          />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
-            <SearchSelect developmentCategories={developmentCategories} />
+            <SearchSelect
+              items={developmentCategories}
+              selectionTypeKey="developmentCategories"
+              selectionTypeParam="development-category"
+              breadcrumbText="開発分野を選択"
+              title="関わりたい開発分野からスクールを探す"
+            />
           </Container>
         </Layout>
       )}

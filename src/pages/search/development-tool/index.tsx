@@ -6,7 +6,7 @@ import { DevelopmentTool } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import SearchSelect from "@/components/pages/search/development-tool/SearchSelect";
+import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
 export default function DevelopmentTool({
@@ -35,12 +35,24 @@ export default function DevelopmentTool({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSelect developmentTools={developmentTools} />
+          <SearchSelect
+            items={developmentTools}
+            breadcrumbText="開発ツールを選択"
+            title="学びたい開発ツールからスクールを探す"
+            selectionTypeParam="development-tool"
+            selectionTypeKey="developmentTools"
+          />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
-            <SearchSelect developmentTools={developmentTools} />
+            <SearchSelect
+              items={developmentTools}
+              breadcrumbText="開発ツールを選択"
+              title="学びたい開発ツールからスクールを探す"
+              selectionTypeParam="development-tool"
+              selectionTypeKey="developmentTools"
+            />
           </Container>
         </Layout>
       )}

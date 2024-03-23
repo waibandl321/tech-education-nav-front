@@ -4,8 +4,9 @@ import Head from "next/head";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import SearchSelect from "@/components/pages/search/purpose/SearchSelect";
+import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
+import { PurposeOptions } from "@/const";
 
 export default function Purpose({ viewport }: { viewport: DeviceType }) {
   const isMobile = viewport === "mobile";
@@ -27,12 +28,24 @@ export default function Purpose({ viewport }: { viewport: DeviceType }) {
 
       {isMobile ? (
         <SPLayout>
-          <SearchSelect />
+          <SearchSelect
+            items={PurposeOptions}
+            breadcrumbText="受講目的を選択"
+            title="受講目的からスクールを探す"
+            selectionTypeKey="purposes"
+            selectionTypeParam="purpose"
+          />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
-            <SearchSelect />
+            <SearchSelect
+              items={PurposeOptions}
+              breadcrumbText="受講目的を選択"
+              title="受講目的からスクールを探す"
+              selectionTypeKey="purposes"
+              selectionTypeParam="purpose"
+            />
           </Container>
         </Layout>
       )}

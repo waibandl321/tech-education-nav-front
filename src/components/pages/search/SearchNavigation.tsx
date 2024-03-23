@@ -180,11 +180,11 @@ export default function SearchNavigation({
         </Box>
         <Box>
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {Object.entries(AttendanceTypeLabels).map(([key, item]) => (
+            {AttendanceTypeLabels.map((item) => (
               <FormControlLabel
-                key={key}
-                control={<Checkbox name="attendanceType" value={item.value} />}
-                label={item.label}
+                key={item.id}
+                control={<Checkbox name="attendanceType" value={item.id} />}
+                label={item.name}
               />
             ))}
           </FormGroup>
@@ -200,9 +200,9 @@ export default function SearchNavigation({
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
             {PurposeOptions.map((purpose) => (
               <FormControlLabel
-                key={purpose.value}
-                control={<Checkbox name="purposes" value={purpose.value} />}
-                label={purpose.label}
+                key={purpose.id}
+                control={<Checkbox name="purposes" value={purpose.id} />}
+                label={purpose.name}
               />
             ))}
           </FormGroup>

@@ -6,7 +6,7 @@ import { Qualification } from "@/API";
 import SPLayout from "@/app/sp-layout";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import SearchSelect from "@/components/pages/search/job-type/SearchSelect";
+import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
 export default function JobType({
@@ -35,12 +35,24 @@ export default function JobType({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSelect jobTypes={jobTypes} />
+          <SearchSelect
+            items={jobTypes}
+            breadcrumbText="なりたい職種を選択"
+            title="なりたい職種からスクールを探す"
+            selectionTypeParam="job-type"
+            selectionTypeKey="jobTypes"
+          />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
-            <SearchSelect jobTypes={jobTypes} />
+            <SearchSelect
+              items={jobTypes}
+              breadcrumbText="なりたい職種を選択"
+              title="なりたい職種からスクールを探す"
+              selectionTypeParam="job-type"
+              selectionTypeKey="jobTypes"
+            />
           </Container>
         </Layout>
       )}

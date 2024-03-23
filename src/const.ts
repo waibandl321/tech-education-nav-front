@@ -6,20 +6,20 @@ import { ChipOwnProps } from "@mui/material";
 import { LearningCenterCourse } from "./API";
 
 // 受講スタイル
-export const AttendanceTypeLabels = {
-  online: { value: "ONLINE", label: "オンライン" },
-  offline: { value: "OFFLINE", label: "オフライン" },
-  hybrid: { value: "HYBRID", label: "どちらでも可" },
-};
+export const AttendanceTypeLabels = [
+  { id: "ONLINE", name: "オンライン" },
+  { id: "OFFLINE", name: "オフライン" },
+  { id: "HYBRID", name: "どちらでも可" },
+];
 
 // 受講目的 オプション
 export const PurposeOptions = [
-  { value: "JOB", label: "就職/転職" },
-  { value: "FREELANCE", label: "フリーランス" },
-  { value: "ENTREPRENEURSHIP", label: "起業" },
-  { value: "SIDE_JOB", label: "副業" },
-  { value: "CERTIFICATION", label: "資格取得" },
-  { value: "LEARNING", label: "学習/スキルアップ" },
+  { id: "JOB", name: "就職/転職" },
+  { id: "FREELANCE", name: "フリーランス" },
+  { id: "ENTREPRENEURSHIP", name: "起業" },
+  { id: "SIDE_JOB", name: "副業" },
+  { id: "CERTIFICATION", name: "資格取得" },
+  { id: "LEARNING", name: "学習/スキルアップ" },
 ];
 
 // 金額の選択肢を生成（5万円刻みで100万円まで）
