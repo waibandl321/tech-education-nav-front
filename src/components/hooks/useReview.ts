@@ -1,12 +1,13 @@
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 const steps = ["プロフィール", "受講情報", "投稿", "確認"];
 export const initReviewFormData = {
   reviewTitle: "",
   reviewDetail: "",
   rating: 0,
-  courseStartMonth: null as null | dayjs.Dayjs,
-  courseEndMonth: null as null | dayjs.Dayjs,
+  // courseStartMonth: null as null | dayjs.Dayjs,
+  // courseEndMonth: null as null | dayjs.Dayjs,
+  studyLengthMonths: 0,
   isPublished: false,
   isDeleted: false,
 };

@@ -24,7 +24,7 @@ export default function useSearch() {
     // 共に選択されている場合は検索処理を実行する
     if (selectedCenter && selectedCourse) {
       if (!selectedCenter?.id || !selectedCourse?.id) return;
-      router.push(`/search/${selectedCenter.id}/${selectedCourse.id}`);
+      router.push(`/reviews/${selectedCenter.id}/${selectedCourse.id}`);
     }
   };
 

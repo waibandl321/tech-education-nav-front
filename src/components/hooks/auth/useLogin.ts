@@ -30,7 +30,7 @@ const useLogin = () => {
       email: signInDetails?.loginId,
     });
 
-    await router.replace(redirectPath);
+    window.location.href = redirectPath;
     setAlertMessage({
       type: "success",
       message: alertMessage,

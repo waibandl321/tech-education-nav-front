@@ -128,12 +128,11 @@ export default function ReviewPostPane({
             スクールを受講して得られた結果
           </Typography>
           <Typography variant="body2" sx={{ my: 1 }}>
-            例:「受講開始から3ヶ月でエンジニア転職成功」「受講期間中にフリーランスを案件して20万円稼いだ」など
+            例:「受講開始から3ヶ月でエンジニア転職成功」「受講期間中に案件を獲得して20万円稼いだ」など
           </Typography>
           <TextField
             margin="normal"
             fullWidth
-            placeholder="最も伝えたいことを一言で！"
             required
             autoComplete="off"
             sx={{ background: "#fff" }}
@@ -145,6 +144,8 @@ export default function ReviewPostPane({
           <Typography fontWeight={700}>口コミの詳細</Typography>
           <Typography variant="body2" sx={{ my: 1 }}>
             スクールの良かった点/悪かった点は何ですか？
+            <br />
+            また、これから受講する後輩に向けてメッセージをお願いします。
           </Typography>
           <TextField
             margin="normal"

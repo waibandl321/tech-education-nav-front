@@ -10,6 +10,8 @@ import {
   Typography,
   useMediaQuery,
   Container,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
@@ -19,8 +21,8 @@ import { CentersAndCoursesPropType } from "@/types/CommonType";
 import FormButtons from "@/components/common/parts/FormButtons";
 import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
 import { useSearchParams } from "next/navigation";
-import DateRangePicker from "@/components/common/parts/DateRangePicker";
-import dayjs from "dayjs";
+// import DateRangePicker from "@/components/common/parts/DateRangePicker";
+// import dayjs from "dayjs";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";
 
@@ -83,18 +85,9 @@ export default function ReviewRegisterSelectPane({
   const isSubmitDisabled = useMemo(() => {
     return (
       !(selectedCenter && selectedCourse) ||
-      !(reviewFormData.courseStartMonth && reviewFormData.courseEndMonth) ||
-      !(
-        dayjs(reviewFormData.courseStartMonth).isValid() &&
-        dayjs(reviewFormData.courseEndMonth).isValid()
-      )
+      !(reviewFormData.studyLengthMonths !== 0)
     );
-  }, [
-    selectedCenter,
-    selectedCourse,
-    reviewFormData.courseStartMonth,
-    reviewFormData.courseEndMonth,
-  ]);
+  }, [selectedCenter, selectedCourse, reviewFormData.studyLengthMonths]);
 
   // 投稿画面に遷移
   const handleSubmit = () => {
@@ -109,10 +102,18 @@ export default function ReviewRegisterSelectPane({
   };
 
   // 受講期間を反映
-  const handleChangeTerm = (value: dayjs.Dayjs | null, key: string) => {
-    setReviewFormData((prevReview) => ({
-      ...prevReview,
-      [key]: value,
+  // const handleChangeTerm = (value: dayjs.Dayjs | null, key: string) => {
+  //   setReviewFormData((prevReview) => ({
+  //     ...prevReview,
+  //     [key]: value,
+  //   }));
+  // };
+  const handlerFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+    const { name, value } = target;
+    setReviewFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
@@ -156,14 +157,26 @@ export default function ReviewRegisterSelectPane({
           <Typography fontWeight={700} marginBottom={2}>
             受講期間
           </Typography>
-          <DateRangePicker
+          <TextField
+            label="単位（ヶ月）"
+            type="number"
+            name="studyLengthMonths"
+            value={reviewFormData.studyLengthMonths}
+            onChange={handlerFormChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">ヶ月</InputAdornment>
+              ),
+            }}
+          />
+          {/* <DateRangePicker
             startDate={reviewFormData?.courseStartMonth}
             endDate={reviewFormData?.courseEndMonth}
             nameStart="courseStartMonth"
             nameEnd="courseEndMonth"
             pickerType={["year", "month"]}
             handlerChange={(dateValue, key) => handleChangeTerm(dateValue, key)}
-          />
+          /> */}
           <Divider sx={{ my: 3 }}></Divider>
           <Box maxWidth={600} sx={{ mx: "auto", mt: 4 }}>
             <FormButtons

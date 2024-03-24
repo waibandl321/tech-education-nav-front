@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 
-const initProfile = {
+export const initProfile = {
   displayId: "",
   gender: "",
   prefecture: "",

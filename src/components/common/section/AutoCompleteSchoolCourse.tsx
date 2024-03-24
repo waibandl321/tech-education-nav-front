@@ -47,7 +47,7 @@ export default function AutoCompleteSchoolCourse({
           renderInput={(params) => (
             <TextField
               {...params}
-              placeholder="受講したスクールを選択してください"
+              placeholder="スクールを選択してください"
               InputProps={{
                 ...params.InputProps,
                 startAdornment: (
@@ -79,7 +79,7 @@ export default function AutoCompleteSchoolCourse({
             <TextField
               sx={{ backgroundColor: "#fff" }}
               {...params}
-              placeholder="受講したコースを選択してください"
+              placeholder="コースを選択してください"
               InputProps={{
                 ...params.InputProps,
                 startAdornment: (

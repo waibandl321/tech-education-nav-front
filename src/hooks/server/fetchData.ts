@@ -5,6 +5,16 @@ import {
   listCourseReviews,
   listLearningCenterCourses,
   listLearningCenters,
+  listCreditCards,
+  listDevelopmentTools,
+  listFrameworks,
+  listJobTypes,
+  listPaymentMethods,
+  listProgrammingLanguages,
+  listDevelopmentCategories,
+  listDevelopmentProducts,
+  listQualifications,
+  listBenefitUserCategories,
 } from "@/graphql/queries";
 
 const client = generateClient();
@@ -96,6 +106,213 @@ export const fetchCourseReviews = async (
   } catch (error) {
     return {
       reviews: [],
+    };
+  }
+};
+
+/**
+ * 検索画面で必要なデータを取得
+ */
+export const fetchSearchPageData = async () => {
+  try {
+    const [
+      learningCentersResult,
+      learningCenterCoursesResult,
+      languagesResult,
+      frameworksResult,
+      developmentToolResult,
+      getJobTypesResult,
+      getPaymentMethodsResult,
+      getCreditCardsResult,
+      getDevelopmentCategories,
+      getDevelopmentProducts,
+      getQualifications,
+      getBenefitUserCategories,
+    ] = await Promise.all([
+      client.graphql({
+        query: listLearningCenters,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listLearningCenterCourses,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listProgrammingLanguages,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listFrameworks,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listDevelopmentTools,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listJobTypes,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listPaymentMethods,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listCreditCards,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listDevelopmentCategories,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listDevelopmentProducts,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listQualifications,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listBenefitUserCategories,
+        authMode: "apiKey",
+      }),
+    ]);
+    return {
+      centers: learningCentersResult.data.listLearningCenters.items,
+      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
+      languages: languagesResult.data.listProgrammingLanguages.items,
+      frameworks: frameworksResult.data.listFrameworks.items,
+      developmentTools: developmentToolResult.data.listDevelopmentTools.items,
+      jobTypes: getJobTypesResult.data.listJobTypes.items,
+      paymentMethods: getPaymentMethodsResult.data.listPaymentMethods.items,
+      creditCards: getCreditCardsResult.data.listCreditCards.items,
+      developmentCategories:
+        getDevelopmentCategories.data.listDevelopmentCategories.items,
+      developmentProducts:
+        getDevelopmentProducts.data.listDevelopmentProducts.items,
+      qualifications: getQualifications.data.listQualifications.items,
+      benefitUserCategories:
+        getBenefitUserCategories.data.listBenefitUserCategories.items,
+    };
+  } catch (error) {
+    console.error("Error fetchSearchPageData:", error);
+    return {
+      centers: [],
+      courses: [],
+      languages: [],
+      frameworks: [],
+      developmentTools: [],
+      jobTypes: [],
+      paymentMethods: [],
+      creditCards: [],
+      developmentCategories: [],
+      developmentProducts: [],
+      qualifications: [],
+      benefitUserCategories: [],
+    };
+  }
+};
+
+// プログラミング言語一覧を取得する
+export const fetchLanguages = async () => {
+  try {
+    const result = await client.graphql({
+      query: listProgrammingLanguages,
+      authMode: "apiKey",
+    });
+    return {
+      languages: result.data.listProgrammingLanguages.items,
+    };
+  } catch (error) {
+    console.error("Error fetchLanguages:", error);
+    return {
+      languages: [],
+    };
+  }
+};
+// 資格一覧を取得する
+export const fetchQualifications = async () => {
+  try {
+    const result = await client.graphql({
+      query: listQualifications,
+      authMode: "apiKey",
+    });
+    return {
+      qualifications: result.data.listQualifications.items,
+    };
+  } catch (error) {
+    console.error("Error fetchQualifications:", error);
+    return {
+      qualifications: [],
+    };
+  }
+};
+// 職種一覧を取得する
+export const fetchJobTypes = async () => {
+  try {
+    const result = await client.graphql({
+      query: listJobTypes,
+      authMode: "apiKey",
+    });
+    return {
+      jobTypes: result.data.listJobTypes.items,
+    };
+  } catch (error) {
+    console.error("Error fetchJobTypes:", error);
+    return {
+      jobTypes: [],
+    };
+  }
+};
+// 開発ツール一覧を取得する
+export const fetchDevelopmentTools = async () => {
+  try {
+    const result = await client.graphql({
+      query: listDevelopmentTools,
+      authMode: "apiKey",
+    });
+    return {
+      developmentTools: result.data.listDevelopmentTools.items,
+    };
+  } catch (error) {
+    console.error("Error fetchDevelopmentTools:", error);
+    return {
+      developmentTools: [],
+    };
+  }
+};
+// 開発できるサービス一覧を取得する
+export const fetchDevelopmentProducts = async () => {
+  try {
+    const result = await client.graphql({
+      query: listDevelopmentProducts,
+      authMode: "apiKey",
+    });
+    return {
+      developmentProducts: result.data.listDevelopmentProducts.items,
+    };
+  } catch (error) {
+    console.error("Error fetchDevelopmentProducts:", error);
+    return {
+      developmentProducts: [],
+    };
+  }
+};
+// 開発分野一覧を取得する
+export const fetchDevelopmentCategories = async () => {
+  try {
+    const result = await client.graphql({
+      query: listDevelopmentCategories,
+      authMode: "apiKey",
+    });
+    return {
+      developmentCategories: result.data.listDevelopmentCategories.items,
+    };
+  } catch (error) {
+    console.error("Error fetchDevelopmentCategories:", error);
+    return {
+      developmentCategories: [],
     };
   }
 };

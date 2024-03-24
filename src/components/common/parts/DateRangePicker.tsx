@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import {
   LocalizationProvider,
   DatePicker,
@@ -63,38 +64,40 @@ export default function DateRangePicker({
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ja">
-      <DatePicker
-        name={nameStart}
-        label="受講開始月"
-        value={dayjs(startDate)}
-        onChange={(newValue) => handlerChange(newValue, nameStart)}
-        format="YYYY年MM月"
-        views={pickerType}
-        maxDate={dayjs()}
-        onError={(newError) => setStartError(newError)}
-        slotProps={{
-          textField: {
-            helperText: startErrorMessage,
-          },
-        }}
-      />
-      <DatePicker
-        sx={{ ml: 2 }}
-        name={nameEnd}
-        label="受講終了月"
-        value={dayjs(endDate)}
-        onChange={(newValue) => handlerChange(newValue, nameEnd)}
-        format="YYYY年MM月"
-        views={pickerType}
-        maxDate={dayjs()}
-        minDate={dayjs(startDate)}
-        onError={(newError) => setEndError(newError)}
-        slotProps={{
-          textField: {
-            helperText: endErrorMessage,
-          },
-        }}
-      />
+      <Box display="flex">
+        <DatePicker
+          name={nameStart}
+          label="受講開始月"
+          value={dayjs(startDate)}
+          onChange={(newValue) => handlerChange(newValue, nameStart)}
+          format="YYYY年MM月"
+          views={pickerType}
+          maxDate={dayjs()}
+          onError={(newError) => setStartError(newError)}
+          slotProps={{
+            textField: {
+              helperText: startErrorMessage,
+            },
+          }}
+        />
+        <DatePicker
+          sx={{ ml: 2 }}
+          name={nameEnd}
+          label="受講終了月"
+          value={dayjs(endDate)}
+          onChange={(newValue) => handlerChange(newValue, nameEnd)}
+          format="YYYY年MM月"
+          views={pickerType}
+          maxDate={dayjs()}
+          minDate={dayjs(startDate)}
+          onError={(newError) => setEndError(newError)}
+          slotProps={{
+            textField: {
+              helperText: endErrorMessage,
+            },
+          }}
+        />
+      </Box>
     </LocalizationProvider>
   );
 }
