@@ -35,7 +35,8 @@ export const createCourseReview = /* GraphQL */ `mutation CreateCourseReview(
   APITypes.CreateCourseReviewMutationVariables,
   APITypes.CreateCourseReviewMutation
 >;
-export const createDevelopmentCategory = /* GraphQL */ `mutation CreateDevelopmentCategory(
+export const createDevelopmentCategory =
+  /* GraphQL */ `mutation CreateDevelopmentCategory(
   $input: CreateDevelopmentCategoryInput!
   $condition: ModelDevelopmentCategoryConditionInput
 ) {
@@ -49,10 +50,11 @@ export const createDevelopmentCategory = /* GraphQL */ `mutation CreateDevelopme
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateDevelopmentCategoryMutationVariables,
-  APITypes.CreateDevelopmentCategoryMutation
->;
-export const updateDevelopmentCategory = /* GraphQL */ `mutation UpdateDevelopmentCategory(
+    APITypes.CreateDevelopmentCategoryMutationVariables,
+    APITypes.CreateDevelopmentCategoryMutation
+  >;
+export const updateDevelopmentCategory =
+  /* GraphQL */ `mutation UpdateDevelopmentCategory(
   $input: UpdateDevelopmentCategoryInput!
   $condition: ModelDevelopmentCategoryConditionInput
 ) {
@@ -66,10 +68,11 @@ export const updateDevelopmentCategory = /* GraphQL */ `mutation UpdateDevelopme
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateDevelopmentCategoryMutationVariables,
-  APITypes.UpdateDevelopmentCategoryMutation
->;
-export const deleteDevelopmentCategory = /* GraphQL */ `mutation DeleteDevelopmentCategory(
+    APITypes.UpdateDevelopmentCategoryMutationVariables,
+    APITypes.UpdateDevelopmentCategoryMutation
+  >;
+export const deleteDevelopmentCategory =
+  /* GraphQL */ `mutation DeleteDevelopmentCategory(
   $input: DeleteDevelopmentCategoryInput!
   $condition: ModelDevelopmentCategoryConditionInput
 ) {
@@ -83,10 +86,11 @@ export const deleteDevelopmentCategory = /* GraphQL */ `mutation DeleteDevelopme
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteDevelopmentCategoryMutationVariables,
-  APITypes.DeleteDevelopmentCategoryMutation
->;
-export const createDevelopmentProduct = /* GraphQL */ `mutation CreateDevelopmentProduct(
+    APITypes.DeleteDevelopmentCategoryMutationVariables,
+    APITypes.DeleteDevelopmentCategoryMutation
+  >;
+export const createDevelopmentProduct =
+  /* GraphQL */ `mutation CreateDevelopmentProduct(
   $input: CreateDevelopmentProductInput!
   $condition: ModelDevelopmentProductConditionInput
 ) {
@@ -100,10 +104,11 @@ export const createDevelopmentProduct = /* GraphQL */ `mutation CreateDevelopmen
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateDevelopmentProductMutationVariables,
-  APITypes.CreateDevelopmentProductMutation
->;
-export const updateDevelopmentProduct = /* GraphQL */ `mutation UpdateDevelopmentProduct(
+    APITypes.CreateDevelopmentProductMutationVariables,
+    APITypes.CreateDevelopmentProductMutation
+  >;
+export const updateDevelopmentProduct =
+  /* GraphQL */ `mutation UpdateDevelopmentProduct(
   $input: UpdateDevelopmentProductInput!
   $condition: ModelDevelopmentProductConditionInput
 ) {
@@ -117,10 +122,11 @@ export const updateDevelopmentProduct = /* GraphQL */ `mutation UpdateDevelopmen
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateDevelopmentProductMutationVariables,
-  APITypes.UpdateDevelopmentProductMutation
->;
-export const deleteDevelopmentProduct = /* GraphQL */ `mutation DeleteDevelopmentProduct(
+    APITypes.UpdateDevelopmentProductMutationVariables,
+    APITypes.UpdateDevelopmentProductMutation
+  >;
+export const deleteDevelopmentProduct =
+  /* GraphQL */ `mutation DeleteDevelopmentProduct(
   $input: DeleteDevelopmentProductInput!
   $condition: ModelDevelopmentProductConditionInput
 ) {
@@ -134,9 +140,9 @@ export const deleteDevelopmentProduct = /* GraphQL */ `mutation DeleteDevelopmen
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteDevelopmentProductMutationVariables,
-  APITypes.DeleteDevelopmentProductMutation
->;
+    APITypes.DeleteDevelopmentProductMutationVariables,
+    APITypes.DeleteDevelopmentProductMutation
+  >;
 export const createQualification = /* GraphQL */ `mutation CreateQualification(
   $input: CreateQualificationInput!
   $condition: ModelQualificationConditionInput
@@ -144,6 +150,7 @@ export const createQualification = /* GraphQL */ `mutation CreateQualification(
   createQualification(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
@@ -160,6 +167,7 @@ export const updateQualification = /* GraphQL */ `mutation UpdateQualification(
   updateQualification(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
@@ -176,6 +184,7 @@ export const deleteQualification = /* GraphQL */ `mutation DeleteQualification(
   deleteQualification(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
@@ -185,101 +194,272 @@ export const deleteQualification = /* GraphQL */ `mutation DeleteQualification(
   APITypes.DeleteQualificationMutationVariables,
   APITypes.DeleteQualificationMutation
 >;
-export const createDevelopmentTool = /* GraphQL */ `mutation CreateDevelopmentTool(
+export const createDevelopmentTool =
+  /* GraphQL */ `mutation CreateDevelopmentTool(
   $input: CreateDevelopmentToolInput!
   $condition: ModelDevelopmentToolConditionInput
 ) {
   createDevelopmentTool(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateDevelopmentToolMutationVariables,
-  APITypes.CreateDevelopmentToolMutation
->;
-export const updateDevelopmentTool = /* GraphQL */ `mutation UpdateDevelopmentTool(
+    APITypes.CreateDevelopmentToolMutationVariables,
+    APITypes.CreateDevelopmentToolMutation
+  >;
+export const updateDevelopmentTool =
+  /* GraphQL */ `mutation UpdateDevelopmentTool(
   $input: UpdateDevelopmentToolInput!
   $condition: ModelDevelopmentToolConditionInput
 ) {
   updateDevelopmentTool(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateDevelopmentToolMutationVariables,
-  APITypes.UpdateDevelopmentToolMutation
->;
-export const deleteDevelopmentTool = /* GraphQL */ `mutation DeleteDevelopmentTool(
+    APITypes.UpdateDevelopmentToolMutationVariables,
+    APITypes.UpdateDevelopmentToolMutation
+  >;
+export const deleteDevelopmentTool =
+  /* GraphQL */ `mutation DeleteDevelopmentTool(
   $input: DeleteDevelopmentToolInput!
   $condition: ModelDevelopmentToolConditionInput
 ) {
   deleteDevelopmentTool(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteDevelopmentToolMutationVariables,
-  APITypes.DeleteDevelopmentToolMutation
->;
-export const createProgrammingLanguage = /* GraphQL */ `mutation CreateProgrammingLanguage(
+    APITypes.DeleteDevelopmentToolMutationVariables,
+    APITypes.DeleteDevelopmentToolMutation
+  >;
+export const createProgrammingLanguage =
+  /* GraphQL */ `mutation CreateProgrammingLanguage(
   $input: CreateProgrammingLanguageInput!
   $condition: ModelProgrammingLanguageConditionInput
 ) {
   createProgrammingLanguage(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateProgrammingLanguageMutationVariables,
-  APITypes.CreateProgrammingLanguageMutation
->;
-export const updateProgrammingLanguage = /* GraphQL */ `mutation UpdateProgrammingLanguage(
+    APITypes.CreateProgrammingLanguageMutationVariables,
+    APITypes.CreateProgrammingLanguageMutation
+  >;
+export const updateProgrammingLanguage =
+  /* GraphQL */ `mutation UpdateProgrammingLanguage(
   $input: UpdateProgrammingLanguageInput!
   $condition: ModelProgrammingLanguageConditionInput
 ) {
   updateProgrammingLanguage(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateProgrammingLanguageMutationVariables,
-  APITypes.UpdateProgrammingLanguageMutation
->;
-export const deleteProgrammingLanguage = /* GraphQL */ `mutation DeleteProgrammingLanguage(
+    APITypes.UpdateProgrammingLanguageMutationVariables,
+    APITypes.UpdateProgrammingLanguageMutation
+  >;
+export const deleteProgrammingLanguage =
+  /* GraphQL */ `mutation DeleteProgrammingLanguage(
   $input: DeleteProgrammingLanguageInput!
   $condition: ModelProgrammingLanguageConditionInput
 ) {
   deleteProgrammingLanguage(input: $input, condition: $condition) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteProgrammingLanguageMutationVariables,
-  APITypes.DeleteProgrammingLanguageMutation
+    APITypes.DeleteProgrammingLanguageMutationVariables,
+    APITypes.DeleteProgrammingLanguageMutation
+  >;
+export const createFramework = /* GraphQL */ `mutation CreateFramework(
+  $input: CreateFrameworkInput!
+  $condition: ModelFrameworkConditionInput
+) {
+  createFramework(input: $input, condition: $condition) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateFrameworkMutationVariables,
+  APITypes.CreateFrameworkMutation
+>;
+export const updateFramework = /* GraphQL */ `mutation UpdateFramework(
+  $input: UpdateFrameworkInput!
+  $condition: ModelFrameworkConditionInput
+) {
+  updateFramework(input: $input, condition: $condition) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateFrameworkMutationVariables,
+  APITypes.UpdateFrameworkMutation
+>;
+export const deleteFramework = /* GraphQL */ `mutation DeleteFramework(
+  $input: DeleteFrameworkInput!
+  $condition: ModelFrameworkConditionInput
+) {
+  deleteFramework(input: $input, condition: $condition) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteFrameworkMutationVariables,
+  APITypes.DeleteFrameworkMutation
+>;
+export const createLibrary = /* GraphQL */ `mutation CreateLibrary(
+  $input: CreateLibraryInput!
+  $condition: ModelLibraryConditionInput
+) {
+  createLibrary(input: $input, condition: $condition) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateLibraryMutationVariables,
+  APITypes.CreateLibraryMutation
+>;
+export const updateLibrary = /* GraphQL */ `mutation UpdateLibrary(
+  $input: UpdateLibraryInput!
+  $condition: ModelLibraryConditionInput
+) {
+  updateLibrary(input: $input, condition: $condition) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateLibraryMutationVariables,
+  APITypes.UpdateLibraryMutation
+>;
+export const deleteLibrary = /* GraphQL */ `mutation DeleteLibrary(
+  $input: DeleteLibraryInput!
+  $condition: ModelLibraryConditionInput
+) {
+  deleteLibrary(input: $input, condition: $condition) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteLibraryMutationVariables,
+  APITypes.DeleteLibraryMutation
+>;
+export const createJobType = /* GraphQL */ `mutation CreateJobType(
+  $input: CreateJobTypeInput!
+  $condition: ModelJobTypeConditionInput
+) {
+  createJobType(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateJobTypeMutationVariables,
+  APITypes.CreateJobTypeMutation
+>;
+export const updateJobType = /* GraphQL */ `mutation UpdateJobType(
+  $input: UpdateJobTypeInput!
+  $condition: ModelJobTypeConditionInput
+) {
+  updateJobType(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateJobTypeMutationVariables,
+  APITypes.UpdateJobTypeMutation
+>;
+export const deleteJobType = /* GraphQL */ `mutation DeleteJobType(
+  $input: DeleteJobTypeInput!
+  $condition: ModelJobTypeConditionInput
+) {
+  deleteJobType(input: $input, condition: $condition) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteJobTypeMutationVariables,
+  APITypes.DeleteJobTypeMutation
 >;
 export const createPaymentMethod = /* GraphQL */ `mutation CreatePaymentMethod(
   $input: CreatePaymentMethodInput!
@@ -377,106 +557,8 @@ export const deleteCreditCard = /* GraphQL */ `mutation DeleteCreditCard(
   APITypes.DeleteCreditCardMutationVariables,
   APITypes.DeleteCreditCardMutation
 >;
-export const createFramework = /* GraphQL */ `mutation CreateFramework(
-  $input: CreateFrameworkInput!
-  $condition: ModelFrameworkConditionInput
-) {
-  createFramework(input: $input, condition: $condition) {
-    id
-    programmingLanguageId
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateFrameworkMutationVariables,
-  APITypes.CreateFrameworkMutation
->;
-export const updateFramework = /* GraphQL */ `mutation UpdateFramework(
-  $input: UpdateFrameworkInput!
-  $condition: ModelFrameworkConditionInput
-) {
-  updateFramework(input: $input, condition: $condition) {
-    id
-    programmingLanguageId
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateFrameworkMutationVariables,
-  APITypes.UpdateFrameworkMutation
->;
-export const deleteFramework = /* GraphQL */ `mutation DeleteFramework(
-  $input: DeleteFrameworkInput!
-  $condition: ModelFrameworkConditionInput
-) {
-  deleteFramework(input: $input, condition: $condition) {
-    id
-    programmingLanguageId
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteFrameworkMutationVariables,
-  APITypes.DeleteFrameworkMutation
->;
-export const createJobType = /* GraphQL */ `mutation CreateJobType(
-  $input: CreateJobTypeInput!
-  $condition: ModelJobTypeConditionInput
-) {
-  createJobType(input: $input, condition: $condition) {
-    id
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateJobTypeMutationVariables,
-  APITypes.CreateJobTypeMutation
->;
-export const updateJobType = /* GraphQL */ `mutation UpdateJobType(
-  $input: UpdateJobTypeInput!
-  $condition: ModelJobTypeConditionInput
-) {
-  updateJobType(input: $input, condition: $condition) {
-    id
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateJobTypeMutationVariables,
-  APITypes.UpdateJobTypeMutation
->;
-export const deleteJobType = /* GraphQL */ `mutation DeleteJobType(
-  $input: DeleteJobTypeInput!
-  $condition: ModelJobTypeConditionInput
-) {
-  deleteJobType(input: $input, condition: $condition) {
-    id
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteJobTypeMutationVariables,
-  APITypes.DeleteJobTypeMutation
->;
-export const createBenefitUserCategory = /* GraphQL */ `mutation CreateBenefitUserCategory(
+export const createBenefitUserCategory =
+  /* GraphQL */ `mutation CreateBenefitUserCategory(
   $input: CreateBenefitUserCategoryInput!
   $condition: ModelBenefitUserCategoryConditionInput
 ) {
@@ -489,10 +571,11 @@ export const createBenefitUserCategory = /* GraphQL */ `mutation CreateBenefitUs
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateBenefitUserCategoryMutationVariables,
-  APITypes.CreateBenefitUserCategoryMutation
->;
-export const updateBenefitUserCategory = /* GraphQL */ `mutation UpdateBenefitUserCategory(
+    APITypes.CreateBenefitUserCategoryMutationVariables,
+    APITypes.CreateBenefitUserCategoryMutation
+  >;
+export const updateBenefitUserCategory =
+  /* GraphQL */ `mutation UpdateBenefitUserCategory(
   $input: UpdateBenefitUserCategoryInput!
   $condition: ModelBenefitUserCategoryConditionInput
 ) {
@@ -505,10 +588,11 @@ export const updateBenefitUserCategory = /* GraphQL */ `mutation UpdateBenefitUs
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateBenefitUserCategoryMutationVariables,
-  APITypes.UpdateBenefitUserCategoryMutation
->;
-export const deleteBenefitUserCategory = /* GraphQL */ `mutation DeleteBenefitUserCategory(
+    APITypes.UpdateBenefitUserCategoryMutationVariables,
+    APITypes.UpdateBenefitUserCategoryMutation
+  >;
+export const deleteBenefitUserCategory =
+  /* GraphQL */ `mutation DeleteBenefitUserCategory(
   $input: DeleteBenefitUserCategoryInput!
   $condition: ModelBenefitUserCategoryConditionInput
 ) {
@@ -521,10 +605,11 @@ export const deleteBenefitUserCategory = /* GraphQL */ `mutation DeleteBenefitUs
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteBenefitUserCategoryMutationVariables,
-  APITypes.DeleteBenefitUserCategoryMutation
->;
-export const createLearningCenter = /* GraphQL */ `mutation CreateLearningCenter(
+    APITypes.DeleteBenefitUserCategoryMutationVariables,
+    APITypes.DeleteBenefitUserCategoryMutation
+  >;
+export const createLearningCenter =
+  /* GraphQL */ `mutation CreateLearningCenter(
   $input: CreateLearningCenterInput!
   $condition: ModelLearningCenterConditionInput
 ) {
@@ -549,10 +634,11 @@ export const createLearningCenter = /* GraphQL */ `mutation CreateLearningCenter
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateLearningCenterMutationVariables,
-  APITypes.CreateLearningCenterMutation
->;
-export const updateLearningCenter = /* GraphQL */ `mutation UpdateLearningCenter(
+    APITypes.CreateLearningCenterMutationVariables,
+    APITypes.CreateLearningCenterMutation
+  >;
+export const updateLearningCenter =
+  /* GraphQL */ `mutation UpdateLearningCenter(
   $input: UpdateLearningCenterInput!
   $condition: ModelLearningCenterConditionInput
 ) {
@@ -577,10 +663,11 @@ export const updateLearningCenter = /* GraphQL */ `mutation UpdateLearningCenter
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateLearningCenterMutationVariables,
-  APITypes.UpdateLearningCenterMutation
->;
-export const deleteLearningCenter = /* GraphQL */ `mutation DeleteLearningCenter(
+    APITypes.UpdateLearningCenterMutationVariables,
+    APITypes.UpdateLearningCenterMutation
+  >;
+export const deleteLearningCenter =
+  /* GraphQL */ `mutation DeleteLearningCenter(
   $input: DeleteLearningCenterInput!
   $condition: ModelLearningCenterConditionInput
 ) {
@@ -605,10 +692,11 @@ export const deleteLearningCenter = /* GraphQL */ `mutation DeleteLearningCenter
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteLearningCenterMutationVariables,
-  APITypes.DeleteLearningCenterMutation
->;
-export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearningCenterCourse(
+    APITypes.DeleteLearningCenterMutationVariables,
+    APITypes.DeleteLearningCenterMutation
+  >;
+export const createLearningCenterCourse =
+  /* GraphQL */ `mutation CreateLearningCenterCourse(
   $input: CreateLearningCenterCourseInput!
   $condition: ModelLearningCenterCourseConditionInput
 ) {
@@ -658,10 +746,11 @@ export const createLearningCenterCourse = /* GraphQL */ `mutation CreateLearning
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateLearningCenterCourseMutationVariables,
-  APITypes.CreateLearningCenterCourseMutation
->;
-export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearningCenterCourse(
+    APITypes.CreateLearningCenterCourseMutationVariables,
+    APITypes.CreateLearningCenterCourseMutation
+  >;
+export const updateLearningCenterCourse =
+  /* GraphQL */ `mutation UpdateLearningCenterCourse(
   $input: UpdateLearningCenterCourseInput!
   $condition: ModelLearningCenterCourseConditionInput
 ) {
@@ -711,10 +800,11 @@ export const updateLearningCenterCourse = /* GraphQL */ `mutation UpdateLearning
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateLearningCenterCourseMutationVariables,
-  APITypes.UpdateLearningCenterCourseMutation
->;
-export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearningCenterCourse(
+    APITypes.UpdateLearningCenterCourseMutationVariables,
+    APITypes.UpdateLearningCenterCourseMutation
+  >;
+export const deleteLearningCenterCourse =
+  /* GraphQL */ `mutation DeleteLearningCenterCourse(
   $input: DeleteLearningCenterCourseInput!
   $condition: ModelLearningCenterCourseConditionInput
 ) {
@@ -764,9 +854,9 @@ export const deleteLearningCenterCourse = /* GraphQL */ `mutation DeleteLearning
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteLearningCenterCourseMutationVariables,
-  APITypes.DeleteLearningCenterCourseMutation
->;
+    APITypes.DeleteLearningCenterCourseMutationVariables,
+    APITypes.DeleteLearningCenterCourseMutation
+  >;
 export const updateCourseReview = /* GraphQL */ `mutation UpdateCourseReview(
   $input: UpdateCourseReviewInput!
   $condition: ModelCourseReviewConditionInput

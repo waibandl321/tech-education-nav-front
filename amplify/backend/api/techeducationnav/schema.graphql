@@ -40,6 +40,7 @@ type Qualification
   ) {
   id: ID!
   name: String!
+  memo: String
 }
 
 # 開発ツールマスタ
@@ -53,6 +54,7 @@ type DevelopmentTool
   ) {
   id: ID!
   name: String!
+  memo: String
 }
 
 # プログラミング言語マスタ
@@ -66,6 +68,51 @@ type ProgrammingLanguage
   ) {
   id: ID!
   name: String!
+  memo: String
+}
+
+# フレームワークマスタ
+type Framework
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      { allow: groups, groups: ["Admin"], operations: [create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  programmingLanguageId: ID
+  name: String!
+  memo: String
+}
+
+# ライブラリマスタ
+type Library
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      { allow: groups, groups: ["Admin"], operations: [create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  programmingLanguageId: ID
+  name: String!
+  memo: String
+}
+
+# 職種マスタ
+type JobType
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      { allow: groups, groups: ["Admin"], operations: [create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  memo: String
 }
 
 # 支払い方法マスタ
@@ -83,33 +130,6 @@ type PaymentMethod
 
 # クレジットカードマスタ
 type CreditCard
-  @model
-  @auth(
-    rules: [
-      { allow: public, operations: [read] }
-      { allow: groups, groups: ["Admin"], operations: [create, update, delete] }
-    ]
-  ) {
-  id: ID!
-  name: String!
-}
-
-# フレームワークマスタ（プログラミング言語とは紐付けない）
-type Framework
-  @model
-  @auth(
-    rules: [
-      { allow: public, operations: [read] }
-      { allow: groups, groups: ["Admin"], operations: [create, update, delete] }
-    ]
-  ) {
-  id: ID!
-  programmingLanguageId: ID
-  name: String!
-}
-
-# 職種マスタ
-type JobType
   @model
   @auth(
     rules: [

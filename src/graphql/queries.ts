@@ -97,6 +97,7 @@ export const getQualification =
   getQualification(id: $id) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
@@ -115,6 +116,7 @@ export const listQualifications = /* GraphQL */ `query ListQualifications(
     items {
       id
       name
+      memo
       createdAt
       updatedAt
       __typename
@@ -132,6 +134,7 @@ export const getDevelopmentTool =
   getDevelopmentTool(id: $id) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
@@ -150,6 +153,7 @@ export const listDevelopmentTools = /* GraphQL */ `query ListDevelopmentTools(
     items {
       id
       name
+      memo
       createdAt
       updatedAt
       __typename
@@ -167,6 +171,7 @@ export const getProgrammingLanguage =
   getProgrammingLanguage(id: $id) {
     id
     name
+    memo
     createdAt
     updatedAt
     __typename
@@ -190,6 +195,7 @@ export const listProgrammingLanguages =
     items {
       id
       name
+      memo
       createdAt
       updatedAt
       __typename
@@ -202,6 +208,118 @@ export const listProgrammingLanguages =
     APITypes.ListProgrammingLanguagesQueryVariables,
     APITypes.ListProgrammingLanguagesQuery
   >;
+export const getFramework = /* GraphQL */ `query GetFramework($id: ID!) {
+  getFramework(id: $id) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetFrameworkQueryVariables,
+  APITypes.GetFrameworkQuery
+>;
+export const listFrameworks = /* GraphQL */ `query ListFrameworks(
+  $filter: ModelFrameworkFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFrameworks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      programmingLanguageId
+      name
+      memo
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListFrameworksQueryVariables,
+  APITypes.ListFrameworksQuery
+>;
+export const getLibrary = /* GraphQL */ `query GetLibrary($id: ID!) {
+  getLibrary(id: $id) {
+    id
+    programmingLanguageId
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetLibraryQueryVariables,
+  APITypes.GetLibraryQuery
+>;
+export const listLibraries = /* GraphQL */ `query ListLibraries(
+  $filter: ModelLibraryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLibraries(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      programmingLanguageId
+      name
+      memo
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListLibrariesQueryVariables,
+  APITypes.ListLibrariesQuery
+>;
+export const getJobType = /* GraphQL */ `query GetJobType($id: ID!) {
+  getJobType(id: $id) {
+    id
+    name
+    memo
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetJobTypeQueryVariables,
+  APITypes.GetJobTypeQuery
+>;
+export const listJobTypes = /* GraphQL */ `query ListJobTypes(
+  $filter: ModelJobTypeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listJobTypes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      memo
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListJobTypesQueryVariables,
+  APITypes.ListJobTypesQuery
+>;
 export const getPaymentMethod =
   /* GraphQL */ `query GetPaymentMethod($id: ID!) {
   getPaymentMethod(id: $id) {
@@ -270,76 +388,6 @@ export const listCreditCards = /* GraphQL */ `query ListCreditCards(
 ` as GeneratedQuery<
   APITypes.ListCreditCardsQueryVariables,
   APITypes.ListCreditCardsQuery
->;
-export const getFramework = /* GraphQL */ `query GetFramework($id: ID!) {
-  getFramework(id: $id) {
-    id
-    programmingLanguageId
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetFrameworkQueryVariables,
-  APITypes.GetFrameworkQuery
->;
-export const listFrameworks = /* GraphQL */ `query ListFrameworks(
-  $filter: ModelFrameworkFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listFrameworks(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      programmingLanguageId
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListFrameworksQueryVariables,
-  APITypes.ListFrameworksQuery
->;
-export const getJobType = /* GraphQL */ `query GetJobType($id: ID!) {
-  getJobType(id: $id) {
-    id
-    name
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetJobTypeQueryVariables,
-  APITypes.GetJobTypeQuery
->;
-export const listJobTypes = /* GraphQL */ `query ListJobTypes(
-  $filter: ModelJobTypeFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listJobTypes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListJobTypesQueryVariables,
-  APITypes.ListJobTypesQuery
 >;
 export const getBenefitUserCategory =
   /* GraphQL */ `query GetBenefitUserCategory($id: ID!) {
