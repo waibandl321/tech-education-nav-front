@@ -8,8 +8,7 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateDevelopmentCategory =
-  /* GraphQL */ `subscription OnCreateDevelopmentCategory(
+export const onCreateDevelopmentCategory = /* GraphQL */ `subscription OnCreateDevelopmentCategory(
   $filter: ModelSubscriptionDevelopmentCategoryFilterInput
 ) {
   onCreateDevelopmentCategory(filter: $filter) {
@@ -22,11 +21,10 @@ export const onCreateDevelopmentCategory =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateDevelopmentCategorySubscriptionVariables,
-    APITypes.OnCreateDevelopmentCategorySubscription
-  >;
-export const onUpdateDevelopmentCategory =
-  /* GraphQL */ `subscription OnUpdateDevelopmentCategory(
+  APITypes.OnCreateDevelopmentCategorySubscriptionVariables,
+  APITypes.OnCreateDevelopmentCategorySubscription
+>;
+export const onUpdateDevelopmentCategory = /* GraphQL */ `subscription OnUpdateDevelopmentCategory(
   $filter: ModelSubscriptionDevelopmentCategoryFilterInput
 ) {
   onUpdateDevelopmentCategory(filter: $filter) {
@@ -39,11 +37,10 @@ export const onUpdateDevelopmentCategory =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateDevelopmentCategorySubscriptionVariables,
-    APITypes.OnUpdateDevelopmentCategorySubscription
-  >;
-export const onDeleteDevelopmentCategory =
-  /* GraphQL */ `subscription OnDeleteDevelopmentCategory(
+  APITypes.OnUpdateDevelopmentCategorySubscriptionVariables,
+  APITypes.OnUpdateDevelopmentCategorySubscription
+>;
+export const onDeleteDevelopmentCategory = /* GraphQL */ `subscription OnDeleteDevelopmentCategory(
   $filter: ModelSubscriptionDevelopmentCategoryFilterInput
 ) {
   onDeleteDevelopmentCategory(filter: $filter) {
@@ -56,11 +53,10 @@ export const onDeleteDevelopmentCategory =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteDevelopmentCategorySubscriptionVariables,
-    APITypes.OnDeleteDevelopmentCategorySubscription
-  >;
-export const onCreateDevelopmentProduct =
-  /* GraphQL */ `subscription OnCreateDevelopmentProduct(
+  APITypes.OnDeleteDevelopmentCategorySubscriptionVariables,
+  APITypes.OnDeleteDevelopmentCategorySubscription
+>;
+export const onCreateDevelopmentProduct = /* GraphQL */ `subscription OnCreateDevelopmentProduct(
   $filter: ModelSubscriptionDevelopmentProductFilterInput
 ) {
   onCreateDevelopmentProduct(filter: $filter) {
@@ -73,11 +69,10 @@ export const onCreateDevelopmentProduct =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateDevelopmentProductSubscriptionVariables,
-    APITypes.OnCreateDevelopmentProductSubscription
-  >;
-export const onUpdateDevelopmentProduct =
-  /* GraphQL */ `subscription OnUpdateDevelopmentProduct(
+  APITypes.OnCreateDevelopmentProductSubscriptionVariables,
+  APITypes.OnCreateDevelopmentProductSubscription
+>;
+export const onUpdateDevelopmentProduct = /* GraphQL */ `subscription OnUpdateDevelopmentProduct(
   $filter: ModelSubscriptionDevelopmentProductFilterInput
 ) {
   onUpdateDevelopmentProduct(filter: $filter) {
@@ -90,11 +85,10 @@ export const onUpdateDevelopmentProduct =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateDevelopmentProductSubscriptionVariables,
-    APITypes.OnUpdateDevelopmentProductSubscription
-  >;
-export const onDeleteDevelopmentProduct =
-  /* GraphQL */ `subscription OnDeleteDevelopmentProduct(
+  APITypes.OnUpdateDevelopmentProductSubscriptionVariables,
+  APITypes.OnUpdateDevelopmentProductSubscription
+>;
+export const onDeleteDevelopmentProduct = /* GraphQL */ `subscription OnDeleteDevelopmentProduct(
   $filter: ModelSubscriptionDevelopmentProductFilterInput
 ) {
   onDeleteDevelopmentProduct(filter: $filter) {
@@ -107,11 +101,10 @@ export const onDeleteDevelopmentProduct =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteDevelopmentProductSubscriptionVariables,
-    APITypes.OnDeleteDevelopmentProductSubscription
-  >;
-export const onCreateQualification =
-  /* GraphQL */ `subscription OnCreateQualification(
+  APITypes.OnDeleteDevelopmentProductSubscriptionVariables,
+  APITypes.OnDeleteDevelopmentProductSubscription
+>;
+export const onCreateQualification = /* GraphQL */ `subscription OnCreateQualification(
   $filter: ModelSubscriptionQualificationFilterInput
 ) {
   onCreateQualification(filter: $filter) {
@@ -124,11 +117,10 @@ export const onCreateQualification =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateQualificationSubscriptionVariables,
-    APITypes.OnCreateQualificationSubscription
-  >;
-export const onUpdateQualification =
-  /* GraphQL */ `subscription OnUpdateQualification(
+  APITypes.OnCreateQualificationSubscriptionVariables,
+  APITypes.OnCreateQualificationSubscription
+>;
+export const onUpdateQualification = /* GraphQL */ `subscription OnUpdateQualification(
   $filter: ModelSubscriptionQualificationFilterInput
 ) {
   onUpdateQualification(filter: $filter) {
@@ -141,11 +133,10 @@ export const onUpdateQualification =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateQualificationSubscriptionVariables,
-    APITypes.OnUpdateQualificationSubscription
-  >;
-export const onDeleteQualification =
-  /* GraphQL */ `subscription OnDeleteQualification(
+  APITypes.OnUpdateQualificationSubscriptionVariables,
+  APITypes.OnUpdateQualificationSubscription
+>;
+export const onDeleteQualification = /* GraphQL */ `subscription OnDeleteQualification(
   $filter: ModelSubscriptionQualificationFilterInput
 ) {
   onDeleteQualification(filter: $filter) {
@@ -158,11 +149,10 @@ export const onDeleteQualification =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteQualificationSubscriptionVariables,
-    APITypes.OnDeleteQualificationSubscription
-  >;
-export const onCreateDevelopmentTool =
-  /* GraphQL */ `subscription OnCreateDevelopmentTool(
+  APITypes.OnDeleteQualificationSubscriptionVariables,
+  APITypes.OnDeleteQualificationSubscription
+>;
+export const onCreateDevelopmentTool = /* GraphQL */ `subscription OnCreateDevelopmentTool(
   $filter: ModelSubscriptionDevelopmentToolFilterInput
 ) {
   onCreateDevelopmentTool(filter: $filter) {
@@ -175,11 +165,10 @@ export const onCreateDevelopmentTool =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateDevelopmentToolSubscriptionVariables,
-    APITypes.OnCreateDevelopmentToolSubscription
-  >;
-export const onUpdateDevelopmentTool =
-  /* GraphQL */ `subscription OnUpdateDevelopmentTool(
+  APITypes.OnCreateDevelopmentToolSubscriptionVariables,
+  APITypes.OnCreateDevelopmentToolSubscription
+>;
+export const onUpdateDevelopmentTool = /* GraphQL */ `subscription OnUpdateDevelopmentTool(
   $filter: ModelSubscriptionDevelopmentToolFilterInput
 ) {
   onUpdateDevelopmentTool(filter: $filter) {
@@ -192,11 +181,10 @@ export const onUpdateDevelopmentTool =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateDevelopmentToolSubscriptionVariables,
-    APITypes.OnUpdateDevelopmentToolSubscription
-  >;
-export const onDeleteDevelopmentTool =
-  /* GraphQL */ `subscription OnDeleteDevelopmentTool(
+  APITypes.OnUpdateDevelopmentToolSubscriptionVariables,
+  APITypes.OnUpdateDevelopmentToolSubscription
+>;
+export const onDeleteDevelopmentTool = /* GraphQL */ `subscription OnDeleteDevelopmentTool(
   $filter: ModelSubscriptionDevelopmentToolFilterInput
 ) {
   onDeleteDevelopmentTool(filter: $filter) {
@@ -209,11 +197,10 @@ export const onDeleteDevelopmentTool =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteDevelopmentToolSubscriptionVariables,
-    APITypes.OnDeleteDevelopmentToolSubscription
-  >;
-export const onCreateProgrammingLanguage =
-  /* GraphQL */ `subscription OnCreateProgrammingLanguage(
+  APITypes.OnDeleteDevelopmentToolSubscriptionVariables,
+  APITypes.OnDeleteDevelopmentToolSubscription
+>;
+export const onCreateProgrammingLanguage = /* GraphQL */ `subscription OnCreateProgrammingLanguage(
   $filter: ModelSubscriptionProgrammingLanguageFilterInput
 ) {
   onCreateProgrammingLanguage(filter: $filter) {
@@ -226,11 +213,10 @@ export const onCreateProgrammingLanguage =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateProgrammingLanguageSubscriptionVariables,
-    APITypes.OnCreateProgrammingLanguageSubscription
-  >;
-export const onUpdateProgrammingLanguage =
-  /* GraphQL */ `subscription OnUpdateProgrammingLanguage(
+  APITypes.OnCreateProgrammingLanguageSubscriptionVariables,
+  APITypes.OnCreateProgrammingLanguageSubscription
+>;
+export const onUpdateProgrammingLanguage = /* GraphQL */ `subscription OnUpdateProgrammingLanguage(
   $filter: ModelSubscriptionProgrammingLanguageFilterInput
 ) {
   onUpdateProgrammingLanguage(filter: $filter) {
@@ -243,11 +229,10 @@ export const onUpdateProgrammingLanguage =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateProgrammingLanguageSubscriptionVariables,
-    APITypes.OnUpdateProgrammingLanguageSubscription
-  >;
-export const onDeleteProgrammingLanguage =
-  /* GraphQL */ `subscription OnDeleteProgrammingLanguage(
+  APITypes.OnUpdateProgrammingLanguageSubscriptionVariables,
+  APITypes.OnUpdateProgrammingLanguageSubscription
+>;
+export const onDeleteProgrammingLanguage = /* GraphQL */ `subscription OnDeleteProgrammingLanguage(
   $filter: ModelSubscriptionProgrammingLanguageFilterInput
 ) {
   onDeleteProgrammingLanguage(filter: $filter) {
@@ -260,11 +245,10 @@ export const onDeleteProgrammingLanguage =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteProgrammingLanguageSubscriptionVariables,
-    APITypes.OnDeleteProgrammingLanguageSubscription
-  >;
-export const onCreateFramework =
-  /* GraphQL */ `subscription OnCreateFramework($filter: ModelSubscriptionFrameworkFilterInput) {
+  APITypes.OnDeleteProgrammingLanguageSubscriptionVariables,
+  APITypes.OnDeleteProgrammingLanguageSubscription
+>;
+export const onCreateFramework = /* GraphQL */ `subscription OnCreateFramework($filter: ModelSubscriptionFrameworkFilterInput) {
   onCreateFramework(filter: $filter) {
     id
     programmingLanguageId
@@ -276,11 +260,10 @@ export const onCreateFramework =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateFrameworkSubscriptionVariables,
-    APITypes.OnCreateFrameworkSubscription
-  >;
-export const onUpdateFramework =
-  /* GraphQL */ `subscription OnUpdateFramework($filter: ModelSubscriptionFrameworkFilterInput) {
+  APITypes.OnCreateFrameworkSubscriptionVariables,
+  APITypes.OnCreateFrameworkSubscription
+>;
+export const onUpdateFramework = /* GraphQL */ `subscription OnUpdateFramework($filter: ModelSubscriptionFrameworkFilterInput) {
   onUpdateFramework(filter: $filter) {
     id
     programmingLanguageId
@@ -292,11 +275,10 @@ export const onUpdateFramework =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateFrameworkSubscriptionVariables,
-    APITypes.OnUpdateFrameworkSubscription
-  >;
-export const onDeleteFramework =
-  /* GraphQL */ `subscription OnDeleteFramework($filter: ModelSubscriptionFrameworkFilterInput) {
+  APITypes.OnUpdateFrameworkSubscriptionVariables,
+  APITypes.OnUpdateFrameworkSubscription
+>;
+export const onDeleteFramework = /* GraphQL */ `subscription OnDeleteFramework($filter: ModelSubscriptionFrameworkFilterInput) {
   onDeleteFramework(filter: $filter) {
     id
     programmingLanguageId
@@ -308,11 +290,10 @@ export const onDeleteFramework =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteFrameworkSubscriptionVariables,
-    APITypes.OnDeleteFrameworkSubscription
-  >;
-export const onCreateLibrary =
-  /* GraphQL */ `subscription OnCreateLibrary($filter: ModelSubscriptionLibraryFilterInput) {
+  APITypes.OnDeleteFrameworkSubscriptionVariables,
+  APITypes.OnDeleteFrameworkSubscription
+>;
+export const onCreateLibrary = /* GraphQL */ `subscription OnCreateLibrary($filter: ModelSubscriptionLibraryFilterInput) {
   onCreateLibrary(filter: $filter) {
     id
     programmingLanguageId
@@ -324,11 +305,10 @@ export const onCreateLibrary =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateLibrarySubscriptionVariables,
-    APITypes.OnCreateLibrarySubscription
-  >;
-export const onUpdateLibrary =
-  /* GraphQL */ `subscription OnUpdateLibrary($filter: ModelSubscriptionLibraryFilterInput) {
+  APITypes.OnCreateLibrarySubscriptionVariables,
+  APITypes.OnCreateLibrarySubscription
+>;
+export const onUpdateLibrary = /* GraphQL */ `subscription OnUpdateLibrary($filter: ModelSubscriptionLibraryFilterInput) {
   onUpdateLibrary(filter: $filter) {
     id
     programmingLanguageId
@@ -340,11 +320,10 @@ export const onUpdateLibrary =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateLibrarySubscriptionVariables,
-    APITypes.OnUpdateLibrarySubscription
-  >;
-export const onDeleteLibrary =
-  /* GraphQL */ `subscription OnDeleteLibrary($filter: ModelSubscriptionLibraryFilterInput) {
+  APITypes.OnUpdateLibrarySubscriptionVariables,
+  APITypes.OnUpdateLibrarySubscription
+>;
+export const onDeleteLibrary = /* GraphQL */ `subscription OnDeleteLibrary($filter: ModelSubscriptionLibraryFilterInput) {
   onDeleteLibrary(filter: $filter) {
     id
     programmingLanguageId
@@ -356,11 +335,10 @@ export const onDeleteLibrary =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteLibrarySubscriptionVariables,
-    APITypes.OnDeleteLibrarySubscription
-  >;
-export const onCreateJobType =
-  /* GraphQL */ `subscription OnCreateJobType($filter: ModelSubscriptionJobTypeFilterInput) {
+  APITypes.OnDeleteLibrarySubscriptionVariables,
+  APITypes.OnDeleteLibrarySubscription
+>;
+export const onCreateJobType = /* GraphQL */ `subscription OnCreateJobType($filter: ModelSubscriptionJobTypeFilterInput) {
   onCreateJobType(filter: $filter) {
     id
     name
@@ -371,11 +349,10 @@ export const onCreateJobType =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateJobTypeSubscriptionVariables,
-    APITypes.OnCreateJobTypeSubscription
-  >;
-export const onUpdateJobType =
-  /* GraphQL */ `subscription OnUpdateJobType($filter: ModelSubscriptionJobTypeFilterInput) {
+  APITypes.OnCreateJobTypeSubscriptionVariables,
+  APITypes.OnCreateJobTypeSubscription
+>;
+export const onUpdateJobType = /* GraphQL */ `subscription OnUpdateJobType($filter: ModelSubscriptionJobTypeFilterInput) {
   onUpdateJobType(filter: $filter) {
     id
     name
@@ -386,11 +363,10 @@ export const onUpdateJobType =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateJobTypeSubscriptionVariables,
-    APITypes.OnUpdateJobTypeSubscription
-  >;
-export const onDeleteJobType =
-  /* GraphQL */ `subscription OnDeleteJobType($filter: ModelSubscriptionJobTypeFilterInput) {
+  APITypes.OnUpdateJobTypeSubscriptionVariables,
+  APITypes.OnUpdateJobTypeSubscription
+>;
+export const onDeleteJobType = /* GraphQL */ `subscription OnDeleteJobType($filter: ModelSubscriptionJobTypeFilterInput) {
   onDeleteJobType(filter: $filter) {
     id
     name
@@ -401,11 +377,10 @@ export const onDeleteJobType =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteJobTypeSubscriptionVariables,
-    APITypes.OnDeleteJobTypeSubscription
-  >;
-export const onCreatePaymentMethod =
-  /* GraphQL */ `subscription OnCreatePaymentMethod(
+  APITypes.OnDeleteJobTypeSubscriptionVariables,
+  APITypes.OnDeleteJobTypeSubscription
+>;
+export const onCreatePaymentMethod = /* GraphQL */ `subscription OnCreatePaymentMethod(
   $filter: ModelSubscriptionPaymentMethodFilterInput
 ) {
   onCreatePaymentMethod(filter: $filter) {
@@ -417,11 +392,10 @@ export const onCreatePaymentMethod =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreatePaymentMethodSubscriptionVariables,
-    APITypes.OnCreatePaymentMethodSubscription
-  >;
-export const onUpdatePaymentMethod =
-  /* GraphQL */ `subscription OnUpdatePaymentMethod(
+  APITypes.OnCreatePaymentMethodSubscriptionVariables,
+  APITypes.OnCreatePaymentMethodSubscription
+>;
+export const onUpdatePaymentMethod = /* GraphQL */ `subscription OnUpdatePaymentMethod(
   $filter: ModelSubscriptionPaymentMethodFilterInput
 ) {
   onUpdatePaymentMethod(filter: $filter) {
@@ -433,11 +407,10 @@ export const onUpdatePaymentMethod =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdatePaymentMethodSubscriptionVariables,
-    APITypes.OnUpdatePaymentMethodSubscription
-  >;
-export const onDeletePaymentMethod =
-  /* GraphQL */ `subscription OnDeletePaymentMethod(
+  APITypes.OnUpdatePaymentMethodSubscriptionVariables,
+  APITypes.OnUpdatePaymentMethodSubscription
+>;
+export const onDeletePaymentMethod = /* GraphQL */ `subscription OnDeletePaymentMethod(
   $filter: ModelSubscriptionPaymentMethodFilterInput
 ) {
   onDeletePaymentMethod(filter: $filter) {
@@ -449,11 +422,10 @@ export const onDeletePaymentMethod =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeletePaymentMethodSubscriptionVariables,
-    APITypes.OnDeletePaymentMethodSubscription
-  >;
-export const onCreateCreditCard =
-  /* GraphQL */ `subscription OnCreateCreditCard(
+  APITypes.OnDeletePaymentMethodSubscriptionVariables,
+  APITypes.OnDeletePaymentMethodSubscription
+>;
+export const onCreateCreditCard = /* GraphQL */ `subscription OnCreateCreditCard(
   $filter: ModelSubscriptionCreditCardFilterInput
 ) {
   onCreateCreditCard(filter: $filter) {
@@ -465,11 +437,10 @@ export const onCreateCreditCard =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateCreditCardSubscriptionVariables,
-    APITypes.OnCreateCreditCardSubscription
-  >;
-export const onUpdateCreditCard =
-  /* GraphQL */ `subscription OnUpdateCreditCard(
+  APITypes.OnCreateCreditCardSubscriptionVariables,
+  APITypes.OnCreateCreditCardSubscription
+>;
+export const onUpdateCreditCard = /* GraphQL */ `subscription OnUpdateCreditCard(
   $filter: ModelSubscriptionCreditCardFilterInput
 ) {
   onUpdateCreditCard(filter: $filter) {
@@ -481,11 +452,10 @@ export const onUpdateCreditCard =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateCreditCardSubscriptionVariables,
-    APITypes.OnUpdateCreditCardSubscription
-  >;
-export const onDeleteCreditCard =
-  /* GraphQL */ `subscription OnDeleteCreditCard(
+  APITypes.OnUpdateCreditCardSubscriptionVariables,
+  APITypes.OnUpdateCreditCardSubscription
+>;
+export const onDeleteCreditCard = /* GraphQL */ `subscription OnDeleteCreditCard(
   $filter: ModelSubscriptionCreditCardFilterInput
 ) {
   onDeleteCreditCard(filter: $filter) {
@@ -497,11 +467,10 @@ export const onDeleteCreditCard =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteCreditCardSubscriptionVariables,
-    APITypes.OnDeleteCreditCardSubscription
-  >;
-export const onCreateBenefitUserCategory =
-  /* GraphQL */ `subscription OnCreateBenefitUserCategory(
+  APITypes.OnDeleteCreditCardSubscriptionVariables,
+  APITypes.OnDeleteCreditCardSubscription
+>;
+export const onCreateBenefitUserCategory = /* GraphQL */ `subscription OnCreateBenefitUserCategory(
   $filter: ModelSubscriptionBenefitUserCategoryFilterInput
 ) {
   onCreateBenefitUserCategory(filter: $filter) {
@@ -513,11 +482,10 @@ export const onCreateBenefitUserCategory =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateBenefitUserCategorySubscriptionVariables,
-    APITypes.OnCreateBenefitUserCategorySubscription
-  >;
-export const onUpdateBenefitUserCategory =
-  /* GraphQL */ `subscription OnUpdateBenefitUserCategory(
+  APITypes.OnCreateBenefitUserCategorySubscriptionVariables,
+  APITypes.OnCreateBenefitUserCategorySubscription
+>;
+export const onUpdateBenefitUserCategory = /* GraphQL */ `subscription OnUpdateBenefitUserCategory(
   $filter: ModelSubscriptionBenefitUserCategoryFilterInput
 ) {
   onUpdateBenefitUserCategory(filter: $filter) {
@@ -529,11 +497,10 @@ export const onUpdateBenefitUserCategory =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateBenefitUserCategorySubscriptionVariables,
-    APITypes.OnUpdateBenefitUserCategorySubscription
-  >;
-export const onDeleteBenefitUserCategory =
-  /* GraphQL */ `subscription OnDeleteBenefitUserCategory(
+  APITypes.OnUpdateBenefitUserCategorySubscriptionVariables,
+  APITypes.OnUpdateBenefitUserCategorySubscription
+>;
+export const onDeleteBenefitUserCategory = /* GraphQL */ `subscription OnDeleteBenefitUserCategory(
   $filter: ModelSubscriptionBenefitUserCategoryFilterInput
 ) {
   onDeleteBenefitUserCategory(filter: $filter) {
@@ -545,11 +512,10 @@ export const onDeleteBenefitUserCategory =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteBenefitUserCategorySubscriptionVariables,
-    APITypes.OnDeleteBenefitUserCategorySubscription
-  >;
-export const onCreateLearningCenter =
-  /* GraphQL */ `subscription OnCreateLearningCenter(
+  APITypes.OnDeleteBenefitUserCategorySubscriptionVariables,
+  APITypes.OnDeleteBenefitUserCategorySubscription
+>;
+export const onCreateLearningCenter = /* GraphQL */ `subscription OnCreateLearningCenter(
   $filter: ModelSubscriptionLearningCenterFilterInput
 ) {
   onCreateLearningCenter(filter: $filter) {
@@ -573,11 +539,10 @@ export const onCreateLearningCenter =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateLearningCenterSubscriptionVariables,
-    APITypes.OnCreateLearningCenterSubscription
-  >;
-export const onUpdateLearningCenter =
-  /* GraphQL */ `subscription OnUpdateLearningCenter(
+  APITypes.OnCreateLearningCenterSubscriptionVariables,
+  APITypes.OnCreateLearningCenterSubscription
+>;
+export const onUpdateLearningCenter = /* GraphQL */ `subscription OnUpdateLearningCenter(
   $filter: ModelSubscriptionLearningCenterFilterInput
 ) {
   onUpdateLearningCenter(filter: $filter) {
@@ -601,11 +566,10 @@ export const onUpdateLearningCenter =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateLearningCenterSubscriptionVariables,
-    APITypes.OnUpdateLearningCenterSubscription
-  >;
-export const onDeleteLearningCenter =
-  /* GraphQL */ `subscription OnDeleteLearningCenter(
+  APITypes.OnUpdateLearningCenterSubscriptionVariables,
+  APITypes.OnUpdateLearningCenterSubscription
+>;
+export const onDeleteLearningCenter = /* GraphQL */ `subscription OnDeleteLearningCenter(
   $filter: ModelSubscriptionLearningCenterFilterInput
 ) {
   onDeleteLearningCenter(filter: $filter) {
@@ -629,11 +593,10 @@ export const onDeleteLearningCenter =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteLearningCenterSubscriptionVariables,
-    APITypes.OnDeleteLearningCenterSubscription
-  >;
-export const onCreateLearningCenterCourse =
-  /* GraphQL */ `subscription OnCreateLearningCenterCourse(
+  APITypes.OnDeleteLearningCenterSubscriptionVariables,
+  APITypes.OnDeleteLearningCenterSubscription
+>;
+export const onCreateLearningCenterCourse = /* GraphQL */ `subscription OnCreateLearningCenterCourse(
   $filter: ModelSubscriptionLearningCenterCourseFilterInput
 ) {
   onCreateLearningCenterCourse(filter: $filter) {
@@ -669,6 +632,7 @@ export const onCreateLearningCenterCourse =
     developmentProducts
     programmingLanguages
     frameworks
+    libraries
     developmentTools
     qualifications
     attendanceType
@@ -682,11 +646,10 @@ export const onCreateLearningCenterCourse =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateLearningCenterCourseSubscriptionVariables,
-    APITypes.OnCreateLearningCenterCourseSubscription
-  >;
-export const onUpdateLearningCenterCourse =
-  /* GraphQL */ `subscription OnUpdateLearningCenterCourse(
+  APITypes.OnCreateLearningCenterCourseSubscriptionVariables,
+  APITypes.OnCreateLearningCenterCourseSubscription
+>;
+export const onUpdateLearningCenterCourse = /* GraphQL */ `subscription OnUpdateLearningCenterCourse(
   $filter: ModelSubscriptionLearningCenterCourseFilterInput
 ) {
   onUpdateLearningCenterCourse(filter: $filter) {
@@ -722,6 +685,7 @@ export const onUpdateLearningCenterCourse =
     developmentProducts
     programmingLanguages
     frameworks
+    libraries
     developmentTools
     qualifications
     attendanceType
@@ -735,11 +699,10 @@ export const onUpdateLearningCenterCourse =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateLearningCenterCourseSubscriptionVariables,
-    APITypes.OnUpdateLearningCenterCourseSubscription
-  >;
-export const onDeleteLearningCenterCourse =
-  /* GraphQL */ `subscription OnDeleteLearningCenterCourse(
+  APITypes.OnUpdateLearningCenterCourseSubscriptionVariables,
+  APITypes.OnUpdateLearningCenterCourseSubscription
+>;
+export const onDeleteLearningCenterCourse = /* GraphQL */ `subscription OnDeleteLearningCenterCourse(
   $filter: ModelSubscriptionLearningCenterCourseFilterInput
 ) {
   onDeleteLearningCenterCourse(filter: $filter) {
@@ -775,6 +738,7 @@ export const onDeleteLearningCenterCourse =
     developmentProducts
     programmingLanguages
     frameworks
+    libraries
     developmentTools
     qualifications
     attendanceType
@@ -788,11 +752,10 @@ export const onDeleteLearningCenterCourse =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteLearningCenterCourseSubscriptionVariables,
-    APITypes.OnDeleteLearningCenterCourseSubscription
-  >;
-export const onCreateCourseReview =
-  /* GraphQL */ `subscription OnCreateCourseReview(
+  APITypes.OnDeleteLearningCenterCourseSubscriptionVariables,
+  APITypes.OnDeleteLearningCenterCourseSubscription
+>;
+export const onCreateCourseReview = /* GraphQL */ `subscription OnCreateCourseReview(
   $filter: ModelSubscriptionCourseReviewFilterInput
 ) {
   onCreateCourseReview(filter: $filter) {
@@ -815,11 +778,10 @@ export const onCreateCourseReview =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateCourseReviewSubscriptionVariables,
-    APITypes.OnCreateCourseReviewSubscription
-  >;
-export const onUpdateCourseReview =
-  /* GraphQL */ `subscription OnUpdateCourseReview(
+  APITypes.OnCreateCourseReviewSubscriptionVariables,
+  APITypes.OnCreateCourseReviewSubscription
+>;
+export const onUpdateCourseReview = /* GraphQL */ `subscription OnUpdateCourseReview(
   $filter: ModelSubscriptionCourseReviewFilterInput
 ) {
   onUpdateCourseReview(filter: $filter) {
@@ -842,11 +804,10 @@ export const onUpdateCourseReview =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateCourseReviewSubscriptionVariables,
-    APITypes.OnUpdateCourseReviewSubscription
-  >;
-export const onDeleteCourseReview =
-  /* GraphQL */ `subscription OnDeleteCourseReview(
+  APITypes.OnUpdateCourseReviewSubscriptionVariables,
+  APITypes.OnUpdateCourseReviewSubscription
+>;
+export const onDeleteCourseReview = /* GraphQL */ `subscription OnDeleteCourseReview(
   $filter: ModelSubscriptionCourseReviewFilterInput
 ) {
   onDeleteCourseReview(filter: $filter) {
@@ -869,11 +830,10 @@ export const onDeleteCourseReview =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteCourseReviewSubscriptionVariables,
-    APITypes.OnDeleteCourseReviewSubscription
-  >;
-export const onCreateContact =
-  /* GraphQL */ `subscription OnCreateContact($filter: ModelSubscriptionContactFilterInput) {
+  APITypes.OnDeleteCourseReviewSubscriptionVariables,
+  APITypes.OnDeleteCourseReviewSubscription
+>;
+export const onCreateContact = /* GraphQL */ `subscription OnCreateContact($filter: ModelSubscriptionContactFilterInput) {
   onCreateContact(filter: $filter) {
     id
     userEmail
@@ -885,11 +845,10 @@ export const onCreateContact =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateContactSubscriptionVariables,
-    APITypes.OnCreateContactSubscription
-  >;
-export const onUpdateContact =
-  /* GraphQL */ `subscription OnUpdateContact($filter: ModelSubscriptionContactFilterInput) {
+  APITypes.OnCreateContactSubscriptionVariables,
+  APITypes.OnCreateContactSubscription
+>;
+export const onUpdateContact = /* GraphQL */ `subscription OnUpdateContact($filter: ModelSubscriptionContactFilterInput) {
   onUpdateContact(filter: $filter) {
     id
     userEmail
@@ -901,11 +860,10 @@ export const onUpdateContact =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateContactSubscriptionVariables,
-    APITypes.OnUpdateContactSubscription
-  >;
-export const onDeleteContact =
-  /* GraphQL */ `subscription OnDeleteContact($filter: ModelSubscriptionContactFilterInput) {
+  APITypes.OnUpdateContactSubscriptionVariables,
+  APITypes.OnUpdateContactSubscription
+>;
+export const onDeleteContact = /* GraphQL */ `subscription OnDeleteContact($filter: ModelSubscriptionContactFilterInput) {
   onDeleteContact(filter: $filter) {
     id
     userEmail
@@ -917,6 +875,6 @@ export const onDeleteContact =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteContactSubscriptionVariables,
-    APITypes.OnDeleteContactSubscription
-  >;
+  APITypes.OnDeleteContactSubscriptionVariables,
+  APITypes.OnDeleteContactSubscription
+>;

@@ -523,6 +523,7 @@ export const getLearningCenterCourse =
     developmentProducts
     programmingLanguages
     frameworks
+    libraries
     developmentTools
     qualifications
     attendanceType
@@ -583,6 +584,7 @@ export const listLearningCenterCourses =
       developmentProducts
       programmingLanguages
       frameworks
+      libraries
       developmentTools
       qualifications
       attendanceType

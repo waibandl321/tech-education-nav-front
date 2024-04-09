@@ -239,6 +239,7 @@ type LearningCenterCourse
   developmentProducts: [String] # 開発できるサービス（マッチングアプリ、掲示板アプリ、、、など DevelopmentProductマスタのIDを格納する）
   programmingLanguages: [String] # 学べるプログラミング言語（ProgrammingLanguageマスタのIDを格納する）
   frameworks: [String] # 学べるフレームワーク（FrameworkマスタのIDを格納する）
+  libraries: [String] # 学べるAPI、ライブラリ（LibraryマスタのIDを格納する）
   developmentTools: [String] # 各種ツール（DevelopmentToolマスタのIDを格納する）
   qualifications: [String] # 取得できる資格（QualificationマスタのIDを格納）
   attendanceType: AttendanceType # 受講スタイル（選択形式）
