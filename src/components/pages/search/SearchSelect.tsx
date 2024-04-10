@@ -92,7 +92,7 @@ export default function SearchSelect<T extends Item>({
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 3 }}
         elevation={3}
       >
-        <Card sx={{ p: 2, backgroundColor: "#e8f4ff" }}>
+        <Card sx={{ p: 2, backgroundColor: "rgba(0,0,0,.2)" }}>
           <Button
             size="large"
             variant="contained"

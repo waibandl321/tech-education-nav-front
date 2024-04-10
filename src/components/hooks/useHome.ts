@@ -1,4 +1,6 @@
 import CodeIcon from "@mui/icons-material/Code";
+import WebAssetIcon from "@mui/icons-material/WebAsset";
+import ApiIcon from "@mui/icons-material/Api";
 import BuildIcon from "@mui/icons-material/Build";
 import DeveloperModeIcon from "@mui/icons-material/DeveloperMode";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
@@ -16,6 +18,16 @@ export default function useHome() {
       title: "プログラミング言語から探す",
       href: "/search/programmingLanguages",
       Icon: CodeIcon,
+    },
+    {
+      title: "フレームワークから探す",
+      href: "/search/frameworks",
+      Icon: WebAssetIcon,
+    },
+    {
+      title: "ライブラリ/APIから探す",
+      href: "/search/libraries",
+      Icon: ApiIcon,
     },
     {
       title: "ツールから探す",

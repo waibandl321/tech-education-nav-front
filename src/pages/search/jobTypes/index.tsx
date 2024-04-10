@@ -9,7 +9,7 @@ import { DeviceType } from "@/types/CommonType";
 import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 
-export default function JobType({
+export default function JobTypesPage({
   viewport,
   jobTypes,
 }: {

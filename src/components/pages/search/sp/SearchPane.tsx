@@ -15,23 +15,11 @@ import {
 import { grey } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import ListItemText from "@mui/material/ListItemText";
-import {
-  DevelopmentTool,
-  Framework,
-  JobType,
-  LearningCenter,
-  LearningCenterCourse,
-  ProgrammingLanguage,
-  PaymentMethod,
-  CreditCard,
-  DevelopmentCategory,
-  DevelopmentProduct,
-  Qualification,
-  BenefitUserCategory,
-} from "@/API";
+import { LearningCenter, LearningCenterCourse } from "@/API";
 import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
 import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
+import { AppDataPropType } from "@/types/CommonType";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -62,33 +50,7 @@ const Puller = styled("div")(({ theme }) => ({
 const drawerBleeding = 56;
 const drawerWidth = 300;
 
-export default function SearchPane({
-  centers,
-  courses,
-  languages,
-  frameworks,
-  developmentTools,
-  jobTypes,
-  paymentMethods,
-  creditCards,
-  developmentCategories,
-  developmentProducts,
-  qualifications,
-  benefitUserCategories,
-}: {
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
-  languages: Array<ProgrammingLanguage>;
-  frameworks: Array<Framework>;
-  developmentTools: Array<DevelopmentTool>;
-  jobTypes: Array<JobType>;
-  paymentMethods: Array<PaymentMethod>;
-  creditCards: Array<CreditCard>;
-  developmentCategories: Array<DevelopmentCategory>;
-  developmentProducts: Array<DevelopmentProduct>;
-  qualifications: Array<Qualification>;
-  benefitUserCategories: Array<BenefitUserCategory>;
-}) {
+export default function SearchPane({ ...props }: AppDataPropType) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -97,8 +59,8 @@ export default function SearchPane({
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(() => {
-    return centers.map((center) => {
-      const coursesByCenter = courses.filter(
+    return props.centers.map((center) => {
+      const coursesByCenter = props.courses.filter(
         (v) => v.learningCenterId === center.id
       );
       return {
@@ -106,7 +68,7 @@ export default function SearchPane({
         courses: coursesByCenter,
       };
     });
-  }, [centers, courses]);
+  }, [props.centers, props.courses]);
 
   // スクール > コースがplansを持っているかどうか
   const hasPlan = (center: ExtendedLearningCenter) => {
@@ -186,18 +148,19 @@ export default function SearchPane({
         >
           {
             <SearchNavigation
-              centers={centers}
-              courses={courses}
-              languages={languages}
-              frameworks={frameworks}
-              developmentTools={developmentTools}
-              jobTypes={jobTypes}
-              paymentMethods={paymentMethods}
-              creditCards={creditCards}
-              developmentCategories={developmentCategories}
-              developmentProducts={developmentProducts}
-              qualifications={qualifications}
-              benefitUserCategories={benefitUserCategories}
+              centers={props.centers}
+              courses={props.courses}
+              languages={props.languages}
+              frameworks={props.frameworks}
+              libraries={props.libraries}
+              developmentTools={props.developmentTools}
+              jobTypes={props.jobTypes}
+              paymentMethods={props.paymentMethods}
+              creditCards={props.creditCards}
+              developmentCategories={props.developmentCategories}
+              developmentProducts={props.developmentProducts}
+              qualifications={props.qualifications}
+              benefitUserCategories={props.benefitUserCategories}
             />
           }
         </StyledBox>

@@ -3,52 +3,13 @@ import Layout from "@/app/layout";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
-import {
-  BenefitUserCategory,
-  CreditCard,
-  DevelopmentCategory,
-  DevelopmentProduct,
-  DevelopmentTool,
-  Framework,
-  JobType,
-  LearningCenter,
-  LearningCenterCourse,
-  PaymentMethod,
-  ProgrammingLanguage,
-  Qualification,
-} from "@/API";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
 import SPLayout from "@/app/sp-layout";
+import { AppDataPropType } from "@/types/CommonType";
 
-export default function Index({
-  centers,
-  courses,
-  languages,
-  frameworks,
-  developmentTools,
-  jobTypes,
-  paymentMethods,
-  creditCards,
-  developmentCategories,
-  developmentProducts,
-  qualifications,
-  benefitUserCategories,
-}: {
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
-  languages: Array<ProgrammingLanguage>;
-  frameworks: Array<Framework>;
-  developmentTools: Array<DevelopmentTool>;
-  jobTypes: Array<JobType>;
-  paymentMethods: Array<PaymentMethod>;
-  creditCards: Array<CreditCard>;
-  developmentCategories: Array<DevelopmentCategory>;
-  developmentProducts: Array<DevelopmentProduct>;
-  qualifications: Array<Qualification>;
-  benefitUserCategories: Array<BenefitUserCategory>;
-}) {
+export default function Index({ ...props }: AppDataPropType) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
   return (
@@ -62,35 +23,37 @@ export default function Index({
       {isMobile ? (
         <SPLayout>
           <SPSearchPane
-            centers={centers}
-            courses={courses}
-            languages={languages}
-            frameworks={frameworks}
-            developmentTools={developmentTools}
-            jobTypes={jobTypes}
-            paymentMethods={paymentMethods}
-            creditCards={creditCards}
-            developmentCategories={developmentCategories}
-            developmentProducts={developmentProducts}
-            qualifications={qualifications}
-            benefitUserCategories={benefitUserCategories}
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
           />
         </SPLayout>
       ) : (
         <Layout>
           <PCSearchPane
-            centers={centers}
-            courses={courses}
-            languages={languages}
-            frameworks={frameworks}
-            developmentTools={developmentTools}
-            jobTypes={jobTypes}
-            paymentMethods={paymentMethods}
-            creditCards={creditCards}
-            developmentCategories={developmentCategories}
-            developmentProducts={developmentProducts}
-            qualifications={qualifications}
-            benefitUserCategories={benefitUserCategories}
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
           />
         </Layout>
       )}
@@ -107,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       courses: result.courses,
       languages: result.languages,
       frameworks: result.frameworks,
+      libraries: result.libraries,
       developmentTools: result.developmentTools,
       jobTypes: result.jobTypes,
       paymentMethods: result.paymentMethods,

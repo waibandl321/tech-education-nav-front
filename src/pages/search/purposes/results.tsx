@@ -4,59 +4,17 @@ import Layout from "@/app/layout";
 import Head from "next/head";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import { PurposeOptions } from "@/const";
-import {
-  BenefitUserCategory,
-  CreditCard,
-  DevelopmentCategory,
-  DevelopmentProduct,
-  DevelopmentTool,
-  Framework,
-  JobType,
-  LearningCenter,
-  LearningCenterCourse,
-  PaymentMethod,
-  ProgrammingLanguage,
-  Qualification,
-} from "@/API";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
-import { DeviceType } from "@/types/CommonType";
+import { AppDataPropType } from "@/types/CommonType";
 import { useSearchParams } from "next/navigation";
-import { Typography, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 
-export default function PurposeResults({
-  viewport,
-  centers,
-  courses,
-  languages,
-  frameworks,
-  developmentTools,
-  jobTypes,
-  paymentMethods,
-  creditCards,
-  developmentCategories,
-  developmentProducts,
-  qualifications,
-  benefitUserCategories,
-}: {
-  viewport: DeviceType;
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
-  languages: Array<ProgrammingLanguage>;
-  frameworks: Array<Framework>;
-  developmentTools: Array<DevelopmentTool>;
-  jobTypes: Array<JobType>;
-  paymentMethods: Array<PaymentMethod>;
-  creditCards: Array<CreditCard>;
-  developmentCategories: Array<DevelopmentCategory>;
-  developmentProducts: Array<DevelopmentProduct>;
-  qualifications: Array<Qualification>;
-  benefitUserCategories: Array<BenefitUserCategory>;
-}) {
-  const isMobile = viewport === "mobile";
+export default function PurposeResults({ ...props }: AppDataPropType) {
+  const isMobile = props.viewport === "mobile";
   // url query
   const searchParams = useSearchParams();
   const purposesSearchParams = searchParams?.get("purposes");
@@ -104,18 +62,19 @@ export default function PurposeResults({
             title={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧`}
           />
           <SPSearchPane
-            centers={centers}
-            courses={courses}
-            languages={languages}
-            frameworks={frameworks}
-            developmentTools={developmentTools}
-            jobTypes={jobTypes}
-            paymentMethods={paymentMethods}
-            creditCards={creditCards}
-            developmentCategories={developmentCategories}
-            developmentProducts={developmentProducts}
-            qualifications={qualifications}
-            benefitUserCategories={benefitUserCategories}
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
           />
         </SPLayout>
       ) : (
@@ -125,18 +84,19 @@ export default function PurposeResults({
             title={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧`}
           />
           <PCSearchPane
-            centers={centers}
-            courses={courses}
-            languages={languages}
-            frameworks={frameworks}
-            developmentTools={developmentTools}
-            jobTypes={jobTypes}
-            paymentMethods={paymentMethods}
-            creditCards={creditCards}
-            developmentCategories={developmentCategories}
-            developmentProducts={developmentProducts}
-            qualifications={qualifications}
-            benefitUserCategories={benefitUserCategories}
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
           />
         </Layout>
       )}
@@ -165,6 +125,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       courses: courses,
       languages: result.languages,
       frameworks: result.frameworks,
+      libraries: result.libraries,
       developmentTools: result.developmentTools,
       jobTypes: result.jobTypes,
       paymentMethods: result.paymentMethods,

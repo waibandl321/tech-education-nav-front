@@ -13,54 +13,14 @@ import {
   OutlinedInput,
   Slider,
 } from "@mui/material";
-
-import {
-  DevelopmentTool,
-  Framework,
-  JobType,
-  LearningCenter,
-  LearningCenterCourse,
-  ProgrammingLanguage,
-  PaymentMethod,
-  CreditCard,
-  DevelopmentCategory,
-  DevelopmentProduct,
-  Qualification,
-  BenefitUserCategory,
-} from "@/API";
 import React, { useMemo } from "react";
 import { AttendanceTypeLabels, PurposeOptions } from "@/const";
+import { AppDataPropType } from "@/types/CommonType";
 
 const MAX = 150;
 const MIN = 0;
 
-export default function SearchNavigation({
-  centers,
-  courses,
-  languages,
-  frameworks,
-  developmentTools,
-  jobTypes,
-  paymentMethods,
-  creditCards,
-  developmentCategories,
-  developmentProducts,
-  qualifications,
-  benefitUserCategories,
-}: {
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
-  languages: Array<ProgrammingLanguage>;
-  frameworks: Array<Framework>;
-  developmentTools: Array<DevelopmentTool>;
-  jobTypes: Array<JobType>;
-  paymentMethods: Array<PaymentMethod>;
-  creditCards: Array<CreditCard>;
-  developmentCategories: Array<DevelopmentCategory>;
-  developmentProducts: Array<DevelopmentProduct>;
-  qualifications: Array<Qualification>;
-  benefitUserCategories: Array<BenefitUserCategory>;
-}) {
+export default function SearchNavigation({ ...props }: AppDataPropType) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
   // 料金レンジ（仮）
@@ -74,8 +34,8 @@ export default function SearchNavigation({
 
   // プログラミング言語にフレームワークを紐付けたデータ
   const languageWithFrameworks = useMemo(() => {
-    return languages.map((lang) => {
-      const frameworksByLang = frameworks.filter(
+    return props.languages.map((lang) => {
+      const frameworksByLang = props.frameworks.filter(
         (framework) => framework.programmingLanguageId === lang.id
       );
       return {
@@ -83,7 +43,7 @@ export default function SearchNavigation({
         frameworks: frameworksByLang,
       };
     });
-  }, [languages, frameworks]);
+  }, [props.languages, props.frameworks]);
 
   return (
     <Card
@@ -226,7 +186,7 @@ export default function SearchNavigation({
             <MenuItem value="">
               <em>指定しない</em>
             </MenuItem>
-            {benefitUserCategories.map((item) => (
+            {props.benefitUserCategories.map((item) => (
               <MenuItem key={item.id} value={item.id}>
                 {item.name}
               </MenuItem>
@@ -243,7 +203,7 @@ export default function SearchNavigation({
         </Box>
         <Box>
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {paymentMethods.map((item) => (
+            {props.paymentMethods.map((item) => (
               <FormControlLabel
                 key={item.id}
                 control={<Checkbox name="paymentOptions" value={item.id} />}
@@ -261,7 +221,7 @@ export default function SearchNavigation({
         </Box>
         <Box>
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {creditCards.map((item) => (
+            {props.creditCards.map((item) => (
               <FormControlLabel
                 key={item.id}
                 control={<Checkbox name="creditCards" value={item.id} />}
@@ -289,7 +249,7 @@ export default function SearchNavigation({
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {developmentCategories.map((category) => (
+              {props.developmentCategories.map((category) => (
                 <MenuItem key={category.id} value={category.id}>
                   {category.name}
                 </MenuItem>
@@ -316,7 +276,7 @@ export default function SearchNavigation({
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {developmentProducts.map((product) => (
+              {props.developmentProducts.map((product) => (
                 <MenuItem key={product.id} value={product.id}>
                   {product.name}
                 </MenuItem>
@@ -343,7 +303,7 @@ export default function SearchNavigation({
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {qualifications.map((dualification) => (
+              {props.qualifications.map((dualification) => (
                 <MenuItem key={dualification.id} value={dualification.id}>
                   {dualification.name}
                 </MenuItem>
@@ -370,7 +330,7 @@ export default function SearchNavigation({
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {jobTypes.map((job) => (
+              {props.jobTypes.map((job) => (
                 <MenuItem key={job.id} value={job.id}>
                   {job.name}
                 </MenuItem>
@@ -427,7 +387,7 @@ export default function SearchNavigation({
             <MenuItem value="">
               <em>指定しない</em>
             </MenuItem>
-            {sortBy(developmentTools, ["name"]).map((item) => (
+            {sortBy(props.developmentTools, ["name"]).map((item) => (
               <MenuItem key={item.id} value={item.id}>
                 {item.name}
               </MenuItem>

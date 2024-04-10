@@ -8,7 +8,7 @@ import SearchSelect from "@/components/pages/search/SearchSelect";
 import { Container } from "@mui/material";
 import { PurposeOptions } from "@/const";
 
-export default function Purpose({ viewport }: { viewport: DeviceType }) {
+export default function PurposesPage({ viewport }: { viewport: DeviceType }) {
   const isMobile = viewport === "mobile";
 
   return (

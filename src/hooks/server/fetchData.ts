@@ -15,6 +15,7 @@ import {
   listDevelopmentProducts,
   listQualifications,
   listBenefitUserCategories,
+  listLibraries,
 } from "@/graphql/queries";
 
 const client = generateClient();
@@ -120,6 +121,7 @@ export const fetchSearchPageData = async () => {
       learningCenterCoursesResult,
       languagesResult,
       frameworksResult,
+      librariesResult,
       developmentToolResult,
       getJobTypesResult,
       getPaymentMethodsResult,
@@ -143,6 +145,10 @@ export const fetchSearchPageData = async () => {
       }),
       client.graphql({
         query: listFrameworks,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listLibraries,
         authMode: "apiKey",
       }),
       client.graphql({
@@ -183,6 +189,7 @@ export const fetchSearchPageData = async () => {
       courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
       languages: languagesResult.data.listProgrammingLanguages.items,
       frameworks: frameworksResult.data.listFrameworks.items,
+      libraries: librariesResult.data.listLibraries.items,
       developmentTools: developmentToolResult.data.listDevelopmentTools.items,
       jobTypes: getJobTypesResult.data.listJobTypes.items,
       paymentMethods: getPaymentMethodsResult.data.listPaymentMethods.items,
@@ -202,6 +209,7 @@ export const fetchSearchPageData = async () => {
       courses: [],
       languages: [],
       frameworks: [],
+      libraries: [],
       developmentTools: [],
       jobTypes: [],
       paymentMethods: [],
@@ -231,6 +239,72 @@ export const fetchLanguages = async () => {
     };
   }
 };
+// フレームワーク一覧を取得する
+export const fetchFrameworks = async () => {
+  try {
+    const result = await client.graphql({
+      query: listFrameworks,
+      authMode: "apiKey",
+    });
+    return {
+      frameworks: result.data.listFrameworks.items,
+    };
+  } catch (error) {
+    console.error("Error fetchFrameworks:", error);
+    return {
+      frameworks: [],
+    };
+  }
+};
+// ライブラリ一覧を取得する
+export const fetchLibraries = async () => {
+  try {
+    const result = await client.graphql({
+      query: listLibraries,
+      authMode: "apiKey",
+    });
+    return {
+      libraries: result.data.listLibraries.items,
+    };
+  } catch (error) {
+    console.error("Error fetchLibraries:", error);
+    return {
+      libraries: [],
+    };
+  }
+};
+// 言語、フレームワーク、ライブラリを取得
+export const fetchLangFrameLibList = async () => {
+  try {
+    const [langResult, frameResult, libResult] = await Promise.all([
+      client.graphql({
+        query: listProgrammingLanguages,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listFrameworks,
+        authMode: "apiKey",
+      }),
+      client.graphql({
+        query: listLibraries,
+        authMode: "apiKey",
+      }),
+    ]);
+    return {
+      languages: langResult.data.listProgrammingLanguages.items,
+      frameworks: frameResult.data.listFrameworks.items,
+      libraries: libResult.data.listLibraries.items,
+    };
+  } catch (error) {
+    console.error("Error fetchLibraries:", error);
+    return {
+      languages: [],
+      frameworks: [],
+      libraries: [],
+    };
+  }
+};
+
 // 資格一覧を取得する
 export const fetchQualifications = async () => {
   try {

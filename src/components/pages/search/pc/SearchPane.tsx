@@ -1,23 +1,11 @@
 import { Box } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
-import {
-  DevelopmentTool,
-  Framework,
-  JobType,
-  LearningCenter,
-  LearningCenterCourse,
-  ProgrammingLanguage,
-  PaymentMethod,
-  CreditCard,
-  DevelopmentCategory,
-  DevelopmentProduct,
-  Qualification,
-  BenefitUserCategory,
-} from "@/API";
 import React, { useMemo } from "react";
 import SearchNavigation from "@/components/pages/search/SearchNavigation";
 import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
+import { AppDataPropType } from "@/types/CommonType";
+import { LearningCenter, LearningCenterCourse } from "@/API";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -25,37 +13,11 @@ type ExtendedLearningCenter = LearningCenter & {
 
 const drawerWidth = 360;
 
-export default function SearchPane({
-  centers,
-  courses,
-  languages,
-  frameworks,
-  developmentTools,
-  jobTypes,
-  paymentMethods,
-  creditCards,
-  developmentCategories,
-  developmentProducts,
-  qualifications,
-  benefitUserCategories,
-}: {
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
-  languages: Array<ProgrammingLanguage>;
-  frameworks: Array<Framework>;
-  developmentTools: Array<DevelopmentTool>;
-  jobTypes: Array<JobType>;
-  paymentMethods: Array<PaymentMethod>;
-  creditCards: Array<CreditCard>;
-  developmentCategories: Array<DevelopmentCategory>;
-  developmentProducts: Array<DevelopmentProduct>;
-  qualifications: Array<Qualification>;
-  benefitUserCategories: Array<BenefitUserCategory>;
-}) {
+export default function SearchPane({ ...props }: AppDataPropType) {
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(() => {
-    return centers.map((center) => {
-      const coursesByCenter = courses.filter(
+    return props.centers.map((center) => {
+      const coursesByCenter = props.courses.filter(
         (v) => v.learningCenterId === center.id
       );
       return {
@@ -63,7 +25,7 @@ export default function SearchPane({
         courses: coursesByCenter,
       };
     });
-  }, [centers, courses]);
+  }, [props.centers, props.courses]);
 
   // スクール > コースがplansを持っているかどうか
   const hasPlan = (center: ExtendedLearningCenter) => {
@@ -110,18 +72,19 @@ export default function SearchPane({
       >
         <Toolbar />
         <SearchNavigation
-          centers={centers}
-          courses={courses}
-          languages={languages}
-          frameworks={frameworks}
-          developmentTools={developmentTools}
-          jobTypes={jobTypes}
-          paymentMethods={paymentMethods}
-          creditCards={creditCards}
-          developmentCategories={developmentCategories}
-          developmentProducts={developmentProducts}
-          qualifications={qualifications}
-          benefitUserCategories={benefitUserCategories}
+          centers={props.centers}
+          courses={props.courses}
+          languages={props.languages}
+          frameworks={props.frameworks}
+          libraries={props.libraries}
+          developmentTools={props.developmentTools}
+          jobTypes={props.jobTypes}
+          paymentMethods={props.paymentMethods}
+          creditCards={props.creditCards}
+          developmentCategories={props.developmentCategories}
+          developmentProducts={props.developmentProducts}
+          qualifications={props.qualifications}
+          benefitUserCategories={props.benefitUserCategories}
         />
       </Drawer>
     </Box>

@@ -28,7 +28,6 @@ import FormButtons from "@/components/common/parts/FormButtons";
 import { useFormOptions } from "@/hooks/utils/useFormOptions";
 import dayjs from "dayjs";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
-// import { useAccountContext } from "@/contexts/AccountContext";
 
 export default function ReviewRegisterConfirmPane({
   center,
@@ -42,7 +41,6 @@ export default function ReviewRegisterConfirmPane({
   const { setLoading } = useLoading();
   const { setAlertMessage } = useMessageAlert();
   const { getGenderText, getPrefectureText } = useFormOptions();
-  // const { accountInfomation } = useAccountContext();
   const {
     sessionStorageValue: savedProfile,
     removeSessionStorageValue: removeSavedProfile,
