@@ -12,8 +12,8 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";
-import useSearch from "@/components/hooks/useSearch";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 interface PropsType {
   centerList: Array<LearningCenter>;
@@ -31,22 +31,31 @@ export default function SearchResult({
   reviews,
 }: PropsType) {
   // hooks
-  const {
-    selectedCenter,
-    setSelectedCenter,
-    selectedCourse,
-    setSelectedCourse,
-    handleCourseAndCenterSelection,
-  } = useSearch();
+  const router = useRouter();
+  const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
+    centerDetail
+  );
+  const [selectedCourse, setSelectedCourse] =
+    useState<LearningCenterCourse | null>(courseDetail);
 
   useEffect(() => {
-    handleCourseAndCenterSelection();
+    // コースが選択されている状態でスクールが削除された場合、コースを初期化
+    if (!selectedCenter) {
+      setSelectedCourse(null);
+      return;
+    }
+    // コースが選択されている状態でスクールが変更された場合、コースを初期化
+    if (selectedCenter.id !== selectedCourse?.learningCenterId) {
+      setSelectedCourse(null);
+      return;
+    }
+    // 共に選択されている場合は検索処理を実行する
+    if (selectedCenter && selectedCourse) {
+      if (!selectedCenter?.id || !selectedCourse?.id) return;
+      router.push(`/reviews/${selectedCenter.id}/${selectedCourse.id}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCenter, selectedCourse]);
-
-  useEffect(() => {
-    setSelectedCenter(centerDetail);
-    setSelectedCourse(courseDetail);
-  }, []);
 
   return (
     <>

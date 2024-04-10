@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Link from "next/link";
-import useHome from "@/components/hooks/useHome";
+import useSearch from "@/components/hooks/useSearch";
 
 export default function HomeNavigation() {
-  const { linksRelativeDevelop, linksRelativeSchoolFeatures } = useHome();
+  const { linksRelativeDevelop, linksRelativeSchoolFeatures } = useSearch();
 
   return (
     <Box sx={{ p: 2 }}>
