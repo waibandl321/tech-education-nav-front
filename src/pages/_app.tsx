@@ -4,6 +4,7 @@ import { LoadingProvider } from "@/contexts/LoadingContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
+import StoreProvider from "@/app/StoreProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -31,10 +32,12 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router]);
 
   return (
-    <LoadingProvider>
-      <MessageAlertProvider>
-        <Component {...pageProps} />
-      </MessageAlertProvider>
-    </LoadingProvider>
+    <StoreProvider>
+      <LoadingProvider>
+        <MessageAlertProvider>
+          <Component {...pageProps} />
+        </MessageAlertProvider>
+      </LoadingProvider>
+    </StoreProvider>
   );
 }
