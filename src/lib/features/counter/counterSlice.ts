@@ -1,4 +1,4 @@
-import { RootState } from "@/lib/store";
+import { ReduxRootState } from "@/lib/store";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 // slice stateの型を定義する
@@ -31,7 +31,7 @@ export const counterSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
-// セレクタなどの他のコードは、インポートされた `RootState` 型を使用することができる
-export const selectCount = (state: RootState) => state.counter.value;
+// セレクタなどの他のコードは、インポートされた `ReduxRootState` 型を使用することができる
+export const selectCount = (state: ReduxRootState) => state.counter.value;
 
 export default counterSlice.reducer;

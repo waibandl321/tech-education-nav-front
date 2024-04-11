@@ -1,7 +1,5 @@
-import { useAppSelector } from "@/lib/hooks";
-import { RootState } from "@/lib/store";
 import { AppDataPropType } from "@/types/CommonType";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, Slice, createSlice } from "@reduxjs/toolkit";
 
 // 型を使って初期状態を定義する
 const initialState: AppDataPropType = {
@@ -20,9 +18,10 @@ const initialState: AppDataPropType = {
   developmentProducts: [],
   qualifications: [],
   benefitUserCategories: [],
+  initialReduxState: undefined,
 };
 
-export const searchDataSlice = createSlice({
+export const searchDataSlice: Slice<AppDataPropType> = createSlice({
   name: "searchData",
   initialState,
   reducers: {
@@ -36,10 +35,3 @@ export const searchDataSlice = createSlice({
 export const { setData } = searchDataSlice.actions;
 
 export default searchDataSlice.reducer;
-
-export const useSearchDataSelector = () => {
-  const searchData: AppDataPropType = useAppSelector(
-    (state: RootState) => state.searchData
-  );
-  return searchData;
-};

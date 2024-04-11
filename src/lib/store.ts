@@ -1,18 +1,24 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "@/lib/features/counter/counterSlice";
-import searchDataReducer from "@/lib/features/counter/searchDataSlice";
+import searchDataSlice from "@/lib/features/counter/searchDataSlice";
+
+// ReduxRootState 型定義
+export type ReduxRootState = {
+  searchData: ReturnType<typeof searchDataSlice>;
+  counter: ReturnType<typeof counterReducer>;
+};
 
 // ストアの初期化
-export const initializeStore = () => {
+export const initializeStore = (preloadedState?: ReduxRootState) => {
   return configureStore({
     reducer: {
       counter: counterReducer,
-      searchData: searchDataReducer,
+      searchData: searchDataSlice,
     },
+    // 初期状態として引数をストアに渡す
+    preloadedState,
   });
 };
 
 export type AppStore = ReturnType<typeof initializeStore>;
-// ストア自体から `RootState` 型と `AppDispatch` 型を推測する
-export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];

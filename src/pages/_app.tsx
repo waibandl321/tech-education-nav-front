@@ -8,6 +8,11 @@ import StoreProvider from "@/app/StoreProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
+  // クライアント側で Redux ストアを初期化する前に、JSON 文字列をパースして JavaScript オブジェクトに変換
+  const preloadedState = JSON.parse(pageProps.initialReduxState || "{}");
+
+  // レビュー投稿のプロファイル管理
   const { removeSessionStorageValue: removeSavedProfile } = useSessionStorage(
     "PROFILE_DATA",
     ""
@@ -32,7 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router]);
 
   return (
-    <StoreProvider>
+    <StoreProvider initialReduxState={preloadedState}>
       <LoadingProvider>
         <MessageAlertProvider>
           <Component {...pageProps} />

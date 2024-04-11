@@ -13,6 +13,7 @@ import {
   ProgrammingLanguage,
   Qualification,
 } from "@/API";
+import { ReduxRootState } from "@/lib/store";
 
 export interface CentersAndCoursesPropType {
   centers: Array<LearningCenter>;
@@ -30,7 +31,7 @@ export interface CenterAndCourseDetailPropType {
 export type DeviceType = "desktop" | "mobile";
 
 /**
- * 検索画面などで使用する全データのprops型
+ * アプリ全体で使用するデータのprops型
  */
 export interface AppDataPropType {
   viewport?: DeviceType;
@@ -48,4 +49,6 @@ export interface AppDataPropType {
   developmentProducts: Array<DevelopmentProduct>;
   qualifications: Array<Qualification>;
   benefitUserCategories: Array<BenefitUserCategory>;
+  // storeの状態を共有
+  initialReduxState?: ReduxRootState;
 }
