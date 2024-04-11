@@ -10,7 +10,7 @@ export default function ReduxPage() {
     <Container maxWidth="sm">
       {count}
       <Button variant="contained" onClick={() => router.push("/test/redux")}>
-        戻る
+        Redux Test Top
       </Button>
     </Container>
   );

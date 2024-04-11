@@ -29,7 +29,7 @@ export default function ReduxPage() {
         </Button>
       </div>
       <div>
-        <Button onClick={() => router.push("/test/redux2")}>
+        <Button onClick={() => router.push("/test/redux/counter2")}>
           別のページへ
         </Button>
       </div>
