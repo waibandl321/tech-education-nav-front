@@ -1,11 +1,16 @@
 import React from "react";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { fetchSearchPageData } from "@/hooks/server/fetchData";
-import { useSearchDataSelector } from "@/lib/features/counter/searchDataSlice";
+import { setData } from "@/lib/features/counter/searchDataSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { AppDataPropType } from "@/types/CommonType";
 
-export default function TestReduxPage() {
-  const postData = useSearchDataSelector();
-  return <div>{JSON.stringify(postData)}</div>;
+export default function TestReduxPage({ ...props }: AppDataPropType) {
+  const dispath = useAppDispatch();
+  dispath(setData(props));
+  const searchData = useAppSelector((state) => state.searchData);
+
+  return <div>{JSON.stringify(searchData)}</div>;
 }
 
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
