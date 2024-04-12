@@ -7,9 +7,10 @@ import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
 import SPLayout from "@/app/sp-layout";
-import { AppDataPropType } from "@/types/CommonType";
+import { initializeStore } from "@/lib/store";
+import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 
-export default function Index({ ...props }: AppDataPropType) {
+export default function Index() {
   const isMobile = useMediaQuery("(max-width:640px)");
 
   return (
@@ -22,63 +23,47 @@ export default function Index({ ...props }: AppDataPropType) {
 
       {isMobile ? (
         <SPLayout>
-          <SPSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            languages={props.languages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <SPSearchPane />
         </SPLayout>
       ) : (
         <Layout>
-          <PCSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            languages={props.languages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <PCSearchPane />
         </Layout>
       )}
     </>
   );
 }
 
-// サーバーサイドでスクールとコース情報を取得し、クライアントにpropsとして渡す
+// SSR
 export const getServerSideProps: GetServerSideProps = async () => {
-  const result = await fetchSearchPageData();
-  return {
-    props: {
-      centers: result.centers,
-      courses: result.courses,
-      languages: result.languages,
-      frameworks: result.frameworks,
-      libraries: result.libraries,
-      developmentTools: result.developmentTools,
-      jobTypes: result.jobTypes,
-      paymentMethods: result.paymentMethods,
-      creditCards: result.creditCards,
-      developmentCategories: result.developmentCategories,
-      developmentProducts: result.developmentProducts,
-      qualifications: result.qualifications,
-      benefitUserCategories: result.benefitUserCategories,
-    },
-  };
+  try {
+    const result = await fetchSearchPageData();
+    // ストアを初期化してディスパッチ
+    const store = initializeStore();
+    store.dispatch(setSearchData(result));
+
+    return {
+      props: {
+        centers: result.centers,
+        courses: result.courses,
+        languages: result.languages,
+        frameworks: result.frameworks,
+        libraries: result.libraries,
+        developmentTools: result.developmentTools,
+        jobTypes: result.jobTypes,
+        paymentMethods: result.paymentMethods,
+        creditCards: result.creditCards,
+        developmentCategories: result.developmentCategories,
+        developmentProducts: result.developmentProducts,
+        qualifications: result.qualifications,
+        benefitUserCategories: result.benefitUserCategories,
+        // JSON文字列として渡す
+        initialReduxState: JSON.stringify(store.getState()),
+      },
+    };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
 };

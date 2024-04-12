@@ -25,13 +25,13 @@ export const searchDataSlice: Slice<AppDataPropType> = createSlice({
   name: "searchData",
   initialState,
   reducers: {
-    setData: (state, action: PayloadAction<AppDataPropType>) => {
+    setSearchData: (state, action: PayloadAction<AppDataPropType>) => {
       Object.assign(state, action.payload);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setData } = searchDataSlice.actions;
+export const { setSearchData } = searchDataSlice.actions;
 
 export default searchDataSlice.reducer;

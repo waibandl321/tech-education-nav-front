@@ -11,6 +11,8 @@ import { useSearchParams } from "next/navigation";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
+import { initializeStore } from "@/lib/store";
+import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 
 export default function LanguageResults({ ...props }: AppDataPropType) {
   const isMobile = props.viewport === "mobile";
@@ -63,21 +65,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
             breadcrumbs={breadcrumbs}
             title={`「${filteredLibrariesNames}」を学べるプログラミングスクールのコース一覧`}
           />
-          <SPSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            languages={props.languages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <SPSearchPane />
         </SPLayout>
       ) : (
         <Layout>
@@ -85,21 +73,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
             breadcrumbs={breadcrumbs}
             title={`「${filteredLibrariesNames}」を学べるプログラミングスクールのコース一覧`}
           />
-          <PCSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            languages={props.languages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <PCSearchPane />
         </Layout>
       )}
     </>
@@ -109,30 +83,43 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   const libQueries = context.query.libraries;
-  const result = await fetchSearchPageData();
 
-  // フィルタされたライブラリ/APIをcourses配列から検索
-  const coursesResults = result.courses.filter(
-    (course) =>
-      course.libraries &&
-      course.libraries.some((v) => v && libQueries && libQueries.includes(v))
-  );
+  try {
+    const result = await fetchSearchPageData();
 
-  return {
-    props: {
-      centers: result.centers,
-      courses: coursesResults,
-      languages: result.languages,
-      frameworks: result.frameworks,
-      libraries: result.libraries,
-      developmentTools: result.developmentTools,
-      jobTypes: result.jobTypes,
-      paymentMethods: result.paymentMethods,
-      creditCards: result.creditCards,
-      developmentCategories: result.developmentCategories,
-      developmentProducts: result.developmentProducts,
-      qualifications: result.qualifications,
-      benefitUserCategories: result.benefitUserCategories,
-    },
-  };
+    // フィルタされたライブラリ/APIをcourses配列から検索
+    const coursesResults = result.courses.filter(
+      (course) =>
+        course.libraries &&
+        course.libraries.some((v) => v && libQueries && libQueries.includes(v))
+    );
+
+    // ストアを初期化してディスパッチ
+    const store = initializeStore();
+    store.dispatch(setSearchData(result));
+
+    return {
+      props: {
+        centers: result.centers,
+        courses: coursesResults,
+        languages: result.languages,
+        frameworks: result.frameworks,
+        libraries: result.libraries,
+        developmentTools: result.developmentTools,
+        jobTypes: result.jobTypes,
+        paymentMethods: result.paymentMethods,
+        creditCards: result.creditCards,
+        developmentCategories: result.developmentCategories,
+        developmentProducts: result.developmentProducts,
+        qualifications: result.qualifications,
+        benefitUserCategories: result.benefitUserCategories,
+        // JSON文字列として渡す
+        initialReduxState: JSON.stringify(store.getState()),
+      },
+    };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
 });

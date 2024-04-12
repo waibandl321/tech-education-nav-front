@@ -15,12 +15,15 @@ import {
 } from "@mui/material";
 import React, { useMemo } from "react";
 import { AttendanceTypeLabels, PurposeOptions } from "@/const";
-import { AppDataPropType } from "@/types/CommonType";
+import { useAppSelector } from "@/lib/hooks";
 
 const MAX = 150;
 const MIN = 0;
 
-export default function SearchNavigation({ ...props }: AppDataPropType) {
+export default function SearchNavigation() {
+  // store
+  const searchData = useAppSelector((state) => state.searchData);
+  // デバイス判定
   const isMobile = useMediaQuery("(max-width:640px)");
 
   // 料金レンジ（仮）
@@ -34,8 +37,8 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
 
   // プログラミング言語にフレームワークを紐付けたデータ
   const languageWithFrameworks = useMemo(() => {
-    return props.languages.map((lang) => {
-      const frameworksByLang = props.frameworks.filter(
+    return searchData.languages.map((lang) => {
+      const frameworksByLang = searchData.frameworks.filter(
         (framework) => framework.programmingLanguageId === lang.id
       );
       return {
@@ -43,7 +46,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
         frameworks: frameworksByLang,
       };
     });
-  }, [props.languages, props.frameworks]);
+  }, [searchData.languages, searchData.frameworks]);
 
   return (
     <Card
@@ -186,7 +189,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
             <MenuItem value="">
               <em>指定しない</em>
             </MenuItem>
-            {props.benefitUserCategories.map((item) => (
+            {searchData.benefitUserCategories.map((item) => (
               <MenuItem key={item.id} value={item.id}>
                 {item.name}
               </MenuItem>
@@ -203,7 +206,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
         </Box>
         <Box>
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {props.paymentMethods.map((item) => (
+            {searchData.paymentMethods.map((item) => (
               <FormControlLabel
                 key={item.id}
                 control={<Checkbox name="paymentOptions" value={item.id} />}
@@ -221,7 +224,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
         </Box>
         <Box>
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {props.creditCards.map((item) => (
+            {searchData.creditCards.map((item) => (
               <FormControlLabel
                 key={item.id}
                 control={<Checkbox name="creditCards" value={item.id} />}
@@ -249,7 +252,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {props.developmentCategories.map((category) => (
+              {searchData.developmentCategories.map((category) => (
                 <MenuItem key={category.id} value={category.id}>
                   {category.name}
                 </MenuItem>
@@ -276,7 +279,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {props.developmentProducts.map((product) => (
+              {searchData.developmentProducts.map((product) => (
                 <MenuItem key={product.id} value={product.id}>
                   {product.name}
                 </MenuItem>
@@ -303,7 +306,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {props.qualifications.map((dualification) => (
+              {searchData.qualifications.map((dualification) => (
                 <MenuItem key={dualification.id} value={dualification.id}>
                   {dualification.name}
                 </MenuItem>
@@ -330,7 +333,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
               <MenuItem value="">
                 <em>指定しない</em>
               </MenuItem>
-              {props.jobTypes.map((job) => (
+              {searchData.jobTypes.map((job) => (
                 <MenuItem key={job.id} value={job.id}>
                   {job.name}
                 </MenuItem>
@@ -387,7 +390,7 @@ export default function SearchNavigation({ ...props }: AppDataPropType) {
             <MenuItem value="">
               <em>指定しない</em>
             </MenuItem>
-            {sortBy(props.developmentTools, ["name"]).map((item) => (
+            {sortBy(searchData.developmentTools, ["name"]).map((item) => (
               <MenuItem key={item.id} value={item.id}>
                 {item.name}
               </MenuItem>

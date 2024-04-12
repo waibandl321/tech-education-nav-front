@@ -19,7 +19,7 @@ import { LearningCenter, LearningCenterCourse } from "@/API";
 import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
 import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
-import { AppDataPropType } from "@/types/CommonType";
+import { useAppSelector } from "@/lib/hooks";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -50,7 +50,11 @@ const Puller = styled("div")(({ theme }) => ({
 const drawerBleeding = 56;
 const drawerWidth = 300;
 
-export default function SearchPane({ ...props }: AppDataPropType) {
+export default function SearchPane() {
+  // store
+  const searchData = useAppSelector((state) => state.searchData);
+
+  // state
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -59,8 +63,8 @@ export default function SearchPane({ ...props }: AppDataPropType) {
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(() => {
-    return props.centers.map((center) => {
-      const coursesByCenter = props.courses.filter(
+    return searchData.centers.map((center) => {
+      const coursesByCenter = searchData.courses.filter(
         (v) => v.learningCenterId === center.id
       );
       return {
@@ -68,7 +72,7 @@ export default function SearchPane({ ...props }: AppDataPropType) {
         courses: coursesByCenter,
       };
     });
-  }, [props.centers, props.courses]);
+  }, [searchData.centers, searchData.courses]);
 
   // スクール > コースがplansを持っているかどうか
   const hasPlan = (center: ExtendedLearningCenter) => {
@@ -146,23 +150,7 @@ export default function SearchPane({ ...props }: AppDataPropType) {
             overflow: "auto",
           }}
         >
-          {
-            <SearchNavigation
-              centers={props.centers}
-              courses={props.courses}
-              languages={props.languages}
-              frameworks={props.frameworks}
-              libraries={props.libraries}
-              developmentTools={props.developmentTools}
-              jobTypes={props.jobTypes}
-              paymentMethods={props.paymentMethods}
-              creditCards={props.creditCards}
-              developmentCategories={props.developmentCategories}
-              developmentProducts={props.developmentProducts}
-              qualifications={props.qualifications}
-              benefitUserCategories={props.benefitUserCategories}
-            />
-          }
+          {<SearchNavigation />}
         </StyledBox>
       </SwipeableDrawer>
       <Box

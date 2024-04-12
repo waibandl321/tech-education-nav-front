@@ -15,6 +15,8 @@ import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
+import { initializeStore } from "@/lib/store";
+import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 
 export default function SearchType({ ...props }: AppDataPropType) {
   const isMobile = props.viewport === "mobile";
@@ -51,21 +53,7 @@ export default function SearchType({ ...props }: AppDataPropType) {
             breadcrumbs={breadcrumbs}
             title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
           />
-          <SPSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            languages={props.languages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <SPSearchPane />
         </SPLayout>
       ) : (
         <Layout>
@@ -75,21 +63,7 @@ export default function SearchType({ ...props }: AppDataPropType) {
               title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
             />
           </Box>
-          <PCSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            languages={props.languages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <PCSearchPane />
         </Layout>
       )}
     </>
@@ -98,41 +72,54 @@ export default function SearchType({ ...props }: AppDataPropType) {
 
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
-  const searchType = context.query.searchType as keyof LearningCenterCourse;
   // フィルタに使用するkeyが一致するかをチェック
   function isCourseDataBooleanKey(key: any): key is CourseDataBooleanKeyType {
     return CourseDataBooleanKeys.includes(key);
   }
-  // データ取得
-  const result = await fetchSearchPageData();
-  // フィルタ
-  const courses = result.courses.filter((course) => {
-    // courseオブジェクトのキーがCourseDataBooleanKeysに含まれるかチェック
-    const keys = Object.keys(course) as Array<keyof typeof course>;
-    return keys.some(
-      (key) =>
-        isCourseDataBooleanKey(key) &&
-        key === searchType &&
-        course[key] === true
-    );
-  });
 
-  return {
-    props: {
-      searchTypeParam: searchType,
-      centers: result.centers,
-      courses: courses,
-      languages: result.languages,
-      frameworks: result.frameworks,
-      libraries: result.libraries,
-      developmentTools: result.developmentTools,
-      jobTypes: result.jobTypes,
-      paymentMethods: result.paymentMethods,
-      creditCards: result.creditCards,
-      developmentCategories: result.developmentCategories,
-      developmentProducts: result.developmentProducts,
-      qualifications: result.qualifications,
-      benefitUserCategories: result.benefitUserCategories,
-    },
-  };
+  try {
+    const searchType = context.query.searchType as keyof LearningCenterCourse;
+    // データ取得
+    const result = await fetchSearchPageData();
+    // フィルタ
+    const courses = result.courses.filter((course) => {
+      // courseオブジェクトのキーがCourseDataBooleanKeysに含まれるかチェック
+      const keys = Object.keys(course) as Array<keyof typeof course>;
+      return keys.some(
+        (key) =>
+          isCourseDataBooleanKey(key) &&
+          key === searchType &&
+          course[key] === true
+      );
+    });
+
+    // ストアを初期化してディスパッチ
+    const store = initializeStore();
+    store.dispatch(setSearchData(result));
+
+    return {
+      props: {
+        searchTypeParam: searchType,
+        centers: result.centers,
+        courses: courses,
+        languages: result.languages,
+        frameworks: result.frameworks,
+        libraries: result.libraries,
+        developmentTools: result.developmentTools,
+        jobTypes: result.jobTypes,
+        paymentMethods: result.paymentMethods,
+        creditCards: result.creditCards,
+        developmentCategories: result.developmentCategories,
+        developmentProducts: result.developmentProducts,
+        qualifications: result.qualifications,
+        benefitUserCategories: result.benefitUserCategories,
+        // JSON文字列として渡す
+        initialReduxState: JSON.stringify(store.getState()),
+      },
+    };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
 });
