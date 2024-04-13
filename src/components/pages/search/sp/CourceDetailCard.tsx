@@ -1,4 +1,4 @@
-import { CoursePlan, LearningCenter, LearningCenterCourse } from "@/API";
+import { LearningCenter, LearningCenterCourse } from "@/API";
 import {
   Box,
   Typography,
@@ -14,7 +14,7 @@ import {
 import SchoolIcon from "@mui/icons-material/School";
 import { orderBy } from "lodash";
 import React, { useMemo } from "react";
-import { CourseDataBooleanMap } from "@/const";
+import useSearch from "@/hooks/useSearch";
 
 export default function CourceDetailCard({
   center,
@@ -23,22 +23,13 @@ export default function CourceDetailCard({
   center: LearningCenter;
   course: LearningCenterCourse;
 }) {
-  // 提供されたプランの中で最安の金額を算出する
-  const findMinPlanPrice = (plans: (CoursePlan | null)[]): number | null => {
-    // 最初にnullでない価格を持つプランをフィルタリングし、それらの価格から最小値を見つける
-    const validPrices = plans
-      .map((plan) => plan?.price)
-      .filter((price) => price !== null || price !== undefined) as number[];
-    if (validPrices.length === 0) {
-      // 有効な価格が一つもない場合はnullを返す
-      return null;
-    }
-    return Math.min(...validPrices);
-  };
+  // hooks
+  const { findMinPlanPrice, getChipsByCourse } = useSearch();
 
-  const chips = useMemo(() => {
-    return CourseDataBooleanMap.filter((item) => course[item.key] === true);
-  }, [course]);
+  const chips = useMemo(
+    () => getChipsByCourse(course),
+    [course, getChipsByCourse]
+  );
 
   return (
     <Card sx={{ m: 1, pb: 2 }} variant="outlined">

@@ -15,16 +15,11 @@ import {
 import { grey } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import ListItemText from "@mui/material/ListItemText";
-import { LearningCenter, LearningCenterCourse } from "@/API";
 import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
 import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
-import { useAppSelector } from "@/lib/hooks";
 import { AppDataPropType } from "@/types/CommonType";
-
-type ExtendedLearningCenter = LearningCenter & {
-  courses: Array<LearningCenterCourse>;
-};
+import useSearch from "@/hooks/useSearch";
 
 // メニュー関連のスタイル
 const Root = styled("div")(({ theme }) => ({
@@ -52,6 +47,9 @@ const drawerBleeding = 56;
 const drawerWidth = 300;
 
 export default function SPSearchPane({ ...props }: AppDataPropType) {
+  // hooks
+  const { hasPlan, getComputedCenters } = useSearch();
+
   // state
   const [open, setOpen] = React.useState(false);
 
@@ -60,24 +58,10 @@ export default function SPSearchPane({ ...props }: AppDataPropType) {
   };
 
   // スクールにコース一覧を紐付けたデータ
-  const items = useMemo(() => {
-    return props.centers.map((center) => {
-      const coursesByCenter = props.courses.filter(
-        (v) => v.learningCenterId === center.id
-      );
-      return {
-        ...center,
-        courses: coursesByCenter,
-      };
-    });
-  }, [props.centers, props.courses]);
-
-  // スクール > コースがplansを持っているかどうか
-  const hasPlan = (center: ExtendedLearningCenter) => {
-    return center.courses.some(
-      (course) => course.plans && course.plans.length > 0
-    );
-  };
+  const items = useMemo(
+    () => getComputedCenters(props.centers, props.courses),
+    [props.centers, props.courses, getComputedCenters]
+  );
 
   const SwipeIcon = () => {
     if (open) {

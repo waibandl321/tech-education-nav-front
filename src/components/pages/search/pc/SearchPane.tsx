@@ -4,39 +4,20 @@ import Toolbar from "@mui/material/Toolbar";
 import React, { useMemo } from "react";
 import SearchNavigation from "@/components/pages/search/SearchNavigation";
 import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
-import { LearningCenter, LearningCenterCourse } from "@/API";
-import { useAppSelector } from "@/lib/hooks";
 import { AppDataPropType } from "@/types/CommonType";
-
-type ExtendedLearningCenter = LearningCenter & {
-  courses: Array<LearningCenterCourse>;
-};
+import useSearch from "@/hooks/useSearch";
 
 const drawerWidth = 360;
 
 export default function PCSearchPane({ ...props }: AppDataPropType) {
-  // store
-  const searchData = useAppSelector((state) => state.searchData);
+  // hooks
+  const { hasPlan, getComputedCenters } = useSearch();
 
   // スクールにコース一覧を紐付けたデータ
-  const items = useMemo(() => {
-    return props.centers.map((center) => {
-      const coursesByCenter = props.courses.filter(
-        (v) => v.learningCenterId === center.id
-      );
-      return {
-        ...center,
-        courses: coursesByCenter,
-      };
-    });
-  }, [props.centers, props.courses]);
-
-  // スクール > コースがplansを持っているかどうか
-  const hasPlan = (center: ExtendedLearningCenter) => {
-    return center.courses.some(
-      (course) => course.plans && course.plans.length > 0
-    );
-  };
+  const items = useMemo(
+    () => getComputedCenters(props.centers, props.courses),
+    [props.centers, props.courses, getComputedCenters]
+  );
 
   return (
     <Box sx={{ display: "flex", pb: 8 }}>
