@@ -94,6 +94,7 @@ export default function SearchSelect<T extends Item>({
       >
         <Card sx={{ p: 2, backgroundColor: "rgba(0,0,0,.2)" }}>
           <Button
+            LinkComponent={Link}
             size="large"
             variant="contained"
             fullWidth

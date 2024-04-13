@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 import StoreProvider from "@/app/StoreProvider";
+import axios from "axios";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -29,9 +30,12 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   // Reduxデータ保持フラグ管理 cookieを初期化
-  const handleBeforeUnload = () => {
-    document.cookie =
-      "isFetchedSearchData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+  const handleBeforeUnload = async () => {
+    await axios.put("/api/test/redux", {
+      body: {
+        IS_FETCHED_SEARCH_DATA: "",
+      },
+    });
   };
 
   useEffect(() => {

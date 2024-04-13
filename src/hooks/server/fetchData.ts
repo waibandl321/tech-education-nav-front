@@ -17,8 +17,23 @@ import {
   listBenefitUserCategories,
   listLibraries,
 } from "@/graphql/queries";
+import { IncomingMessage } from "http";
 
 const client = generateClient();
+
+/**
+ * データが取得済みかつ、Reduxに保存されているかを検証する
+ * @param req
+ */
+export const isAlreadyFetchedSearchData = (
+  req: IncomingMessage & {
+    cookies: Partial<{
+      [key: string]: string;
+    }>;
+  }
+) => {
+  return req.cookies["IS_FETCHED_SEARCH_DATA"] === "true";
+};
 
 // スクールとコースの一覧をサーバーサイドで取得する
 export const fetchSchoolData = async () => {
