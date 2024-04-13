@@ -146,35 +146,6 @@ export default function useSearch() {
     },
   ];
 
-  // スクールの特徴から探す
-  const linksRelativeSchoolFeatures = [
-    {
-      title: "返金保証があるスクールを探す",
-      href: "/search/isAvailableMoneyBack",
-      Icon: MoneyOffIcon,
-    },
-    {
-      title: "転職保証があるスクールを探す",
-      href: "/search/isJobHuntingGuarantee",
-      Icon: SecurityIcon,
-    },
-    {
-      title: "案件紹介のあるスクールを探す",
-      href: "/search/isJobIntroductionAvailable",
-      Icon: AssignmentTurnedInIcon,
-    },
-    {
-      title: "補助金を使えるスクールを探す",
-      href: "/search/isAvailableSubsidy",
-      Icon: AccountBalanceIcon,
-    },
-    {
-      title: "オーダーメイドカリキュラムのスクールを探す",
-      href: "/search/isMadeToOrder",
-      Icon: BuildIcon,
-    },
-  ];
-
   return {
     getFilterNames,
     hasPlan,
@@ -182,6 +153,5 @@ export default function useSearch() {
     findMinPlanPrice,
     getChipsByCourse,
     linksRelativeDevelop,
-    linksRelativeSchoolFeatures,
   };
 }

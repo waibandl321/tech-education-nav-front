@@ -99,7 +99,7 @@ export default function CourceDetailCard({
               {chips.map((item) => (
                 <Chip
                   key={item.key}
-                  label={item.name}
+                  label={item.optionName}
                   color={item.color}
                   sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
                 />

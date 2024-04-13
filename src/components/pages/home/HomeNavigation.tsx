@@ -12,9 +12,10 @@ import {
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Link from "next/link";
 import useSearch from "@/hooks/useSearch";
+import { CourseDataBooleanMap } from "@/const";
 
 export default function HomeNavigation() {
-  const { linksRelativeDevelop, linksRelativeSchoolFeatures } = useSearch();
+  const { linksRelativeDevelop } = useSearch();
 
   return (
     <Box sx={{ p: 2 }}>
@@ -45,7 +46,7 @@ export default function HomeNavigation() {
           スクールの特徴から探す
         </Typography>
         <List sx={{ mt: 1 }}>
-          {linksRelativeSchoolFeatures.map((item, index) => (
+          {CourseDataBooleanMap.map((item, index) => (
             <ListItem
               key={index}
               secondaryAction={<ChevronRightIcon />}

@@ -29,7 +29,7 @@ export default function SearchType({ ...props }: AppDataPropType) {
       検索TOP
     </Link>,
     <Typography key="3" color="text.primary" fontSize={12}>
-      「{targetSearchType?.name}」の検索結果
+      「{targetSearchType?.optionName}」の検索結果
     </Typography>,
   ];
 
@@ -37,11 +37,11 @@ export default function SearchType({ ...props }: AppDataPropType) {
     <>
       <Head>
         <title>
-          {`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
+          {`「${targetSearchType?.optionName}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
         </title>
         <meta
           name="description"
-          content={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧を紹介します。
+          content={`「${targetSearchType?.optionName}」のプログラミングスクールのコース一覧を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。`}
         />
@@ -51,7 +51,7 @@ export default function SearchType({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
+            title={`「${targetSearchType?.optionName}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
           />
           <SPSearchPane
             centers={props.centers}
@@ -74,7 +74,7 @@ export default function SearchType({ ...props }: AppDataPropType) {
           <Box sx={{ px: 2 }}>
             <SearchSubHeader
               breadcrumbs={breadcrumbs}
-              title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
+              title={`「${targetSearchType?.optionName}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
             />
           </Box>
           <PCSearchPane
@@ -98,13 +98,13 @@ export default function SearchType({ ...props }: AppDataPropType) {
   );
 }
 
+// フィルタに使用するkeyが一致するかをチェック
+function isCourseDataBooleanKey(key: any): key is CourseDataBooleanKeyType {
+  return CourseDataBooleanKeys.includes(key);
+}
+
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
-  // フィルタに使用するkeyが一致するかをチェック
-  function isCourseDataBooleanKey(key: any): key is CourseDataBooleanKeyType {
-    return CourseDataBooleanKeys.includes(key);
-  }
-
   try {
     const searchType = context.query.searchType as keyof LearningCenterCourse;
     // データ取得
