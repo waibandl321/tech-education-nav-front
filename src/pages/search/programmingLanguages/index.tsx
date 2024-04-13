@@ -11,10 +11,10 @@ import { Container } from "@mui/material";
 
 export default function LanguagesPage({
   viewport,
-  languages,
+  programmingLanguages,
 }: {
   viewport: DeviceType;
-  languages: Array<ProgrammingLanguage>;
+  programmingLanguages: Array<ProgrammingLanguage>;
 }) {
   const isMobile = viewport === "mobile";
 
@@ -34,7 +34,7 @@ export default function LanguagesPage({
       {isMobile ? (
         <SPLayout>
           <SearchSelect
-            items={languages}
+            items={programmingLanguages}
             selectionTypeParam="programmingLanguages"
             title="学びたいプログラミング言語からスクールを探す"
             breadcrumbText="プログラミング言語を選択"
@@ -44,7 +44,7 @@ export default function LanguagesPage({
         <Layout>
           <Container maxWidth="sm">
             <SearchSelect
-              items={languages}
+              items={programmingLanguages}
               selectionTypeParam="programmingLanguages"
               title="学びたいプログラミング言語からスクールを探す"
               breadcrumbText="プログラミング言語を選択"
@@ -61,7 +61,7 @@ export const getServerSideProps = withCommonServerSideProps(async () => {
   const result = await fetchLanguages();
   return {
     props: {
-      languages: result.languages,
+      programmingLanguages: result.programmingLanguages,
     },
   };
 });

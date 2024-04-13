@@ -37,7 +37,7 @@ export default function SearchNavigation() {
 
   // プログラミング言語にフレームワークを紐付けたデータ
   const languageWithFrameworks = useMemo(() => {
-    return searchData.languages.map((lang) => {
+    return searchData.programmingLanguages.map((lang) => {
       const frameworksByLang = searchData.frameworks.filter(
         (framework) => framework.programmingLanguageId === lang.id
       );
@@ -46,7 +46,7 @@ export default function SearchNavigation() {
         frameworks: frameworksByLang,
       };
     });
-  }, [searchData.languages, searchData.frameworks]);
+  }, [searchData.programmingLanguages, searchData.frameworks]);
 
   return (
     <Card

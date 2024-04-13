@@ -11,11 +11,11 @@ import SearchSelectSplitLang from "@/components/pages/search/SearchSelectSplitLa
 
 export default function LibrariesPage({
   viewport,
-  languages,
+  programmingLanguages,
   libraries,
 }: {
   viewport: DeviceType;
-  languages: Array<ProgrammingLanguage>;
+  programmingLanguages: Array<ProgrammingLanguage>;
   libraries: Array<Library>;
 }) {
   const isMobile = viewport === "mobile";
@@ -37,7 +37,7 @@ export default function LibrariesPage({
         <SPLayout>
           <SearchSelectSplitLang
             items={libraries}
-            languages={languages}
+            languages={programmingLanguages}
             selectionTypeParam="libraries"
             title="学びたいライブラリ/APIからスクールを探す"
             breadcrumbText="ライブラリ/APIを選択"
@@ -48,7 +48,7 @@ export default function LibrariesPage({
           <Container maxWidth="sm">
             <SearchSelectSplitLang
               items={libraries}
-              languages={languages}
+              languages={programmingLanguages}
               selectionTypeParam="libraries"
               title="学びたいライブラリ/APIからスクールを探す"
               breadcrumbText="ライブラリ/APIを選択"
@@ -65,7 +65,7 @@ export const getServerSideProps = withCommonServerSideProps(async () => {
   const result = await fetchLangFrameLibList();
   return {
     props: {
-      languages: result.languages,
+      programmingLanguages: result.programmingLanguages,
       libraries: result.libraries,
     },
   };

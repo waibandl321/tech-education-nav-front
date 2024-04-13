@@ -38,7 +38,7 @@ export interface AppDataPropType {
   searchTypeParam?: string;
   centers: Array<LearningCenter>;
   courses: Array<LearningCenterCourse>;
-  languages: Array<ProgrammingLanguage>;
+  programmingLanguages: Array<ProgrammingLanguage>;
   frameworks: Array<Framework>;
   libraries: Array<Library>;
   developmentTools: Array<DevelopmentTool>;

@@ -4,7 +4,7 @@ import SPLayout from "@/app/sp-layout";
 import Layout from "@/app/layout";
 import Head from "next/head";
 import {
-  CourseDataBooleanMap,
+  navLinksMapByOption,
   CourseDataBooleanKeys,
   type CourseDataBooleanKeyType,
 } from "@/const";
@@ -20,7 +20,7 @@ import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 
 export default function SearchType({ ...props }: AppDataPropType) {
   const isMobile = props.viewport === "mobile";
-  const targetSearchType = CourseDataBooleanMap.find(
+  const targetSearchType = navLinksMapByOption.find(
     (v) => v.key === props.searchTypeParam
   );
   // パンくず
@@ -56,7 +56,7 @@ export default function SearchType({ ...props }: AppDataPropType) {
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
-            languages={props.languages}
+            programmingLanguages={props.programmingLanguages}
             frameworks={props.frameworks}
             libraries={props.libraries}
             developmentTools={props.developmentTools}
@@ -80,7 +80,7 @@ export default function SearchType({ ...props }: AppDataPropType) {
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}
-            languages={props.languages}
+            programmingLanguages={props.programmingLanguages}
             frameworks={props.frameworks}
             libraries={props.libraries}
             developmentTools={props.developmentTools}
@@ -136,7 +136,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
         searchTypeParam,
         centers: result.centers,
         courses: filteredCourses,
-        languages: result.languages,
+        programmingLanguages: result.programmingLanguages,
         frameworks: result.frameworks,
         libraries: result.libraries,
         developmentTools: result.developmentTools,

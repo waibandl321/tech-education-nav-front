@@ -11,14 +11,48 @@ import SecurityIcon from "@mui/icons-material/Security";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-/**
- * 定数定義
- */
-
-import { ChipOwnProps, SvgIconTypeMap } from "@mui/material";
+import { ChipOwnProps } from "@mui/material";
 import { LearningCenterCourse } from "./API";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+import {
+  fetchDevelopmentCategories,
+  fetchDevelopmentProducts,
+  fetchDevelopmentTools,
+  fetchFrameworks,
+  fetchJobTypes,
+  fetchLanguages,
+  fetchLibraries,
+  fetchQualifications,
+} from "./hooks/server/fetchData";
+
+// アイコンの型を定義
+type IconType = React.ElementType;
+
+// 技術領域ごとのナビゲーションリンク情報の型定義
+interface TechNavigationLink {
+  name: string;
+  navigationTitle: string;
+  href: string;
+  Icon: IconType;
+  ssrFetchFunction: () => Promise<any>;
+  searchSelectTitle: string;
+  breadcrumbText: string;
+  selectionTypeParam: string;
+}
+
+// オプション検索のナビゲーションリンクの型定義
+interface OptionNavigationLink {
+  key: keyof LearningCenterCourse;
+  optionName: string;
+  title: string;
+  href: string;
+  color: ChipOwnProps["color"];
+  Icon: IconType;
+}
+
+// マップの全体の型定義
+interface TechNavigationLinkMap {
+  [key: string]: TechNavigationLink;
+}
 
 // 受講スタイル
 export const AttendanceTypeLabels = [
@@ -38,16 +72,7 @@ export const PurposeOptions = [
 ];
 
 // コースオプションMap
-export const CourseDataBooleanMap: Array<{
-  key: keyof LearningCenterCourse;
-  optionName: string;
-  title: string;
-  href: string;
-  color: ChipOwnProps["color"];
-  Icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-    muiName: string;
-  };
-}> = [
+export const navLinksMapByOption: Array<OptionNavigationLink> = [
   {
     key: "isAvailableMoneyBack",
     optionName: "返金保証あり",
@@ -98,12 +123,113 @@ export const CourseDataBooleanMap: Array<{
   },
 ] as const;
 
-export const CourseDataBooleanKeys = CourseDataBooleanMap.map((v) => v.key);
+export const CourseDataBooleanKeys = navLinksMapByOption.map((v) => v.key);
 
 export type CourseDataBooleanKeyType =
-  (typeof CourseDataBooleanMap)[number]["key"];
+  (typeof navLinksMapByOption)[number]["key"];
 
-const SearchNavigateLinkMapByTech = [];
+export const navLinksMapByTech: TechNavigationLinkMap = {
+  programmingLanguages: {
+    name: "プログラミング言語一覧",
+    navigationTitle: "プログラミング言語から探す",
+    href: "/search/technique/programmingLanguages",
+    Icon: CodeIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchLanguages,
+    searchSelectTitle: "学びたいプログラミング言語からスクールを探す",
+    breadcrumbText: "プログラミング言語を選択",
+    selectionTypeParam: "programmingLanguages",
+  },
+  frameworks: {
+    name: "フレームワーク一覧",
+    navigationTitle: "フレームワークから探す",
+    href: "/search/technique/frameworks",
+    Icon: WebAssetIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchFrameworks,
+    searchSelectTitle: "学びたいフレームワークからスクールを探す",
+    breadcrumbText: "フレームワークを選択",
+    selectionTypeParam: "frameworks",
+  },
+  libraries: {
+    name: "ライブラリ/API一覧",
+    navigationTitle: "ライブラリ/APIから探す",
+    href: "/search/technique/libraries",
+    Icon: ApiIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchLibraries,
+    searchSelectTitle: "学びたいライブラリ/APIからスクールを探す",
+    breadcrumbText: "ライブラリ/APIを選択",
+    selectionTypeParam: "libraries",
+  },
+  developmentTools: {
+    name: "ツール一覧",
+    navigationTitle: "ツールから探す",
+    href: "/search/technique/developmentTools",
+    Icon: BuildIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchDevelopmentTools,
+    searchSelectTitle: "学びたいツールからスクールを探す",
+    breadcrumbText: "ツールを選択",
+    selectionTypeParam: "developmentTools",
+  },
+  developmentCategories: {
+    name: "開発分野一覧",
+    navigationTitle: "開発分野から探す",
+    href: "/search/technique/developmentCategories",
+    Icon: DeveloperModeIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchDevelopmentCategories,
+    searchSelectTitle: "関わりたい開発分野からスクールを探す",
+    breadcrumbText: "開発分野を選択",
+    selectionTypeParam: "developmentCategories",
+  },
+  developmentProducts: {
+    name: "サービス一覧",
+    navigationTitle: "作りたいサービスから探す",
+    href: "/search/technique/developmentProducts",
+    Icon: LightbulbIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchDevelopmentProducts,
+    searchSelectTitle: "作りたいサービスからスクールを探す",
+    breadcrumbText: "作りたいサービスを選択",
+    selectionTypeParam: "developmentProducts",
+  },
+  qualifications: {
+    name: "資格一覧",
+    navigationTitle: "取得したい資格から探す",
+    href: "/search/technique/qualifications",
+    Icon: SchoolIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchQualifications,
+    searchSelectTitle: "取得したい資格からスクールを探す",
+    breadcrumbText: "資格を選択",
+    selectionTypeParam: "qualifications",
+  },
+  jobTypes: {
+    name: "職種一覧",
+    navigationTitle: "なりたい職種から探す",
+    href: "/search/technique/jobTypes",
+    Icon: WorkIcon,
+    // 検索 選択画面で使用
+    ssrFetchFunction: fetchJobTypes,
+    searchSelectTitle: "なりたい職種からスクールを探す",
+    breadcrumbText: "なりたい職種を選択",
+    selectionTypeParam: "jobTypes",
+  },
+  // "purposes":
+  // {
+  //   name: "受講目的一覧",
+  //   navigationTitle: "受講目的から探す",
+  //   href: "/search/technique/purposes",
+  //   Icon: WorkIcon,
+  //   // 検索 選択画面で使用
+  //   ssrFetchFunction: fetchJobTypes,
+  //   searchSelectTitle: "受講目的からスクールを探す",
+  //   breadcrumbText: "受講目的を選択",
+  //   selectionTypeParam: "purposes",
+  // },
+} as const;
 
 // カラーマップ: カラーをランダムに割り当てる際に使用する
 export const MuiColorMap: Array<ChipOwnProps["color"]> = [

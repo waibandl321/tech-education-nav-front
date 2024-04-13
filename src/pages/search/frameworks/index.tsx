@@ -65,7 +65,7 @@ export const getServerSideProps = withCommonServerSideProps(async () => {
   const result = await fetchLangFrameLibList();
   return {
     props: {
-      languages: result.languages,
+      programmingLanguages: result.programmingLanguages,
       frameworks: result.frameworks,
     },
   };

@@ -7,7 +7,7 @@ const initialState: AppDataPropType = {
   searchTypeParam: undefined,
   centers: [],
   courses: [],
-  languages: [],
+  programmingLanguages: [],
   frameworks: [],
   libraries: [],
   developmentTools: [],

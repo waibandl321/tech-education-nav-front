@@ -66,7 +66,7 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
-            languages={props.languages}
+            programmingLanguages={props.programmingLanguages}
             frameworks={props.frameworks}
             libraries={props.libraries}
             developmentTools={props.developmentTools}
@@ -85,7 +85,7 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}
-            languages={props.languages}
+            programmingLanguages={props.programmingLanguages}
             frameworks={props.frameworks}
             libraries={props.libraries}
             developmentTools={props.developmentTools}
@@ -132,7 +132,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       props: {
         centers: result.centers,
         courses: filteredCourses,
-        languages: result.languages,
+        programmingLanguages: result.programmingLanguages,
         frameworks: result.frameworks,
         libraries: result.libraries,
         developmentTools: result.developmentTools,

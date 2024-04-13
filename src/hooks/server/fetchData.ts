@@ -18,6 +18,41 @@ import {
   listLibraries,
 } from "@/graphql/queries";
 import { IncomingMessage } from "http";
+import {
+  DevelopmentCategory,
+  DevelopmentProduct,
+  DevelopmentTool,
+  Framework,
+  JobType,
+  Library,
+  ProgrammingLanguage,
+  Qualification,
+} from "@/API";
+
+export interface ProgrammingLanguagesResult {
+  programmingLanguages: ProgrammingLanguage[];
+}
+export interface FrameworksResult {
+  frameworks: Framework[];
+}
+export interface LibrariesResult {
+  libraries: Library[];
+}
+export interface DevelopmentToolsResult {
+  developmentTools: DevelopmentTool[];
+}
+export interface DevelopmentCategoriesResult {
+  developmentCategories: DevelopmentCategory[];
+}
+export interface DevelopmentProductsResult {
+  developmentProducts: DevelopmentProduct[];
+}
+export interface JobTypesResult {
+  jobTypes: JobType[];
+}
+export interface QualificationsResult {
+  qualifications: Qualification[];
+}
 
 const client = generateClient();
 
@@ -202,7 +237,7 @@ export const fetchSearchPageData = async () => {
     return {
       centers: learningCentersResult.data.listLearningCenters.items,
       courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
-      languages: languagesResult.data.listProgrammingLanguages.items,
+      programmingLanguages: languagesResult.data.listProgrammingLanguages.items,
       frameworks: frameworksResult.data.listFrameworks.items,
       libraries: librariesResult.data.listLibraries.items,
       developmentTools: developmentToolResult.data.listDevelopmentTools.items,
@@ -222,7 +257,7 @@ export const fetchSearchPageData = async () => {
     return {
       centers: [],
       courses: [],
-      languages: [],
+      programmingLanguages: [],
       frameworks: [],
       libraries: [],
       developmentTools: [],
@@ -238,24 +273,25 @@ export const fetchSearchPageData = async () => {
 };
 
 // プログラミング言語一覧を取得する
-export const fetchLanguages = async () => {
+export const fetchLanguages = async (): Promise<ProgrammingLanguagesResult> => {
   try {
     const result = await client.graphql({
       query: listProgrammingLanguages,
       authMode: "apiKey",
     });
     return {
-      languages: result.data.listProgrammingLanguages.items,
+      programmingLanguages: result.data.listProgrammingLanguages.items,
     };
   } catch (error) {
     console.error("Error fetchLanguages:", error);
+
     return {
-      languages: [],
+      programmingLanguages: [],
     };
   }
 };
 // フレームワーク一覧を取得する
-export const fetchFrameworks = async () => {
+export const fetchFrameworks = async (): Promise<FrameworksResult> => {
   try {
     const result = await client.graphql({
       query: listFrameworks,
@@ -272,7 +308,7 @@ export const fetchFrameworks = async () => {
   }
 };
 // ライブラリ一覧を取得する
-export const fetchLibraries = async () => {
+export const fetchLibraries = async (): Promise<LibrariesResult> => {
   try {
     const result = await client.graphql({
       query: listLibraries,
@@ -306,14 +342,14 @@ export const fetchLangFrameLibList = async () => {
       }),
     ]);
     return {
-      languages: langResult.data.listProgrammingLanguages.items,
+      programmingLanguages: langResult.data.listProgrammingLanguages.items,
       frameworks: frameResult.data.listFrameworks.items,
       libraries: libResult.data.listLibraries.items,
     };
   } catch (error) {
     console.error("Error fetchLibraries:", error);
     return {
-      languages: [],
+      programmingLanguages: [],
       frameworks: [],
       libraries: [],
     };
@@ -321,7 +357,7 @@ export const fetchLangFrameLibList = async () => {
 };
 
 // 資格一覧を取得する
-export const fetchQualifications = async () => {
+export const fetchQualifications = async (): Promise<QualificationsResult> => {
   try {
     const result = await client.graphql({
       query: listQualifications,
@@ -338,7 +374,7 @@ export const fetchQualifications = async () => {
   }
 };
 // 職種一覧を取得する
-export const fetchJobTypes = async () => {
+export const fetchJobTypes = async (): Promise<JobTypesResult> => {
   try {
     const result = await client.graphql({
       query: listJobTypes,
@@ -355,53 +391,56 @@ export const fetchJobTypes = async () => {
   }
 };
 // 開発ツール一覧を取得する
-export const fetchDevelopmentTools = async () => {
-  try {
-    const result = await client.graphql({
-      query: listDevelopmentTools,
-      authMode: "apiKey",
-    });
-    return {
-      developmentTools: result.data.listDevelopmentTools.items,
-    };
-  } catch (error) {
-    console.error("Error fetchDevelopmentTools:", error);
-    return {
-      developmentTools: [],
-    };
-  }
-};
+export const fetchDevelopmentTools =
+  async (): Promise<DevelopmentToolsResult> => {
+    try {
+      const result = await client.graphql({
+        query: listDevelopmentTools,
+        authMode: "apiKey",
+      });
+      return {
+        developmentTools: result.data.listDevelopmentTools.items,
+      };
+    } catch (error) {
+      console.error("Error fetchDevelopmentTools:", error);
+      return {
+        developmentTools: [],
+      };
+    }
+  };
 // 開発できるサービス一覧を取得する
-export const fetchDevelopmentProducts = async () => {
-  try {
-    const result = await client.graphql({
-      query: listDevelopmentProducts,
-      authMode: "apiKey",
-    });
-    return {
-      developmentProducts: result.data.listDevelopmentProducts.items,
-    };
-  } catch (error) {
-    console.error("Error fetchDevelopmentProducts:", error);
-    return {
-      developmentProducts: [],
-    };
-  }
-};
+export const fetchDevelopmentProducts =
+  async (): Promise<DevelopmentProductsResult> => {
+    try {
+      const result = await client.graphql({
+        query: listDevelopmentProducts,
+        authMode: "apiKey",
+      });
+      return {
+        developmentProducts: result.data.listDevelopmentProducts.items,
+      };
+    } catch (error) {
+      console.error("Error fetchDevelopmentProducts:", error);
+      return {
+        developmentProducts: [],
+      };
+    }
+  };
 // 開発分野一覧を取得する
-export const fetchDevelopmentCategories = async () => {
-  try {
-    const result = await client.graphql({
-      query: listDevelopmentCategories,
-      authMode: "apiKey",
-    });
-    return {
-      developmentCategories: result.data.listDevelopmentCategories.items,
-    };
-  } catch (error) {
-    console.error("Error fetchDevelopmentCategories:", error);
-    return {
-      developmentCategories: [],
-    };
-  }
-};
+export const fetchDevelopmentCategories =
+  async (): Promise<DevelopmentCategoriesResult> => {
+    try {
+      const result = await client.graphql({
+        query: listDevelopmentCategories,
+        authMode: "apiKey",
+      });
+      return {
+        developmentCategories: result.data.listDevelopmentCategories.items,
+      };
+    } catch (error) {
+      console.error("Error fetchDevelopmentCategories:", error);
+      return {
+        developmentCategories: [],
+      };
+    }
+  };
