@@ -14,19 +14,24 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function PurposeResults({ ...props }: AppDataPropType) {
+  // hooks
+  const { getFilterNames } = useSearch();
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
+
   // url query
   const searchParams = useSearchParams();
   const purposesSearchParams = searchParams?.get("purposes");
 
-  // フィルタ対象の受講目的一覧
-  const filteredPurposes = PurposeOptions.filter((item) =>
-    purposesSearchParams?.includes(item.id)
-  )
-    .map((item) => item.name)
-    .join("、");
+  // ページタイトル
+  const filteredPurposesTitle = `「${getFilterNames(
+    PurposeOptions,
+    purposesSearchParams
+  )}」を目指す人におすすめのプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -44,12 +49,10 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>
-          {`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredPurposesTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧を紹介します。
+          content={`${filteredPurposesTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
             `}
@@ -61,7 +64,7 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧`}
+            title={filteredPurposesTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -69,7 +72,7 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredPurposes}」を目指す人におすすめのプログラミングスクールのコース一覧`}
+            title={filteredPurposesTitle}
           />
           <PCSearchPane />
         </Layout>

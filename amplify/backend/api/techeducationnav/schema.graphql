@@ -191,7 +191,7 @@ enum Purpose {
   JOB # 就職/転職
   FREELANCE #フリーランス
   ENTREPRENEURSHIP # 起業
-  SIDE_JOB # 副業
+  SIDE_BUSINESS # 副業
   CERTIFICATION # 資格取得
   LEARNING # 学習/スキルアップ
 }

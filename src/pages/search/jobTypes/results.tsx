@@ -13,18 +13,24 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function JobTypeResults({ ...props }: AppDataPropType) {
+  // hooks
+  const { getFilterNames } = useSearch();
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
+
   // url query
   const searchParams = useSearchParams();
   const jobTypesSearchParams = searchParams?.get("jobTypes");
 
-  // フィルタ対象の職種名一覧
-  const filteredJobTypeNames = props.jobTypes
-    .filter((item) => jobTypesSearchParams?.includes(item.id))
-    .map((item) => item.name)
-    .join("、");
+  // ページタイトル
+  const filteredJobTypeTitle = `「${getFilterNames(
+    props.jobTypes,
+    jobTypesSearchParams
+  )}」を目指す人におすすめのプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -42,15 +48,13 @@ export default function JobTypeResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>
-          {`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredJobTypeTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content={`${filteredJobTypeNames}を目指す人におすすめのプログラミングスクールのコース一覧を紹介します。
+          content={`${filteredJobTypeTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
-            `}
+          `}
         />
         {/* その他のメタタグ */}
       </Head>
@@ -59,7 +63,7 @@ export default function JobTypeResults({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+            title={filteredJobTypeTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -67,7 +71,7 @@ export default function JobTypeResults({ ...props }: AppDataPropType) {
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredJobTypeNames}」を目指す人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
+            title={filteredJobTypeTitle}
           />
           <PCSearchPane />
         </Layout>

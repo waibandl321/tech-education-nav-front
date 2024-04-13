@@ -13,21 +13,24 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function LanguageResults({ ...props }: AppDataPropType) {
-  const isMobile = props.viewport === "mobile";
+  // hooks
+  const { getFilterNames } = useSearch();
 
-  console.log(props.courses);
+  // デバイス判定
+  const isMobile = props.viewport === "mobile";
 
   // url query
   const searchParams = useSearchParams();
   const librariesSearchParams = searchParams?.get("libraries");
 
-  // フィルタ対象のライブラリ/API名一覧
-  const filteredLibrariesNames = props.libraries
-    .filter((item) => librariesSearchParams?.includes(item.id))
-    .map((item) => item.name)
-    .join("、");
+  // ページタイトル
+  const filteredLibrariesTitle = `「${getFilterNames(
+    props.libraries,
+    librariesSearchParams
+  )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -45,13 +48,11 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>
-          {`「${filteredLibrariesNames}」を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredLibrariesTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
           content={`
-          ${filteredLibrariesNames}を学べるプログラミングスクールのコース一覧を紹介します。
+          ${filteredLibrariesTitle}を学べるプログラミングスクールのコース一覧を紹介します。
           テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
           職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
           `}
@@ -63,7 +64,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredLibrariesNames}」を学べるプログラミングスクールのコース一覧`}
+            title={filteredLibrariesTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -71,7 +72,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredLibrariesNames}」を学べるプログラミングスクールのコース一覧`}
+            title={filteredLibrariesTitle}
           />
           <PCSearchPane />
         </Layout>

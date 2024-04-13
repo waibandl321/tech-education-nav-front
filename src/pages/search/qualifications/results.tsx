@@ -13,18 +13,23 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function QualificationResults({ ...props }: AppDataPropType) {
+  // hooks
+  const { getFilterNames } = useSearch();
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
   // url query
   const searchParams = useSearchParams();
   const qualificationsSearchParams = searchParams?.get("qualifications");
 
-  // フィルタ対象の資格名一覧
-  const filteredQualificationNames = props.qualifications
-    .filter((item) => qualificationsSearchParams?.includes(item.id))
-    .map((item) => item.name)
-    .join("、");
+  // ページタイトル
+  const filteredQualificationsTitle = `「${getFilterNames(
+    props.qualifications,
+    qualificationsSearchParams
+  )}」を取得したい人におすすめのプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -42,12 +47,10 @@ export default function QualificationResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>
-          {`資格:${filteredQualificationNames}を取得したい人におすすめのプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredQualificationsTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content={`${filteredQualificationNames}を学べるプログラミングスクールのコース一覧を紹介します。
+          content={`${filteredQualificationsTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
             `}
@@ -59,7 +62,7 @@ export default function QualificationResults({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredQualificationNames}を学べるプログラミングスクールのコース一覧`}
+            title={filteredQualificationsTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -67,7 +70,7 @@ export default function QualificationResults({ ...props }: AppDataPropType) {
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredQualificationNames}を学べるプログラミングスクールのコース一覧`}
+            title={filteredQualificationsTitle}
           />
           <PCSearchPane />
         </Layout>

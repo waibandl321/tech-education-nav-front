@@ -13,18 +13,24 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function LanguageResults({ ...props }: AppDataPropType) {
+  // hooks
+  const { getFilterNames } = useSearch();
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
+
   // url query
   const searchParams = useSearchParams();
   const languagesSearchParams = searchParams?.get("programmingLanguages");
 
-  // フィルタ対象の言語名一覧
-  const filteredLanguageNames = props.languages
-    .filter((item) => languagesSearchParams?.includes(item.id))
-    .map((item) => item.name)
-    .join("、");
+  // ページタイトル
+  const filteredLanguageTitle = `「${getFilterNames(
+    props.languages,
+    languagesSearchParams
+  )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -42,16 +48,14 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>
-          {`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredLanguageTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content="
-        ${filteredLanguageNames}を学べるプログラミングスクールのコース一覧を紹介します。
-        テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
-        職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
-        "
+          content={`
+            ${filteredLanguageTitle}を学べるプログラミングスクールのコース一覧を紹介します。
+            テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
+            職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
+          `}
         />
         {/* その他のメタタグ */}
       </Head>
@@ -60,7 +64,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
+            title={filteredLanguageTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -68,7 +72,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredLanguageNames}を学べるプログラミングスクールのコース一覧`}
+            title={filteredLanguageTitle}
           />
           <PCSearchPane />
         </Layout>

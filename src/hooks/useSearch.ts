@@ -12,7 +12,30 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
+interface Item {
+  id: string;
+  name: string;
+  memo?: string | null;
+}
+
 export default function useSearch() {
+  /**
+   * フィルタされた名称一覧を「、」区切りで返す
+   * 検索結果画面で使用（src/pages/search/xxx/results.tsx）
+   * @param items マスタデータの配列
+   * @param searchParams 検索クエリ
+   */
+  const getFilterNames = <T extends Item>(
+    items: T[],
+    searchParams: string | null | undefined
+  ) =>
+    items
+      .filter((item) => searchParams?.includes(item.id))
+      .map((item) => item.name)
+      .join("、");
+  /**
+   * ナビゲーションリンクの一覧
+   */
   const linksRelativeDevelop = [
     {
       title: "プログラミング言語から探す",
@@ -91,6 +114,7 @@ export default function useSearch() {
   ];
 
   return {
+    getFilterNames,
     linksRelativeDevelop,
     linksRelativeSchoolFeatures,
   };

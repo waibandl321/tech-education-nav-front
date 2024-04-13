@@ -13,20 +13,25 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function DevelopmentCategoryResults({
   ...props
 }: AppDataPropType) {
+  // hooks
+  const { getFilterNames } = useSearch();
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
   // url query
   const searchParams = useSearchParams();
   const toolsSearchParams = searchParams?.get("developmentCategories");
 
   // フィルタ対象の開発分野名一覧
-  const filteredDevelopmentCategories = props.developmentCategories
-    .filter((item) => toolsSearchParams?.includes(item.id))
-    .map((item) => item.name)
-    .join("、");
+  const filteredDevCategoriesTitle = `「${getFilterNames(
+    props.developmentCategories,
+    toolsSearchParams
+  )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -44,13 +49,11 @@ export default function DevelopmentCategoryResults({
   return (
     <>
       <Head>
-        <title>
-          {`${filteredDevelopmentCategories}を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredDevCategoriesTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
           content={`
-          ${filteredDevelopmentCategories}を学べるプログラミングスクールのコース一覧を紹介します。
+          ${filteredDevCategoriesTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
           `}
@@ -62,7 +65,7 @@ export default function DevelopmentCategoryResults({
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredDevelopmentCategories}を学べるプログラミングスクールのコース一覧`}
+            title={filteredDevCategoriesTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -70,7 +73,7 @@ export default function DevelopmentCategoryResults({
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredDevelopmentCategories}を学べるプログラミングスクールのコース一覧`}
+            title={filteredDevCategoriesTitle}
           />
           <PCSearchPane />
         </Layout>

@@ -13,18 +13,24 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function LanguageResults({ ...props }: AppDataPropType) {
+  // hooks
+  const { getFilterNames } = useSearch();
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
+
   // url query
   const searchParams = useSearchParams();
   const frameworksSearchParams = searchParams?.get("frameworks");
 
-  // フィルタ対象のフレームワーク名一覧
-  const filteredframeworkNames = props.frameworks
-    .filter((item) => frameworksSearchParams?.includes(item.id))
-    .map((item) => item.name)
-    .join("、");
+  // ページタイトル
+  const filteredframeworksTitle = `「${getFilterNames(
+    props.frameworks,
+    frameworksSearchParams
+  )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -42,16 +48,13 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>
-          {`「${filteredframeworkNames}」を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredframeworksTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content="
-        ${filteredframeworkNames}を学べるプログラミングスクールのコース一覧を紹介します。
+          content={`${filteredframeworksTitle}を紹介します。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
-        "
+        `}
         />
         {/* その他のメタタグ */}
       </Head>
@@ -60,7 +63,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredframeworkNames}」を学べるプログラミングスクールのコース一覧`}
+            title={filteredframeworksTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -68,7 +71,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`「${filteredframeworkNames}」を学べるプログラミングスクールのコース一覧`}
+            title={filteredframeworksTitle}
           />
           <PCSearchPane />
         </Layout>

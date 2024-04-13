@@ -13,18 +13,24 @@ import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import useSearch from "@/hooks/useSearch";
 
 export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
+  // hooks
+  const { getFilterNames } = useSearch();
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
+
   // url query
   const searchParams = useSearchParams();
   const toolsSearchParams = searchParams?.get("developmentTools");
 
-  // フィルタ対象の開発ツール名一覧
-  const filteredDevelopmentTools = props.developmentTools
-    .filter((item) => toolsSearchParams?.includes(item.id))
-    .map((item) => item.name)
-    .join("、");
+  // ページタイトル
+  const filteredToolsTitle = `「${getFilterNames(
+    props.developmentTools,
+    toolsSearchParams
+  )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
   const breadcrumbs = [
@@ -42,16 +48,12 @@ export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>
-          {`${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧【テック教育ナビ】`}
-        </title>
+        <title>{`${filteredToolsTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content="
-        ${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧を紹介します。
+          content={`${filteredToolsTitle}を紹介します。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
-        職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
-        "
+        職種、その他さまざまな詳細条件でプログラミングスクールを探せます。`}
         />
         {/* その他のメタタグ */}
       </Head>
@@ -60,7 +62,7 @@ export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
         <SPLayout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧`}
+            title={filteredToolsTitle}
           />
           <SPSearchPane />
         </SPLayout>
@@ -68,7 +70,7 @@ export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
         <Layout>
           <SearchSubHeader
             breadcrumbs={breadcrumbs}
-            title={`${filteredDevelopmentTools}を学べるプログラミングスクールのコース一覧`}
+            title={filteredToolsTitle}
           />
           <PCSearchPane />
         </Layout>
