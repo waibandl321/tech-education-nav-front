@@ -106,7 +106,8 @@ function isCourseDataBooleanKey(key: any): key is CourseDataBooleanKeyType {
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   try {
-    const searchType = context.query.searchType as keyof LearningCenterCourse;
+    const searchTypeParam = context.query
+      .searchType as keyof LearningCenterCourse;
     // データ取得
     const result = await fetchSearchPageData();
     // フィルタ
@@ -116,7 +117,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       return keys.some(
         (key) =>
           isCourseDataBooleanKey(key) &&
-          key === searchType &&
+          key === searchTypeParam &&
           course[key] === true
       );
     });
@@ -132,7 +133,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
 
     return {
       props: {
-        searchTypeParam: searchType,
+        searchTypeParam,
         centers: result.centers,
         courses: filteredCourses,
         languages: result.languages,

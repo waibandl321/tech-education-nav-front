@@ -25,12 +25,12 @@ export default function DevelopmentCategoryResults({
   const isMobile = props.viewport === "mobile";
   // url query
   const searchParams = useSearchParams();
-  const toolsSearchParams = searchParams?.get("developmentCategories");
+  const searchQueries = searchParams?.get("developmentCategories");
 
   // フィルタ対象の開発分野名一覧
-  const filteredDevCategoriesTitle = `「${getFilterNames(
+  const filteredTitle = `「${getFilterNames(
     props.developmentCategories,
-    toolsSearchParams
+    searchQueries
   )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
@@ -49,11 +49,11 @@ export default function DevelopmentCategoryResults({
   return (
     <>
       <Head>
-        <title>{`${filteredDevCategoriesTitle}【テック教育ナビ】`}</title>
+        <title>{`${filteredTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
           content={`
-          ${filteredDevCategoriesTitle}を紹介します。
+          ${filteredTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
           `}
@@ -63,10 +63,7 @@ export default function DevelopmentCategoryResults({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredDevCategoriesTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
@@ -85,10 +82,7 @@ export default function DevelopmentCategoryResults({
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredDevCategoriesTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}

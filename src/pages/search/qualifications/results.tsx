@@ -23,12 +23,12 @@ export default function QualificationResults({ ...props }: AppDataPropType) {
   const isMobile = props.viewport === "mobile";
   // url query
   const searchParams = useSearchParams();
-  const qualificationsSearchParams = searchParams?.get("qualifications");
+  const searchQueries = searchParams?.get("qualifications");
 
   // ページタイトル
-  const filteredQualificationsTitle = `「${getFilterNames(
+  const filteredTitle = `「${getFilterNames(
     props.qualifications,
-    qualificationsSearchParams
+    searchQueries
   )}」を取得したい人におすすめのプログラミングスクールのコース一覧`;
 
   // パンくず
@@ -47,10 +47,10 @@ export default function QualificationResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>{`${filteredQualificationsTitle}【テック教育ナビ】`}</title>
+        <title>{`${filteredTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content={`${filteredQualificationsTitle}を紹介します。
+          content={`${filteredTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
             `}
@@ -60,10 +60,7 @@ export default function QualificationResults({ ...props }: AppDataPropType) {
 
       {isMobile ? (
         <SPLayout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredQualificationsTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
@@ -82,10 +79,7 @@ export default function QualificationResults({ ...props }: AppDataPropType) {
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredQualificationsTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}

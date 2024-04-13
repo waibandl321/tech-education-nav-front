@@ -26,12 +26,12 @@ export default function DevelopmentProductResults({
 
   // url query
   const searchParams = useSearchParams();
-  const toolsSearchParams = searchParams?.get("developmentProducts");
+  const searchQueries = searchParams?.get("developmentProducts");
 
   // ページタイトル
-  const filteredProductsTitle = `「${getFilterNames(
+  const filteredTitle = `「${getFilterNames(
     props.developmentProducts,
-    toolsSearchParams
+    searchQueries
   )}」を作りたい人におすすめのプログラミングスクールのコース一覧`;
 
   // パンくず
@@ -50,11 +50,11 @@ export default function DevelopmentProductResults({
   return (
     <>
       <Head>
-        <title>{`${filteredProductsTitle}【テック教育ナビ】`}</title>
+        <title>{`${filteredTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
           content={`
-          ${filteredProductsTitle}を紹介します。
+          ${filteredTitle}を紹介します。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
           `}
@@ -64,10 +64,7 @@ export default function DevelopmentProductResults({
 
       {isMobile ? (
         <SPLayout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredProductsTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
@@ -86,10 +83,7 @@ export default function DevelopmentProductResults({
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredProductsTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}

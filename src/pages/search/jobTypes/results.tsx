@@ -24,12 +24,12 @@ export default function JobTypeResults({ ...props }: AppDataPropType) {
 
   // url query
   const searchParams = useSearchParams();
-  const jobTypesSearchParams = searchParams?.get("jobTypes");
+  const searchQueries = searchParams?.get("jobTypes");
 
   // ページタイトル
-  const filteredJobTypeTitle = `「${getFilterNames(
+  const filteredTitle = `「${getFilterNames(
     props.jobTypes,
-    jobTypesSearchParams
+    searchQueries
   )}」を目指す人におすすめのプログラミングスクールのコース一覧`;
 
   // パンくず
@@ -48,10 +48,10 @@ export default function JobTypeResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>{`${filteredJobTypeTitle}【テック教育ナビ】`}</title>
+        <title>{`${filteredTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content={`${filteredJobTypeTitle}を紹介します。
+          content={`${filteredTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
           `}
@@ -61,10 +61,7 @@ export default function JobTypeResults({ ...props }: AppDataPropType) {
 
       {isMobile ? (
         <SPLayout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredJobTypeTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
@@ -83,10 +80,7 @@ export default function JobTypeResults({ ...props }: AppDataPropType) {
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredJobTypeTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}

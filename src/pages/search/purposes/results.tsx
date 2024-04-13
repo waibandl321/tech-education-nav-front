@@ -25,12 +25,12 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
 
   // url query
   const searchParams = useSearchParams();
-  const purposesSearchParams = searchParams?.get("purposes");
+  const searchQueries = searchParams?.get("purposes");
 
   // ページタイトル
-  const filteredPurposesTitle = `「${getFilterNames(
+  const filteredTitle = `「${getFilterNames(
     PurposeOptions,
-    purposesSearchParams
+    searchQueries
   )}」を目指す人におすすめのプログラミングスクールのコース一覧`;
 
   // パンくず
@@ -49,10 +49,10 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>{`${filteredPurposesTitle}【テック教育ナビ】`}</title>
+        <title>{`${filteredTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content={`${filteredPurposesTitle}を紹介します。
+          content={`${filteredTitle}を紹介します。
             テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
             職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
             `}
@@ -62,10 +62,7 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
 
       {isMobile ? (
         <SPLayout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredPurposesTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
@@ -84,10 +81,7 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredPurposesTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}

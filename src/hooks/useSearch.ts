@@ -27,16 +27,16 @@ interface MasterDataBasicType {
 export default function useSearch() {
   /**
    * @param items マスタデータの配列
-   * @param searchParams 検索クエリ
+   * @param searchQueries 検索クエリ
    * @returns フィルタされた名称一覧を「、」区切りで返す
    * 検索結果画面で使用（src/pages/search/xxx/results.tsx）
    */
   const getFilterNames = <T extends MasterDataBasicType>(
     items: T[],
-    searchParams: string | null | undefined
+    searchQueries: string | null | undefined
   ) => {
     return items
-      .filter((item) => searchParams?.includes(item.id))
+      .filter((item) => searchQueries?.includes(item.id))
       .map((item) => item.name)
       .join("、");
   };

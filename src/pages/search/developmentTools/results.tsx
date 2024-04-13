@@ -24,12 +24,12 @@ export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
 
   // url query
   const searchParams = useSearchParams();
-  const toolsSearchParams = searchParams?.get("developmentTools");
+  const searchQueries = searchParams?.get("developmentTools");
 
   // ページタイトル
-  const filteredToolsTitle = `「${getFilterNames(
+  const filteredTitle = `「${getFilterNames(
     props.developmentTools,
-    toolsSearchParams
+    searchQueries
   )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
@@ -48,10 +48,10 @@ export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>{`${filteredToolsTitle}【テック教育ナビ】`}</title>
+        <title>{`${filteredTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
-          content={`${filteredToolsTitle}を紹介します。
+          content={`${filteredTitle}を紹介します。
         テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
         職種、その他さまざまな詳細条件でプログラミングスクールを探せます。`}
         />
@@ -60,10 +60,7 @@ export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
 
       {isMobile ? (
         <SPLayout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredToolsTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
@@ -82,10 +79,7 @@ export default function DevelopmentToolResults({ ...props }: AppDataPropType) {
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredToolsTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}

@@ -24,12 +24,12 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
 
   // url query
   const searchParams = useSearchParams();
-  const librariesSearchParams = searchParams?.get("libraries");
+  const searchQueries = searchParams?.get("libraries");
 
   // ページタイトル
-  const filteredLibrariesTitle = `「${getFilterNames(
+  const filteredTitle = `「${getFilterNames(
     props.libraries,
-    librariesSearchParams
+    searchQueries
   )}」を学べるプログラミングスクールのコース一覧`;
 
   // パンくず
@@ -48,11 +48,11 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
   return (
     <>
       <Head>
-        <title>{`${filteredLibrariesTitle}【テック教育ナビ】`}</title>
+        <title>{`${filteredTitle}【テック教育ナビ】`}</title>
         <meta
           name="description"
           content={`
-          ${filteredLibrariesTitle}を学べるプログラミングスクールのコース一覧を紹介します。
+          ${filteredTitle}を学べるプログラミングスクールのコース一覧を紹介します。
           テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
           職種、その他さまざまな詳細条件でプログラミングスクールを探せます。
           `}
@@ -62,10 +62,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
 
       {isMobile ? (
         <SPLayout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredLibrariesTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <SPSearchPane
             centers={props.centers}
             courses={props.courses}
@@ -84,10 +81,7 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
         </SPLayout>
       ) : (
         <Layout>
-          <SearchSubHeader
-            breadcrumbs={breadcrumbs}
-            title={filteredLibrariesTitle}
-          />
+          <SearchSubHeader breadcrumbs={breadcrumbs} title={filteredTitle} />
           <PCSearchPane
             centers={props.centers}
             courses={props.courses}
