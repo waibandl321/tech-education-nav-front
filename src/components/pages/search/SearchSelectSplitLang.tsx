@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -37,7 +37,6 @@ export default function SearchSelectSplitLang<T extends Item>({
   breadcrumbText,
 }: SearchSelectProps<T>) {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -54,8 +53,8 @@ export default function SearchSelectSplitLang<T extends Item>({
     )}`;
   }, [selectedItems, selectionTypeParam]);
 
-  useEffect(() => {
-    setIsSelected(selectedItems.length > 0);
+  const isSelected = useMemo(() => {
+    return selectedItems.length > 0;
   }, [selectedItems]);
 
   // 言語IDをkeyにしたオブジェクト配列

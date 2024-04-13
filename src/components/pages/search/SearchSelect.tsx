@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -31,10 +31,14 @@ export default function SearchSelect<T extends Item>({
   selectionTypeParam,
   breadcrumbText,
 }: SearchSelectProps<T>) {
+  // state
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const isSelected = useMemo(() => {
+    return selectedItems.length > 0;
+  }, [selectedItems]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // 選択変更
+  const handleChangeSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSelectedItems((currentSelected) =>
       currentSelected.includes(value)
@@ -43,16 +47,14 @@ export default function SearchSelect<T extends Item>({
     );
   };
 
+  // 選択したデータに基づき、クエリ生成
   const queryString = useMemo(() => {
     return `${selectionTypeParam}=${encodeURIComponent(
       JSON.stringify(selectedItems)
     )}`;
   }, [selectedItems, selectionTypeParam]);
 
-  useEffect(() => {
-    setIsSelected(selectedItems.length > 0);
-  }, [selectedItems]);
-
+  // パンくず
   const breadcrumbs = [
     <Link key="1" color="primary" href="/">
       TOP
@@ -79,7 +81,7 @@ export default function SearchSelect<T extends Item>({
                 <Checkbox
                   value={item.id}
                   checked={selectedItems.includes(item.id)}
-                  onChange={handleChange}
+                  onChange={handleChangeSelect}
                 />
               }
               label={item.name}

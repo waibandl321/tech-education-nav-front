@@ -13,7 +13,7 @@ export default function SearchSubHeader({
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"
-        sx={{ px: 1, pt: 2, fontSize: 12 }}
+        sx={{ px: 2, pt: 2, fontSize: 12 }}
       >
         {breadcrumbs}
       </Breadcrumbs>
