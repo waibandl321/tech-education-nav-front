@@ -91,7 +91,9 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     const coursesResults = result.courses.filter(
       (course) =>
         course.libraries &&
-        course.libraries.some((v) => v && libQueries && libQueries.includes(v))
+        course.libraries.some(
+          (item) => item && libQueries && libQueries.includes(item)
+        )
     );
 
     // ストアを初期化してディスパッチ

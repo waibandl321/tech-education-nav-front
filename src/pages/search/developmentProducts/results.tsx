@@ -88,10 +88,10 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       (course) =>
         course.developmentProducts &&
         course.developmentProducts.some(
-          (tool) =>
-            tool &&
+          (item) =>
+            item &&
             context.query.developmentProducts &&
-            context.query.developmentProducts.includes(tool)
+            context.query.developmentProducts.includes(item)
         )
     );
 

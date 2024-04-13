@@ -86,10 +86,10 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       (course) =>
         course.frameworks &&
         course.frameworks.some(
-          (v) =>
-            v &&
+          (item) =>
+            item &&
             context.query.frameworks &&
-            context.query.frameworks.includes(v)
+            context.query.frameworks.includes(item)
         )
     );
 
