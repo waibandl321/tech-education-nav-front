@@ -20,6 +20,7 @@ import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
 import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
 import { useAppSelector } from "@/lib/hooks";
+import { AppDataPropType } from "@/types/CommonType";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -50,10 +51,7 @@ const Puller = styled("div")(({ theme }) => ({
 const drawerBleeding = 56;
 const drawerWidth = 300;
 
-export default function SearchPane() {
-  // store
-  const searchData = useAppSelector((state) => state.searchData);
-
+export default function SPSearchPane({ ...props }: AppDataPropType) {
   // state
   const [open, setOpen] = React.useState(false);
 
@@ -63,8 +61,8 @@ export default function SearchPane() {
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(() => {
-    return searchData.centers.map((center) => {
-      const coursesByCenter = searchData.courses.filter(
+    return props.centers.map((center) => {
+      const coursesByCenter = props.courses.filter(
         (v) => v.learningCenterId === center.id
       );
       return {
@@ -72,7 +70,7 @@ export default function SearchPane() {
         courses: coursesByCenter,
       };
     });
-  }, [searchData.centers, searchData.courses]);
+  }, [props.centers, props.courses]);
 
   // スクール > コースがplansを持っているかどうか
   const hasPlan = (center: ExtendedLearningCenter) => {

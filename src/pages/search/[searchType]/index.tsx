@@ -53,7 +53,21 @@ export default function SearchType({ ...props }: AppDataPropType) {
             breadcrumbs={breadcrumbs}
             title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
           />
-          <SPSearchPane />
+          <SPSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </SPLayout>
       ) : (
         <Layout>
@@ -63,7 +77,21 @@ export default function SearchType({ ...props }: AppDataPropType) {
               title={`「${targetSearchType?.name}」のプログラミングスクールのコース一覧【テック教育ナビ】`}
             />
           </Box>
-          <PCSearchPane />
+          <PCSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </Layout>
       )}
     </>
@@ -82,7 +110,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     // データ取得
     const result = await fetchSearchPageData();
     // フィルタ
-    const courses = result.courses.filter((course) => {
+    const filteredCourses = result.courses.filter((course) => {
       // courseオブジェクトのキーがCourseDataBooleanKeysに含まれるかチェック
       const keys = Object.keys(course) as Array<keyof typeof course>;
       return keys.some(
@@ -95,13 +123,18 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
 
     // ストアを初期化してディスパッチ
     const store = initializeStore();
-    store.dispatch(setSearchData(result));
+    store.dispatch(
+      setSearchData({
+        ...result,
+        courses: filteredCourses,
+      })
+    );
 
     return {
       props: {
         searchTypeParam: searchType,
         centers: result.centers,
-        courses: courses,
+        courses: filteredCourses,
         languages: result.languages,
         frameworks: result.frameworks,
         libraries: result.libraries,

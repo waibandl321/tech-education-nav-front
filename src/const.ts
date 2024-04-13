@@ -17,7 +17,7 @@ export const PurposeOptions = [
   { id: "JOB", name: "就職/転職" },
   { id: "FREELANCE", name: "フリーランス" },
   { id: "ENTREPRENEURSHIP", name: "起業" },
-  { id: "SIDE_BUSINESS", name: "副業" },
+  { id: "SIDEBUSINESS", name: "副業" },
   { id: "CERTIFICATION", name: "資格取得" },
   { id: "LEARNING", name: "学習/スキルアップ" },
 ];

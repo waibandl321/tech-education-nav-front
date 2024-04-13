@@ -6,6 +6,7 @@ import SearchNavigation from "@/components/pages/search/SearchNavigation";
 import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
 import { LearningCenter, LearningCenterCourse } from "@/API";
 import { useAppSelector } from "@/lib/hooks";
+import { AppDataPropType } from "@/types/CommonType";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
@@ -13,14 +14,14 @@ type ExtendedLearningCenter = LearningCenter & {
 
 const drawerWidth = 360;
 
-export default function SearchPane() {
+export default function PCSearchPane({ ...props }: AppDataPropType) {
   // store
   const searchData = useAppSelector((state) => state.searchData);
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(() => {
-    return searchData.centers.map((center) => {
-      const coursesByCenter = searchData.courses.filter(
+    return props.centers.map((center) => {
+      const coursesByCenter = props.courses.filter(
         (v) => v.learningCenterId === center.id
       );
       return {
@@ -28,7 +29,7 @@ export default function SearchPane() {
         courses: coursesByCenter,
       };
     });
-  }, [searchData.centers, searchData.courses]);
+  }, [props.centers, props.courses]);
 
   // スクール > コースがplansを持っているかどうか
   const hasPlan = (center: ExtendedLearningCenter) => {

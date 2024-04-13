@@ -66,7 +66,21 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
             breadcrumbs={breadcrumbs}
             title={filteredLibrariesTitle}
           />
-          <SPSearchPane />
+          <SPSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </SPLayout>
       ) : (
         <Layout>
@@ -74,7 +88,21 @@ export default function LanguageResults({ ...props }: AppDataPropType) {
             breadcrumbs={breadcrumbs}
             title={filteredLibrariesTitle}
           />
-          <PCSearchPane />
+          <PCSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </Layout>
       )}
     </>
@@ -89,7 +117,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     const result = await fetchSearchPageData();
 
     // フィルタされたライブラリ/APIをcourses配列から検索
-    const coursesResults = result.courses.filter(
+    const filteredCourses = result.courses.filter(
       (course) =>
         course.libraries &&
         course.libraries.some(
@@ -99,12 +127,17 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
 
     // ストアを初期化してディスパッチ
     const store = initializeStore();
-    store.dispatch(setSearchData(result));
+    store.dispatch(
+      setSearchData({
+        ...result,
+        courses: filteredCourses,
+      })
+    );
 
     return {
       props: {
         centers: result.centers,
-        courses: coursesResults,
+        courses: filteredCourses,
         languages: result.languages,
         frameworks: result.frameworks,
         libraries: result.libraries,

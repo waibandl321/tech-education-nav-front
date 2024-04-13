@@ -9,8 +9,9 @@ import { useMediaQuery } from "@mui/material";
 import SPLayout from "@/app/sp-layout";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import { AppDataPropType } from "@/types/CommonType";
 
-export default function Index() {
+export default function Index({ ...props }: AppDataPropType) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
   return (
@@ -23,11 +24,39 @@ export default function Index() {
 
       {isMobile ? (
         <SPLayout>
-          <SPSearchPane />
+          <SPSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </SPLayout>
       ) : (
         <Layout>
-          <PCSearchPane />
+          <PCSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </Layout>
       )}
     </>

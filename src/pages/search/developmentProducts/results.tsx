@@ -68,7 +68,21 @@ export default function DevelopmentProductResults({
             breadcrumbs={breadcrumbs}
             title={filteredProductsTitle}
           />
-          <SPSearchPane />
+          <SPSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </SPLayout>
       ) : (
         <Layout>
@@ -76,7 +90,21 @@ export default function DevelopmentProductResults({
             breadcrumbs={breadcrumbs}
             title={filteredProductsTitle}
           />
-          <PCSearchPane />
+          <PCSearchPane
+            centers={props.centers}
+            courses={props.courses}
+            languages={props.languages}
+            frameworks={props.frameworks}
+            libraries={props.libraries}
+            developmentTools={props.developmentTools}
+            jobTypes={props.jobTypes}
+            paymentMethods={props.paymentMethods}
+            creditCards={props.creditCards}
+            developmentCategories={props.developmentCategories}
+            developmentProducts={props.developmentProducts}
+            qualifications={props.qualifications}
+            benefitUserCategories={props.benefitUserCategories}
+          />
         </Layout>
       )}
     </>
@@ -88,7 +116,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
   try {
     const result = await fetchSearchPageData();
     // フィルタされた開発サービスをcourses配列から検索
-    const courses = result.courses.filter(
+    const filteredCourses = result.courses.filter(
       (course) =>
         course.developmentProducts &&
         course.developmentProducts.some(
@@ -101,12 +129,17 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
 
     // ストアを初期化してディスパッチ
     const store = initializeStore();
-    store.dispatch(setSearchData(result));
+    store.dispatch(
+      setSearchData({
+        ...result,
+        courses: filteredCourses,
+      })
+    );
 
     return {
       props: {
         centers: result.centers,
-        courses: courses,
+        courses: filteredCourses,
         languages: result.languages,
         frameworks: result.frameworks,
         libraries: result.libraries,
