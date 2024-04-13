@@ -23,10 +23,7 @@ export default function LibrariesPage({
   return (
     <>
       <Head>
-        <title>
-          ライブラリ/API一覧【テック教育ナビ】プログラミングスクールの情報サイト
-          |{" "}
-        </title>
+        <title>ライブラリ/API一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="ライブラリ/API一覧、プログラミングスクールを言語から探す。

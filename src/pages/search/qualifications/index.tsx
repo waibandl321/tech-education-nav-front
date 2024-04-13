@@ -21,9 +21,7 @@ export default function QualificationsPage({
   return (
     <>
       <Head>
-        <title>
-          資格一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
-        </title>
+        <title>資格一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="資格一覧、プログラミングスクールを言語から探す。

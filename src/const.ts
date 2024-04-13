@@ -37,9 +37,6 @@ export const PurposeOptions = [
   { id: "LEARNING", name: "学習/スキルアップ" },
 ];
 
-// 金額の選択肢を生成（5万円刻みで100万円まで）
-export const priceOptions = Array.from({ length: 20 }, (_, i) => (i + 1) * 5);
-
 // コースオプションMap
 export const CourseDataBooleanMap: Array<{
   key: keyof LearningCenterCourse;
@@ -105,6 +102,8 @@ export const CourseDataBooleanKeys = CourseDataBooleanMap.map((v) => v.key);
 
 export type CourseDataBooleanKeyType =
   (typeof CourseDataBooleanMap)[number]["key"];
+
+const SearchNavigateLinkMapByTech = [];
 
 // カラーマップ: カラーをランダムに割り当てる際に使用する
 export const MuiColorMap: Array<ChipOwnProps["color"]> = [

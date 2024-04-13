@@ -14,9 +14,7 @@ export default function PurposesPage({ viewport }: { viewport: DeviceType }) {
   return (
     <>
       <Head>
-        <title>
-          受講目的一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
-        </title>
+        <title>受講目的一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="受講目的一覧、プログラミングスクールを言語から探す。

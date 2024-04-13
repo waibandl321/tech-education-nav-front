@@ -23,10 +23,7 @@ export default function FrameworksPage({
   return (
     <>
       <Head>
-        <title>
-          フレームワーク一覧【テック教育ナビ】プログラミングスクールの情報サイト
-          |{" "}
-        </title>
+        <title>フレームワーク一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="フレームワーク一覧、プログラミングスクールを言語から探す。

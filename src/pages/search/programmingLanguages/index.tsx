@@ -21,10 +21,7 @@ export default function LanguagesPage({
   return (
     <>
       <Head>
-        <title>
-          プログラミング言語一覧【テック教育ナビ】プログラミングスクールの情報サイト
-          |{" "}
-        </title>
+        <title>プログラミング言語一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="プログラミング言語一覧、プログラミングスクールを言語から探す。

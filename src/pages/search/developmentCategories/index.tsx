@@ -21,9 +21,7 @@ export default function DevelomentCategoriesPage({
   return (
     <>
       <Head>
-        <title>
-          開発分野一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
-        </title>
+        <title>開発分野一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="開発分野一覧、プログラミングスクールを言語から探す。

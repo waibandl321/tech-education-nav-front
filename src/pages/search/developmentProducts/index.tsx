@@ -21,10 +21,7 @@ export default function DevelomentProductsPage({
   return (
     <>
       <Head>
-        <title>
-          作りたいサービス一覧【テック教育ナビ】プログラミングスクールの情報サイト
-          |{" "}
-        </title>
+        <title>作りたいサービス一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="作りたいサービス一覧、プログラミングスクールを言語から探す。

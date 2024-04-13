@@ -21,9 +21,7 @@ export default function DevelopmentToolsPage({
   return (
     <>
       <Head>
-        <title>
-          開発ツール一覧【テック教育ナビ】プログラミングスクールの情報サイト |{" "}
-        </title>
+        <title>開発ツール一覧【テック教育ナビ】</title>
         <meta
           name="description"
           content="開発ツール一覧、プログラミングスクールを言語から探す。
