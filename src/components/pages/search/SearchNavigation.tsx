@@ -1,4 +1,5 @@
 import { sortBy } from "lodash";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   useMediaQuery,
   Box,
@@ -12,22 +13,72 @@ import {
   FormGroup,
   OutlinedInput,
   Slider,
+  SelectChangeEvent,
+  ListItemText,
 } from "@mui/material";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { AttendanceTypeLabels, PurposeOptions } from "@/const";
 import { useAppSelector } from "@/lib/hooks";
+import useSearch, { FilterResult, initFilterResults } from "@/hooks/useSearch";
+import { MasterDataBasicType } from "@/types/CommonType";
 
 const MAX = 150;
 const MIN = 0;
 
 export default function SearchNavigation() {
+  // hooks
+  const { getMasterItemsByLang, getLanguagesById, getLanguageName } =
+    useSearch();
   // store
   const searchData = useAppSelector((state) => state.searchData);
   // デバイス判定
   const isMobile = useMediaQuery("(max-width:640px)");
 
+  // state
+  const [filterResult, setFilterResult] =
+    useState<FilterResult>(initFilterResults);
+  const [rangeValue, setRangeValue] = useState<number[]>([20, 37]);
+
+  // 選択値の更新
+  const handlerFormChange = (
+    event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<readonly []>
+  ) => {
+    const target = event.target;
+    const name = target.name;
+    const value =
+      target instanceof HTMLElement && target.type === "checkbox"
+        ? target.checked
+        : target.value;
+
+    setFilterResult((prevFilterResult) => {
+      const updatedFilterResults = {
+        ...prevFilterResult,
+        [name]: value,
+      };
+      return updatedFilterResults;
+    });
+  };
+
+  React.useEffect(() => {
+    console.log(filterResult);
+  }, [filterResult]);
+
+  /**
+   * selectbox 選択名を取得
+   * @param selectedValues 選択値
+   * @returns 選択した値の名称（マスタデータのnameを結合して返す）
+   */
+
+  const getSelectValueText = <T extends MasterDataBasicType>(
+    selectedValues: readonly [],
+    arr: T[]
+  ) => {
+    return selectedValues
+      .map((v) => arr.find((product) => product.id === v)?.name)
+      .join(", ");
+  };
+
   // 料金レンジ（仮）
-  const [rangeValue, setRangeValue] = React.useState<number[]>([20, 37]);
   const handleChangeRange = (event: Event, newValue: number | number[]) => {
     setRangeValue(newValue as number[]);
   };
@@ -35,18 +86,38 @@ export default function SearchNavigation() {
     return `${value}万円`;
   }
 
+  // 言語IDをkeyにしたオブジェクト配列
+  const languagesById = useMemo(() => {
+    return getLanguagesById(searchData.programmingLanguages);
+  }, [searchData.programmingLanguages, getLanguagesById]);
+
+  // 言語IDをkeyにしたオブジェクトフレームワーク配列
+  const librariesByLang = useMemo(
+    () =>
+      getMasterItemsByLang(
+        searchData.programmingLanguages,
+        searchData.libraries
+      ),
+    [
+      searchData.programmingLanguages,
+      searchData.libraries,
+      getMasterItemsByLang,
+    ]
+  );
+
   // プログラミング言語にフレームワークを紐付けたデータ
-  const languageWithFrameworks = useMemo(() => {
-    return searchData.programmingLanguages.map((lang) => {
-      const frameworksByLang = searchData.frameworks.filter(
-        (framework) => framework.programmingLanguageId === lang.id
-      );
-      return {
-        ...lang,
-        frameworks: frameworksByLang,
-      };
-    });
-  }, [searchData.programmingLanguages, searchData.frameworks]);
+  const languageWithFrameworks = useMemo(
+    () =>
+      getMasterItemsByLang(
+        searchData.programmingLanguages,
+        searchData.frameworks
+      ),
+    [
+      searchData.programmingLanguages,
+      searchData.frameworks,
+      getMasterItemsByLang,
+    ]
+  );
 
   return (
     <Card
@@ -91,47 +162,83 @@ export default function SearchNavigation() {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ mt: 1 }}>
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+          <Typography variant="body2" fontWeight={700}>
+            スクールの特徴
+          </Typography>
+        </Box>
+        <Box>
           <FormControlLabel
-            control={<Checkbox name="isAvailableMoneyBack" />}
+            control={
+              <Checkbox
+                name="isAvailableMoneyBack"
+                value={filterResult.isAvailableMoneyBack}
+                onChange={(event) => handlerFormChange(event)}
+              />
+            }
             label="返金保証あり"
           />
         </Box>
         <Box>
           <FormControlLabel
-            control={<Checkbox name="isAvailableSubsidy" />}
+            control={
+              <Checkbox
+                name="isAvailableSubsidy"
+                value={filterResult.isAvailableSubsidy}
+                onChange={(event) => handlerFormChange(event)}
+              />
+            }
             label="補助金あり"
           />
         </Box>
-      </Box>
-      <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
-          <Typography variant="body2" fontWeight={700}>
-            カリキュラムの特徴
-          </Typography>
-        </Box>
         <Box>
           <FormControlLabel
-            control={<Checkbox name="isMadeToOrder" />}
+            control={
+              <Checkbox
+                name="isMadeToOrder"
+                value={filterResult.isMadeToOrder}
+                onChange={(event) => handlerFormChange(event)}
+              />
+            }
             label="オーダーメイドカリキュラム"
           />
         </Box>
         <Box>
           <FormControlLabel
-            control={<Checkbox name="isJobIntroductionAvailable" />}
-            label="副業・フリーランス案件保証"
+            control={
+              <Checkbox
+                name="isJobIntroductionAvailable"
+                value={filterResult.isJobIntroductionAvailable}
+                onChange={(event) => handlerFormChange(event)}
+              />
+            }
+            label="案件保証あり"
           />
         </Box>
         <Box>
           <FormControlLabel
-            control={<Checkbox name="isJobHuntingSupport" />}
-            label="転職サポート"
+            control={
+              <Checkbox
+                name="isJobHuntingSupport"
+                value={filterResult.isJobHuntingSupport}
+                onChange={(event) => handlerFormChange(event)}
+              />
+            }
+            label="転職サポートあり"
           />
         </Box>
         <Box>
           <FormControlLabel
-            control={<Checkbox name="isJobHuntingSupport" />}
-            label="転職保証"
+            control={
+              <Checkbox
+                name="isJobHuntingSupport"
+                value={filterResult.isJobHuntingSupport}
+                onChange={(event) => handlerFormChange(event)}
+              />
+            }
+            label="転職保証付"
           />
         </Box>
       </Box>
@@ -141,17 +248,30 @@ export default function SearchNavigation() {
             受講スタイル
           </Typography>
         </Box>
-        <Box>
-          <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
+        <FormControl fullWidth>
+          <Select
+            id="select-attendance-type"
+            value={filterResult.attendanceType}
+            name="attendanceType"
+            input={<OutlinedInput fullWidth />}
+            onChange={(event) => handlerFormChange(event)}
+            renderValue={(selected) =>
+              getSelectValueText(selected, AttendanceTypeLabels)
+            }
+            multiple
+          >
             {AttendanceTypeLabels.map((item) => (
-              <FormControlLabel
-                key={item.id}
-                control={<Checkbox name="attendanceType" value={item.id} />}
-                label={item.name}
-              />
+              <MenuItem key={item.id} value={item.id}>
+                <Checkbox
+                  checked={
+                    filterResult.attendanceType.indexOf(item.id as never) > -1
+                  }
+                />
+                <ListItemText>{item.name}</ListItemText>
+              </MenuItem>
             ))}
-          </FormGroup>
-        </Box>
+          </Select>
+        </FormControl>
       </Box>
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
@@ -159,7 +279,31 @@ export default function SearchNavigation() {
             受講目的
           </Typography>
         </Box>
-        <Box>
+        <FormControl fullWidth>
+          <Select
+            id="select-purposes"
+            value={filterResult.purposes}
+            name="purposes"
+            input={<OutlinedInput fullWidth />}
+            onChange={(event) => handlerFormChange(event)}
+            renderValue={(selected) =>
+              getSelectValueText(selected, PurposeOptions)
+            }
+            multiple
+          >
+            {PurposeOptions.map((purpose) => (
+              <MenuItem key={purpose.id} value={purpose.id}>
+                <Checkbox
+                  checked={
+                    filterResult.purposes.indexOf(purpose.id as never) > -1
+                  }
+                />
+                <ListItemText>{purpose.name}</ListItemText>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {/* <Box>
           <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
             {PurposeOptions.map((purpose) => (
               <FormControlLabel
@@ -169,7 +313,7 @@ export default function SearchNavigation() {
               />
             ))}
           </FormGroup>
-        </Box>
+        </Box> */}
       </Box>
 
       <Box sx={{ mt: 4 }}>
@@ -181,9 +325,13 @@ export default function SearchNavigation() {
         <FormControl fullWidth>
           <Select
             id="select-benefit-user-categories"
-            value={[""]}
+            value={filterResult.benefitUserCategories}
             name="benefitUserCategories"
             input={<OutlinedInput fullWidth />}
+            onChange={(event) => handlerFormChange(event)}
+            renderValue={(selected) =>
+              getSelectValueText(selected, searchData.benefitUserCategories)
+            }
             multiple
           >
             <MenuItem value="">
@@ -191,14 +339,21 @@ export default function SearchNavigation() {
             </MenuItem>
             {searchData.benefitUserCategories.map((item) => (
               <MenuItem key={item.id} value={item.id}>
-                {item.name}
+                <Checkbox
+                  checked={
+                    filterResult.benefitUserCategories.indexOf(
+                      item.id as never
+                    ) > -1
+                  }
+                />
+                <ListItemText>{item.name}</ListItemText>
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       </Box>
 
-      <Box sx={{ mt: 3 }}>
+      {/* <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             対応している支払い方法
@@ -233,28 +388,36 @@ export default function SearchNavigation() {
             ))}
           </FormGroup>
         </Box>
-      </Box>
+      </Box> */}
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            開発分野
+            関わりたい開発分野
           </Typography>
         </Box>
         <Box>
           <FormControl fullWidth>
             <Select
               id="select-job-types"
-              value={[""]}
+              value={filterResult.developmentCategories}
               name="developmentCategories"
               input={<OutlinedInput fullWidth />}
+              onChange={(event) => handlerFormChange(event)}
+              renderValue={(selected) =>
+                getSelectValueText(selected, searchData.developmentCategories)
+              }
               multiple
             >
-              <MenuItem value="">
-                <em>指定しない</em>
-              </MenuItem>
               {searchData.developmentCategories.map((category) => (
                 <MenuItem key={category.id} value={category.id}>
-                  {category.name}
+                  <Checkbox
+                    checked={
+                      filterResult.developmentCategories.indexOf(
+                        category.id as never
+                      ) > -1
+                    }
+                  />
+                  <ListItemText>{category.name}</ListItemText>
                 </MenuItem>
               ))}
             </Select>
@@ -271,17 +434,25 @@ export default function SearchNavigation() {
           <FormControl fullWidth>
             <Select
               id="select-job-types"
-              value={[""]}
+              value={filterResult.developmentProducts}
               name="developmentProducts"
               input={<OutlinedInput fullWidth />}
+              onChange={(event) => handlerFormChange(event)}
+              renderValue={(selected) =>
+                getSelectValueText(selected, searchData.developmentProducts)
+              }
               multiple
             >
-              <MenuItem value="">
-                <em>指定しない</em>
-              </MenuItem>
               {searchData.developmentProducts.map((product) => (
                 <MenuItem key={product.id} value={product.id}>
-                  {product.name}
+                  <Checkbox
+                    checked={
+                      filterResult.developmentProducts.indexOf(
+                        product.id as never
+                      ) > -1
+                    }
+                  />
+                  <ListItemText primary={product.name}></ListItemText>
                 </MenuItem>
               ))}
             </Select>
@@ -291,24 +462,32 @@ export default function SearchNavigation() {
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            資格
+            取得したい資格
           </Typography>
         </Box>
         <Box>
           <FormControl fullWidth>
             <Select
-              id="select-job-types"
-              value={[""]}
+              id="select-qualifications"
+              value={filterResult.qualifications}
               name="qualifications"
               input={<OutlinedInput fullWidth />}
+              onChange={(event) => handlerFormChange(event)}
+              renderValue={(selected) =>
+                getSelectValueText(selected, searchData.qualifications)
+              }
               multiple
             >
-              <MenuItem value="">
-                <em>指定しない</em>
-              </MenuItem>
               {searchData.qualifications.map((dualification) => (
                 <MenuItem key={dualification.id} value={dualification.id}>
-                  {dualification.name}
+                  <Checkbox
+                    checked={
+                      filterResult.qualifications.indexOf(
+                        dualification.id as never
+                      ) > -1
+                    }
+                  />
+                  <ListItemText>{dualification.name}</ListItemText>
                 </MenuItem>
               ))}
             </Select>
@@ -325,17 +504,23 @@ export default function SearchNavigation() {
           <FormControl fullWidth>
             <Select
               id="select-job-types"
-              value={[""]}
+              value={filterResult.jobTypes}
               name="jobTypes"
               input={<OutlinedInput fullWidth />}
+              onChange={(event) => handlerFormChange(event)}
+              renderValue={(selected) =>
+                getSelectValueText(selected, searchData.jobTypes)
+              }
               multiple
             >
-              <MenuItem value="">
-                <em>指定しない</em>
-              </MenuItem>
-              {searchData.jobTypes.map((job) => (
-                <MenuItem key={job.id} value={job.id}>
-                  {job.name}
+              {searchData.jobTypes.map((jobType) => (
+                <MenuItem key={jobType.id} value={jobType.id}>
+                  <Checkbox
+                    checked={
+                      filterResult.jobTypes.indexOf(jobType.id as never) > -1
+                    }
+                  />
+                  <ListItemText>{jobType.name}</ListItemText>
                 </MenuItem>
               ))}
             </Select>
@@ -345,33 +530,119 @@ export default function SearchNavigation() {
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
-            学びたい言語・フレームワーク
+            学びたいプログラミング言語
           </Typography>
         </Box>
         <Box>
           <FormControl fullWidth>
-            <Select id="grouped-select" value={""}>
-              <MenuItem value="">
-                <em>指定しない</em>
-              </MenuItem>
-              {languageWithFrameworks.map((lang) => [
-                <MenuItem key={lang.id} value={lang.id}>
-                  {lang.name}
+            <Select
+              id="select-programming-languages"
+              value={filterResult.programmingLanguages}
+              name="programmingLanguages"
+              input={<OutlinedInput fullWidth />}
+              onChange={(event) => handlerFormChange(event)}
+              renderValue={(selected) =>
+                getSelectValueText(selected, searchData.programmingLanguages)
+              }
+              multiple
+            >
+              {searchData.programmingLanguages.map((language) => (
+                <MenuItem key={language.id} value={language.id}>
+                  <Checkbox
+                    checked={
+                      filterResult.programmingLanguages.indexOf(
+                        language.id as never
+                      ) > -1
+                    }
+                  />
+                  <ListItemText>{language.name}</ListItemText>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+          <Typography variant="body2" fontWeight={700}>
+            学びたいフレームワーク
+          </Typography>
+        </Box>
+        <Box>
+          <FormControl fullWidth>
+            <Select
+              id="select-frameworks"
+              name="frameworks"
+              value={filterResult.frameworks}
+              onChange={(event) => handlerFormChange(event)}
+              renderValue={(selected) =>
+                getSelectValueText(selected, searchData.frameworks)
+              }
+              multiple
+            >
+              {Object.keys(languageWithFrameworks).map((key) => [
+                <MenuItem key={key} disabled>
+                  {getLanguageName(languagesById, key)}
                 </MenuItem>,
                 // フレームワークをサブアイテムとして表示
-                lang.frameworks.map((framework) => (
+                languageWithFrameworks[key].map((framework) => (
                   <MenuItem
                     key={framework.id}
                     value={framework.id}
                     sx={{ pl: 4 }}
                   >
-                    {framework.name}
+                    <Checkbox
+                      checked={
+                        filterResult.frameworks.indexOf(framework.id as never) >
+                        -1
+                      }
+                    />
+                    <ListItemText>{framework.name}</ListItemText>
                   </MenuItem>
                 )),
               ])}
             </Select>
           </FormControl>
         </Box>
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+          <Typography variant="body2" fontWeight={700}>
+            学びたいライブラリ/API
+          </Typography>
+        </Box>
+        <FormControl fullWidth>
+          <Select
+            id="select-libraries"
+            name="libraries"
+            value={filterResult.libraries}
+            onChange={(event) => handlerFormChange(event)}
+            renderValue={(selected) =>
+              getSelectValueText(selected, searchData.libraries)
+            }
+            multiple
+          >
+            <MenuItem value="">
+              <em>指定しない</em>
+            </MenuItem>
+            {Object.keys(librariesByLang).map((key) => [
+              <MenuItem key={key} disabled>
+                {getLanguageName(languagesById, key)}
+              </MenuItem>,
+              // ライブラリをサブアイテムとして表示
+              librariesByLang[key].map((lib) => (
+                <MenuItem key={lib.id} value={lib.id} sx={{ pl: 4 }}>
+                  <Checkbox
+                    checked={
+                      filterResult.libraries.indexOf(lib.id as never) > -1
+                    }
+                  />
+                  <ListItemText>{lib.name}</ListItemText>
+                </MenuItem>
+              )),
+            ])}
+          </Select>
+        </FormControl>
       </Box>
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
@@ -383,7 +654,11 @@ export default function SearchNavigation() {
           <Select
             id="select-development-tools"
             name="developmentTools"
-            value={[""]}
+            value={filterResult.developmentTools}
+            onChange={(event) => handlerFormChange(event)}
+            renderValue={(selected) =>
+              getSelectValueText(selected, searchData.developmentTools)
+            }
             input={<OutlinedInput fullWidth />}
             multiple
           >
@@ -392,7 +667,12 @@ export default function SearchNavigation() {
             </MenuItem>
             {sortBy(searchData.developmentTools, ["name"]).map((item) => (
               <MenuItem key={item.id} value={item.id}>
-                {item.name}
+                <Checkbox
+                  checked={
+                    filterResult.developmentTools.indexOf(item.id as never) > -1
+                  }
+                />
+                <ListItemText>{item.name}</ListItemText>
               </MenuItem>
             ))}
           </Select>

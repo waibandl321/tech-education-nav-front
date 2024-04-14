@@ -1,15 +1,48 @@
-import { CoursePlan, LearningCenter, LearningCenterCourse } from "@/API";
+import {
+  CoursePlan,
+  Framework,
+  LearningCenter,
+  LearningCenterCourse,
+  Library,
+  ProgrammingLanguage,
+} from "@/API";
 import { navLinksMapByOption } from "@/const";
+import { MasterDataBasicType } from "@/types/CommonType";
 
 type ExtendedLearningCenter = LearningCenter & {
   courses: Array<LearningCenterCourse>;
 };
 
-interface MasterDataBasicType {
-  id: string;
-  name: string;
-  memo?: string | null;
-}
+type ItemsByLangId<T> = { [key: string]: Array<T> };
+
+/**
+ * フィルタ結果 初期値
+ * src/components/pages/search/SearchNavigation.tsx
+ */
+export const initFilterResults = {
+  isAvailableMoneyBack: false,
+  isAvailableSubsidy: false,
+  isMadeToOrder: false,
+  isJobIntroductionAvailable: false,
+  isJobHuntingSupport: false,
+  isJobHuntingGuarantee: false,
+  attendanceType: [],
+  purposes: [],
+  benefitUserCategories: [],
+  developmentCategories: [],
+  developmentProducts: [],
+  qualifications: [],
+  jobTypes: [],
+  programmingLanguages: [],
+  frameworks: [],
+  developmentTools: [],
+  libraries: [],
+
+  // paymentOptions: []
+  // creditCards: []
+} as const;
+
+export type FilterResult = typeof initFilterResults;
 
 export default function useSearch() {
   /**
@@ -83,11 +116,65 @@ export default function useSearch() {
     return navLinksMapByOption.filter((item) => course[item.key] === true);
   };
 
+  /**
+   * programmingLanguageIdをkeyにしたオブジェクト配列を生成
+   * programmingLanguageIdに依存するフレームワークやライブラリで使用
+   * @param languages
+   * @param items 言語IDをkeyにしたオブジェクト配列
+   */
+  const getMasterItemsByLang = <T extends Framework | Library>(
+    languages: ProgrammingLanguage[],
+    items: T[]
+  ) => {
+    return languages.reduce<ItemsByLangId<T>>((acc, curr) => {
+      const filteredItems = items.filter(
+        (v) => v.programmingLanguageId === curr.id
+      );
+      if (filteredItems.length > 0) {
+        // アイテムが1以上の場合のみ、データを登録する
+        acc[curr.id] = filteredItems;
+      }
+      return acc;
+    }, {});
+  };
+
+  /**
+   * 言語IDをkeyにしたオブジェクト配列
+   */
+  const getLanguagesById = (languages: ProgrammingLanguage[]) => {
+    return languages.reduce<{ [key: string]: ProgrammingLanguage }>(
+      (acc, curr) => {
+        acc[curr.id] = curr;
+        return acc;
+      },
+      {}
+    );
+  };
+
+  /**
+   * programmingLanguageIdを元に、プログラミング言語名を取得する
+   * @param data
+   * @param languageId
+   * @returns
+   */
+  const getLanguageName = (
+    languagesById: {
+      [key: string]: ProgrammingLanguage;
+    },
+    languageId?: string | null
+  ) => {
+    if (!languageId) return "";
+    return languagesById[languageId].name;
+  };
+
   return {
     getFilterNames,
     hasPlan,
     getComputedCenters,
     findMinPlanPrice,
     getChipsByCourse,
+    getMasterItemsByLang,
+    getLanguagesById,
+    getLanguageName,
   };
 }

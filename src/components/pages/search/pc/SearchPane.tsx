@@ -21,7 +21,7 @@ export default function PCSearchPane({ ...props }: AppDataPropType) {
 
   return (
     <Box sx={{ display: "flex", pb: 8 }}>
-      <Box component="main" sx={{ flexGrow: 1, mx: 2 }}>
+      <Box component="main" sx={{ flexGrow: 1, mx: 2, pt: 2 }}>
         {items.map(
           (center, index) =>
             hasPlan(center) && (

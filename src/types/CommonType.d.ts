@@ -31,6 +31,15 @@ export interface CenterAndCourseDetailPropType {
 export type DeviceType = "desktop" | "mobile";
 
 /**
+ * マスタデータの型
+ */
+export interface MasterDataBasicType {
+  id: string;
+  name: string;
+  memo?: string | null;
+}
+
+/**
  * アプリ全体で使用するデータのprops型
  */
 export interface AppDataPropType {

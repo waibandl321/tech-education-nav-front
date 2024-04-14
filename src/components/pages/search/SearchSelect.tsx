@@ -11,21 +11,16 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
+import { MasterDataBasicType } from "@/types/CommonType";
 
-interface Item {
-  id: string;
-  name: string;
-  memo?: string | null;
-}
-
-interface SearchSelectProps<T extends Item> {
+interface SearchSelectProps<T extends MasterDataBasicType> {
   items: Array<T>;
   title: string;
   selectionTypeParam: string;
   breadcrumbText: string;
 }
 
-export default function SearchSelect<T extends Item>({
+export default function SearchSelect<T extends MasterDataBasicType>({
   items,
   title,
   selectionTypeParam,

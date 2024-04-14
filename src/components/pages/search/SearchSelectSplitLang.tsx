@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { Framework, Library, ProgrammingLanguage } from "@/API";
+import useSearch from "@/hooks/useSearch";
 
 type Item = Framework | Library;
 
@@ -24,8 +25,6 @@ interface SearchSelectProps<T extends Item> {
   breadcrumbText: string;
 }
 
-type ItemsByLangId<T extends Item> = { [key: string]: Array<T> };
-
 /**
  * フレームワーク、ライブラリなど、プログラミング言語に依存した選択肢を提供する
  */
@@ -36,6 +35,11 @@ export default function SearchSelectSplitLang<T extends Item>({
   selectionTypeParam,
   breadcrumbText,
 }: SearchSelectProps<T>) {
+  // hooks
+  const { getMasterItemsByLang, getLanguagesById, getLanguageName } =
+    useSearch();
+
+  // state
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,34 +63,13 @@ export default function SearchSelectSplitLang<T extends Item>({
 
   // 言語IDをkeyにしたオブジェクト配列
   const languagesById = useMemo<{ [key: string]: ProgrammingLanguage }>(() => {
-    return languages.reduce<{ [key: string]: ProgrammingLanguage }>(
-      (acc, curr) => {
-        acc[curr.id] = curr;
-        return acc;
-      },
-      {}
-    );
-  }, [languages]);
+    return getLanguagesById(languages);
+  }, [languages, getLanguagesById]);
 
   // 言語IDをkeyにしたオブジェクトフレームワーク配列
-  const itemsByLang = useMemo<ItemsByLangId<T>>(() => {
-    return languages.reduce<ItemsByLangId<T>>((acc, curr) => {
-      const filteredItems = items.filter(
-        (v) => v.programmingLanguageId === curr.id
-      );
-      if (filteredItems.length > 0) {
-        // アイテムが1以上の場合のみ、データを登録する
-        acc[curr.id] = filteredItems;
-      }
-      return acc;
-    }, {});
-  }, [languages, items]);
-
-  // プログラミング言語名を取得
-  const getLanguageName = (languageId?: string | null) => {
-    if (!languageId) return "";
-    return languagesById[languageId].name;
-  };
+  const itemsByLang = useMemo(() => {
+    return getMasterItemsByLang(languages, items);
+  }, [languages, items, getMasterItemsByLang]);
 
   const breadcrumbs = [
     <Link key="1" color="primary" href="/">
@@ -111,7 +94,7 @@ export default function SearchSelectSplitLang<T extends Item>({
             <Box key={key} marginTop={2}>
               <Divider />
               <Typography fontWeight={700} marginTop={2}>
-                {getLanguageName(key)}
+                {getLanguageName(languagesById, key)}
               </Typography>
               <Box>
                 {itemsByLang[key].map((v) => (
