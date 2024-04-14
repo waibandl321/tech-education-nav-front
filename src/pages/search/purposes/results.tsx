@@ -2,7 +2,7 @@ import React from "react";
 import SPLayout from "@/app/sp-layout";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { fetchSearchPageData } from "@/hooks/server/fetchData";
+import { fetchMasterData } from "@/hooks/server/fetchData";
 import { PurposeOptions } from "@/const";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
@@ -106,7 +106,7 @@ export default function PurposeResults({ ...props }: AppDataPropType) {
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   try {
-    const result = await fetchSearchPageData();
+    const result = await fetchMasterData();
     // フィルタされた資格をcourses配列から検索
     const filteredCourses = result.courses.filter(
       (course) =>

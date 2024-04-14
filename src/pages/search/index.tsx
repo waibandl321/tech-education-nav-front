@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import { fetchSearchPageData } from "@/hooks/server/fetchData";
+import { fetchCourses, fetchMasterData } from "@/hooks/server/fetchData";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
@@ -66,15 +66,18 @@ export default function Index({ ...props }: AppDataPropType) {
 // SSR
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const result = await fetchSearchPageData();
+    const [result, courseResult] = await Promise.all([
+      await fetchMasterData(),
+      await fetchCourses(),
+    ]);
     // ストアを初期化してディスパッチ
     const store = initializeStore();
-    store.dispatch(setSearchData(result));
+    store.dispatch(setSearchData({ ...result, courses: courseResult.courses }));
 
     return {
       props: {
         centers: result.centers,
-        courses: result.courses,
+        courses: courseResult.courses,
         programmingLanguages: result.programmingLanguages,
         frameworks: result.frameworks,
         libraries: result.libraries,

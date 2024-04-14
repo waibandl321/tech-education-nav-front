@@ -4,7 +4,8 @@ import { useAppSelector } from "@/lib/hooks";
 import { initializeStore } from "@/lib/store";
 import {
   isAlreadyFetchedSearchData,
-  fetchSearchPageData,
+  fetchMasterData,
+  fetchCourses,
 } from "@/hooks/server/fetchData";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 import { Box, Button, Container } from "@mui/material";
@@ -52,11 +53,13 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
   }
 
   try {
-    const result = await fetchSearchPageData();
-    // ストアの初期化
+    const [result, courseResult] = await Promise.all([
+      await fetchMasterData(),
+      await fetchCourses(),
+    ]);
+    // ストアを初期化してディスパッチ
     const store = initializeStore();
-    // データをストアにディスパッチ
-    store.dispatch(setSearchData(result));
+    store.dispatch(setSearchData({ ...result, courses: courseResult.courses }));
 
     return {
       props: {

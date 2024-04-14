@@ -2,7 +2,10 @@ import React from "react";
 import Layout from "@/app/layout";
 import SPLayout from "@/app/sp-layout";
 import Head from "next/head";
-import { fetchSearchPageData } from "@/hooks/server/fetchData";
+import {
+  fetchCoursesByStringSearchConditions,
+  fetchMasterData,
+} from "@/hooks/server/fetchData";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
@@ -14,7 +17,6 @@ import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/router";
-import { LearningCenterCourse } from "@/API";
 import {
   NavLinksMapKeyType,
   navLinksMapByTech,
@@ -135,36 +137,24 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
   const searchQueries = context.query[searchTypeParam];
 
   try {
-    const result = await fetchSearchPageData();
-    // 検索条件に応じて、コース一覧をフィルタ
-    const filteredCourses = result.courses.filter(
-      (course: LearningCenterCourse) => {
-        // フィールドに格納された値（stringの配列）
-        const targetValues = course[searchTypeParam];
-        return (
-          // 配列であること
-          Array.isArray(targetValues) &&
-          // フィールドの値が検索クエリに一致するか
-          targetValues.some(
-            (item: any) => item && searchQueries && searchQueries.includes(item)
-          )
-        );
-      }
-    );
+    const [result, filteredCourseResult] = await Promise.all([
+      await fetchMasterData(),
+      await fetchCoursesByStringSearchConditions(
+        searchTypeParam,
+        searchQueries
+      ),
+    ]);
 
     // ストアを初期化してディスパッチ
     const store = initializeStore();
     store.dispatch(
-      setSearchData({
-        ...result,
-        courses: filteredCourses,
-      })
+      setSearchData({ ...result, courses: filteredCourseResult.courses })
     );
 
     return {
       props: {
         centers: result.centers,
-        courses: filteredCourses,
+        courses: filteredCourseResult.courses,
         programmingLanguages: result.programmingLanguages,
         frameworks: result.frameworks,
         libraries: result.libraries,

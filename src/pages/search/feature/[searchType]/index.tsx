@@ -11,7 +11,7 @@ import {
 import { Box, Typography } from "@mui/material";
 import { LearningCenterCourse } from "@/API";
 import Link from "next/link";
-import { fetchSearchPageData } from "@/hooks/server/fetchData";
+import { fetchCourses, fetchMasterData } from "@/hooks/server/fetchData";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
@@ -109,9 +109,12 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     const searchTypeParam = context.query
       .searchType as keyof LearningCenterCourse;
     // データ取得
-    const result = await fetchSearchPageData();
+    const [result, courseResult] = await Promise.all([
+      await fetchMasterData(),
+      await fetchCourses(),
+    ]);
     // フィルタ
-    const filteredCourses = result.courses.filter((course) => {
+    const filteredCourses = courseResult.courses.filter((course) => {
       // courseオブジェクトのキーがCourseDataBooleanKeysに含まれるかチェック
       const keys = Object.keys(course) as Array<keyof typeof course>;
       return keys.some(

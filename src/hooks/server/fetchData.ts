@@ -24,11 +24,13 @@ import {
   DevelopmentTool,
   Framework,
   JobType,
+  LearningCenterCourse,
   Library,
+  ModelLearningCenterConditionInput,
+  ModelLearningCenterCourseConditionInput,
   ProgrammingLanguage,
   Qualification,
 } from "@/API";
-import { NavLinksMapKeyType, navLinksMapKeysByTech } from "@/const";
 
 export interface ProgrammingLanguagesResult {
   programmingLanguages: ProgrammingLanguage[];
@@ -53,6 +55,9 @@ export interface JobTypesResult {
 }
 export interface QualificationsResult {
   qualifications: Qualification[];
+}
+export interface LearningCenterCourseResult {
+  courses: LearningCenterCourse[];
 }
 
 const client = generateClient();
@@ -156,6 +161,7 @@ export const fetchCourseReviews = async (
       reviews: result.data.listCourseReviews.items,
     };
   } catch (error) {
+    console.error("Error fetchCourseReviews:", error);
     return {
       reviews: [],
     };
@@ -163,13 +169,33 @@ export const fetchCourseReviews = async (
 };
 
 /**
- * 検索画面で必要なデータを取得
+ * コース情報を全件取得
  */
-export const fetchSearchPageData = async () => {
+export const fetchCourses = async () => {
+  try {
+    const result = await client.graphql({
+      query: listLearningCenterCourses,
+      authMode: "apiKey",
+    });
+    return {
+      courses: result.data.listLearningCenterCourses.items,
+    };
+  } catch (error) {
+    console.error("Error fetchCourses:", error);
+
+    return {
+      courses: [],
+    };
+  }
+};
+
+/**
+ * マスタデータを全取得
+ */
+export const fetchMasterData = async () => {
   try {
     const [
       learningCentersResult,
-      learningCenterCoursesResult,
       languagesResult,
       frameworksResult,
       librariesResult,
@@ -184,10 +210,6 @@ export const fetchSearchPageData = async () => {
     ] = await Promise.all([
       client.graphql({
         query: listLearningCenters,
-        authMode: "apiKey",
-      }),
-      client.graphql({
-        query: listLearningCenterCourses,
         authMode: "apiKey",
       }),
       client.graphql({
@@ -237,7 +259,6 @@ export const fetchSearchPageData = async () => {
     ]);
     return {
       centers: learningCentersResult.data.listLearningCenters.items,
-      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
       programmingLanguages: languagesResult.data.listProgrammingLanguages.items,
       frameworks: frameworksResult.data.listFrameworks.items,
       libraries: librariesResult.data.listLibraries.items,
@@ -254,10 +275,9 @@ export const fetchSearchPageData = async () => {
         getBenefitUserCategories.data.listBenefitUserCategories.items,
     };
   } catch (error) {
-    console.error("Error fetchSearchPageData:", error);
+    console.error("Error fetchMasterData:", error);
     return {
       centers: [],
-      courses: [],
       programmingLanguages: [],
       frameworks: [],
       libraries: [],
@@ -269,6 +289,57 @@ export const fetchSearchPageData = async () => {
       developmentProducts: [],
       qualifications: [],
       benefitUserCategories: [],
+    };
+  }
+};
+
+/**
+ * 検索条件に一致するコース一覧を取得（文字列検索用）
+ * @param searchTypeParam 検索タイプ（LearningCenterCourseのフィールドに該当）
+ * @param searchQueries 検索値（例: programingLanguageIdなど）
+ * @returns コース一覧
+ */
+export const fetchCoursesByStringSearchConditions = async (
+  searchTypeParam?: keyof LearningCenterCourse,
+  searchQueries?: string | string[]
+): Promise<LearningCenterCourseResult> => {
+  // 検索フィールド
+  const param = String(searchTypeParam) as string;
+  // フィルタクエリを生成
+  const variables = {} as {
+    filter: ModelLearningCenterCourseConditionInput;
+  };
+  if (param && searchQueries) {
+    // TODO: 複合検索時はparamも動的にしないといけない
+    // サーバー側ではstringで渡ってくるので配列（typeof = object）に変換
+    const filterObjects = JSON.parse(searchQueries as string)?.map(
+      (v: string) => ({
+        [param]: {
+          contains: v,
+        },
+      })
+    );
+    variables.filter = {
+      // 複合フィルターなので、orを使用
+      // see: https://docs.amplify.aws/nextjs/build-a-backend/graphqlapi/query-data/#compound-filters
+      or: [...filterObjects],
+    };
+  }
+
+  try {
+    const learningCenterCoursesResult = await client.graphql({
+      query: listLearningCenterCourses,
+      authMode: "apiKey",
+      // 検索クエリがある場合はフィルタを適用する
+      variables: variables,
+    });
+    return {
+      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
+    };
+  } catch (error) {
+    console.error("Error fetchCoursesByStringSearchConditions:", error);
+    return {
+      courses: [],
     };
   }
 };
