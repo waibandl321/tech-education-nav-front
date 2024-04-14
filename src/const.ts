@@ -30,13 +30,14 @@ type IconType = React.ElementType;
 // 技術領域ごとのナビゲーションリンク情報の型定義
 interface TechNavigationLink {
   name: string;
+  afterText: string;
   navigationTitle: string;
   href: string;
   Icon: IconType;
   ssrFetchFunction: () => Promise<any>;
   searchSelectTitle: string;
   breadcrumbText: string;
-  selectionTypeParam: string;
+  selectionTypeParam: keyof LearningCenterCourse;
 }
 
 // オプション検索のナビゲーションリンクの型定義
@@ -131,6 +132,7 @@ export type CourseDataBooleanKeyType =
 export const navLinksMapByTech: TechNavigationLinkMap = {
   programmingLanguages: {
     name: "プログラミング言語一覧",
+    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "プログラミング言語から探す",
     href: "/search/technique/programmingLanguages",
     Icon: CodeIcon,
@@ -142,6 +144,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   frameworks: {
     name: "フレームワーク一覧",
+    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "フレームワークから探す",
     href: "/search/technique/frameworks",
     Icon: WebAssetIcon,
@@ -153,6 +156,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   libraries: {
     name: "ライブラリ/API一覧",
+    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "ライブラリ/APIから探す",
     href: "/search/technique/libraries",
     Icon: ApiIcon,
@@ -164,6 +168,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   developmentTools: {
     name: "ツール一覧",
+    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "ツールから探す",
     href: "/search/technique/developmentTools",
     Icon: BuildIcon,
@@ -175,6 +180,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   developmentCategories: {
     name: "開発分野一覧",
+    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "開発分野から探す",
     href: "/search/technique/developmentCategories",
     Icon: DeveloperModeIcon,
@@ -186,6 +192,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   developmentProducts: {
     name: "サービス一覧",
+    afterText: "を作りたい人におすすめのプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "作りたいサービスから探す",
     href: "/search/technique/developmentProducts",
     Icon: LightbulbIcon,
@@ -197,6 +204,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   qualifications: {
     name: "資格一覧",
+    afterText: "を取得したい人におすすめのプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "取得したい資格から探す",
     href: "/search/technique/qualifications",
     Icon: SchoolIcon,
@@ -208,6 +216,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   jobTypes: {
     name: "職種一覧",
+    afterText: "を目指す人におすすめのプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
     navigationTitle: "なりたい職種から探す",
     href: "/search/technique/jobTypes",
     Icon: WorkIcon,
@@ -220,6 +229,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   // "purposes":
   // {
   //   name: "受講目的一覧",
+  //   afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
   //   navigationTitle: "受講目的から探す",
   //   href: "/search/technique/purposes",
   //   Icon: WorkIcon,
@@ -230,6 +240,12 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   //   selectionTypeParam: "purposes",
   // },
 } as const;
+
+export const navLinksMapKeysByTech = Object.keys(navLinksMapByTech).map(
+  (key) => navLinksMapByTech[key].selectionTypeParam
+);
+
+export type NavLinksMapKeyType = (typeof navLinksMapKeysByTech)[number];
 
 // カラーマップ: カラーをランダムに割り当てる際に使用する
 export const MuiColorMap: Array<ChipOwnProps["color"]> = [

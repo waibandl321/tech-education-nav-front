@@ -28,6 +28,7 @@ import {
   ProgrammingLanguage,
   Qualification,
 } from "@/API";
+import { NavLinksMapKeyType, navLinksMapKeysByTech } from "@/const";
 
 export interface ProgrammingLanguagesResult {
   programmingLanguages: ProgrammingLanguage[];

@@ -101,7 +101,7 @@ export default function SearchSelect<T extends Item>({
             variant="contained"
             fullWidth
             disabled={!isSelected}
-            href={`/search/${selectionTypeParam}/results?${queryString}`}
+            href={`/search/technique/${selectionTypeParam}/results?${queryString}`}
           >
             検索
           </Button>

@@ -20,12 +20,13 @@ export default function useSearch() {
    */
   const getFilterNames = <T extends MasterDataBasicType>(
     items: T[],
-    searchQueries: string | null | undefined
+    searchQueries: string | null | undefined,
+    afterText: string
   ) => {
-    return items
+    return `「${items
       .filter((item) => searchQueries?.includes(item.id))
       .map((item) => item.name)
-      .join("、");
+      .join("、")}」${afterText}`;
   };
 
   /**
