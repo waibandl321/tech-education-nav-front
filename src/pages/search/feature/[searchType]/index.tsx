@@ -11,7 +11,11 @@ import {
 import { Box, Typography } from "@mui/material";
 import { LearningCenterCourse } from "@/API";
 import Link from "next/link";
-import { fetchCourses, fetchMasterData } from "@/hooks/server/fetchData";
+import {
+  fetchCourses,
+  fetchCoursesByBoolSearchConditions,
+  fetchMasterData,
+} from "@/hooks/server/fetchData";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
@@ -111,26 +115,15 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     // データ取得
     const [result, courseResult] = await Promise.all([
       await fetchMasterData(),
-      await fetchCourses(),
+      await fetchCoursesByBoolSearchConditions(searchTypeParam),
     ]);
-    // フィルタ
-    const filteredCourses = courseResult.courses.filter((course) => {
-      // courseオブジェクトのキーがCourseDataBooleanKeysに含まれるかチェック
-      const keys = Object.keys(course) as Array<keyof typeof course>;
-      return keys.some(
-        (key) =>
-          isCourseDataBooleanKey(key) &&
-          key === searchTypeParam &&
-          course[key] === true
-      );
-    });
 
     // ストアを初期化してディスパッチ
     const store = initializeStore();
     store.dispatch(
       setSearchData({
         ...result,
-        courses: filteredCourses,
+        courses: courseResult.courses,
       })
     );
 
@@ -138,7 +131,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       props: {
         searchTypeParam,
         centers: result.centers,
-        courses: filteredCourses,
+        courses: courseResult.courses,
         programmingLanguages: result.programmingLanguages,
         frameworks: result.frameworks,
         libraries: result.libraries,
