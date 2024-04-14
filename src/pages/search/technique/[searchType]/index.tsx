@@ -1,7 +1,6 @@
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { useRouter } from "next/router";
-import { navLinksMapByTech } from "@/const";
-import { LearningCenterCourse } from "@/API";
+import { NavLinksMapKeyType, navLinksMapByTech } from "@/const";
 import Head from "next/head";
 import SPLayout from "@/app/sp-layout";
 import SearchSelect from "@/components/pages/search/SearchSelect";
@@ -10,17 +9,23 @@ import { Container } from "@mui/material";
 
 export default function SearchType({ ...props }) {
   const router = useRouter();
-  const { searchType } = router.query;
-  const items = props[String(searchType)];
-  console.log("items", props);
 
-  const targetData = navLinksMapByTech[String(searchType)];
+  // 検索タイプ
+  const { searchType } = router.query;
+  const selectionTypeParam = searchType as NavLinksMapKeyType;
+
+  // 対象のマスタデータ
+  const targetMasterDataList = props[selectionTypeParam];
+  // 対象のページ情報
+  const targetPageData = navLinksMapByTech[selectionTypeParam];
+
+  // デバイス判定
   const isMobile = props.viewport === "mobile";
 
   return (
     <>
       <Head>
-        <title>{targetData.name}【テック教育ナビ】</title>
+        <title>{targetPageData.name}【テック教育ナビ】</title>
         <meta
           name="description"
           content="
@@ -33,20 +38,20 @@ export default function SearchType({ ...props }) {
       {isMobile ? (
         <SPLayout>
           <SearchSelect
-            items={items}
-            selectionTypeParam={targetData.selectionTypeParam}
-            title={targetData.searchSelectTitle}
-            breadcrumbText={targetData.breadcrumbText}
+            items={targetMasterDataList}
+            selectionTypeParam={targetPageData.selectionTypeParam}
+            title={targetPageData.searchSelectTitle}
+            breadcrumbText={targetPageData.breadcrumbText}
           />
         </SPLayout>
       ) : (
         <Layout>
           <Container maxWidth="sm">
             <SearchSelect
-              items={items}
-              selectionTypeParam={targetData.selectionTypeParam}
-              title={targetData.searchSelectTitle}
-              breadcrumbText={targetData.breadcrumbText}
+              items={targetMasterDataList}
+              selectionTypeParam={targetPageData.selectionTypeParam}
+              title={targetPageData.searchSelectTitle}
+              breadcrumbText={targetPageData.breadcrumbText}
             />
           </Container>
         </Layout>
@@ -57,16 +62,18 @@ export default function SearchType({ ...props }) {
 
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
-  const searchTypeParam = context.query
-    .searchType as keyof LearningCenterCourse;
-  const targetData = navLinksMapByTech[searchTypeParam];
-  const result = await targetData.ssrFetchFunction();
-  // console.log("result", result);
-  console.log("[targetData.selectionTypeParam]", result);
+  // 検索タイプ
+  const searchTypeParam = context.query.searchType as NavLinksMapKeyType;
+
+  // 対象の検索pageデータ
+  const targetPageData = navLinksMapByTech[searchTypeParam];
+  // データ取得
+  const result = await targetPageData.ssrFetchFunction();
 
   return {
     props: {
-      [targetData.selectionTypeParam]: result[targetData.selectionTypeParam],
+      [targetPageData.selectionTypeParam]:
+        result[targetPageData.selectionTypeParam],
     },
   };
 });

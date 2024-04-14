@@ -6,7 +6,6 @@ import { fetchSearchPageData } from "@/hooks/server/fetchData";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
-import { AppDataPropType } from "@/types/CommonType";
 import { useSearchParams } from "next/navigation";
 import { Typography } from "@mui/material";
 import Link from "next/link";
