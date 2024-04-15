@@ -27,6 +27,7 @@ import {
   LearningCenterCourse,
   Library,
   ModelLearningCenterCourseConditionInput,
+  ModelLearningCenterCourseFilterInput,
   ProgrammingLanguage,
   Qualification,
 } from "@/API";
@@ -491,6 +492,7 @@ export const fetchCoursesByStringSearchConditions = async (
         },
       })
     );
+    console.log(filterObjects);
     variables.filter = {
       // 複合フィルターなので、orを使用
       // see: https://docs.amplify.aws/nextjs/build-a-backend/graphqlapi/query-data/#compound-filters
@@ -510,6 +512,68 @@ export const fetchCoursesByStringSearchConditions = async (
     };
   } catch (error) {
     console.error("Error fetchCoursesByStringSearchConditions:", error);
+    return {
+      courses: [],
+    };
+  }
+};
+
+/**
+ * 複合検索
+ */
+export interface CompoundSearchCondition {
+  field: keyof LearningCenterCourse;
+  value: string[];
+}
+export const fetchCoursesByCompoundSearch = async (
+  searchConditions: CompoundSearchCondition[]
+): Promise<LearningCenterCourseResult> => {
+  // フィルタクエリを生成
+  const variables = {} as {
+    filter: ModelLearningCenterCourseFilterInput;
+  };
+
+  if (searchConditions.length > 0) {
+    const filterObjects = searchConditions
+      .map((condition) =>
+        condition.value.map((value) => {
+          if (value === "true") {
+            // booleanチェックの場合
+            return {
+              [condition.field]: {
+                eq: true,
+              },
+            };
+          } else {
+            // 文字列検索（主にID検索）
+            return {
+              [condition.field]: {
+                contains: value,
+              },
+            };
+          }
+        })
+      )
+      .flat();
+    console.log(filterObjects);
+
+    variables.filter = {
+      // 複合条件での検索なので 'and' で連結
+      and: filterObjects,
+    };
+  }
+
+  try {
+    const learningCenterCoursesResult = await client.graphql({
+      query: listLearningCenterCourses,
+      authMode: "apiKey",
+      variables: variables,
+    });
+    return {
+      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
+    };
+  } catch (error) {
+    console.error("Error fetchCoursesByCompoundSearch:", error);
     return {
       courses: [],
     };

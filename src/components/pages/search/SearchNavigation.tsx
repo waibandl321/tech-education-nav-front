@@ -1,5 +1,4 @@
 import { sortBy } from "lodash";
-import CloseIcon from "@mui/icons-material/Close";
 import {
   useMediaQuery,
   Box,
@@ -10,33 +9,56 @@ import {
   MenuItem,
   FormControlLabel,
   Checkbox,
-  FormGroup,
   OutlinedInput,
   Slider,
   SelectChangeEvent,
   ListItemText,
 } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AttendanceTypeLabels, PurposeOptions } from "@/const";
 import { useAppSelector } from "@/lib/hooks";
 import useSearch, { FilterResult, initFilterResults } from "@/hooks/useSearch";
 import { MasterDataBasicType } from "@/types/CommonType";
+import { useRouter } from "next/router";
+import { CompoundSearchCondition } from "@/hooks/server/fetchData";
+import { LearningCenterCourse } from "@/API";
 
 const MAX = 150;
 const MIN = 0;
 
 export default function SearchNavigation() {
   // hooks
+  const router = useRouter();
   const { getMasterItemsByLang, getLanguagesById, getLanguageName } =
     useSearch();
+
   // store
   const searchData = useAppSelector((state) => state.searchData);
+
   // デバイス判定
   const isMobile = useMediaQuery("(max-width:640px)");
 
+  // クエリパラメータに応じて、選択済みにする
+  const searchConditions = useMemo(() => {
+    return Object.entries(router.query)
+      .filter(
+        ([key, value]) =>
+          value !== undefined && key !== "viewport" && key !== "searchType"
+      )
+      .reduce<{ [key: string]: string | string[] }>((acc, [key, value]) => {
+        const newValue =
+          typeof value === "string" ? JSON.parse(value) : value ?? [];
+        acc[key] = newValue;
+
+        return acc;
+      }, {});
+  }, [router.query]);
+
   // state
-  const [filterResult, setFilterResult] =
-    useState<FilterResult>(initFilterResults);
+  const [filterResult, setFilterResult] = useState<FilterResult>({
+    ...initFilterResults,
+    ...searchConditions,
+  });
   const [rangeValue, setRangeValue] = useState<number[]>([20, 37]);
 
   // 選択値の更新
@@ -57,9 +79,33 @@ export default function SearchNavigation() {
       };
       return updatedFilterResults;
     });
+
+    // 現在のクエリパラメータを取得
+    const currentQuery = { ...router.query };
+
+    if (Array.isArray(value) && value.length === 0) {
+      // valueが空の配列の場合、何もしないで既存のクエリパラメータを削除
+      delete currentQuery[name];
+    } else if (value) {
+      // valueが真の場合（true、非空の文字列、非空の配列）、クエリパラメータを追加または更新
+      // クエリパラメータは文字列である必要があるため、toString()を使用
+      currentQuery[name] = value.toString();
+    } else {
+      // valueが偽の場合（false、空文字など）、該当するクエリパラメータを削除
+      delete currentQuery[name];
+    }
+
+    // URLを更新 (クエリパラメータを含む)
+    router.push(
+      {
+        pathname: router.pathname,
+        query: currentQuery,
+      },
+      undefined
+    );
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log(filterResult);
   }, [filterResult]);
 
@@ -128,6 +174,7 @@ export default function SearchNavigation() {
       }
       variant="outlined"
     >
+      <div>{JSON.stringify(filterResult)}</div>
       <Box>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
@@ -174,7 +221,7 @@ export default function SearchNavigation() {
             control={
               <Checkbox
                 name="isAvailableMoneyBack"
-                value={filterResult.isAvailableMoneyBack}
+                checked={filterResult.isAvailableMoneyBack}
                 onChange={(event) => handlerFormChange(event)}
               />
             }
@@ -186,7 +233,7 @@ export default function SearchNavigation() {
             control={
               <Checkbox
                 name="isAvailableSubsidy"
-                value={filterResult.isAvailableSubsidy}
+                checked={filterResult.isAvailableSubsidy}
                 onChange={(event) => handlerFormChange(event)}
               />
             }
@@ -198,7 +245,7 @@ export default function SearchNavigation() {
             control={
               <Checkbox
                 name="isMadeToOrder"
-                value={filterResult.isMadeToOrder}
+                checked={filterResult.isMadeToOrder}
                 onChange={(event) => handlerFormChange(event)}
               />
             }
@@ -210,8 +257,9 @@ export default function SearchNavigation() {
             control={
               <Checkbox
                 name="isJobIntroductionAvailable"
-                value={filterResult.isJobIntroductionAvailable}
+                checked={filterResult.isJobIntroductionAvailable}
                 onChange={(event) => handlerFormChange(event)}
+                // checked={filterResult.isJobIntroductionAvailable}
               />
             }
             label="案件保証あり"
@@ -222,7 +270,7 @@ export default function SearchNavigation() {
             control={
               <Checkbox
                 name="isJobHuntingSupport"
-                value={filterResult.isJobHuntingSupport}
+                checked={filterResult.isJobHuntingSupport}
                 onChange={(event) => handlerFormChange(event)}
               />
             }
@@ -233,8 +281,8 @@ export default function SearchNavigation() {
           <FormControlLabel
             control={
               <Checkbox
-                name="isJobHuntingSupport"
-                value={filterResult.isJobHuntingSupport}
+                name="isJobHuntingGuarantee"
+                checked={filterResult.isJobHuntingGuarantee}
                 onChange={(event) => handlerFormChange(event)}
               />
             }
@@ -303,17 +351,6 @@ export default function SearchNavigation() {
             ))}
           </Select>
         </FormControl>
-        {/* <Box>
-          <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {PurposeOptions.map((purpose) => (
-              <FormControlLabel
-                key={purpose.id}
-                control={<Checkbox name="purposes" value={purpose.id} />}
-                label={purpose.name}
-              />
-            ))}
-          </FormGroup>
-        </Box> */}
       </Box>
 
       <Box sx={{ mt: 4 }}>
@@ -398,7 +435,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
-              id="select-job-types"
+              id="select-development-categories"
               value={filterResult.developmentCategories}
               name="developmentCategories"
               input={<OutlinedInput fullWidth />}
@@ -433,7 +470,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
-              id="select-job-types"
+              id="select-development-products"
               value={filterResult.developmentProducts}
               name="developmentProducts"
               input={<OutlinedInput fullWidth />}

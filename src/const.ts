@@ -124,11 +124,6 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
   },
 ] as const;
 
-export const CourseDataBooleanKeys = navLinksMapByOption.map((v) => v.key);
-
-export type CourseDataBooleanKeyType =
-  (typeof navLinksMapByOption)[number]["key"];
-
 export const navLinksMapByTech: TechNavigationLinkMap = {
   programmingLanguages: {
     name: "プログラミング言語一覧",

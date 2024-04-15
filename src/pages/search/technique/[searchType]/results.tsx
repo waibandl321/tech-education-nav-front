@@ -17,11 +17,7 @@ import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/router";
-import {
-  NavLinksMapKeyType,
-  navLinksMapByTech,
-  navLinksMapKeysByTech,
-} from "@/const";
+import { NavLinksMapKeyType, navLinksMapByTech } from "@/const";
 
 export default function SearchTypeResults({ ...props }) {
   // hooks
@@ -123,12 +119,6 @@ export default function SearchTypeResults({ ...props }) {
       )}
     </>
   );
-}
-
-export function isMatchSearchResultKey(
-  key: NavLinksMapKeyType
-): key is NavLinksMapKeyType {
-  return navLinksMapKeysByTech.includes(key);
 }
 
 // SSR

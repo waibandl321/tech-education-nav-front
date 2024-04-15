@@ -3,11 +3,7 @@ import { AppDataPropType } from "@/types/CommonType";
 import SPLayout from "@/app/sp-layout";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import {
-  navLinksMapByOption,
-  CourseDataBooleanKeys,
-  type CourseDataBooleanKeyType,
-} from "@/const";
+import { navLinksMapByOption } from "@/const";
 import { Box, Typography } from "@mui/material";
 import { LearningCenterCourse } from "@/API";
 import Link from "next/link";
@@ -100,11 +96,6 @@ export default function SearchType({ ...props }: AppDataPropType) {
       )}
     </>
   );
-}
-
-// フィルタに使用するkeyが一致するかをチェック
-function isCourseDataBooleanKey(key: any): key is CourseDataBooleanKeyType {
-  return CourseDataBooleanKeys.includes(key);
 }
 
 // SSR

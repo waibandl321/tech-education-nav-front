@@ -1,8 +1,12 @@
 import React from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
-import { fetchCourses, fetchMasterData } from "@/hooks/server/fetchData";
+import {
+  CompoundSearchCondition,
+  fetchCourses,
+  fetchCoursesByCompoundSearch,
+  fetchMasterData,
+} from "@/hooks/server/fetchData";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
@@ -10,6 +14,9 @@ import SPLayout from "@/app/sp-layout";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 import { AppDataPropType } from "@/types/CommonType";
+import { LearningCenterCourse } from "@/API";
+import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
+import { ParsedUrlQuery } from "querystring";
 
 export default function Index({ ...props }: AppDataPropType) {
   const isMobile = useMediaQuery("(max-width:640px)");
@@ -64,11 +71,26 @@ export default function Index({ ...props }: AppDataPropType) {
 }
 
 // SSR
-export const getServerSideProps: GetServerSideProps = async () => {
+
+export const getServerSideProps = withCommonServerSideProps(async (context) => {
+  const query: ParsedUrlQuery = context.query;
+  // クエリパラメータを SearchCondition 型に変換
+  const searchConditions: CompoundSearchCondition[] = Object.entries(query)
+    .filter(([key, value]) => value !== undefined && key !== "viewport")
+    .map(
+      ([key, value]): CompoundSearchCondition => ({
+        field: key as keyof LearningCenterCourse,
+        value: typeof value === "string" ? [value] : value ?? [],
+      })
+    );
+
   try {
     const [result, courseResult] = await Promise.all([
       await fetchMasterData(),
-      await fetchCourses(),
+      // クエリ数に応じて処理を切り分ける
+      searchConditions.length > 0
+        ? await fetchCoursesByCompoundSearch(searchConditions)
+        : await fetchCourses(),
     ]);
     // ストアを初期化してディスパッチ
     const store = initializeStore();
@@ -98,4 +120,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
       props: {},
     };
   }
-};
+});
