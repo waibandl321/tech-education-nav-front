@@ -498,30 +498,3 @@ export const fetchCoursesByCompoundSearch = async (
 
   return await execFilterCourses(variables, "fetchCoursesByCompoundSearch");
 };
-
-/**
- * 検索条件に一致するコース一覧を取得（真偽値検索用）
- * @param searchTypeParam 検索タイプ（LearningCenterCourseのフィールドに該当）
- * @returns コース一覧
- */
-export const fetchCoursesByBoolSearchConditions = async (
-  searchTypeParam?: keyof LearningCenterCourse
-): Promise<LearningCenterCourseResult> => {
-  // 検索フィールド
-  const param = String(searchTypeParam) as string;
-  // フィルタクエリを生成
-  const variables: {
-    filter: ModelLearningCenterCourseConditionInput;
-  } = {
-    filter: {
-      // 単一フィールドの真偽をチェック
-      [param]: {
-        eq: true,
-      },
-    },
-  };
-  return await execFilterCourses(
-    variables,
-    "fetchCoursesByBoolSearchConditions"
-  );
-};

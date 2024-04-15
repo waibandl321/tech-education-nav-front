@@ -8,7 +8,8 @@ import { Box, Typography } from "@mui/material";
 import { LearningCenterCourse } from "@/API";
 import Link from "next/link";
 import {
-  fetchCoursesByBoolSearchConditions,
+  CompoundSearchCondition,
+  fetchCoursesByCompoundSearch,
   fetchMasterData,
 } from "@/hooks/server/fetchData";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
@@ -16,6 +17,7 @@ import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
 import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import { ParsedUrlQuery } from "querystring";
 
 export default function SearchType({ ...props }: AppDataPropType) {
   const isMobile = props.viewport === "mobile";
@@ -100,12 +102,25 @@ export default function SearchType({ ...props }: AppDataPropType) {
 // SSR
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   try {
-    const searchTypeParam = context.query
-      .searchType as keyof LearningCenterCourse;
+    const query: ParsedUrlQuery = context.query;
+
+    // クエリパラメータを SearchCondition 型に変換
+    const searchConditions: CompoundSearchCondition[] = Object.entries(query)
+      .filter(
+        ([key, value]) =>
+          value !== undefined && key !== "viewport" && key !== "searchType"
+      )
+      .map(
+        ([key, value]): CompoundSearchCondition => ({
+          field: key as keyof LearningCenterCourse,
+          value: typeof value === "string" ? [value] : value ?? [],
+        })
+      );
+
     // データ取得
     const [result, courseResult] = await Promise.all([
       await fetchMasterData(),
-      await fetchCoursesByBoolSearchConditions(searchTypeParam),
+      await fetchCoursesByCompoundSearch(searchConditions),
     ]);
 
     // ストアを初期化してディスパッチ
@@ -119,7 +134,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
 
     return {
       props: {
-        searchTypeParam,
+        searchTypeParam: query.searchType,
         centers: result.centers,
         courses: courseResult.courses,
         programmingLanguages: result.programmingLanguages,
