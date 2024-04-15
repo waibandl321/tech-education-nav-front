@@ -82,6 +82,74 @@ export interface LearningCenterCourseResult {
 
 const client = generateClient();
 
+const ssrFetchMap = {
+  centers: {
+    query: listLearningCenters,
+    extractor: (data: ListLearningCentersQuery) =>
+      data.listLearningCenters?.items || [],
+  },
+  courses: {
+    query: listLearningCenterCourses,
+    extractor: (data: ListLearningCenterCoursesQuery) =>
+      data.listLearningCenterCourses?.items || [],
+  },
+  programmingLanguages: {
+    query: listProgrammingLanguages,
+    extractor: (data: ListProgrammingLanguagesQuery) =>
+      data.listProgrammingLanguages?.items || [],
+  },
+  frameworks: {
+    query: listFrameworks,
+    extractor: (data: ListFrameworksQuery) => data.listFrameworks?.items || [],
+  },
+  libraries: {
+    query: listLibraries,
+    extractor: (data: ListLibrariesQuery) => data.listLibraries?.items || [],
+  },
+  developmentTools: {
+    query: listDevelopmentTools,
+    extractor: (data: ListDevelopmentToolsQuery) =>
+      data.listDevelopmentTools?.items || [],
+  },
+  jobTypes: {
+    query: listJobTypes,
+    extractor: (data: ListJobTypesQuery) => data.listJobTypes?.items || [],
+  },
+  paymentMethods: {
+    query: listPaymentMethods,
+    extractor: (data: ListPaymentMethodsQuery) =>
+      data.listPaymentMethods?.items || [],
+  },
+  creditCards: {
+    query: listCreditCards,
+    extractor: (data: ListCreditCardsQuery) =>
+      data.listCreditCards?.items || [],
+  },
+  developmentCategories: {
+    query: listDevelopmentCategories,
+    extractor: (data: ListDevelopmentCategoriesQuery) =>
+      data.listDevelopmentCategories?.items || [],
+  },
+  developmentProducts: {
+    query: listDevelopmentProducts,
+    extractor: (data: ListDevelopmentProductsQuery) =>
+      data.listDevelopmentProducts?.items || [],
+  },
+  qualifications: {
+    query: listQualifications,
+    extractor: (data: ListQualificationsQuery) =>
+      data.listQualifications?.items || [],
+  },
+  benefitUserCategories: {
+    query: listBenefitUserCategories,
+    extractor: (data: ListBenefitUserCategoriesQuery) =>
+      data.listBenefitUserCategories?.items || [],
+  },
+};
+
+type SSRFetchMap = typeof ssrFetchMap;
+type SSRFetchMapKey = keyof typeof ssrFetchMap;
+
 /**
  * キャッシュセット 共通処理
  * @param key
@@ -113,6 +181,38 @@ const getCache = async <T>(key: string): Promise<T | null> => {
 };
 
 /**
+ * 各種マスタデータ取得
+ * @param key 検索対象のfetch key
+ */
+export const fetchDataByKey = async <T>(key: SSRFetchMapKey) => {
+  try {
+    // キャッシュを取得 存在しない場合はnullが返却される。
+    const cacheItems = await getCache<T[]>(key);
+    if (!cacheItems) {
+      const result = await client.graphql({
+        query: ssrFetchMap[key].query,
+        authMode: "apiKey",
+      });
+      // キャッシュをセット
+      const items = ssrFetchMap[key].extractor(result.data);
+      await setCache<T[]>(key, items as T[]);
+      return {
+        [key]: items,
+      };
+    }
+    // キャッシュを返す
+    return {
+      [key]: cacheItems,
+    };
+  } catch (error) {
+    console.error(`Error fetchDataBy${key}:", ${error}`);
+    return {
+      [key]: [],
+    };
+  }
+};
+
+/**
  * データが取得済みかつ、Reduxに保存されているかを検証する
  * @param req
  */
@@ -125,273 +225,6 @@ export const isAlreadyFetchedSearchData = (
 ) => {
   return req.cookies["IS_FETCHED_SEARCH_DATA"] === "true";
 };
-
-/**
- * コース情報を全件取得
- */
-export const fetchCourses = async () => {
-  try {
-    // キャッシュを取得 存在しない場合はnullが返却される。
-    const cacheItems = await getCache<LearningCenterCourse[]>("courses");
-    const result = await client.graphql({
-      query: listLearningCenterCourses,
-      authMode: "apiKey",
-    });
-    // キャッシュをセット
-    await setCache<LearningCenterCourse[]>(
-      "courses",
-      result.data.listLearningCenterCourses.items
-    );
-    return {
-      courses: result.data.listLearningCenterCourses.items,
-    };
-  } catch (error) {
-    console.error("Error fetchCourses:", error);
-
-    return {
-      courses: [],
-    };
-  }
-};
-
-// プログラミング言語一覧を取得する
-export const fetchLanguages = async (): Promise<ProgrammingLanguagesResult> => {
-  try {
-    // キャッシュを取得 存在しない場合はnullが返却される。
-    const cacheItems = await getCache<ProgrammingLanguage[]>(
-      "programmingLanguages"
-    );
-    if (!cacheItems) {
-      const result = await client.graphql({
-        query: listProgrammingLanguages,
-        authMode: "apiKey",
-      });
-      // キャッシュをセット
-      await setCache<ProgrammingLanguage[]>(
-        "programmingLanguages",
-        result.data.listProgrammingLanguages.items
-      );
-
-      return {
-        programmingLanguages: result.data.listProgrammingLanguages.items,
-      };
-    }
-    return {
-      programmingLanguages: cacheItems,
-    };
-  } catch (error) {
-    console.error("Error fetchLanguages:", error);
-
-    return {
-      programmingLanguages: [],
-    };
-  }
-};
-// フレームワーク一覧を取得する
-export const fetchFrameworks = async (): Promise<FrameworksResult> => {
-  try {
-    // キャッシュを取得 存在しない場合はnullが返却される。
-    const cacheItems = await getCache<Framework[]>("frameworks");
-    if (!cacheItems) {
-      const result = await client.graphql({
-        query: listFrameworks,
-        authMode: "apiKey",
-      });
-      // キャッシュをセット
-      await setCache<Framework[]>(
-        "frameworks",
-        result.data.listFrameworks.items
-      );
-      return {
-        frameworks: result.data.listFrameworks.items,
-      };
-    }
-    return {
-      frameworks: cacheItems,
-    };
-  } catch (error) {
-    console.error("Error fetchFrameworks:", error);
-    return {
-      frameworks: [],
-    };
-  }
-};
-// ライブラリ一覧を取得する
-export const fetchLibraries = async (): Promise<LibrariesResult> => {
-  try {
-    // キャッシュを取得 存在しない場合はnullが返却される。
-    const cacheItems = await getCache<Library[]>("libraries");
-    if (!cacheItems) {
-      const result = await client.graphql({
-        query: listLibraries,
-        authMode: "apiKey",
-      });
-      // キャッシュをセット
-      await setCache<Library[]>("libraries", result.data.listLibraries.items);
-      return {
-        libraries: result.data.listLibraries.items,
-      };
-    }
-    return {
-      libraries: cacheItems,
-    };
-  } catch (error) {
-    console.error("Error fetchLibraries:", error);
-    return {
-      libraries: [],
-    };
-  }
-};
-
-// 資格一覧を取得する
-export const fetchQualifications = async (): Promise<QualificationsResult> => {
-  try {
-    // キャッシュを取得 存在しない場合はnullが返却される。
-    const cacheItems = await getCache<Qualification[]>("qualifications");
-    if (!cacheItems) {
-      const result = await client.graphql({
-        query: listQualifications,
-        authMode: "apiKey",
-      });
-      // キャッシュをセット
-      await setCache<Qualification[]>(
-        "qualifications",
-        result.data.listQualifications.items
-      );
-      return {
-        qualifications: result.data.listQualifications.items,
-      };
-    }
-    return {
-      qualifications: cacheItems,
-    };
-  } catch (error) {
-    console.error("Error fetchQualifications:", error);
-    return {
-      qualifications: [],
-    };
-  }
-};
-// 職種一覧を取得する
-export const fetchJobTypes = async (): Promise<JobTypesResult> => {
-  try {
-    // キャッシュを取得 存在しない場合はnullが返却される。
-    const cacheItems = await getCache<JobType[]>("jobTypes");
-    if (!cacheItems) {
-      const result = await client.graphql({
-        query: listJobTypes,
-        authMode: "apiKey",
-      });
-      // キャッシュをセット
-      await setCache<JobType[]>("jobTypes", result.data.listJobTypes.items);
-      return {
-        jobTypes: result.data.listJobTypes.items,
-      };
-    }
-    return {
-      jobTypes: cacheItems,
-    };
-  } catch (error) {
-    console.error("Error fetchJobTypes:", error);
-    return {
-      jobTypes: [],
-    };
-  }
-};
-// 開発ツール一覧を取得する
-export const fetchDevelopmentTools =
-  async (): Promise<DevelopmentToolsResult> => {
-    try {
-      // キャッシュを取得 存在しない場合はnullが返却される。
-      const cacheItems = await getCache<DevelopmentTool[]>("developmentTools");
-      if (!cacheItems) {
-        const result = await client.graphql({
-          query: listDevelopmentTools,
-          authMode: "apiKey",
-        });
-        // キャッシュをセット
-        await setCache<DevelopmentTool[]>(
-          "developmentTools",
-          result.data.listDevelopmentTools.items
-        );
-        return {
-          developmentTools: result.data.listDevelopmentTools.items,
-        };
-      }
-      return {
-        developmentTools: cacheItems,
-      };
-    } catch (error) {
-      console.error("Error fetchDevelopmentTools:", error);
-      return {
-        developmentTools: [],
-      };
-    }
-  };
-// 開発できるサービス一覧を取得する
-export const fetchDevelopmentProducts =
-  async (): Promise<DevelopmentProductsResult> => {
-    try {
-      // キャッシュを取得 存在しない場合はnullが返却される。
-      const cacheItems = await getCache<DevelopmentProduct[]>(
-        "developmentProducts"
-      );
-      if (!cacheItems) {
-        const result = await client.graphql({
-          query: listDevelopmentProducts,
-          authMode: "apiKey",
-        });
-        // キャッシュをセット
-        await setCache<DevelopmentProduct[]>(
-          "developmentProducts",
-          result.data.listDevelopmentProducts.items
-        );
-        return {
-          developmentProducts: result.data.listDevelopmentProducts.items,
-        };
-      }
-      return {
-        developmentProducts: cacheItems,
-      };
-    } catch (error) {
-      console.error("Error fetchDevelopmentProducts:", error);
-      return {
-        developmentProducts: [],
-      };
-    }
-  };
-// 開発分野一覧を取得する
-export const fetchDevelopmentCategories =
-  async (): Promise<DevelopmentCategoriesResult> => {
-    try {
-      // キャッシュを取得 存在しない場合はnullが返却される。
-      const cacheItems = await getCache<DevelopmentCategory[]>(
-        "developmentCategories"
-      );
-      if (!cacheItems) {
-        const result = await client.graphql({
-          query: listDevelopmentCategories,
-          authMode: "apiKey",
-        });
-        // キャッシュをセット
-        await setCache<DevelopmentCategory[]>(
-          "developmentCategories",
-          result.data.listDevelopmentCategories.items
-        );
-        return {
-          developmentCategories: result.data.listDevelopmentCategories.items,
-        };
-      }
-      return {
-        developmentCategories: cacheItems,
-      };
-    } catch (error) {
-      console.error("Error fetchDevelopmentCategories:", error);
-      return {
-        developmentCategories: [],
-      };
-    }
-  };
 
 // スクールとコースの一覧をサーバーサイドで取得する
 export const fetchSchoolData = async () => {
@@ -484,77 +317,27 @@ export const fetchCourseReviews = async (
     };
   }
 };
-/**
- * マスタデータを全取得
- */
 
 // ヘルパー関数: APIからデータを取得し、キャッシュに保存する
-async function fetchAndCache<T>(
-  key: string,
-  query: { query: any },
-  extractor: (data: any) => T[]
-): Promise<T[]> {
-  const result = await client.graphql(query);
+async function fetchAndCache<T>(key: SSRFetchMapKey): Promise<T[]> {
+  const result = await client.graphql({
+    query: ssrFetchMap[key].query,
+    authMode: "apiKey",
+  });
   if ("data" in result && result.data) {
-    const items = extractor(result.data);
-    await setCache<T[]>(key, items);
-    return items;
+    const items = ssrFetchMap[key].extractor(result.data);
+    await setCache<T[]>(key, items as T[]);
+    return items as T[];
   }
   throw new Error("Data not fetched");
 }
 
 // データを取得する関数を汎用的に利用
-export const fetchMasterData = async (): Promise<MasterDataMap> => {
-  const keys = [
-    "centers",
-    "programmingLanguages",
-    "frameworks",
-    "libraries",
-    "developmentTools",
-    "jobTypes",
-    "paymentMethods",
-    "creditCards",
-    "developmentCategories",
-    "developmentProducts",
-    "qualifications",
-    "benefitUserCategories",
-  ];
-  const queries = [
-    { query: listLearningCenters },
-    { query: listProgrammingLanguages },
-    { query: listFrameworks },
-    { query: listLibraries },
-    { query: listDevelopmentTools },
-    { query: listJobTypes },
-    { query: listPaymentMethods },
-    { query: listCreditCards },
-    { query: listDevelopmentCategories },
-    { query: listDevelopmentProducts },
-    { query: listQualifications },
-    { query: listBenefitUserCategories },
-  ];
-  const extractors = [
-    (data: ListLearningCentersQuery) => data.listLearningCenters?.items || [],
-    (data: ListProgrammingLanguagesQuery) =>
-      data.listProgrammingLanguages?.items || [],
-    (data: ListFrameworksQuery) => data.listFrameworks?.items || [],
-    (data: ListLibrariesQuery) => data.listLibraries?.items || [],
-    (data: ListDevelopmentToolsQuery) => data.listDevelopmentTools?.items || [],
-    (data: ListJobTypesQuery) => data.listJobTypes?.items || [],
-    (data: ListPaymentMethodsQuery) => data.listPaymentMethods?.items || [],
-    (data: ListCreditCardsQuery) => data.listCreditCards?.items || [],
-    (data: ListDevelopmentCategoriesQuery) =>
-      data.listDevelopmentCategories?.items || [],
-    (data: ListDevelopmentProductsQuery) =>
-      data.listDevelopmentProducts?.items || [],
-    (data: ListQualificationsQuery) => data.listQualifications?.items || [],
-    (data: ListBenefitUserCategoriesQuery) =>
-      data.listBenefitUserCategories?.items || [],
-  ];
+export const fetchMasterData = async <T>(): Promise<MasterDataMap> => {
   try {
     // キャッシュ取得
     const caches = await Promise.all(
-      keys.map((key) => getCache<ProgrammingLanguage[]>(key))
+      Object.keys(ssrFetchMap).map((key) => getCache<T[]>(key))
     );
     // キャッシュが存在するかどうか
     const isExistCache = caches.every((item) => item !== null);
@@ -563,14 +346,13 @@ export const fetchMasterData = async (): Promise<MasterDataMap> => {
       console.log("fetchMasterData キャッシュが存在しない");
       // データ取得
       const results = await Promise.all(
-        keys.map(
-          async (key, index) =>
-            await fetchAndCache<any>(key, queries[index], extractors[index])
+        Object.keys(ssrFetchMap).map(
+          async (key, index) => await fetchAndCache<T>(key as SSRFetchMapKey)
         )
       );
       console.log(results);
 
-      return keys.reduce(
+      return Object.keys(ssrFetchMap).reduce(
         (acc, key, index) => ({
           ...acc,
           [key]: results[index],
@@ -581,7 +363,7 @@ export const fetchMasterData = async (): Promise<MasterDataMap> => {
 
     console.log("fetchMasterData キャッシュが存在する");
     // キャッシュを返す
-    return keys.reduce(
+    return Object.keys(ssrFetchMap).reduce(
       (acc, key, index) => ({
         ...acc,
         [key]: caches[index],
@@ -590,13 +372,42 @@ export const fetchMasterData = async (): Promise<MasterDataMap> => {
     );
   } catch (error) {
     console.error("Error fetchMasterData:", error);
-    return keys.reduce(
+    return Object.keys(ssrFetchMap).reduce(
       (acc, key) => ({
         ...acc,
         [key]: [],
       }),
       {} as MasterDataMap
     );
+  }
+};
+
+/**
+ * コース情報の検索実行処理
+ * @param variables
+ * @param funcName
+ */
+const execFilterCourses = async (
+  variables: {
+    filter: ModelLearningCenterCourseConditionInput;
+  },
+  funcName: string
+) => {
+  try {
+    const learningCenterCoursesResult = await client.graphql({
+      query: listLearningCenterCourses,
+      authMode: "apiKey",
+      // フィルタを適用する
+      variables: variables,
+    });
+    return {
+      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
+    };
+  } catch (error) {
+    console.error(`Error ${funcName}:, ${error}`);
+    return {
+      courses: [],
+    };
   }
 };
 
@@ -634,22 +445,10 @@ export const fetchCoursesByStringSearchConditions = async (
     };
   }
 
-  try {
-    const learningCenterCoursesResult = await client.graphql({
-      query: listLearningCenterCourses,
-      authMode: "apiKey",
-      // フィルタを適用する
-      variables: variables,
-    });
-    return {
-      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
-    };
-  } catch (error) {
-    console.error("Error fetchCoursesByStringSearchConditions:", error);
-    return {
-      courses: [],
-    };
-  }
+  return await execFilterCourses(
+    variables,
+    "fetchCoursesByStringSearchConditions"
+  );
 };
 
 /**
@@ -697,21 +496,7 @@ export const fetchCoursesByCompoundSearch = async (
     };
   }
 
-  try {
-    const learningCenterCoursesResult = await client.graphql({
-      query: listLearningCenterCourses,
-      authMode: "apiKey",
-      variables: variables,
-    });
-    return {
-      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
-    };
-  } catch (error) {
-    console.error("Error fetchCoursesByCompoundSearch:", error);
-    return {
-      courses: [],
-    };
-  }
+  return await execFilterCourses(variables, "fetchCoursesByCompoundSearch");
 };
 
 /**
@@ -735,20 +520,8 @@ export const fetchCoursesByBoolSearchConditions = async (
       },
     },
   };
-  try {
-    const learningCenterCoursesResult = await client.graphql({
-      query: listLearningCenterCourses,
-      authMode: "apiKey",
-      // フィルタを適用
-      variables: variables,
-    });
-    return {
-      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
-    };
-  } catch (error) {
-    console.error("Error fetchCoursesByBoolSearchConditions:", error);
-    return {
-      courses: [],
-    };
-  }
+  return await execFilterCourses(
+    variables,
+    "fetchCoursesByBoolSearchConditions"
+  );
 };

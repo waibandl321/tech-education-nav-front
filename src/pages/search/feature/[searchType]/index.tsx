@@ -8,7 +8,6 @@ import { Box, Typography } from "@mui/material";
 import { LearningCenterCourse } from "@/API";
 import Link from "next/link";
 import {
-  fetchCourses,
   fetchCoursesByBoolSearchConditions,
   fetchMasterData,
 } from "@/hooks/server/fetchData";

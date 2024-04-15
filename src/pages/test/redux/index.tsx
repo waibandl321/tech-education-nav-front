@@ -5,7 +5,7 @@ import { initializeStore } from "@/lib/store";
 import {
   isAlreadyFetchedSearchData,
   fetchMasterData,
-  fetchCourses,
+  fetchDataByKey,
 } from "@/hooks/server/fetchData";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 import { Box, Button, Container } from "@mui/material";
@@ -55,7 +55,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
   try {
     const [result, courseResult] = await Promise.all([
       await fetchMasterData(),
-      await fetchCourses(),
+      await fetchDataByKey("courses"),
     ]);
     // ストアを初期化してディスパッチ
     const store = initializeStore();

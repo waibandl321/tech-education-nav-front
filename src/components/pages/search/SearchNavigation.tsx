@@ -44,10 +44,8 @@ export default function SearchNavigation() {
           value !== undefined && key !== "viewport" && key !== "searchType"
       )
       .reduce<{ [key: string]: string | string[] }>((acc, [key, value]) => {
-        const newValue =
-          typeof value === "string" ? JSON.parse(value) : value ?? [];
+        const newValue = typeof value === "string" ? [value] : value ?? [];
         acc[key] = newValue;
-
         return acc;
       }, {});
   }, [router.query]);
@@ -282,7 +280,7 @@ export default function SearchNavigation() {
                 onChange={(event) => handlerFormChange(event)}
               />
             }
-            label="転職保証付"
+            label="転職保証あり"
           />
         </Box>
       </Box>

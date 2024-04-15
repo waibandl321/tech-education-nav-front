@@ -13,16 +13,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { ChipOwnProps } from "@mui/material";
 import { LearningCenterCourse } from "./API";
-import {
-  fetchDevelopmentCategories,
-  fetchDevelopmentProducts,
-  fetchDevelopmentTools,
-  fetchFrameworks,
-  fetchJobTypes,
-  fetchLanguages,
-  fetchLibraries,
-  fetchQualifications,
-} from "./hooks/server/fetchData";
+import { fetchDataByKey } from "./hooks/server/fetchData";
 
 // アイコンの型を定義
 type IconType = React.ElementType;
@@ -30,10 +21,12 @@ type IconType = React.ElementType;
 // 技術領域ごとのナビゲーションリンク情報の型定義
 interface TechNavigationLink {
   name: string;
+  // 検索結果のpage title算出処理で使用
   afterText: string;
   navigationTitle: string;
   href: string;
   Icon: IconType;
+  // 検索 選択画面で使用
   ssrFetchFunction: () => Promise<any>;
   searchSelectTitle: string;
   breadcrumbText: string;
@@ -127,96 +120,88 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
 export const navLinksMapByTech: TechNavigationLinkMap = {
   programmingLanguages: {
     name: "プログラミング言語一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "プログラミング言語から探す",
     href: "/search/technique/programmingLanguages",
     Icon: CodeIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchLanguages(),
+    ssrFetchFunction: () => fetchDataByKey("programmingLanguages"),
     searchSelectTitle: "学びたいプログラミング言語からスクールを探す",
     breadcrumbText: "プログラミング言語を選択",
     selectionTypeParam: "programmingLanguages",
   },
   frameworks: {
     name: "フレームワーク一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "フレームワークから探す",
     href: "/search/technique/frameworks",
     Icon: WebAssetIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchFrameworks(),
+    ssrFetchFunction: () => fetchDataByKey("frameworks"),
     searchSelectTitle: "学びたいフレームワークからスクールを探す",
     breadcrumbText: "フレームワークを選択",
     selectionTypeParam: "frameworks",
   },
   libraries: {
     name: "ライブラリ/API一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "ライブラリ/APIから探す",
     href: "/search/technique/libraries",
     Icon: ApiIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchLibraries(),
+    ssrFetchFunction: () => fetchDataByKey("libraries"),
     searchSelectTitle: "学びたいライブラリ/APIからスクールを探す",
     breadcrumbText: "ライブラリ/APIを選択",
     selectionTypeParam: "libraries",
   },
   developmentTools: {
     name: "ツール一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "ツールから探す",
     href: "/search/technique/developmentTools",
     Icon: BuildIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchDevelopmentTools(),
+    ssrFetchFunction: () => fetchDataByKey("developmentTools"),
     searchSelectTitle: "学びたいツールからスクールを探す",
     breadcrumbText: "ツールを選択",
     selectionTypeParam: "developmentTools",
   },
   developmentCategories: {
     name: "開発分野一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "開発分野から探す",
     href: "/search/technique/developmentCategories",
     Icon: DeveloperModeIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchDevelopmentCategories(),
+    ssrFetchFunction: () => fetchDataByKey("developmentCategories"),
     searchSelectTitle: "関わりたい開発分野からスクールを探す",
     breadcrumbText: "開発分野を選択",
     selectionTypeParam: "developmentCategories",
   },
   developmentProducts: {
     name: "サービス一覧",
-    afterText: "を作りたい人におすすめのプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を作りたい人におすすめのプログラミングスクールのコース一覧",
     navigationTitle: "作りたいサービスから探す",
     href: "/search/technique/developmentProducts",
     Icon: LightbulbIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchDevelopmentProducts(),
+    ssrFetchFunction: () => fetchDataByKey("developmentProducts"),
     searchSelectTitle: "作りたいサービスからスクールを探す",
     breadcrumbText: "作りたいサービスを選択",
     selectionTypeParam: "developmentProducts",
   },
   qualifications: {
     name: "資格一覧",
-    afterText: "を取得したい人におすすめのプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を取得したい人におすすめのプログラミングスクールのコース一覧",
     navigationTitle: "取得したい資格から探す",
     href: "/search/technique/qualifications",
     Icon: SchoolIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchQualifications(),
+    ssrFetchFunction: () => fetchDataByKey("qualifications"),
     searchSelectTitle: "取得したい資格からスクールを探す",
     breadcrumbText: "資格を選択",
     selectionTypeParam: "qualifications",
   },
   jobTypes: {
     name: "職種一覧",
-    afterText: "を目指す人におすすめのプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+    afterText: "を目指す人におすすめのプログラミングスクールのコース一覧",
     navigationTitle: "なりたい職種から探す",
     href: "/search/technique/jobTypes",
     Icon: WorkIcon,
-    // 検索 選択画面で使用
-    ssrFetchFunction: () => fetchJobTypes(),
+    ssrFetchFunction: () => fetchDataByKey("jobTypes"),
     searchSelectTitle: "なりたい職種からスクールを探す",
     breadcrumbText: "なりたい職種を選択",
     selectionTypeParam: "jobTypes",
@@ -224,11 +209,10 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   // "purposes":
   // {
   //   name: "受講目的一覧",
-  //   afterText: "を学べるプログラミングスクールのコース一覧", // 検索結果のpage title算出処理で使用
+  //   afterText: "を学べるプログラミングスクールのコース一覧",
   //   navigationTitle: "受講目的から探す",
   //   href: "/search/technique/purposes",
   //   Icon: WorkIcon,
-  //   // 検索 選択画面で使用
   //   ssrFetchFunction: fetchJobTypes,
   //   searchSelectTitle: "受講目的からスクールを探す",
   //   breadcrumbText: "受講目的を選択",
@@ -241,16 +225,6 @@ export const navLinksMapKeysByTech = Object.keys(navLinksMapByTech).map(
 );
 
 export type NavLinksMapKeyType = (typeof navLinksMapKeysByTech)[number];
-
-// カラーマップ: カラーをランダムに割り当てる際に使用する
-export const MuiColorMap: Array<ChipOwnProps["color"]> = [
-  "primary",
-  "secondary",
-  "error",
-  "warning",
-  "info",
-  "success",
-];
 
 // Amplifyキャッシュの有効期限 24時間に設定する
 export const AMPLIFY_CACHE_EXPIRATION = 1000 * 60 * 60 * 24;

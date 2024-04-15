@@ -3,8 +3,8 @@ import Layout from "@/app/layout";
 import Head from "next/head";
 import {
   CompoundSearchCondition,
-  fetchCourses,
   fetchCoursesByCompoundSearch,
+  fetchDataByKey,
   fetchMasterData,
 } from "@/hooks/server/fetchData";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
@@ -71,7 +71,6 @@ export default function Index({ ...props }: AppDataPropType) {
 }
 
 // SSR
-
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
   const query: ParsedUrlQuery = context.query;
   // クエリパラメータを SearchCondition 型に変換
@@ -90,7 +89,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       // クエリ数に応じて処理を切り分ける
       searchConditions.length > 0
         ? await fetchCoursesByCompoundSearch(searchConditions)
-        : await fetchCourses(),
+        : await fetchDataByKey("courses"),
     ]);
     // ストアを初期化してディスパッチ
     const store = initializeStore();
