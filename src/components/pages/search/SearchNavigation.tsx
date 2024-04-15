@@ -20,8 +20,6 @@ import { useAppSelector } from "@/lib/hooks";
 import useSearch, { FilterResult, initFilterResults } from "@/hooks/useSearch";
 import { MasterDataBasicType } from "@/types/CommonType";
 import { useRouter } from "next/router";
-import { CompoundSearchCondition } from "@/hooks/server/fetchData";
-import { LearningCenterCourse } from "@/API";
 
 const MAX = 150;
 const MIN = 0;
@@ -174,7 +172,6 @@ export default function SearchNavigation() {
       }
       variant="outlined"
     >
-      <div>{JSON.stringify(filterResult)}</div>
       <Box>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
@@ -259,10 +256,9 @@ export default function SearchNavigation() {
                 name="isJobIntroductionAvailable"
                 checked={filterResult.isJobIntroductionAvailable}
                 onChange={(event) => handlerFormChange(event)}
-                // checked={filterResult.isJobIntroductionAvailable}
               />
             }
-            label="案件保証あり"
+            label="案件紹介あり"
           />
         </Box>
         <Box>

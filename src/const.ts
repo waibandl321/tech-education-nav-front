@@ -132,7 +132,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/programmingLanguages",
     Icon: CodeIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchLanguages,
+    ssrFetchFunction: () => fetchLanguages(),
     searchSelectTitle: "学びたいプログラミング言語からスクールを探す",
     breadcrumbText: "プログラミング言語を選択",
     selectionTypeParam: "programmingLanguages",
@@ -144,7 +144,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/frameworks",
     Icon: WebAssetIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchFrameworks,
+    ssrFetchFunction: () => fetchFrameworks(),
     searchSelectTitle: "学びたいフレームワークからスクールを探す",
     breadcrumbText: "フレームワークを選択",
     selectionTypeParam: "frameworks",
@@ -156,7 +156,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/libraries",
     Icon: ApiIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchLibraries,
+    ssrFetchFunction: () => fetchLibraries(),
     searchSelectTitle: "学びたいライブラリ/APIからスクールを探す",
     breadcrumbText: "ライブラリ/APIを選択",
     selectionTypeParam: "libraries",
@@ -168,7 +168,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/developmentTools",
     Icon: BuildIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchDevelopmentTools,
+    ssrFetchFunction: () => fetchDevelopmentTools(),
     searchSelectTitle: "学びたいツールからスクールを探す",
     breadcrumbText: "ツールを選択",
     selectionTypeParam: "developmentTools",
@@ -180,7 +180,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/developmentCategories",
     Icon: DeveloperModeIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchDevelopmentCategories,
+    ssrFetchFunction: () => fetchDevelopmentCategories(),
     searchSelectTitle: "関わりたい開発分野からスクールを探す",
     breadcrumbText: "開発分野を選択",
     selectionTypeParam: "developmentCategories",
@@ -192,7 +192,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/developmentProducts",
     Icon: LightbulbIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchDevelopmentProducts,
+    ssrFetchFunction: () => fetchDevelopmentProducts(),
     searchSelectTitle: "作りたいサービスからスクールを探す",
     breadcrumbText: "作りたいサービスを選択",
     selectionTypeParam: "developmentProducts",
@@ -204,7 +204,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/qualifications",
     Icon: SchoolIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchQualifications,
+    ssrFetchFunction: () => fetchQualifications(),
     searchSelectTitle: "取得したい資格からスクールを探す",
     breadcrumbText: "資格を選択",
     selectionTypeParam: "qualifications",
@@ -216,7 +216,7 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     href: "/search/technique/jobTypes",
     Icon: WorkIcon,
     // 検索 選択画面で使用
-    ssrFetchFunction: fetchJobTypes,
+    ssrFetchFunction: () => fetchJobTypes(),
     searchSelectTitle: "なりたい職種からスクールを探す",
     breadcrumbText: "なりたい職種を選択",
     selectionTypeParam: "jobTypes",
@@ -251,3 +251,6 @@ export const MuiColorMap: Array<ChipOwnProps["color"]> = [
   "info",
   "success",
 ];
+
+// Amplifyキャッシュの有効期限 24時間に設定する
+export const AMPLIFY_CACHE_EXPIRATION = 1000 * 60 * 60 * 24;

@@ -61,3 +61,21 @@ export interface AppDataPropType {
   // storeの状態を共有
   initialReduxState?: ReduxRootState;
 }
+
+/**
+ * マスタデータのマップ型
+ */
+export interface MasterDataMap {
+  centers: Array<LearningCenter>;
+  programmingLanguages: Array<ProgrammingLanguage>;
+  frameworks: Array<Framework>;
+  libraries: Array<Library>;
+  developmentTools: Array<DevelopmentTool>;
+  jobTypes: Array<JobType>;
+  paymentMethods: Array<PaymentMethod>;
+  creditCards: Array<CreditCard>;
+  developmentCategories: Array<DevelopmentCategory>;
+  developmentProducts: Array<DevelopmentProduct>;
+  qualifications: Array<Qualification>;
+  benefitUserCategories: Array<BenefitUserCategory>;
+}
