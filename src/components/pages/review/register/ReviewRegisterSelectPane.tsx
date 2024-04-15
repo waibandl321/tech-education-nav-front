@@ -17,7 +17,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { LearningCenter, LearningCenterCourse } from "@/API";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import FormButtons from "@/components/common/parts/FormButtons";
-import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
+import useReview, { ReviewFormDataType } from "@/hooks/useReview";
 import { useSearchParams } from "next/navigation";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";

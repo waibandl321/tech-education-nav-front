@@ -19,7 +19,7 @@ import React, { useEffect, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import FormButtons from "@/components/common/parts/FormButtons";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
-import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
+import useReview, { ReviewFormDataType } from "@/hooks/useReview";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 
 /**
