@@ -3,7 +3,7 @@ import { Container, Typography, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { fetchSchoolData } from "@/hooks/server/fetchData";
+import { fetchDataByKey } from "@/hooks/server/fetchData";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";
 import { LearningCenter, LearningCenterCourse } from "@/API";
@@ -79,6 +79,14 @@ export default function Search({
 
 // サーバーサイドでスクールとコース情報を取得し、クライアントにpropsとして渡す
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetchSchoolData();
-  return { props: { ...data } };
+  const [centersResult, coursesResult] = await Promise.all([
+    fetchDataByKey("centers"),
+    fetchDataByKey("courses"),
+  ]);
+  return {
+    props: {
+      centers: centersResult.centers,
+      courses: coursesResult.courses,
+    },
+  };
 };

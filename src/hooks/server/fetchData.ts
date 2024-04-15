@@ -1,4 +1,4 @@
-import { GraphQLResult, generateClient } from "aws-amplify/api";
+import { generateClient } from "aws-amplify/api";
 import { Cache } from "aws-amplify/utils";
 import {
   getLearningCenter,
@@ -20,16 +20,7 @@ import {
 } from "@/graphql/queries";
 import { IncomingMessage } from "http";
 import {
-  BenefitUserCategory,
-  CreditCard,
-  DevelopmentCategory,
-  DevelopmentProduct,
-  DevelopmentTool,
-  Framework,
-  JobType,
-  LearningCenter,
   LearningCenterCourse,
-  Library,
   ListBenefitUserCategoriesQuery,
   ListCreditCardsQuery,
   ListDevelopmentCategoriesQuery,
@@ -45,43 +36,15 @@ import {
   ListQualificationsQuery,
   ModelLearningCenterCourseConditionInput,
   ModelLearningCenterCourseFilterInput,
-  PaymentMethod,
-  ProgrammingLanguage,
-  Qualification,
 } from "@/API";
 import { AMPLIFY_CACHE_EXPIRATION } from "@/const";
-import { AppDataPropType, MasterDataMap } from "@/types/CommonType";
-
-export interface ProgrammingLanguagesResult {
-  programmingLanguages: ProgrammingLanguage[];
-}
-export interface FrameworksResult {
-  frameworks: Framework[];
-}
-export interface LibrariesResult {
-  libraries: Library[];
-}
-export interface DevelopmentToolsResult {
-  developmentTools: DevelopmentTool[];
-}
-export interface DevelopmentCategoriesResult {
-  developmentCategories: DevelopmentCategory[];
-}
-export interface DevelopmentProductsResult {
-  developmentProducts: DevelopmentProduct[];
-}
-export interface JobTypesResult {
-  jobTypes: JobType[];
-}
-export interface QualificationsResult {
-  qualifications: Qualification[];
-}
-export interface LearningCenterCourseResult {
-  courses: LearningCenterCourse[];
-}
+import { MasterDataMap } from "@/types/CommonType";
 
 const client = generateClient();
 
+/**
+ * データ取得 クエリマップ
+ */
 const ssrFetchMap = {
   centers: {
     query: listLearningCenters,
@@ -147,7 +110,6 @@ const ssrFetchMap = {
   },
 };
 
-type SSRFetchMap = typeof ssrFetchMap;
 type SSRFetchMapKey = keyof typeof ssrFetchMap;
 
 /**
@@ -224,34 +186,6 @@ export const isAlreadyFetchedSearchData = (
   }
 ) => {
   return req.cookies["IS_FETCHED_SEARCH_DATA"] === "true";
-};
-
-// スクールとコースの一覧をサーバーサイドで取得する
-export const fetchSchoolData = async () => {
-  try {
-    const [learningCentersResult, learningCenterCoursesResult] =
-      await Promise.all([
-        client.graphql({
-          query: listLearningCenters,
-          authMode: "apiKey",
-        }),
-        client.graphql({
-          query: listLearningCenterCourses,
-          authMode: "apiKey",
-        }),
-      ]);
-    return {
-      centers: learningCentersResult.data.listLearningCenters.items,
-      courses: learningCenterCoursesResult.data.listLearningCenterCourses.items,
-    };
-  } catch (error) {
-    console.error("Error fetching listLearningCenters:", error);
-    // エラーハンドリングをここに追加
-    return {
-      centers: [],
-      courses: [],
-    };
-  }
 };
 
 // centerIdとcourseIdから詳細情報をサーバーサイドで取得する
@@ -420,7 +354,7 @@ const execFilterCourses = async (
 export const fetchCoursesByStringSearchConditions = async (
   searchTypeParam?: keyof LearningCenterCourse,
   searchQueries?: string | string[]
-): Promise<LearningCenterCourseResult> => {
+) => {
   // 検索フィールド
   const param = String(searchTypeParam) as string;
   // フィルタクエリを生成
@@ -460,7 +394,7 @@ export interface CompoundSearchCondition {
 }
 export const fetchCoursesByCompoundSearch = async (
   searchConditions: CompoundSearchCondition[]
-): Promise<LearningCenterCourseResult> => {
+) => {
   // フィルタクエリを生成
   const variables = {} as {
     filter: ModelLearningCenterCourseFilterInput;

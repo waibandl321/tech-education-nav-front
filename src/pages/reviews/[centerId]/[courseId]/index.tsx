@@ -3,8 +3,8 @@ import Layout from "@/app/layout";
 import ReviewListSection from "@/components/common/ReviewListSection";
 import {
   fetchCourseReviews,
+  fetchDataByKey,
   fetchSchoolCourseDetail,
-  fetchSchoolData,
 } from "@/hooks/server/fetchData";
 import { ensureString } from "@/hooks/utils/useConvertData";
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
@@ -156,15 +156,24 @@ export const getServerSideProps: GetServerSideProps = async (
   }
   const centerId = ensureString(context.params.centerId);
   const courseId = ensureString(context.params.courseId);
-  const { courses, centers } = await fetchSchoolData();
-  const { center, course } = await fetchSchoolCourseDetail(centerId, courseId);
-  const fetchReviewsResult = await fetchCourseReviews(centerId, courseId);
+  const [
+    centersResult,
+    coursesResult,
+    fetchReviewsResult,
+    centerCourseDetailResult,
+  ] = await Promise.all([
+    fetchDataByKey("centers"),
+    fetchDataByKey("courses"),
+    fetchCourseReviews(centerId, courseId),
+    fetchSchoolCourseDetail(centerId, courseId),
+  ]);
+
   return {
     props: {
-      centerList: centers,
-      courseList: courses,
-      centerDetail: center,
-      courseDetail: course,
+      centerList: centersResult.centers,
+      courseList: coursesResult.courses,
+      centerDetail: centerCourseDetailResult.center,
+      courseDetail: centerCourseDetailResult.course,
       reviews: fetchReviewsResult.reviews,
     },
   };

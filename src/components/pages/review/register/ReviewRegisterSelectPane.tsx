@@ -1,4 +1,3 @@
-import { fetchSchoolData } from "@/hooks/server/fetchData";
 import {
   Card,
   CardContent,
@@ -15,14 +14,11 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { GetServerSideProps } from "next";
 import { LearningCenter, LearningCenterCourse } from "@/API";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import FormButtons from "@/components/common/parts/FormButtons";
 import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
 import { useSearchParams } from "next/navigation";
-// import DateRangePicker from "@/components/common/parts/DateRangePicker";
-// import dayjs from "dayjs";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";
 
@@ -194,9 +190,3 @@ export default function ReviewRegisterSelectPane({
     </Container>
   );
 }
-
-// サーバーサイドでスクールとコース情報を取得し、クライアントにpropsとして渡す
-export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetchSchoolData();
-  return { props: { ...data } };
-};

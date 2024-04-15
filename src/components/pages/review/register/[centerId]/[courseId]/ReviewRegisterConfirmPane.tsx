@@ -1,4 +1,3 @@
-import { fetchSchoolData } from "@/hooks/server/fetchData";
 import {
   Card,
   CardContent,
@@ -16,7 +15,6 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { GetServerSideProps } from "next";
 import { CenterAndCourseDetailPropType } from "@/types/CommonType";
 import useReview, { ReviewFormDataType } from "@/components/hooks/useReview";
 import useReviewPost from "@/hooks/api/useReview";
@@ -216,9 +214,3 @@ export default function ReviewRegisterConfirmPane({
     </Container>
   );
 }
-
-// サーバーサイドでスクールとコース情報を取得し、クライアントにpropsとして渡す
-export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetchSchoolData();
-  return { props: { ...data } };
-};
