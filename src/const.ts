@@ -206,18 +206,20 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
     breadcrumbText: "なりたい職種を選択",
     selectionTypeParam: "jobTypes",
   },
-  // "purposes":
-  // {
-  //   name: "受講目的一覧",
-  //   afterText: "を学べるプログラミングスクールのコース一覧",
-  //   navigationTitle: "受講目的から探す",
-  //   href: "/search/technique/purposes",
-  //   Icon: WorkIcon,
-  //   ssrFetchFunction: fetchJobTypes,
-  //   searchSelectTitle: "受講目的からスクールを探す",
-  //   breadcrumbText: "受講目的を選択",
-  //   selectionTypeParam: "purposes",
-  // },
+  purposes: {
+    name: "受講目的一覧",
+    afterText: "を目指す人におすすめのプログラミングスクールのコース一覧",
+    navigationTitle: "受講目的から探す",
+    href: "/search/technique/purposes",
+    Icon: WorkIcon,
+    ssrFetchFunction: () =>
+      Promise.resolve({
+        purposes: PurposeOptions,
+      }),
+    searchSelectTitle: "受講目的からスクールを探す",
+    breadcrumbText: "受講目的を選択",
+    selectionTypeParam: "purposes",
+  },
 } as const;
 
 export const navLinksMapKeysByTech = Object.keys(navLinksMapByTech).map(

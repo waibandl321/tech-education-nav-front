@@ -17,7 +17,7 @@ import { initializeStore } from "@/lib/store";
 import { setSearchData } from "@/lib/features/counter/searchDataSlice";
 import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/router";
-import { NavLinksMapKeyType, navLinksMapByTech } from "@/const";
+import { NavLinksMapKeyType, PurposeOptions, navLinksMapByTech } from "@/const";
 
 export default function SearchTypeResults({ ...props }) {
   // hooks
@@ -156,6 +156,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
         developmentProducts: result.developmentProducts,
         qualifications: result.qualifications,
         benefitUserCategories: result.benefitUserCategories,
+        purposes: PurposeOptions,
         // JSON文字列として渡す
         initialReduxState: JSON.stringify(store.getState()),
       },

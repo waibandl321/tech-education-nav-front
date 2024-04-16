@@ -56,6 +56,8 @@ export default function useSearch() {
     searchQueries: string | null | undefined,
     afterText: string
   ) => {
+    console.log(items);
+
     return `「${items
       .filter((item) => searchQueries?.includes(item.id))
       .map((item) => item.name)
