@@ -12,8 +12,6 @@ const initialState: AppDataPropType = {
   libraries: [],
   developmentTools: [],
   jobTypes: [],
-  paymentMethods: [],
-  creditCards: [],
   developmentCategories: [],
   developmentProducts: [],
   qualifications: [],

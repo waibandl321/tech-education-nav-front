@@ -1,16 +1,16 @@
 import {
   CoursePlan,
   Framework,
-  LearningCenter,
-  LearningCenterCourse,
+  School,
+  Course,
   Library,
-  ProgrammingLanguage,
-} from "@/API";
+  Language,
+} from "@/types/APIDataType";
 import { navLinksMapByOption } from "@/const";
-import { MasterDataBasicType } from "@/types/CommonType";
+import { useAppSelector } from "@/lib/hooks";
 
-type ExtendedLearningCenter = LearningCenter & {
-  courses: Array<LearningCenterCourse>;
+type ExtendedLearningCenter = School & {
+  courses: Array<Course>;
 };
 
 type ItemsByLangId<T> = { [key: string]: Array<T> };
@@ -37,32 +37,15 @@ export const initFilterResults = {
   frameworks: [],
   developmentTools: [],
   libraries: [],
-
-  // paymentOptions: []
-  // creditCards: []
 } as const;
 
 export type FilterResult = typeof initFilterResults;
 
 export default function useSearch() {
   /**
-   * @param items マスタデータの配列
-   * @param searchQueries 検索クエリ
-   * @returns フィルタされた名称一覧を「、」区切りで返す
-   * 検索結果画面で使用（src/pages/search/xxx/results.tsx）
+   * store
    */
-  const getFilterNames = <T extends MasterDataBasicType>(
-    items: T[],
-    searchQueries: string | null | undefined,
-    afterText: string
-  ) => {
-    console.log(items);
-
-    return `「${items
-      .filter((item) => searchQueries?.includes(item.id))
-      .map((item) => item.name)
-      .join("、")}」${afterText}`;
-  };
+  const searchData = useAppSelector((state) => state.searchData);
 
   /**
    * @param center スクール情報
@@ -80,13 +63,11 @@ export default function useSearch() {
    * @returns スクールにコース一覧を紐付けたデータ
    */
   const getComputedCenters = (
-    centers: LearningCenter[],
-    courses: LearningCenterCourse[]
+    centers: School[] = [],
+    courses: Course[] = []
   ) => {
     return centers.map((center) => {
-      const coursesByCenter = courses.filter(
-        (v) => v.learningCenterId === center.id
-      );
+      const coursesByCenter = courses.filter((v) => v.schoolId === center._id);
       return {
         ...center,
         courses: coursesByCenter,
@@ -114,7 +95,7 @@ export default function useSearch() {
    * @param course コース情報
    * @returns コースのオプションに一致するchips
    */
-  const getChipsByCourse = (course: LearningCenterCourse) => {
+  const getChipsByCourse = (course: Course) => {
     return navLinksMapByOption.filter((item) => course[item.key] === true);
   };
 
@@ -125,16 +106,16 @@ export default function useSearch() {
    * @param items 言語IDをkeyにしたオブジェクト配列
    */
   const getMasterItemsByLang = <T extends Framework | Library>(
-    languages: ProgrammingLanguage[],
+    languages: Language[],
     items: T[]
   ) => {
     return languages.reduce<ItemsByLangId<T>>((acc, curr) => {
       const filteredItems = items.filter(
-        (v) => v.programmingLanguageId === curr.id
+        (v) => v.programmingLanguageId === curr._id
       );
       if (filteredItems.length > 0) {
         // アイテムが1以上の場合のみ、データを登録する
-        acc[curr.id] = filteredItems;
+        acc[curr._id] = filteredItems;
       }
       return acc;
     }, {});
@@ -143,14 +124,11 @@ export default function useSearch() {
   /**
    * 言語IDをkeyにしたオブジェクト配列
    */
-  const getLanguagesById = (languages: ProgrammingLanguage[]) => {
-    return languages.reduce<{ [key: string]: ProgrammingLanguage }>(
-      (acc, curr) => {
-        acc[curr.id] = curr;
-        return acc;
-      },
-      {}
-    );
+  const getLanguagesById = (languages: Language[]) => {
+    return languages.reduce<{ [key: string]: Language }>((acc, curr) => {
+      acc[curr._id] = curr;
+      return acc;
+    }, {});
   };
 
   /**
@@ -161,7 +139,7 @@ export default function useSearch() {
    */
   const getLanguageName = (
     languagesById: {
-      [key: string]: ProgrammingLanguage;
+      [key: string]: Language;
     },
     languageId?: string | null
   ) => {
@@ -169,8 +147,60 @@ export default function useSearch() {
     return languagesById[languageId].name;
   };
 
+  /**
+   * _idに一致する言語名
+   */
+  const getLanguageNameById = (id: string) => {
+    return (
+      searchData.programmingLanguages.find((v) => v._id === id)?.name ?? ""
+    );
+  };
+  /**
+   * _idに一致するフレームワーク名
+   */
+  const getFrameworkNameById = (id: string) => {
+    return searchData.frameworks.find((v) => v._id === id)?.name ?? "";
+  };
+  /**
+   * _idに一致するライブラリ名
+   */
+  const getLibraryNameById = (id: string) => {
+    return searchData.libraries.find((v) => v._id === id)?.name ?? "";
+  };
+  /**
+   * _idに一致する資格名
+   */
+  const getQualificationNameById = (id: string) => {
+    return searchData.qualifications.find((v) => v._id === id)?.name ?? "";
+  };
+  /**
+   * _idに一致する職種名
+   */
+  const getJobTypeNameById = (id: string) => {
+    return searchData.jobTypes.find((v) => v._id === id)?.name ?? "";
+  };
+  /**
+   * _idに一致する開発ツール
+   */
+  const getDevToolNameById = (id: string) => {
+    return searchData.developmentTools.find((v) => v._id === id)?.name ?? "";
+  };
+  /**
+   * _idに一致する開発分野
+   */
+  const getDevCategoryNameById = (id: string) => {
+    return (
+      searchData.developmentCategories.find((v) => v._id === id)?.name ?? ""
+    );
+  };
+  /**
+   * _idに一致する開発プロダクト
+   */
+  const getDevProductNameById = (id: string) => {
+    return searchData.developmentProducts.find((v) => v._id === id)?.name ?? "";
+  };
+
   return {
-    getFilterNames,
     hasPlan,
     getComputedCenters,
     findMinPlanPrice,
@@ -178,5 +208,13 @@ export default function useSearch() {
     getMasterItemsByLang,
     getLanguagesById,
     getLanguageName,
+    getLanguageNameById,
+    getFrameworkNameById,
+    getLibraryNameById,
+    getQualificationNameById,
+    getJobTypeNameById,
+    getDevToolNameById,
+    getDevCategoryNameById,
+    getDevProductNameById,
   };
 }

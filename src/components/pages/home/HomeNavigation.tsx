@@ -17,6 +17,9 @@ import React from "react";
 export default function HomeNavigation() {
   return (
     <Box sx={{ p: 2 }}>
+      <Box sx={{ p: 2 }}>
+        <Link href="/search">検索画面へ</Link>
+      </Box>
       <Typography borderLeft="5px solid #666" paddingLeft={2} fontWeight="bold">
         技術やビジョンに合ったスクールを探す
       </Typography>

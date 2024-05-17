@@ -45,7 +45,7 @@ export default function SearchSelect<T extends MasterDataBasicType>({
   // 選択したデータに基づき、クエリ生成
   const queryString = useMemo(() => {
     return `${selectionTypeParam}=${encodeURIComponent(
-      JSON.stringify(selectedItems)
+      selectedItems.join(",")
     )}`;
   }, [selectedItems, selectionTypeParam]);
 
@@ -71,11 +71,11 @@ export default function SearchSelect<T extends MasterDataBasicType>({
         <FormGroup sx={{ mt: 2 }}>
           {items.map((item) => (
             <FormControlLabel
-              key={item.id}
+              key={item._id}
               control={
                 <Checkbox
-                  value={item.id}
-                  checked={selectedItems.includes(item.id)}
+                  value={item._id}
+                  checked={selectedItems.includes(item._id)}
                   onChange={handleChangeSelect}
                 />
               }
@@ -96,7 +96,7 @@ export default function SearchSelect<T extends MasterDataBasicType>({
             variant="contained"
             fullWidth
             disabled={!isSelected}
-            href={`/search/technique/${selectionTypeParam}/results?${queryString}`}
+            href={`/search?${queryString}`}
           >
             検索
           </Button>

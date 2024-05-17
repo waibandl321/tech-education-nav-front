@@ -1,20 +1,16 @@
-import { LearningCenter, LearningCenterCourse } from "@/API";
+import { School, Course } from "@/types/APIDataType";
 import { Autocomplete, Grid, InputAdornment, TextField } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import { useMemo } from "react";
 
 type PropsType = {
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
-  selectedCenter: LearningCenter | null;
-  selectedCourse: LearningCenterCourse | null;
-  setSelectedCenter: (
-    value: React.SetStateAction<LearningCenter | null>
-  ) => void;
-  setSelectedCourse: (
-    value: React.SetStateAction<LearningCenterCourse | null>
-  ) => void;
+  centers: Array<School>;
+  courses: Array<Course>;
+  selectedCenter: School | null;
+  selectedCourse: Course | null;
+  setSelectedCenter: (value: React.SetStateAction<School | null>) => void;
+  setSelectedCourse: (value: React.SetStateAction<Course | null>) => void;
 };
 
 export default function AutoCompleteSchoolCourse({
@@ -26,9 +22,9 @@ export default function AutoCompleteSchoolCourse({
   setSelectedCourse,
 }: PropsType) {
   // コース選択オプション: スクールの選択状態に応じて動的に変化する
-  const courseOptions: Array<LearningCenterCourse> = useMemo(() => {
+  const courseOptions: Array<Course> = useMemo(() => {
     if (!courses) return [];
-    return courses.filter((v) => v.learningCenterId === selectedCenter?.id);
+    return courses.filter((v) => v.schoolId === selectedCenter?._id);
   }, [selectedCenter, courses]);
 
   return (
@@ -40,8 +36,8 @@ export default function AutoCompleteSchoolCourse({
           options={centers}
           noOptionsText="データがありません"
           getOptionLabel={(option) => option.name ?? ""}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          onChange={(event: any, newValue: LearningCenter | null) => {
+          isOptionEqualToValue={(option, value) => option._id === value._id}
+          onChange={(event: any, newValue: School | null) => {
             setSelectedCenter(newValue);
           }}
           renderInput={(params) => (
@@ -71,8 +67,8 @@ export default function AutoCompleteSchoolCourse({
           options={courseOptions}
           noOptionsText="データがありません"
           getOptionLabel={(option) => option.courseName ?? ""}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          onChange={(event: any, newValue: LearningCenterCourse | null) => {
+          isOptionEqualToValue={(option, value) => option._id === value._id}
+          onChange={(event: any, newValue: Course | null) => {
             setSelectedCourse(newValue);
           }}
           renderInput={(params) => (

@@ -1,4 +1,4 @@
-import { LearningCenter, LearningCenterCourse } from "@/API";
+import { School, Course } from "@/types/APIDataType";
 import {
   Box,
   Typography,
@@ -20,11 +20,22 @@ export default function CourceDetailCard({
   center,
   course,
 }: {
-  center: LearningCenter;
-  course: LearningCenterCourse;
+  center: School;
+  course: Course;
 }) {
   // hooks
-  const { findMinPlanPrice, getChipsByCourse } = useSearch();
+  const {
+    findMinPlanPrice,
+    getChipsByCourse,
+    getLanguageNameById,
+    getFrameworkNameById,
+    getLibraryNameById,
+    getQualificationNameById,
+    getJobTypeNameById,
+    getDevToolNameById,
+    getDevCategoryNameById,
+    getDevProductNameById,
+  } = useSearch();
 
   const chips = useMemo(
     () => getChipsByCourse(course),
@@ -34,7 +45,7 @@ export default function CourceDetailCard({
   return (
     <Card sx={{ m: 1, pb: 2 }} variant="outlined">
       <CardContent>
-        <Box key={course.id}>
+        <Box key={course._id}>
           <Typography fontSize={12} display="flex" align="center">
             <SchoolIcon sx={{ mr: 1, fontSize: 16 }} />
             <span>{center.name}</span>
@@ -104,6 +115,21 @@ export default function CourceDetailCard({
                   sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
                 />
               ))}
+            </Box>
+          </Box>
+          <Box marginTop={2}>
+            <Typography fontWeight={700}>学べる言語</Typography>
+            <Box marginTop={2}>
+              {course.programmingLanguages?.map(
+                (item) =>
+                  item && (
+                    <Chip
+                      key={item}
+                      label={getLanguageNameById(item)}
+                      sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
+                    />
+                  )
+              )}
             </Box>
           </Box>
           <Box marginTop={2}>

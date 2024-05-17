@@ -6,22 +6,22 @@ import {
   DevelopmentTool,
   Framework,
   JobType,
-  LearningCenter,
-  LearningCenterCourse,
+  School,
+  Course,
   Library,
   PaymentMethod,
   ProgrammingLanguage,
   Qualification,
-} from "@/API";
+} from "@/types/APIDataType";
 import { ReduxRootState } from "@/lib/store";
 
 export interface CentersAndCoursesPropType {
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
+  centers: Array<School>;
+  courses: Array<Course>;
 }
 export interface CenterAndCourseDetailPropType {
-  center: LearningCenter;
-  course: LearningCenterCourse;
+  center: School;
+  course: Course;
 }
 
 /**
@@ -34,7 +34,7 @@ export type DeviceType = "desktop" | "mobile";
  * マスタデータの型
  */
 export interface MasterDataBasicType {
-  id: string;
+  _id: string;
   name: string;
   memo?: string | null;
 }
@@ -45,15 +45,13 @@ export interface MasterDataBasicType {
 export interface AppDataPropType {
   viewport?: DeviceType;
   searchTypeParam?: string;
-  centers: Array<LearningCenter>;
-  courses: Array<LearningCenterCourse>;
+  centers: Array<School>;
+  courses: Array<Course>;
   programmingLanguages: Array<ProgrammingLanguage>;
   frameworks: Array<Framework>;
   libraries: Array<Library>;
   developmentTools: Array<DevelopmentTool>;
   jobTypes: Array<JobType>;
-  paymentMethods: Array<PaymentMethod>;
-  creditCards: Array<CreditCard>;
   developmentCategories: Array<DevelopmentCategory>;
   developmentProducts: Array<DevelopmentProduct>;
   qualifications: Array<Qualification>;
@@ -66,14 +64,12 @@ export interface AppDataPropType {
  * マスタデータのマップ型
  */
 export interface MasterDataMap {
-  centers: Array<LearningCenter>;
+  centers: Array<School>;
   programmingLanguages: Array<ProgrammingLanguage>;
   frameworks: Array<Framework>;
   libraries: Array<Library>;
   developmentTools: Array<DevelopmentTool>;
   jobTypes: Array<JobType>;
-  paymentMethods: Array<PaymentMethod>;
-  creditCards: Array<CreditCard>;
   developmentCategories: Array<DevelopmentCategory>;
   developmentProducts: Array<DevelopmentProduct>;
   qualifications: Array<Qualification>;

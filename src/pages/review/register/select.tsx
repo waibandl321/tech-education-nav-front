@@ -1,7 +1,7 @@
 import Layout from "@/app/layout";
 import ReviewRegisterSelectPane from "@/components/pages/review/register/ReviewRegisterSelectPane";
 import Head from "next/head";
-import { fetchDataByKey } from "@/hooks/server/fetchData";
+import { fetchDataByKey } from "@/hooks/server/fetchDataClone";
 import { GetServerSideProps } from "next";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 

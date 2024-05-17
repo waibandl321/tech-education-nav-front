@@ -1,11 +1,12 @@
-import { CourseReview, LearningCenter, LearningCenterCourse } from "@/API";
+import { CourseReview } from "@/API";
+import { School, Course } from "@/types/APIDataType";
 import Layout from "@/app/layout";
 import ReviewListSection from "@/components/common/ReviewListSection";
 import {
   fetchCourseReviews,
-  fetchDataByKey,
   fetchSchoolCourseDetail,
 } from "@/hooks/server/fetchData";
+import { fetchDataByKey } from "@/hooks/server/fetchDataClone";
 import { ensureString } from "@/hooks/utils/useConvertData";
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -16,10 +17,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 interface PropsType {
-  centerList: Array<LearningCenter>;
-  courseList: Array<LearningCenterCourse>;
-  centerDetail: LearningCenter;
-  courseDetail: LearningCenterCourse;
+  centerList: Array<School>;
+  courseList: Array<Course>;
+  centerDetail: School;
+  courseDetail: Course;
   reviews: Array<CourseReview>;
 }
 
@@ -32,11 +33,12 @@ export default function SearchResult({
 }: PropsType) {
   // hooks
   const router = useRouter();
-  const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
+  const [selectedCenter, setSelectedCenter] = useState<School | null>(
     centerDetail
   );
-  const [selectedCourse, setSelectedCourse] =
-    useState<LearningCenterCourse | null>(courseDetail);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(
+    courseDetail
+  );
 
   useEffect(() => {
     // コースが選択されている状態でスクールが削除された場合、コースを初期化
@@ -45,14 +47,14 @@ export default function SearchResult({
       return;
     }
     // コースが選択されている状態でスクールが変更された場合、コースを初期化
-    if (selectedCenter.id !== selectedCourse?.learningCenterId) {
+    if (selectedCenter._id !== selectedCourse?.schoolId) {
       setSelectedCourse(null);
       return;
     }
     // 共に選択されている場合は検索処理を実行する
     if (selectedCenter && selectedCourse) {
-      if (!selectedCenter?.id || !selectedCourse?.id) return;
-      router.push(`/reviews/${selectedCenter.id}/${selectedCourse.id}`);
+      if (!selectedCenter?._id || !selectedCourse?._id) return;
+      router.push(`/reviews/${selectedCenter._id}/${selectedCourse._id}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCenter, selectedCourse]);

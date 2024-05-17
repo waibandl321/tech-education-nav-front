@@ -12,14 +12,14 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import SearchSubHeader from "@/components/pages/search/SearchSubHeader";
-import { Framework, Library, ProgrammingLanguage } from "@/API";
+import { Framework, Library, Language } from "@/types/APIDataType";
 import useSearch from "@/hooks/useSearch";
 
 type Item = Framework | Library;
 
 interface SearchSelectProps<T extends Item> {
   items: Array<T>; // `Framework` or `Library` type
-  languages: Array<ProgrammingLanguage>;
+  languages: Array<Language>;
   title: string;
   selectionTypeParam: string;
   breadcrumbText: string;
@@ -62,7 +62,7 @@ export default function SearchSelectSplitLang<T extends Item>({
   }, [selectedItems]);
 
   // 言語IDをkeyにしたオブジェクト配列
-  const languagesById = useMemo<{ [key: string]: ProgrammingLanguage }>(() => {
+  const languagesById = useMemo<{ [key: string]: Language }>(() => {
     return getLanguagesById(languages);
   }, [languages, getLanguagesById]);
 
@@ -99,11 +99,11 @@ export default function SearchSelectSplitLang<T extends Item>({
               <Box>
                 {itemsByLang[key].map((v) => (
                   <FormControlLabel
-                    key={v.id}
+                    key={v._id}
                     control={
                       <Checkbox
-                        value={v.id}
-                        checked={selectedItems.includes(v.id)}
+                        value={v._id}
+                        checked={selectedItems.includes(v._id)}
                         onChange={handleChange}
                       />
                     }

@@ -4,17 +4,16 @@ import Head from "next/head";
 import {
   CompoundSearchCondition,
   fetchCoursesByCompoundSearch,
-  fetchDataByKey,
-  fetchMasterData,
-} from "@/hooks/server/fetchData";
+} from "@/hooks/server/fetchDataClone";
+import { fetchDataByKey, fetchMasterData } from "@/hooks/server/fetchDataClone";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
 import SPLayout from "@/app/sp-layout";
 import { initializeStore } from "@/lib/store";
-import { setSearchData } from "@/lib/features/counter/searchDataSlice";
+import { setSearchData } from "@/lib/features/search/searchDataSlice";
 import { AppDataPropType } from "@/types/CommonType";
-import { LearningCenterCourse } from "@/API";
+import { Course } from "@/types/APIDataType";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { ParsedUrlQuery } from "querystring";
 
@@ -39,8 +38,6 @@ export default function Index({ ...props }: AppDataPropType) {
             libraries={props.libraries}
             developmentTools={props.developmentTools}
             jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
             developmentCategories={props.developmentCategories}
             developmentProducts={props.developmentProducts}
             qualifications={props.qualifications}
@@ -57,8 +54,6 @@ export default function Index({ ...props }: AppDataPropType) {
             libraries={props.libraries}
             developmentTools={props.developmentTools}
             jobTypes={props.jobTypes}
-            paymentMethods={props.paymentMethods}
-            creditCards={props.creditCards}
             developmentCategories={props.developmentCategories}
             developmentProducts={props.developmentProducts}
             qualifications={props.qualifications}
@@ -78,7 +73,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     .filter(([key, value]) => value !== undefined && key !== "viewport")
     .map(
       ([key, value]): CompoundSearchCondition => ({
-        field: key as keyof LearningCenterCourse,
+        field: key as keyof Course,
         value: typeof value === "string" ? [value] : value ?? [],
       })
     );
@@ -104,8 +99,6 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
         libraries: result.libraries,
         developmentTools: result.developmentTools,
         jobTypes: result.jobTypes,
-        paymentMethods: result.paymentMethods,
-        creditCards: result.creditCards,
         developmentCategories: result.developmentCategories,
         developmentProducts: result.developmentProducts,
         qualifications: result.qualifications,

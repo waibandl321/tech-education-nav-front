@@ -43,12 +43,23 @@ export default function SearchNavigation() {
         ([key, value]) =>
           value !== undefined && key !== "viewport" && key !== "searchType"
       )
-      .reduce<{ [key: string]: string | string[] }>((acc, [key, value]) => {
-        const newValue = typeof value === "string" ? [value] : value ?? [];
-        acc[key] = newValue;
+      .reduce<{ [key: string]: any }>((acc, [key, value]) => {
+        if (typeof value === "string") {
+          const valuesArray = value.split(",");
+          if (
+            valuesArray.length === 1 &&
+            (valuesArray[0] === "true" || valuesArray[0] === "false")
+          ) {
+            acc[key] = valuesArray[0] === "true";
+          } else {
+            acc[key] = valuesArray;
+          }
+        } else if (Array.isArray(value)) {
+          acc[key] = value;
+        }
         return acc;
       }, {});
-  }, [router.query]);
+  }, [router]);
 
   // state
   const [filterResult, setFilterResult] = useState<FilterResult>({
@@ -82,12 +93,13 @@ export default function SearchNavigation() {
     if (Array.isArray(value) && value.length === 0) {
       // valueが空の配列の場合、何もしないで既存のクエリパラメータを削除
       delete currentQuery[name];
+    } else if (Array.isArray(value) && value.length > 0) {
+      // 配列をカンマで連結し、URLエンコードを行う
+      currentQuery[name] = value.join(",");
     } else if (value) {
-      // valueが真の場合（true、非空の文字列、非空の配列）、クエリパラメータを追加または更新
-      // クエリパラメータは文字列である必要があるため、toString()を使用
+      // valueがbooleanの場合、文字列に変換
       currentQuery[name] = value.toString();
     } else {
-      // valueが偽の場合（false、空文字など）、該当するクエリパラメータを削除
       delete currentQuery[name];
     }
 
@@ -101,9 +113,29 @@ export default function SearchNavigation() {
     );
   };
 
+  // クエリパラメータの変化に応じてfilterResultを更新
   useEffect(() => {
-    console.log(filterResult);
-  }, [filterResult]);
+    setFilterResult((prevFilterResult) => ({
+      ...prevFilterResult,
+      ...searchConditions,
+    }));
+  }, [searchConditions]);
+
+  // イベントリスナーを追加してURLの変更を監視
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setFilterResult({
+        ...initFilterResults,
+        ...searchConditions,
+      });
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events, searchConditions]);
 
   /**
    * selectbox 選択名を取得
@@ -116,7 +148,7 @@ export default function SearchNavigation() {
     arr: T[]
   ) => {
     return selectedValues
-      .map((v) => arr.find((product) => product.id === v)?.name)
+      .map((v) => arr.find((product) => product._id === v)?.name)
       .join(", ");
   };
 
@@ -303,10 +335,10 @@ export default function SearchNavigation() {
             multiple
           >
             {AttendanceTypeLabels.map((item) => (
-              <MenuItem key={item.id} value={item.id}>
+              <MenuItem key={item._id} value={item._id}>
                 <Checkbox
                   checked={
-                    filterResult.attendanceType.indexOf(item.id as never) > -1
+                    filterResult.attendanceType.indexOf(item._id as never) > -1
                   }
                 />
                 <ListItemText>{item.name}</ListItemText>
@@ -334,10 +366,10 @@ export default function SearchNavigation() {
             multiple
           >
             {PurposeOptions.map((purpose) => (
-              <MenuItem key={purpose.id} value={purpose.id}>
+              <MenuItem key={purpose._id} value={purpose._id}>
                 <Checkbox
                   checked={
-                    filterResult.purposes.indexOf(purpose.id as never) > -1
+                    filterResult.purposes.indexOf(purpose._id as never) > -1
                   }
                 />
                 <ListItemText>{purpose.name}</ListItemText>
@@ -369,11 +401,11 @@ export default function SearchNavigation() {
               <em>指定しない</em>
             </MenuItem>
             {searchData.benefitUserCategories.map((item) => (
-              <MenuItem key={item.id} value={item.id}>
+              <MenuItem key={item._id} value={item._id}>
                 <Checkbox
                   checked={
                     filterResult.benefitUserCategories.indexOf(
-                      item.id as never
+                      item._id as never
                     ) > -1
                   }
                 />
@@ -383,43 +415,6 @@ export default function SearchNavigation() {
           </Select>
         </FormControl>
       </Box>
-
-      {/* <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
-          <Typography variant="body2" fontWeight={700}>
-            対応している支払い方法
-          </Typography>
-        </Box>
-        <Box>
-          <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {searchData.paymentMethods.map((item) => (
-              <FormControlLabel
-                key={item.id}
-                control={<Checkbox name="paymentOptions" value={item.id} />}
-                label={item.name}
-              />
-            ))}
-          </FormGroup>
-        </Box>
-      </Box>
-      <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
-          <Typography variant="body2" fontWeight={700}>
-            対応しているクレジットカード
-          </Typography>
-        </Box>
-        <Box>
-          <FormGroup sx={{ display: "flex", flexDirection: "unset" }}>
-            {searchData.creditCards.map((item) => (
-              <FormControlLabel
-                key={item.id}
-                control={<Checkbox name="creditCards" value={item.id} />}
-                label={item.name}
-              />
-            ))}
-          </FormGroup>
-        </Box>
-      </Box> */}
       <Box sx={{ mt: 3 }}>
         <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
@@ -440,11 +435,11 @@ export default function SearchNavigation() {
               multiple
             >
               {searchData.developmentCategories.map((category) => (
-                <MenuItem key={category.id} value={category.id}>
+                <MenuItem key={category._id} value={category._id}>
                   <Checkbox
                     checked={
                       filterResult.developmentCategories.indexOf(
-                        category.id as never
+                        category._id as never
                       ) > -1
                     }
                   />
@@ -475,11 +470,11 @@ export default function SearchNavigation() {
               multiple
             >
               {searchData.developmentProducts.map((product) => (
-                <MenuItem key={product.id} value={product.id}>
+                <MenuItem key={product._id} value={product._id}>
                   <Checkbox
                     checked={
                       filterResult.developmentProducts.indexOf(
-                        product.id as never
+                        product._id as never
                       ) > -1
                     }
                   />
@@ -510,11 +505,11 @@ export default function SearchNavigation() {
               multiple
             >
               {searchData.qualifications.map((dualification) => (
-                <MenuItem key={dualification.id} value={dualification.id}>
+                <MenuItem key={dualification._id} value={dualification._id}>
                   <Checkbox
                     checked={
                       filterResult.qualifications.indexOf(
-                        dualification.id as never
+                        dualification._id as never
                       ) > -1
                     }
                   />
@@ -545,10 +540,10 @@ export default function SearchNavigation() {
               multiple
             >
               {searchData.jobTypes.map((jobType) => (
-                <MenuItem key={jobType.id} value={jobType.id}>
+                <MenuItem key={jobType._id} value={jobType._id}>
                   <Checkbox
                     checked={
-                      filterResult.jobTypes.indexOf(jobType.id as never) > -1
+                      filterResult.jobTypes.indexOf(jobType._id as never) > -1
                     }
                   />
                   <ListItemText>{jobType.name}</ListItemText>
@@ -578,11 +573,11 @@ export default function SearchNavigation() {
               multiple
             >
               {searchData.programmingLanguages.map((language) => (
-                <MenuItem key={language.id} value={language.id}>
+                <MenuItem key={language._id} value={language._id}>
                   <Checkbox
                     checked={
                       filterResult.programmingLanguages.indexOf(
-                        language.id as never
+                        language._id as never
                       ) > -1
                     }
                   />
@@ -618,14 +613,15 @@ export default function SearchNavigation() {
                 // フレームワークをサブアイテムとして表示
                 languageWithFrameworks[key].map((framework) => (
                   <MenuItem
-                    key={framework.id}
-                    value={framework.id}
+                    key={framework._id}
+                    value={framework._id}
                     sx={{ pl: 4 }}
                   >
                     <Checkbox
                       checked={
-                        filterResult.frameworks.indexOf(framework.id as never) >
-                        -1
+                        filterResult.frameworks.indexOf(
+                          framework._id as never
+                        ) > -1
                       }
                     />
                     <ListItemText>{framework.name}</ListItemText>
@@ -662,10 +658,10 @@ export default function SearchNavigation() {
               </MenuItem>,
               // ライブラリをサブアイテムとして表示
               librariesByLang[key].map((lib) => (
-                <MenuItem key={lib.id} value={lib.id} sx={{ pl: 4 }}>
+                <MenuItem key={lib._id} value={lib._id} sx={{ pl: 4 }}>
                   <Checkbox
                     checked={
-                      filterResult.libraries.indexOf(lib.id as never) > -1
+                      filterResult.libraries.indexOf(lib._id as never) > -1
                     }
                   />
                   <ListItemText>{lib.name}</ListItemText>
@@ -697,10 +693,11 @@ export default function SearchNavigation() {
               <em>指定しない</em>
             </MenuItem>
             {sortBy(searchData.developmentTools, ["name"]).map((item) => (
-              <MenuItem key={item.id} value={item.id}>
+              <MenuItem key={item._id} value={item._id}>
                 <Checkbox
                   checked={
-                    filterResult.developmentTools.indexOf(item.id as never) > -1
+                    filterResult.developmentTools.indexOf(item._id as never) >
+                    -1
                   }
                 />
                 <ListItemText>{item.name}</ListItemText>

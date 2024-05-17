@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { LearningCenter, LearningCenterCourse } from "@/API";
+import { School, Course } from "@/types/APIDataType";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import FormButtons from "@/components/common/parts/FormButtons";
 import useReview, { ReviewFormDataType } from "@/hooks/useReview";
@@ -39,11 +39,8 @@ export default function ReviewRegisterSelectPane({
   // state
   const [reviewFormData, setReviewFormData] =
     useState<ReviewFormDataType>(initReviewFormData);
-  const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
-    null
-  );
-  const [selectedCourse, setSelectedCourse] =
-    useState<LearningCenterCourse | null>(null);
+  const [selectedCenter, setSelectedCenter] = useState<School | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     // コースが選択されている状態でスクールが削除された場合、コースを初期化
@@ -52,7 +49,7 @@ export default function ReviewRegisterSelectPane({
       return;
     }
     // コースが選択されている状態でスクールが変更された場合、コースを初期化
-    if (selectedCenter.id !== selectedCourse?.learningCenterId) {
+    if (selectedCenter._id !== selectedCourse?.schoolId) {
       setSelectedCourse(null);
       return;
     }
@@ -61,11 +58,11 @@ export default function ReviewRegisterSelectPane({
   // 投稿画面から戻った場合、選択済みのスクーウトコースをセットする
   useEffect(() => {
     if (centerId) {
-      const targetCenter = centers.find((center) => center.id === centerId);
+      const targetCenter = centers.find((center) => center._id === centerId);
       setSelectedCenter(targetCenter ?? null);
     }
     if (courseId) {
-      const targetCourse = courses.find((course) => course.id === courseId);
+      const targetCourse = courses.find((course) => course._id === courseId);
       setSelectedCourse(targetCourse ?? null);
     }
   }, [centers, courses, centerId, courseId]);
@@ -93,7 +90,7 @@ export default function ReviewRegisterSelectPane({
       })
     );
     router.push(
-      `/review/register/${selectedCenter?.id}/${selectedCourse?.id}/comment/`
+      `/review/register/${selectedCenter?._id}/${selectedCourse?._id}/comment/`
     );
   };
 

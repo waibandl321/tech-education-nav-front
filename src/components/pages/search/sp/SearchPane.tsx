@@ -156,13 +156,13 @@ export default function SPSearchPane({ ...props }: AppDataPropType) {
         {items.map(
           (center, index) =>
             hasPlan(center) && (
-              <React.Fragment key={center.id || index}>
+              <React.Fragment key={center._id || index}>
                 {center.courses.map(
                   (course) =>
                     course.plans &&
                     course.plans.length > 0 && (
                       <CourceDetailCard
-                        key={course.id}
+                        key={course._id}
                         center={center}
                         course={course}
                       />

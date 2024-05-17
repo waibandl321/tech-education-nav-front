@@ -12,8 +12,8 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { ChipOwnProps } from "@mui/material";
-import { LearningCenterCourse } from "./API";
-import { fetchDataByKey } from "./hooks/server/fetchData";
+import { Course } from "@/types/APIDataType";
+import { fetchDataByKey } from "./hooks/server/fetchDataClone";
 
 // アイコンの型を定義
 type IconType = React.ElementType;
@@ -21,8 +21,6 @@ type IconType = React.ElementType;
 // 技術領域ごとのナビゲーションリンク情報の型定義
 interface TechNavigationLink {
   name: string;
-  // 検索結果のpage title算出処理で使用
-  afterText: string;
   navigationTitle: string;
   href: string;
   Icon: IconType;
@@ -30,12 +28,12 @@ interface TechNavigationLink {
   ssrFetchFunction: () => Promise<any>;
   searchSelectTitle: string;
   breadcrumbText: string;
-  selectionTypeParam: keyof LearningCenterCourse;
+  selectionTypeParam: keyof Course;
 }
 
 // オプション検索のナビゲーションリンクの型定義
 interface OptionNavigationLink {
-  key: keyof LearningCenterCourse;
+  key: keyof Course;
   optionName: string;
   title: string;
   href: string;
@@ -50,19 +48,19 @@ interface TechNavigationLinkMap {
 
 // 受講スタイル
 export const AttendanceTypeLabels = [
-  { id: "ONLINE", name: "オンライン" },
-  { id: "OFFLINE", name: "オフライン" },
-  { id: "HYBRID", name: "どちらでも可" },
+  { _id: "ONLINE", name: "オンライン" },
+  { _id: "OFFLINE", name: "オフライン" },
+  { _id: "HYBRID", name: "どちらでも可" },
 ];
 
 // 受講目的 オプション
 export const PurposeOptions = [
-  { id: "JOB", name: "就職/転職" },
-  { id: "FREELANCE", name: "フリーランス" },
-  { id: "ENTREPRENEURSHIP", name: "起業" },
-  { id: "SIDEBUSINESS", name: "副業" },
-  { id: "CERTIFICATION", name: "資格取得" },
-  { id: "LEARNING", name: "学習/スキルアップ" },
+  { _id: "JOB", name: "就職/転職" },
+  { _id: "FREELANCE", name: "フリーランス" },
+  { _id: "ENTREPRENEURSHIP", name: "起業" },
+  { _id: "SIDEBUSINESS", name: "副業" },
+  { _id: "CERTIFICATION", name: "資格取得" },
+  { _id: "LEARNING", name: "学習/スキルアップ" },
 ];
 
 // コースオプションMap
@@ -71,7 +69,7 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
     key: "isAvailableMoneyBack",
     optionName: "返金保証あり",
     title: "返金保証があるスクールを探す",
-    href: "/search/feature/isAvailableMoneyBack?isAvailableMoneyBack=true",
+    href: "/search?isAvailableMoneyBack=true",
     color: "primary",
     Icon: MoneyOffIcon,
   },
@@ -79,7 +77,7 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
     key: "isAvailableSubsidy",
     optionName: "補助金あり",
     title: "補助金を使えるスクールを探す",
-    href: "/search/feature/isAvailableSubsidy?isAvailableSubsidy=true",
+    href: "/search?isAvailableSubsidy=true",
     color: "secondary",
     Icon: AccountBalanceIcon,
   },
@@ -87,14 +85,14 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
     key: "isMadeToOrder",
     optionName: "オーダーメイドカリキュラムあり",
     title: "オーダーメイドカリキュラムのスクールを探す",
-    href: "/search/feature/isMadeToOrder?isMadeToOrder=true",
+    href: "/search?isMadeToOrder?isMadeToOrder=true",
     color: "error",
     Icon: BuildIcon,
   },
   {
     key: "isJobIntroductionAvailable",
     optionName: "案件紹介あり",
-    href: "/search/feature/isJobIntroductionAvailable?isJobIntroductionAvailable=true",
+    href: "/search?isJobIntroductionAvailable=true",
     title: "案件紹介のあるスクールを探す",
     color: "warning",
     Icon: AssignmentTurnedInIcon,
@@ -103,7 +101,7 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
     key: "isJobHuntingSupport",
     optionName: "転職サポートあり",
     title: "転職サポートがあるスクールを探す",
-    href: "/search/feature/isJobHuntingSupport?isJobHuntingSupport=true",
+    href: "/search?isJobHuntingSupport=true",
     color: "default",
     Icon: SupportAgentIcon,
   },
@@ -111,7 +109,7 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
     key: "isJobHuntingGuarantee",
     title: "転職保証があるスクールを探す",
     optionName: "転職保証あり",
-    href: "/search/feature/isJobHuntingGuarantee?isJobHuntingGuarantee=true",
+    href: "/search?isJobHuntingGuarantee=true",
     color: "success",
     Icon: SecurityIcon,
   },
@@ -120,7 +118,6 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
 export const navLinksMapByTech: TechNavigationLinkMap = {
   programmingLanguages: {
     name: "プログラミング言語一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "プログラミング言語から探す",
     href: "/search/technique/programmingLanguages",
     Icon: CodeIcon,
@@ -131,7 +128,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   frameworks: {
     name: "フレームワーク一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "フレームワークから探す",
     href: "/search/technique/frameworks",
     Icon: WebAssetIcon,
@@ -142,7 +138,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   libraries: {
     name: "ライブラリ/API一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "ライブラリ/APIから探す",
     href: "/search/technique/libraries",
     Icon: ApiIcon,
@@ -153,7 +148,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   developmentTools: {
     name: "ツール一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "ツールから探す",
     href: "/search/technique/developmentTools",
     Icon: BuildIcon,
@@ -164,7 +158,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   developmentCategories: {
     name: "開発分野一覧",
-    afterText: "を学べるプログラミングスクールのコース一覧",
     navigationTitle: "開発分野から探す",
     href: "/search/technique/developmentCategories",
     Icon: DeveloperModeIcon,
@@ -175,7 +168,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   developmentProducts: {
     name: "サービス一覧",
-    afterText: "を作りたい人におすすめのプログラミングスクールのコース一覧",
     navigationTitle: "作りたいサービスから探す",
     href: "/search/technique/developmentProducts",
     Icon: LightbulbIcon,
@@ -186,7 +178,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   qualifications: {
     name: "資格一覧",
-    afterText: "を取得したい人におすすめのプログラミングスクールのコース一覧",
     navigationTitle: "取得したい資格から探す",
     href: "/search/technique/qualifications",
     Icon: SchoolIcon,
@@ -197,7 +188,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   jobTypes: {
     name: "職種一覧",
-    afterText: "を目指す人におすすめのプログラミングスクールのコース一覧",
     navigationTitle: "なりたい職種から探す",
     href: "/search/technique/jobTypes",
     Icon: WorkIcon,
@@ -208,7 +198,6 @@ export const navLinksMapByTech: TechNavigationLinkMap = {
   },
   purposes: {
     name: "受講目的一覧",
-    afterText: "を目指す人におすすめのプログラミングスクールのコース一覧",
     navigationTitle: "受講目的から探す",
     href: "/search/technique/purposes",
     Icon: WorkIcon,

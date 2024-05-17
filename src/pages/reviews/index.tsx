@@ -3,10 +3,10 @@ import { Container, Typography, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
-import { fetchDataByKey } from "@/hooks/server/fetchData";
+import { fetchDataByKey } from "@/hooks/server/fetchDataClone";
 import { CentersAndCoursesPropType } from "@/types/CommonType";
 import AutoCompleteSchoolCourse from "@/components/common/section/AutoCompleteSchoolCourse";
-import { LearningCenter, LearningCenterCourse } from "@/API";
+import { School, Course } from "@/types/APIDataType";
 import { useRouter } from "next/router";
 
 export default function Search({
@@ -14,11 +14,8 @@ export default function Search({
   courses,
 }: CentersAndCoursesPropType) {
   const router = useRouter();
-  const [selectedCenter, setSelectedCenter] = useState<LearningCenter | null>(
-    null
-  );
-  const [selectedCourse, setSelectedCourse] =
-    useState<LearningCenterCourse | null>(null);
+  const [selectedCenter, setSelectedCenter] = useState<School | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     // コースが選択されている状態でスクールが削除された場合、コースを初期化
@@ -27,14 +24,14 @@ export default function Search({
       return;
     }
     // コースが選択されている状態でスクールが変更された場合、コースを初期化
-    if (selectedCenter.id !== selectedCourse?.learningCenterId) {
+    if (selectedCenter._id !== selectedCourse?.schoolId) {
       setSelectedCourse(null);
       return;
     }
     // 共に選択されている場合は検索処理を実行する
     if (selectedCenter && selectedCourse) {
-      if (!selectedCenter?.id || !selectedCourse?.id) return;
-      router.push(`/reviews/${selectedCenter.id}/${selectedCourse.id}`);
+      if (!selectedCenter?._id || !selectedCourse?._id) return;
+      router.push(`/reviews/${selectedCenter._id}/${selectedCourse._id}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCenter, selectedCourse]);
