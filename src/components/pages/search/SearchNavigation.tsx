@@ -26,6 +26,8 @@ import { useRouter } from "next/router";
 import { fetchCourseMaxPrice } from "@/hooks/server/fetchDataClone";
 import { ParsedUrlQuery } from "querystring";
 
+const PRICE_CONVERSION_RATE = 10000;
+
 export default function SearchNavigation({
   drawerWidth,
   closeMobileNav,
@@ -61,7 +63,7 @@ export default function SearchNavigation({
             acc[key] = valuesArray[0] === "true";
           } else if (key === "minPrice" || key === "maxPrice") {
             // クエリパラメータを「万円」の単位に変換
-            acc[key] = Math.ceil(Number(value) / 10000);
+            acc[key] = Math.ceil(Number(value) / PRICE_CONVERSION_RATE);
           } else {
             acc[key] = valuesArray;
           }
@@ -78,6 +80,25 @@ export default function SearchNavigation({
     ...searchConditions,
   });
   const [searchQuery, setSearchQuery] = useState<ParsedUrlQuery>(router.query);
+
+  /**
+   * クエリパラメーターの更新処理
+   */
+  const updateQueryParam = (name: string, value: any) => {
+    const currentQuery = { ...router.query };
+
+    if (Array.isArray(value) && value.length === 0) {
+      delete currentQuery[name];
+    } else if (Array.isArray(value) && value.length > 0) {
+      currentQuery[name] = value.join(",");
+    } else if (typeof value === "boolean" && value) {
+      currentQuery[name] = value.toString();
+    } else {
+      delete currentQuery[name];
+    }
+
+    setSearchQuery(currentQuery);
+  };
 
   /**
    * セレクトボックスとチェックボックスの変更ハンドラ
@@ -104,23 +125,8 @@ export default function SearchNavigation({
       return updatedFilterResults;
     });
 
-    // 現在のクエリパラメータを取得
-    const currentQuery = { ...router.query };
-
-    if (Array.isArray(value) && value.length === 0) {
-      // valueが空の配列の場合、何もしないで既存のクエリパラメータを削除
-      delete currentQuery[name];
-    } else if (Array.isArray(value) && value.length > 0) {
-      // 配列をカンマで連結し、URLエンコードを行う
-      currentQuery[name] = value.join(",");
-    } else if (typeof value === "boolean" && value) {
-      // valueがbooleanの場合、文字列に変換
-      currentQuery[name] = value.toString();
-    } else {
-      delete currentQuery[name];
-    }
-
-    setSearchQuery(currentQuery);
+    // クエリパラメーターを更新
+    updateQueryParam(name, value);
   };
 
   /**
@@ -136,10 +142,10 @@ export default function SearchNavigation({
       [name]: value === "" ? null : Number(value),
     }));
 
-    setSearchQuery((prevSearchQuery) => ({
-      ...prevSearchQuery,
-      [name]: value === "" ? "" : String(Number(value) * 10000),
-    }));
+    updateQueryParam(
+      name,
+      value === "" ? "" : String(Number(value) * PRICE_CONVERSION_RATE)
+    );
   };
 
   /**
@@ -177,7 +183,9 @@ export default function SearchNavigation({
     setFilterResult((prevFilterResult) => ({
       ...prevFilterResult,
       minPrice: prevFilterResult.minPrice, // min price
-      maxPrice: max.maxPrice ? Math.ceil(max.maxPrice / 10000) : 0, // max price
+      maxPrice: max.maxPrice
+        ? Math.ceil(max.maxPrice / PRICE_CONVERSION_RATE)
+        : 0, // max price
     }));
   };
 
@@ -188,10 +196,10 @@ export default function SearchNavigation({
     setFilterResult((prevFilterResult) => ({
       ...prevFilterResult,
       minPrice: router.query.minPrice
-        ? Math.ceil(Number(router.query.minPrice) / 10000)
+        ? Math.ceil(Number(router.query.minPrice) / PRICE_CONVERSION_RATE)
         : prevFilterResult.minPrice, // min price
       maxPrice: router.query.maxPrice
-        ? Math.ceil(Number(router.query.maxPrice) / 10000)
+        ? Math.ceil(Number(router.query.maxPrice) / PRICE_CONVERSION_RATE)
         : prevFilterResult.maxPrice, // max price
     }));
 
@@ -223,11 +231,11 @@ export default function SearchNavigation({
       ...searchQuery,
       minPrice:
         filterResult.minPrice !== null
-          ? String(filterResult.minPrice * 10000)
+          ? String(filterResult.minPrice * PRICE_CONVERSION_RATE)
           : undefined,
       maxPrice:
         filterResult.maxPrice !== null
-          ? String(filterResult.maxPrice * 10000)
+          ? String(filterResult.maxPrice * PRICE_CONVERSION_RATE)
           : undefined,
     };
     // URLを更新 (更新したクエリパラメータを含める)
