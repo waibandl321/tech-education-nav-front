@@ -67,7 +67,7 @@ export default function ReviewPostPane({
         ...reviewFormData,
       })
     );
-    router.push(`/review/register/${center.id}/${course.id}/confirm`);
+    router.push(`/review/register/${center._id}/${course._id}/confirm`);
   };
 
   useEffect(() => {
@@ -170,7 +170,7 @@ export default function ReviewPostPane({
           handleSubmit={handleSubmit}
           handleBack={() =>
             router.push(
-              `/review/register/select?centerId=${center.id}&courseId=${course.id}`
+              `/review/register/select?centerId=${center._id}&courseId=${course._id}`
             )
           }
         />

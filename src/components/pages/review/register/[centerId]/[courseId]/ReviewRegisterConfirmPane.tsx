@@ -69,8 +69,8 @@ export default function ReviewRegisterConfirmPane({
         userPrefecture: userInfo?.prefecture,
         userAge: String(userInfo?.age),
         studyLengthMonths: reviewInfo?.studyLengthMonths ?? 0,
-        learningCenterId: center.id,
-        learningCenterCourseId: course.id,
+        learningCenterId: center._id,
+        learningCenterCourseId: course._id,
         rating: reviewInfo?.rating ?? 0,
         reviewTitle: reviewInfo?.reviewTitle ?? "",
         reviewDetail: reviewInfo?.reviewDetail ?? "",
@@ -207,7 +207,7 @@ export default function ReviewRegisterConfirmPane({
           backText="戻る"
           handleSubmit={handleSubmit}
           handleBack={() =>
-            router.push(`/review/register/${center.id}/${course.id}/comment`)
+            router.push(`/review/register/${center._id}/${course._id}/comment`)
           }
         />
       </Card>
