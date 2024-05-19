@@ -15,11 +15,35 @@ type ExtendedLearningCenter = School & {
 
 type ItemsByLangId<T> = { [key: string]: Array<T> };
 
+export type SearchFilter = {
+  minPrice: number | null;
+  maxPrice: number | null;
+  isAvailableMoneyBack: boolean;
+  isAvailableSubsidy: boolean;
+  isMadeToOrder: boolean;
+  isJobIntroductionAvailable: boolean;
+  isJobHuntingSupport: boolean;
+  isJobHuntingGuarantee: boolean;
+  attendanceType: string[];
+  purposes: string[];
+  benefitUserCategories: string[];
+  developmentCategories: string[];
+  developmentProducts: string[];
+  qualifications: string[];
+  jobTypes: string[];
+  programmingLanguages: string[];
+  frameworks: string[];
+  developmentTools: string[];
+  libraries: string[];
+};
+
 /**
  * フィルタ結果 初期値
  * src/components/pages/search/SearchNavigation.tsx
  */
-export const initFilterResults = {
+export const initFilterResults: SearchFilter = {
+  minPrice: null,
+  maxPrice: null,
   isAvailableMoneyBack: false,
   isAvailableSubsidy: false,
   isMadeToOrder: false,
@@ -37,15 +61,13 @@ export const initFilterResults = {
   frameworks: [],
   developmentTools: [],
   libraries: [],
-} as const;
-
-export type FilterResult = typeof initFilterResults;
+};
 
 export default function useSearch() {
   /**
    * store
    */
-  const searchData = useAppSelector((state) => state.searchData);
+  const searchData = useAppSelector((state) => state.searchData).data;
 
   /**
    * @param center スクール情報

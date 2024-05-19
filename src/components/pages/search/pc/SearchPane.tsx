@@ -4,23 +4,43 @@ import Toolbar from "@mui/material/Toolbar";
 import React, { useMemo } from "react";
 import SearchNavigation from "@/components/pages/search/SearchNavigation";
 import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
-import { AppDataPropType } from "@/types/CommonType";
 import useSearch from "@/hooks/useSearch";
+import { useAppSelector } from "@/lib/hooks";
+import { Course } from "@/types/APIDataType";
 
 const drawerWidth = 360;
 
-export default function PCSearchPane({ ...props }: AppDataPropType) {
+export default function PCSearchPane({ courses }: { courses: Course[] }) {
   // hooks
   const { hasPlan, getComputedCenters } = useSearch();
+  // store
+  const searchData = useAppSelector((state) => state.searchData).data;
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(
-    () => getComputedCenters(props.centers, props.courses),
-    [props.centers, props.courses, getComputedCenters]
+    () => getComputedCenters(searchData.centers, courses),
+    [searchData.centers, courses, getComputedCenters]
   );
 
   return (
     <Box sx={{ display: "flex", pb: 8 }}>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            backgroundColor: "transparent",
+            border: "none",
+          },
+        }}
+        anchor="left"
+      >
+        <Toolbar />
+        <SearchNavigation drawerWidth={drawerWidth} />
+      </Drawer>
       <Box component="main" sx={{ flexGrow: 1, mx: 2, pt: 2 }}>
         {items.map(
           (center, index) =>
@@ -41,23 +61,6 @@ export default function PCSearchPane({ ...props }: AppDataPropType) {
             )
         )}
       </Box>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            backgroundColor: "transparent",
-            borderLeft: "none",
-          },
-        }}
-        anchor="right"
-      >
-        <Toolbar />
-        <SearchNavigation />
-      </Drawer>
     </Box>
   );
 }

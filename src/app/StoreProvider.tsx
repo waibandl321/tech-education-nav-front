@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 
 // StoreProviderの引数型
 interface StoreProviderProps {
-  initialReduxState?: ReduxRootState;
   children: React.ReactNode;
 }
 
@@ -13,14 +12,11 @@ interface StoreProviderProps {
  * @param initialReduxState SSRでストアにデータを保存した際の初期状態
  * @returns JSX.Element
  */
-export default function StoreProvider({
-  initialReduxState,
-  children,
-}: StoreProviderProps) {
+export default function StoreProvider({ children }: StoreProviderProps) {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) {
     // 最初のレンダリング時にストアインスタンスを作成する
-    storeRef.current = initializeStore(initialReduxState);
+    storeRef.current = initializeStore();
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;

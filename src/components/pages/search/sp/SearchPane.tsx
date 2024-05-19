@@ -18,8 +18,9 @@ import ListItemText from "@mui/material/ListItemText";
 import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
 import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
-import { AppDataPropType } from "@/types/CommonType";
 import useSearch from "@/hooks/useSearch";
+import { useAppSelector } from "@/lib/hooks";
+import { Course } from "@/types/APIDataType";
 
 // メニュー関連のスタイル
 const Root = styled("div")(({ theme }) => ({
@@ -46,9 +47,11 @@ const Puller = styled("div")(({ theme }) => ({
 const drawerBleeding = 56;
 const drawerWidth = 300;
 
-export default function SPSearchPane({ ...props }: AppDataPropType) {
+export default function SPSearchPane({ courses }: { courses: Course[] }) {
   // hooks
   const { hasPlan, getComputedCenters } = useSearch();
+  // store
+  const searchData = useAppSelector((state) => state.searchData).data;
 
   // state
   const [open, setOpen] = React.useState(false);
@@ -59,8 +62,8 @@ export default function SPSearchPane({ ...props }: AppDataPropType) {
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(
-    () => getComputedCenters(props.centers, props.courses),
-    [props.centers, props.courses, getComputedCenters]
+    () => getComputedCenters(searchData.centers, courses),
+    [searchData.centers, courses, getComputedCenters]
   );
 
   const SwipeIcon = () => {
@@ -132,7 +135,12 @@ export default function SPSearchPane({ ...props }: AppDataPropType) {
             overflow: "auto",
           }}
         >
-          {<SearchNavigation />}
+          {
+            <SearchNavigation
+              drawerWidth={0}
+              closeMobileNav={() => setOpen(false)}
+            />
+          }
         </StyledBox>
       </SwipeableDrawer>
       <Box

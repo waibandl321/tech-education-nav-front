@@ -4,13 +4,13 @@ import axios from "axios";
 
 // axiosインスタンス
 const axiosInstance = axios.create({
-  baseURL: "https://api.tech-education-nav.com/",
+  baseURL: "http://localhost:8080/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-const fetchList = async <T>(path: string): Promise<T[]> => {
+const _fetch = async <T>(path: string): Promise<T> => {
   const res = await axiosInstance.get(`${path}`);
   return res.data;
 };
@@ -21,47 +21,47 @@ const fetchList = async <T>(path: string): Promise<T[]> => {
 const ssrMasterQueryMap = {
   centers: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/school/list"),
+      await _fetch("/api/master/school/list"),
   },
   courses: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/course/list"),
+      await _fetch("/api/master/course/list"),
   },
   programmingLanguages: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/language/list"),
+      await _fetch("/api/master/language/list"),
   },
   frameworks: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/framework/list"),
+      await _fetch("/api/master/framework/list"),
   },
   libraries: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/library/list"),
+      await _fetch("/api/master/library/list"),
   },
   developmentTools: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/development-tool/list"),
+      await _fetch("/api/master/development-tool/list"),
   },
   jobTypes: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/job-type/list"),
+      await _fetch("/api/master/job-type/list"),
   },
   developmentCategories: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/development-category/list"),
+      await _fetch("/api/master/development-category/list"),
   },
   developmentProducts: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/development-product/list"),
+      await _fetch("/api/master/development-product/list"),
   },
   qualifications: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/qualification/list"),
+      await _fetch("/api/master/qualification/list"),
   },
   benefitUserCategories: {
     callback: async <T>(): Promise<T[]> =>
-      await fetchList("/api/master/benefit-user-category/list"),
+      await _fetch("/api/master/benefit-user-category/list"),
   },
 };
 
@@ -119,7 +119,7 @@ const fetchCourses = async (queryParams: { [key: string]: any }) => {
     .join("&");
 
   try {
-    const results = await fetchList(`/api/master/course/list?${query}`);
+    const results = await _fetch(`/api/master/course/list?${query}`);
     return {
       courses: results,
     };
@@ -127,6 +127,23 @@ const fetchCourses = async (queryParams: { [key: string]: any }) => {
     console.error("Error fetching courses:", error);
     return {
       courses: [],
+    };
+  }
+};
+
+/**
+ * 全コースの最高料金を取得
+ * @returns maxPrice
+ */
+export const fetchCourseMaxPrice = async () => {
+  try {
+    return await _fetch<{ maxPrice: number | null }>(
+      "/api/master/course/max-price"
+    );
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    return {
+      maxPrice: null,
     };
   }
 };

@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import searchDataSlice from "@/lib/features/search/searchDataSlice";
+import masterDataSlice from "@/lib/features/search/masterDataSlice";
 
 // ReduxRootState 型定義
 export type ReduxRootState = {
-  searchData: ReturnType<typeof searchDataSlice>;
+  searchData: ReturnType<typeof masterDataSlice>;
 };
 
 // ストアの初期化
 export const initializeStore = (preloadedState?: ReduxRootState) => {
   return configureStore({
     reducer: {
-      searchData: searchDataSlice,
+      searchData: masterDataSlice,
     },
     // 初期状態として引数をストアに渡す
     preloadedState,

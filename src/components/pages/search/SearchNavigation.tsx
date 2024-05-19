@@ -10,28 +10,36 @@ import {
   FormControlLabel,
   Checkbox,
   OutlinedInput,
-  Slider,
   SelectChangeEvent,
   ListItemText,
+  TextField,
+  InputAdornment,
+  Paper,
+  Button,
 } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { AttendanceTypeLabels, PurposeOptions } from "@/const";
 import { useAppSelector } from "@/lib/hooks";
-import useSearch, { FilterResult, initFilterResults } from "@/hooks/useSearch";
+import useSearch, { SearchFilter, initFilterResults } from "@/hooks/useSearch";
 import { MasterDataBasicType } from "@/types/CommonType";
 import { useRouter } from "next/router";
+import { fetchCourseMaxPrice } from "@/hooks/server/fetchDataClone";
+import { ParsedUrlQuery } from "querystring";
 
-const MAX = 150;
-const MIN = 0;
-
-export default function SearchNavigation() {
+export default function SearchNavigation({
+  drawerWidth,
+  closeMobileNav,
+}: {
+  drawerWidth: number;
+  closeMobileNav?: () => void;
+}) {
   // hooks
   const router = useRouter();
   const { getMasterItemsByLang, getLanguagesById, getLanguageName } =
     useSearch();
 
   // store
-  const searchData = useAppSelector((state) => state.searchData);
+  const searchData = useAppSelector((state) => state.searchData).data;
 
   // デバイス判定
   const isMobile = useMediaQuery("(max-width:640px)");
@@ -51,6 +59,9 @@ export default function SearchNavigation() {
             (valuesArray[0] === "true" || valuesArray[0] === "false")
           ) {
             acc[key] = valuesArray[0] === "true";
+          } else if (key === "minPrice" || key === "maxPrice") {
+            // クエリパラメータを「万円」の単位に変換
+            acc[key] = Math.ceil(Number(value) / 10000);
           } else {
             acc[key] = valuesArray;
           }
@@ -59,18 +70,24 @@ export default function SearchNavigation() {
         }
         return acc;
       }, {});
-  }, [router]);
+  }, [router.query]);
 
   // state
-  const [filterResult, setFilterResult] = useState<FilterResult>({
+  const [filterResult, setFilterResult] = useState<SearchFilter>({
     ...initFilterResults,
     ...searchConditions,
   });
-  const [rangeValue, setRangeValue] = useState<number[]>([20, 37]);
+  const [searchQuery, setSearchQuery] = useState<ParsedUrlQuery>(router.query);
 
-  // 選択値の更新
+  /**
+   * セレクトボックスとチェックボックスの変更ハンドラ
+   * stateの更新と、検索クエリの生成を行っている。
+   * @param event
+   */
   const handlerFormChange = (
-    event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<readonly []>
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | SelectChangeEvent<string[] | string>
   ) => {
     const target = event.target;
     const name = target.name;
@@ -96,24 +113,38 @@ export default function SearchNavigation() {
     } else if (Array.isArray(value) && value.length > 0) {
       // 配列をカンマで連結し、URLエンコードを行う
       currentQuery[name] = value.join(",");
-    } else if (value) {
+    } else if (typeof value === "boolean" && value) {
       // valueがbooleanの場合、文字列に変換
       currentQuery[name] = value.toString();
     } else {
       delete currentQuery[name];
     }
 
-    // URLを更新 (クエリパラメータを含む)
-    router.push(
-      {
-        pathname: router.pathname,
-        query: currentQuery,
-      },
-      undefined
-    );
+    setSearchQuery(currentQuery);
   };
 
-  // クエリパラメータの変化に応じてfilterResultを更新
+  /**
+   * 価格変更ハンドラ
+   * @param event
+   */
+  const handlePriceChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setFilterResult((prevFilterResult) => ({
+      ...prevFilterResult,
+      [name]: value === "" ? null : Number(value),
+    }));
+
+    setSearchQuery((prevSearchQuery) => ({
+      ...prevSearchQuery,
+      [name]: value === "" ? "" : String(Number(value) * 10000),
+    }));
+  };
+
+  /**
+   * searchConditionsの変更に応じてfilterResultを更新
+   */
   useEffect(() => {
     setFilterResult((prevFilterResult) => ({
       ...prevFilterResult,
@@ -121,7 +152,10 @@ export default function SearchNavigation() {
     }));
   }, [searchConditions]);
 
-  // イベントリスナーを追加してURLの変更を監視
+  /**
+   * イベントリスナーを追加してURLの変更を監視
+   * ブラウザバックの場合にURLの変更をリアクティブに検知するための処理
+   */
   useEffect(() => {
     const handleRouteChange = () => {
       setFilterResult({
@@ -129,22 +163,50 @@ export default function SearchNavigation() {
         ...searchConditions,
       });
     };
-
     router.events.on("routeChangeComplete", handleRouteChange);
-
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events, searchConditions]);
 
   /**
-   * selectbox 選択名を取得
-   * @param selectedValues 選択値
-   * @returns 選択した値の名称（マスタデータのnameを結合して返す）
+   * コース一覧の中で最高値を取得し、料金レンジのMaxにセットする
    */
+  const fetchMaxPrice = async () => {
+    const max = await fetchCourseMaxPrice();
+    setFilterResult((prevFilterResult) => ({
+      ...prevFilterResult,
+      minPrice: prevFilterResult.minPrice, // min price
+      maxPrice: max.maxPrice ? Math.ceil(max.maxPrice / 10000) : 0, // max price
+    }));
+  };
 
+  /**
+   * クエリの値を元に、minPrice, maxPriceをセットする
+   */
+  useEffect(() => {
+    setFilterResult((prevFilterResult) => ({
+      ...prevFilterResult,
+      minPrice: router.query.minPrice
+        ? Math.ceil(Number(router.query.minPrice) / 10000)
+        : prevFilterResult.minPrice, // min price
+      maxPrice: router.query.maxPrice
+        ? Math.ceil(Number(router.query.maxPrice) / 10000)
+        : prevFilterResult.maxPrice, // max price
+    }));
+
+    if (!router.query.minPrice && !router.query.maxPrice) {
+      fetchMaxPrice();
+    }
+  }, [router.query]);
+
+  /**
+   * select 選択値の名称を返す
+   * @param selectedValues 選択値
+   * @param arr 選択オプションの配列
+   */
   const getSelectValueText = <T extends MasterDataBasicType>(
-    selectedValues: readonly [],
+    selectedValues: string[],
     arr: T[]
   ) => {
     return selectedValues
@@ -152,13 +214,34 @@ export default function SearchNavigation() {
       .join(", ");
   };
 
-  // 料金レンジ（仮）
-  const handleChangeRange = (event: Event, newValue: number | number[]) => {
-    setRangeValue(newValue as number[]);
+  /**
+   * 検索実行
+   */
+  const handlerFilter = async () => {
+    // 金額を再度「万円」の単位に変換して保存
+    const updatedSearchQuery = {
+      ...searchQuery,
+      minPrice:
+        filterResult.minPrice !== null
+          ? String(filterResult.minPrice * 10000)
+          : undefined,
+      maxPrice:
+        filterResult.maxPrice !== null
+          ? String(filterResult.maxPrice * 10000)
+          : undefined,
+    };
+    // URLを更新 (更新したクエリパラメータを含める)
+    router.push(
+      {
+        pathname: router.pathname,
+        query: updatedSearchQuery,
+      },
+      undefined
+    );
+    if (isMobile && closeMobileNav) {
+      closeMobileNav();
+    }
   };
-  function rangeValueText(value: number) {
-    return `${value}万円`;
-  }
 
   // 言語IDをkeyにしたオブジェクト配列
   const languagesById = useMemo(() => {
@@ -197,8 +280,15 @@ export default function SearchNavigation() {
     <Card
       sx={
         isMobile
-          ? { overflow: "auto", p: 2 }
-          : { overflow: "auto", mr: 2, mb: 8, p: 2 }
+          ? { overflow: "auto", mb: 8, pb: 10, p: 2, position: "relative" }
+          : {
+              overflow: "auto",
+              ml: 2,
+              mb: 8,
+              p: 2,
+              position: "relative",
+              pb: 10,
+            }
       }
       variant="outlined"
     >
@@ -209,31 +299,45 @@ export default function SearchNavigation() {
           </Typography>
         </Box>
 
-        <Box sx={{ mt: 2 }}>
-          <Typography
-            textAlign="center"
-            variant="body2"
-            fontWeight={700}
-          >{`${rangeValue[0]}万円以上 〜 ${rangeValue[1]}万円以下`}</Typography>
-          <Slider
-            getAriaLabel={() => "Temperature range"}
-            value={rangeValue}
-            onChange={handleChangeRange}
-            valueLabelDisplay="auto"
-            getAriaValueText={rangeValueText}
-            step={5}
-            min={MIN}
-            max={MAX}
-          />
-          <Box
-            sx={{ display: "flex", justifyContent: "space-between", mt: -1 }}
-          >
-            <Typography variant="caption" sx={{ cursor: "pointer" }}>
-              5万円以下
-            </Typography>
-            <Typography variant="caption" sx={{ cursor: "pointer" }}>
-              {MAX}万円
-            </Typography>
+        <Box sx={{ mt: 2 }} display="flex" alignItems="center">
+          <Box>
+            <TextField
+              value={
+                filterResult.minPrice !== null ? filterResult.minPrice : ""
+              }
+              name="minPrice"
+              type="number"
+              size="small"
+              onChange={(event) => handlePriceChange(event)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Typography fontSize={12}>万円</Typography>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+          <Box sx={{ mx: 1 }}>
+            <span>〜</span>
+          </Box>
+          <Box>
+            <TextField
+              value={
+                filterResult.maxPrice !== null ? filterResult.maxPrice : ""
+              }
+              name="maxPrice"
+              type="number"
+              size="small"
+              onChange={(event) => handlePriceChange(event)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Typography fontSize={12}>万円</Typography>
+                  </InputAdornment>
+                ),
+              }}
+            />
           </Box>
         </Box>
       </Box>
@@ -324,6 +428,7 @@ export default function SearchNavigation() {
         </Box>
         <FormControl fullWidth>
           <Select
+            size="small"
             id="select-attendance-type"
             value={filterResult.attendanceType}
             name="attendanceType"
@@ -355,6 +460,7 @@ export default function SearchNavigation() {
         </Box>
         <FormControl fullWidth>
           <Select
+            size="small"
             id="select-purposes"
             value={filterResult.purposes}
             name="purposes"
@@ -387,6 +493,7 @@ export default function SearchNavigation() {
         </Box>
         <FormControl fullWidth>
           <Select
+            size="small"
             id="select-benefit-user-categories"
             value={filterResult.benefitUserCategories}
             name="benefitUserCategories"
@@ -424,6 +531,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
+              size="small"
               id="select-development-categories"
               value={filterResult.developmentCategories}
               name="developmentCategories"
@@ -459,6 +567,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
+              size="small"
               id="select-development-products"
               value={filterResult.developmentProducts}
               name="developmentProducts"
@@ -494,6 +603,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
+              size="small"
               id="select-qualifications"
               value={filterResult.qualifications}
               name="qualifications"
@@ -529,6 +639,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
+              size="small"
               id="select-job-types"
               value={filterResult.jobTypes}
               name="jobTypes"
@@ -562,6 +673,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
+              size="small"
               id="select-programming-languages"
               value={filterResult.programmingLanguages}
               name="programmingLanguages"
@@ -597,6 +709,7 @@ export default function SearchNavigation() {
         <Box>
           <FormControl fullWidth>
             <Select
+              size="small"
               id="select-frameworks"
               name="frameworks"
               value={filterResult.frameworks}
@@ -640,6 +753,7 @@ export default function SearchNavigation() {
         </Box>
         <FormControl fullWidth>
           <Select
+            size="small"
             id="select-libraries"
             name="libraries"
             value={filterResult.libraries}
@@ -679,6 +793,7 @@ export default function SearchNavigation() {
         </Box>
         <FormControl fullWidth>
           <Select
+            size="small"
             id="select-development-tools"
             name="developmentTools"
             value={filterResult.developmentTools}
@@ -706,6 +821,29 @@ export default function SearchNavigation() {
           </Select>
         </FormControl>
       </Box>
+      <Paper
+        sx={{
+          position: "fixed",
+          bottom: isMobile ? 0 : 54,
+          left: isMobile ? 0 : 16,
+          right: isMobile ? 0 : 16,
+          zIndex: 3,
+          width: isMobile ? "100%" : drawerWidth - 16,
+        }}
+        elevation={4}
+      >
+        <Card sx={{ p: 2, backgroundColor: "#f5f5f5" }} variant="elevation">
+          <Button
+            size="large"
+            variant="contained"
+            fullWidth
+            sx={{ fontWeight: "bold" }}
+            onClick={handlerFilter}
+          >
+            検索
+          </Button>
+        </Card>
+      </Paper>
     </Card>
   );
 }

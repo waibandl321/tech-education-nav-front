@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSessionStorage from "@/hooks/utils/useSessionStorage";
 import StoreProvider from "@/app/StoreProvider";
-// import axios from "axios";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -29,15 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   };
 
-  // テスト実装: Reduxデータ保持フラグ管理 cookieを初期化
-  // const handleBeforeUnload = async () => {
-  //   await axios.put("/api/test/redux", {
-  //     body: {
-  //       IS_FETCHED_SEARCH_DATA: "",
-  //     },
-  //   });
-  // };
-
   useEffect(() => {
     // テスト実装: ユーザーがアプリケーションを離脱する際にクッキーを削除
     // window.addEventListener("beforeunload", handleBeforeUnload);
@@ -53,7 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router]);
 
   return (
-    <StoreProvider initialReduxState={preloadedState}>
+    <StoreProvider>
       <LoadingProvider>
         <MessageAlertProvider>
           <Component {...pageProps} />

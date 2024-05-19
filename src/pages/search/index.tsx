@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "@/app/layout";
 import Head from "next/head";
 import {
@@ -10,15 +10,56 @@ import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
 import SPLayout from "@/app/sp-layout";
-import { initializeStore } from "@/lib/store";
-import { setSearchData } from "@/lib/features/search/searchDataSlice";
 import { AppDataPropType } from "@/types/CommonType";
 import { Course } from "@/types/APIDataType";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { ParsedUrlQuery } from "querystring";
+import { useDispatch } from "react-redux";
+import { setMasterArr } from "@/lib/features/search/masterDataSlice";
 
 export default function Index({ ...props }: AppDataPropType) {
   const isMobile = useMediaQuery("(max-width:640px)");
+
+  const dispath = useDispatch();
+
+  // storeにマスタデータを保持
+  useEffect(() => {
+    dispath(setMasterArr({ key: "centers", items: props.centers }));
+    dispath(
+      setMasterArr({
+        key: "programmingLanguages",
+        items: props.programmingLanguages,
+      })
+    );
+    dispath(setMasterArr({ key: "frameworks", items: props.frameworks }));
+    dispath(setMasterArr({ key: "libraries", items: props.libraries }));
+    dispath(
+      setMasterArr({ key: "developmentTools", items: props.developmentTools })
+    );
+    dispath(setMasterArr({ key: "jobTypes", items: props.jobTypes }));
+    dispath(
+      setMasterArr({
+        key: "developmentCategories",
+        items: props.developmentCategories,
+      })
+    );
+    dispath(
+      setMasterArr({
+        key: "developmentProducts",
+        items: props.developmentProducts,
+      })
+    );
+    dispath(
+      setMasterArr({ key: "qualifications", items: props.qualifications })
+    );
+    dispath(
+      setMasterArr({
+        key: "benefitUserCategories",
+        items: props.benefitUserCategories,
+      })
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -30,35 +71,11 @@ export default function Index({ ...props }: AppDataPropType) {
 
       {isMobile ? (
         <SPLayout>
-          <SPSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            programmingLanguages={props.programmingLanguages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <SPSearchPane courses={props.courses} />
         </SPLayout>
       ) : (
         <Layout>
-          <PCSearchPane
-            centers={props.centers}
-            courses={props.courses}
-            programmingLanguages={props.programmingLanguages}
-            frameworks={props.frameworks}
-            libraries={props.libraries}
-            developmentTools={props.developmentTools}
-            jobTypes={props.jobTypes}
-            developmentCategories={props.developmentCategories}
-            developmentProducts={props.developmentProducts}
-            qualifications={props.qualifications}
-            benefitUserCategories={props.benefitUserCategories}
-          />
+          <PCSearchPane courses={props.courses} />
         </Layout>
       )}
     </>
@@ -86,9 +103,6 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
         ? await fetchCoursesByCompoundSearch(searchConditions)
         : await fetchDataByKey("courses"),
     ]);
-    // ストアを初期化してディスパッチ
-    const store = initializeStore();
-    store.dispatch(setSearchData({ ...result, courses: courseResult.courses }));
 
     return {
       props: {
@@ -103,8 +117,6 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
         developmentProducts: result.developmentProducts,
         qualifications: result.qualifications,
         benefitUserCategories: result.benefitUserCategories,
-        // JSON文字列として渡す
-        initialReduxState: JSON.stringify(store.getState()),
       },
     };
   } catch (error) {
