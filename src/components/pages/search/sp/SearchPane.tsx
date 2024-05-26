@@ -13,7 +13,6 @@ import {
   SwipeableDrawer,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import CssBaseline from "@mui/material/CssBaseline";
 import ListItemText from "@mui/material/ListItemText";
 import React, { useMemo } from "react";
 import { Global } from "@emotion/react";
@@ -25,10 +24,7 @@ import { Course } from "@/types/APIDataType";
 // メニュー関連のスタイル
 const Root = styled("div")(({ theme }) => ({
   height: "100%",
-  backgroundColor:
-    theme.palette.mode === "light"
-      ? grey[100]
-      : theme.palette.background.default,
+  backgroundColor: theme.palette.mode === "light" ? grey[100] : theme.palette.background.default,
 }));
 const StyledBox = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
@@ -68,16 +64,13 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
 
   const SwipeIcon = () => {
     if (open) {
-      return (
-        <SwipeDownIcon sx={{ color: "text.secondary", mr: 2 }}></SwipeDownIcon>
-      );
+      return <SwipeDownIcon sx={{ color: "text.secondary", mr: 2 }}></SwipeDownIcon>;
     }
     return <SwipeUpIcon sx={{ color: "text.secondary", mr: 2 }}></SwipeUpIcon>;
   };
 
   return (
-    <Root>
-      <CssBaseline />
+    <>
       <Global
         styles={{
           ".MuiDrawer-root > .MuiPaper-root": {
@@ -109,16 +102,8 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
           }}
         >
           <Puller />
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Typography
-              sx={{ p: 2, color: "text.secondary" }}
-              display="flex"
-              align="center"
-            >
+          <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Typography sx={{ p: 2, color: "text.secondary" }} display="flex" align="center">
               <TuneIcon></TuneIcon>
               <Typography sx={{ ml: 1 }} component="span">
                 絞り込み検索
@@ -135,12 +120,7 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
             overflow: "auto",
           }}
         >
-          {
-            <SearchNavigation
-              drawerWidth={0}
-              closeMobileNav={() => setOpen(false)}
-            />
-          }
+          {<SearchNavigation drawerWidth={0} closeMobileNav={() => setOpen(false)} />}
         </StyledBox>
       </SwipeableDrawer>
       <Box
@@ -152,10 +132,7 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
       >
         <List sx={{ pb: 0 }}>
           <ListItem sx={{ pb: 0 }}>
-            <ListItemText
-              primary="詳細条件"
-              secondary="設定した条件が入る..."
-            />
+            <ListItemText primary="詳細条件" secondary="設定した条件が入る..." />
             <ListItemSecondaryAction>
               <Button onClick={toggleDrawer(true)}>変更する</Button>
             </ListItemSecondaryAction>
@@ -169,17 +146,13 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
                   (course) =>
                     course.plans &&
                     course.plans.length > 0 && (
-                      <CourceDetailCard
-                        key={course._id}
-                        center={center}
-                        course={course}
-                      />
+                      <CourceDetailCard key={course._id} center={center} course={course} />
                     )
                 )}
               </React.Fragment>
             )
         )}
       </Box>
-    </Root>
+    </>
   );
 }

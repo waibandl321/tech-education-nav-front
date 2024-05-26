@@ -1,33 +1,56 @@
 import {
   Box,
   Button,
+  Card,
+  Chip,
+  Container,
   Grid,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
   Typography,
 } from "@mui/material";
+import MuiLink from "@mui/material/Link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Link from "next/link";
 import { navLinksMapByOption, navLinksMapByTech } from "@/const";
 import React from "react";
+import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import DevicesRoundedIcon from "@mui/icons-material/DevicesRounded";
+import EdgesensorHighRoundedIcon from "@mui/icons-material/EdgesensorHighRounded";
+import ViewQuiltRoundedIcon from "@mui/icons-material/ViewQuiltRounded";
+import { useRouter } from "next/router";
 
 export default function HomeNavigation() {
+  const router = useRouter();
+
   return (
-    <Box sx={{ p: 2 }}>
-      <Box sx={{ p: 2 }}>
-        <Link href="/search">検索画面へ</Link>
-      </Box>
-      <Typography borderLeft="5px solid #666" paddingLeft={2} fontWeight="bold">
+    <Container
+      sx={{
+        pt: 4,
+        pb: { xs: 8, sm: 16 },
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: { xs: 3, sm: 6 },
+      }}
+    >
+      <Typography component="h2" variant="h4" color="text.primary">
         技術やビジョンに合ったスクールを探す
       </Typography>
-      <Grid container spacing={1} marginTop={1}>
+      {/* <Typography variant="body1" color="text.secondary">
+        See what our customers love about our products. Discover how we excel in efficiency,
+        durability, and satisfaction. Join us for quality, innovation, and reliable support.
+      </Typography> */}
+      <Grid container spacing={2} marginTop={1}>
         {Object.keys(navLinksMapByTech).map((key) => (
-          <Grid item xs={6} key={key}>
+          <Grid item xs={12} sm={6} key={key}>
             <Button
-              sx={{ display: "block", textAlign: "center", height: "100%" }}
+              sx={{ display: "block", textAlign: "center", height: "fit-content", py: 2 }}
               LinkComponent={Link}
               href={navLinksMapByTech[key].href}
               variant="contained"
@@ -40,41 +63,64 @@ export default function HomeNavigation() {
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ mt: 4 }}>
-        <Typography
-          borderLeft="5px solid #666"
-          paddingLeft={2}
-          fontWeight="bold"
-        >
-          スクールの特徴から探す
-        </Typography>
-        <List sx={{ mt: 1 }}>
-          {navLinksMapByOption.map((item, index) => (
-            <ListItem
-              key={index}
-              secondaryAction={<ChevronRightIcon />}
-              disablePadding
+      <Typography component="h2" variant="h4" color="text.primary" sx={{ mt: 10 }}>
+        スクールの特徴から探す
+      </Typography>
+      {/* <Typography variant="body1" color="text.secondary">
+        See what our customers love about our products. Discover how we excel in efficiency,
+        durability, and satisfaction. Join us for quality, innovation, and reliable support.
+      </Typography> */}
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-start"
+        spacing={2}
+        useFlexGap
+        sx={{ width: "100%", display: { sm: "flex" } }}
+      >
+        {navLinksMapByOption.map(({ Icon, title, href }, index) => (
+          <Card
+            key={index}
+            variant="outlined"
+            component={Button}
+            onClick={() => router.push(href)}
+            sx={{
+              p: 3,
+              height: "fit-content",
+              width: "100%",
+              background: "none",
+              backgroundColor: "rgba(25, 118, 210, 0.04)",
+              borderColor: "grey.200",
+              ":hover": {
+                borderColor: "primary.light",
+              },
+            }}
+          >
+            <Box
               sx={{
-                borderBottom: "1px solid #ccc",
-                ":first-child": {
-                  borderTop: "1px solid #ccc",
-                },
+                width: "100%",
+                display: "flex",
+                textAlign: "left",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: { md: "center" },
+                gap: 2.5,
               }}
             >
-              <ListItemButton
-                LinkComponent={Link}
-                href={item.href}
-                sx={{ px: 0 }}
-              >
-                <ListItemIcon sx={{ minWidth: "unset", mr: 1 }}>
-                  <item.Icon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary={item.title} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-    </Box>
+              <Box sx={{ color: "primary.main" }}>
+                <Icon />
+              </Box>
+              <Box sx={{ textTransform: "none" }}>
+                <Typography color="text.primary" variant="body2" fontWeight="bold">
+                  {title}
+                </Typography>
+                {/* <Typography color="text.secondary" variant="body2" sx={{ my: 0.5 }}>
+                  This item could provide information about the mobile app version of the product.
+                </Typography> */}
+              </Box>
+            </Box>
+          </Card>
+        ))}
+      </Stack>
+    </Container>
   );
 }

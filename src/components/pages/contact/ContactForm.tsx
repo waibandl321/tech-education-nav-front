@@ -55,16 +55,11 @@ export default function ContactForm() {
             py: 4,
             px: isMobile ? 0 : 4,
             borderRadius: "16px",
-            backgroundColor: isMobile ? "transparent" : "#fff",
+            bgcolor: "transparent",
           }}
           elevation={isMobile ? 0 : 3}
         >
-          <Typography
-            component="h2"
-            variant="h5"
-            textAlign="center"
-            marginBottom={2}
-          >
+          <Typography component="h2" variant="h5" textAlign="center" marginBottom={2}>
             お問い合わせ
           </Typography>
           <CardContent sx={{ padding: isMobile ? 0 : 2 }}>

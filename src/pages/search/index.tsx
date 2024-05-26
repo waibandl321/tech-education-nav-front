@@ -9,7 +9,6 @@ import { fetchDataByKey, fetchMasterData } from "@/hooks/server/fetchDataClone";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
-import SPLayout from "@/app/sp-layout";
 import { AppDataPropType } from "@/types/CommonType";
 import { Course } from "@/types/APIDataType";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
@@ -33,9 +32,7 @@ export default function Index({ ...props }: AppDataPropType) {
     );
     dispath(setMasterArr({ key: "frameworks", items: props.frameworks }));
     dispath(setMasterArr({ key: "libraries", items: props.libraries }));
-    dispath(
-      setMasterArr({ key: "developmentTools", items: props.developmentTools })
-    );
+    dispath(setMasterArr({ key: "developmentTools", items: props.developmentTools }));
     dispath(setMasterArr({ key: "jobTypes", items: props.jobTypes }));
     dispath(
       setMasterArr({
@@ -49,9 +46,7 @@ export default function Index({ ...props }: AppDataPropType) {
         items: props.developmentProducts,
       })
     );
-    dispath(
-      setMasterArr({ key: "qualifications", items: props.qualifications })
-    );
+    dispath(setMasterArr({ key: "qualifications", items: props.qualifications }));
     dispath(
       setMasterArr({
         key: "benefitUserCategories",
@@ -68,16 +63,13 @@ export default function Index({ ...props }: AppDataPropType) {
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
-
-      {isMobile ? (
-        <SPLayout>
+      <Layout>
+        {isMobile ? (
           <SPSearchPane courses={props.courses} />
-        </SPLayout>
-      ) : (
-        <Layout>
+        ) : (
           <PCSearchPane courses={props.courses} />
-        </Layout>
-      )}
+        )}
+      </Layout>
     </>
   );
 }

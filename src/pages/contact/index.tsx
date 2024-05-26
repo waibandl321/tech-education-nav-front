@@ -1,14 +1,11 @@
-// Next.js フロントエンド
 import Layout from "@/app/layout";
-import SPLayout from "@/app/sp-layout";
 import ContactForm from "@/components/pages/contact/ContactForm";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { DeviceType } from "@/types/CommonType";
-import { Paper, Toolbar } from "@mui/material";
+import { Paper } from "@mui/material";
 import Head from "next/head";
 
-export default function Contact({ viewport }: { viewport: DeviceType }) {
-  const isMobile = viewport === "mobile";
+export default function Contact() {
   return (
     <>
       <Head>
@@ -16,25 +13,18 @@ export default function Contact({ viewport }: { viewport: DeviceType }) {
         <meta name="description" content="ページの説明" />
         {/* その他のメタタグ */}
       </Head>
-      {isMobile ? (
-        <SPLayout>
-          <Toolbar />
+      <Layout>
+        <Paper
+          elevation={0}
+          sx={{
+            borderRadius: 0,
+            flexGrow: 1,
+            bgcolor: "transparent",
+          }}
+        >
           <ContactForm />
-        </SPLayout>
-      ) : (
-        <Layout>
-          <Paper
-            elevation={0}
-            sx={{
-              borderRadius: 0,
-              backgroundColor: "#f8f8f8",
-              flexGrow: 1,
-            }}
-          >
-            <ContactForm />
-          </Paper>
-        </Layout>
-      )}
+        </Paper>
+      </Layout>
     </>
   );
 }

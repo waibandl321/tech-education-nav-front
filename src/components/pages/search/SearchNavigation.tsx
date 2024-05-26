@@ -37,8 +37,7 @@ export default function SearchNavigation({
 }) {
   // hooks
   const router = useRouter();
-  const { getMasterItemsByLang, getLanguagesById, getLanguageName } =
-    useSearch();
+  const { getMasterItemsByLang, getLanguagesById, getLanguageName } = useSearch();
 
   // store
   const searchData = useAppSelector((state) => state.searchData).data;
@@ -49,10 +48,7 @@ export default function SearchNavigation({
   // クエリパラメータに応じて、選択済みにする
   const searchConditions = useMemo(() => {
     return Object.entries(router.query)
-      .filter(
-        ([key, value]) =>
-          value !== undefined && key !== "viewport" && key !== "searchType"
-      )
+      .filter(([key, value]) => value !== undefined && key !== "viewport" && key !== "searchType")
       .reduce<{ [key: string]: any }>((acc, [key, value]) => {
         if (typeof value === "string") {
           const valuesArray = value.split(",");
@@ -106,16 +102,12 @@ export default function SearchNavigation({
    * @param event
    */
   const handlerFormChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | SelectChangeEvent<string[] | string>
+    event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string[] | string>
   ) => {
     const target = event.target;
     const name = target.name;
     const value =
-      target instanceof HTMLElement && target.type === "checkbox"
-        ? target.checked
-        : target.value;
+      target instanceof HTMLElement && target.type === "checkbox" ? target.checked : target.value;
 
     setFilterResult((prevFilterResult) => {
       const updatedFilterResults = {
@@ -133,19 +125,14 @@ export default function SearchNavigation({
    * 価格変更ハンドラ
    * @param event
    */
-  const handlePriceChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setFilterResult((prevFilterResult) => ({
       ...prevFilterResult,
       [name]: value === "" ? null : Number(value),
     }));
 
-    updateQueryParam(
-      name,
-      value === "" ? "" : String(Number(value) * PRICE_CONVERSION_RATE)
-    );
+    updateQueryParam(name, value === "" ? "" : String(Number(value) * PRICE_CONVERSION_RATE));
   };
 
   /**
@@ -183,9 +170,7 @@ export default function SearchNavigation({
     setFilterResult((prevFilterResult) => ({
       ...prevFilterResult,
       minPrice: prevFilterResult.minPrice, // min price
-      maxPrice: max.maxPrice
-        ? Math.ceil(max.maxPrice / PRICE_CONVERSION_RATE)
-        : 0, // max price
+      maxPrice: max.maxPrice ? Math.ceil(max.maxPrice / PRICE_CONVERSION_RATE) : 0, // max price
     }));
   };
 
@@ -217,9 +202,7 @@ export default function SearchNavigation({
     selectedValues: string[],
     arr: T[]
   ) => {
-    return selectedValues
-      .map((v) => arr.find((product) => product._id === v)?.name)
-      .join(", ");
+    return selectedValues.map((v) => arr.find((product) => product._id === v)?.name).join(", ");
   };
 
   /**
@@ -258,30 +241,14 @@ export default function SearchNavigation({
 
   // 言語IDをkeyにしたオブジェクトフレームワーク配列
   const librariesByLang = useMemo(
-    () =>
-      getMasterItemsByLang(
-        searchData.programmingLanguages,
-        searchData.libraries
-      ),
-    [
-      searchData.programmingLanguages,
-      searchData.libraries,
-      getMasterItemsByLang,
-    ]
+    () => getMasterItemsByLang(searchData.programmingLanguages, searchData.libraries),
+    [searchData.programmingLanguages, searchData.libraries, getMasterItemsByLang]
   );
 
   // プログラミング言語にフレームワークを紐付けたデータ
   const languageWithFrameworks = useMemo(
-    () =>
-      getMasterItemsByLang(
-        searchData.programmingLanguages,
-        searchData.frameworks
-      ),
-    [
-      searchData.programmingLanguages,
-      searchData.frameworks,
-      getMasterItemsByLang,
-    ]
+    () => getMasterItemsByLang(searchData.programmingLanguages, searchData.frameworks),
+    [searchData.programmingLanguages, searchData.frameworks, getMasterItemsByLang]
   );
 
   return (
@@ -310,9 +277,7 @@ export default function SearchNavigation({
         <Box sx={{ mt: 2 }} display="flex" alignItems="center">
           <Box>
             <TextField
-              value={
-                filterResult.minPrice !== null ? filterResult.minPrice : ""
-              }
+              value={filterResult.minPrice !== null ? filterResult.minPrice : ""}
               name="minPrice"
               type="number"
               size="small"
@@ -331,9 +296,7 @@ export default function SearchNavigation({
           </Box>
           <Box>
             <TextField
-              value={
-                filterResult.maxPrice !== null ? filterResult.maxPrice : ""
-              }
+              value={filterResult.maxPrice !== null ? filterResult.maxPrice : ""}
               name="maxPrice"
               type="number"
               size="small"
@@ -442,18 +405,12 @@ export default function SearchNavigation({
             name="attendanceType"
             input={<OutlinedInput fullWidth />}
             onChange={(event) => handlerFormChange(event)}
-            renderValue={(selected) =>
-              getSelectValueText(selected, AttendanceTypeLabels)
-            }
+            renderValue={(selected) => getSelectValueText(selected, AttendanceTypeLabels)}
             multiple
           >
             {AttendanceTypeLabels.map((item) => (
               <MenuItem key={item._id} value={item._id}>
-                <Checkbox
-                  checked={
-                    filterResult.attendanceType.indexOf(item._id as never) > -1
-                  }
-                />
+                <Checkbox checked={filterResult.attendanceType.indexOf(item._id as never) > -1} />
                 <ListItemText>{item.name}</ListItemText>
               </MenuItem>
             ))}
@@ -474,18 +431,12 @@ export default function SearchNavigation({
             name="purposes"
             input={<OutlinedInput fullWidth />}
             onChange={(event) => handlerFormChange(event)}
-            renderValue={(selected) =>
-              getSelectValueText(selected, PurposeOptions)
-            }
+            renderValue={(selected) => getSelectValueText(selected, PurposeOptions)}
             multiple
           >
             {PurposeOptions.map((purpose) => (
               <MenuItem key={purpose._id} value={purpose._id}>
-                <Checkbox
-                  checked={
-                    filterResult.purposes.indexOf(purpose._id as never) > -1
-                  }
-                />
+                <Checkbox checked={filterResult.purposes.indexOf(purpose._id as never) > -1} />
                 <ListItemText>{purpose.name}</ListItemText>
               </MenuItem>
             ))}
@@ -518,11 +469,7 @@ export default function SearchNavigation({
             {searchData.benefitUserCategories.map((item) => (
               <MenuItem key={item._id} value={item._id}>
                 <Checkbox
-                  checked={
-                    filterResult.benefitUserCategories.indexOf(
-                      item._id as never
-                    ) > -1
-                  }
+                  checked={filterResult.benefitUserCategories.indexOf(item._id as never) > -1}
                 />
                 <ListItemText>{item.name}</ListItemText>
               </MenuItem>
@@ -553,11 +500,7 @@ export default function SearchNavigation({
               {searchData.developmentCategories.map((category) => (
                 <MenuItem key={category._id} value={category._id}>
                   <Checkbox
-                    checked={
-                      filterResult.developmentCategories.indexOf(
-                        category._id as never
-                      ) > -1
-                    }
+                    checked={filterResult.developmentCategories.indexOf(category._id as never) > -1}
                   />
                   <ListItemText>{category.name}</ListItemText>
                 </MenuItem>
@@ -589,11 +532,7 @@ export default function SearchNavigation({
               {searchData.developmentProducts.map((product) => (
                 <MenuItem key={product._id} value={product._id}>
                   <Checkbox
-                    checked={
-                      filterResult.developmentProducts.indexOf(
-                        product._id as never
-                      ) > -1
-                    }
+                    checked={filterResult.developmentProducts.indexOf(product._id as never) > -1}
                   />
                   <ListItemText primary={product.name}></ListItemText>
                 </MenuItem>
@@ -617,19 +556,13 @@ export default function SearchNavigation({
               name="qualifications"
               input={<OutlinedInput fullWidth />}
               onChange={(event) => handlerFormChange(event)}
-              renderValue={(selected) =>
-                getSelectValueText(selected, searchData.qualifications)
-              }
+              renderValue={(selected) => getSelectValueText(selected, searchData.qualifications)}
               multiple
             >
               {searchData.qualifications.map((dualification) => (
                 <MenuItem key={dualification._id} value={dualification._id}>
                   <Checkbox
-                    checked={
-                      filterResult.qualifications.indexOf(
-                        dualification._id as never
-                      ) > -1
-                    }
+                    checked={filterResult.qualifications.indexOf(dualification._id as never) > -1}
                   />
                   <ListItemText>{dualification.name}</ListItemText>
                 </MenuItem>
@@ -653,18 +586,12 @@ export default function SearchNavigation({
               name="jobTypes"
               input={<OutlinedInput fullWidth />}
               onChange={(event) => handlerFormChange(event)}
-              renderValue={(selected) =>
-                getSelectValueText(selected, searchData.jobTypes)
-              }
+              renderValue={(selected) => getSelectValueText(selected, searchData.jobTypes)}
               multiple
             >
               {searchData.jobTypes.map((jobType) => (
                 <MenuItem key={jobType._id} value={jobType._id}>
-                  <Checkbox
-                    checked={
-                      filterResult.jobTypes.indexOf(jobType._id as never) > -1
-                    }
-                  />
+                  <Checkbox checked={filterResult.jobTypes.indexOf(jobType._id as never) > -1} />
                   <ListItemText>{jobType.name}</ListItemText>
                 </MenuItem>
               ))}
@@ -695,11 +622,7 @@ export default function SearchNavigation({
               {searchData.programmingLanguages.map((language) => (
                 <MenuItem key={language._id} value={language._id}>
                   <Checkbox
-                    checked={
-                      filterResult.programmingLanguages.indexOf(
-                        language._id as never
-                      ) > -1
-                    }
+                    checked={filterResult.programmingLanguages.indexOf(language._id as never) > -1}
                   />
                   <ListItemText>{language.name}</ListItemText>
                 </MenuItem>
@@ -722,9 +645,7 @@ export default function SearchNavigation({
               name="frameworks"
               value={filterResult.frameworks}
               onChange={(event) => handlerFormChange(event)}
-              renderValue={(selected) =>
-                getSelectValueText(selected, searchData.frameworks)
-              }
+              renderValue={(selected) => getSelectValueText(selected, searchData.frameworks)}
               multiple
             >
               {Object.keys(languageWithFrameworks).map((key) => [
@@ -733,17 +654,9 @@ export default function SearchNavigation({
                 </MenuItem>,
                 // フレームワークをサブアイテムとして表示
                 languageWithFrameworks[key].map((framework) => (
-                  <MenuItem
-                    key={framework._id}
-                    value={framework._id}
-                    sx={{ pl: 4 }}
-                  >
+                  <MenuItem key={framework._id} value={framework._id} sx={{ pl: 4 }}>
                     <Checkbox
-                      checked={
-                        filterResult.frameworks.indexOf(
-                          framework._id as never
-                        ) > -1
-                      }
+                      checked={filterResult.frameworks.indexOf(framework._id as never) > -1}
                     />
                     <ListItemText>{framework.name}</ListItemText>
                   </MenuItem>
@@ -766,9 +679,7 @@ export default function SearchNavigation({
             name="libraries"
             value={filterResult.libraries}
             onChange={(event) => handlerFormChange(event)}
-            renderValue={(selected) =>
-              getSelectValueText(selected, searchData.libraries)
-            }
+            renderValue={(selected) => getSelectValueText(selected, searchData.libraries)}
             multiple
           >
             <MenuItem value="">
@@ -781,11 +692,7 @@ export default function SearchNavigation({
               // ライブラリをサブアイテムとして表示
               librariesByLang[key].map((lib) => (
                 <MenuItem key={lib._id} value={lib._id} sx={{ pl: 4 }}>
-                  <Checkbox
-                    checked={
-                      filterResult.libraries.indexOf(lib._id as never) > -1
-                    }
-                  />
+                  <Checkbox checked={filterResult.libraries.indexOf(lib._id as never) > -1} />
                   <ListItemText>{lib.name}</ListItemText>
                 </MenuItem>
               )),
@@ -806,9 +713,7 @@ export default function SearchNavigation({
             name="developmentTools"
             value={filterResult.developmentTools}
             onChange={(event) => handlerFormChange(event)}
-            renderValue={(selected) =>
-              getSelectValueText(selected, searchData.developmentTools)
-            }
+            renderValue={(selected) => getSelectValueText(selected, searchData.developmentTools)}
             input={<OutlinedInput fullWidth />}
             multiple
           >
@@ -817,12 +722,7 @@ export default function SearchNavigation({
             </MenuItem>
             {sortBy(searchData.developmentTools, ["name"]).map((item) => (
               <MenuItem key={item._id} value={item._id}>
-                <Checkbox
-                  checked={
-                    filterResult.developmentTools.indexOf(item._id as never) >
-                    -1
-                  }
-                />
+                <Checkbox checked={filterResult.developmentTools.indexOf(item._id as never) > -1} />
                 <ListItemText>{item.name}</ListItemText>
               </MenuItem>
             ))}
@@ -840,7 +740,7 @@ export default function SearchNavigation({
         }}
         elevation={4}
       >
-        <Card sx={{ p: 2, backgroundColor: "#f5f5f5" }} variant="elevation">
+        <Card sx={{ p: 2 }} variant="elevation">
           <Button
             size="large"
             variant="contained"

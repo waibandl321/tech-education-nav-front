@@ -44,9 +44,7 @@ export default function SearchSelect<T extends MasterDataBasicType>({
 
   // 選択したデータに基づき、クエリ生成
   const queryString = useMemo(() => {
-    return `${selectionTypeParam}=${encodeURIComponent(
-      selectedItems.join(",")
-    )}`;
+    return `${selectionTypeParam}=${encodeURIComponent(selectedItems.join(","))}`;
   }, [selectedItems, selectionTypeParam]);
 
   // パンくず
@@ -61,7 +59,7 @@ export default function SearchSelect<T extends MasterDataBasicType>({
 
   return (
     <>
-      <Box sx={{ px: 1, pt: 2 }}>
+      <Box sx={{ pt: 2, display: "flex" }}>
         <SearchSubHeader breadcrumbs={breadcrumbs} />
       </Box>
       <Box sx={{ p: 2 }}>
@@ -85,10 +83,7 @@ export default function SearchSelect<T extends MasterDataBasicType>({
         </FormGroup>
       </Box>
 
-      <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 3 }}
-        elevation={3}
-      >
+      <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 3 }} elevation={3}>
         <Card sx={{ p: 2, backgroundColor: "rgba(0,0,0,.2)" }}>
           <Button
             LinkComponent={Link}

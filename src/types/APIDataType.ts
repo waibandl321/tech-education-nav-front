@@ -1,3 +1,17 @@
+// 固定ページ
+export interface FixedPage {
+  _id: string;
+  title: string;
+  meta_description: string;
+  slug: string;
+  content: string;
+  author_id: string;
+  thumbnail_url?: string;
+  published: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
+
 // スクール
 export interface School {
   _id: string;

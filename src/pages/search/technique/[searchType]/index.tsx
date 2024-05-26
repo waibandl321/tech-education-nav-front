@@ -2,7 +2,6 @@ import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSidePr
 import { useRouter } from "next/router";
 import { NavLinksMapKeyType, navLinksMapByTech } from "@/const";
 import Head from "next/head";
-import SPLayout from "@/app/sp-layout";
 import SearchSelect from "@/components/pages/search/SearchSelect";
 import Layout from "@/app/layout";
 import { Container } from "@mui/material";
@@ -19,9 +18,6 @@ export default function SearchType({ ...props }) {
   // 対象のページ情報
   const targetPageData = navLinksMapByTech[selectionTypeParam];
 
-  // デバイス判定
-  const isMobile = props.viewport === "mobile";
-
   return (
     <>
       <Head>
@@ -35,27 +31,14 @@ export default function SearchType({ ...props }) {
         {/* その他のメタタグ */}
       </Head>
 
-      {isMobile ? (
-        <SPLayout>
-          <SearchSelect
-            items={targetMasterDataList}
-            selectionTypeParam={targetPageData.selectionTypeParam}
-            title={targetPageData.searchSelectTitle}
-            breadcrumbText={targetPageData.breadcrumbText}
-          />
-        </SPLayout>
-      ) : (
-        <Layout>
-          <Container maxWidth="sm">
-            <SearchSelect
-              items={targetMasterDataList}
-              selectionTypeParam={targetPageData.selectionTypeParam}
-              title={targetPageData.searchSelectTitle}
-              breadcrumbText={targetPageData.breadcrumbText}
-            />
-          </Container>
-        </Layout>
-      )}
+      <Layout>
+        <SearchSelect
+          items={targetMasterDataList}
+          selectionTypeParam={targetPageData.selectionTypeParam}
+          title={targetPageData.searchSelectTitle}
+          breadcrumbText={targetPageData.breadcrumbText}
+        />
+      </Layout>
     </>
   );
 }
@@ -72,8 +55,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
 
   return {
     props: {
-      [targetPageData.selectionTypeParam]:
-        result[targetPageData.selectionTypeParam],
+      [targetPageData.selectionTypeParam]: result[targetPageData.selectionTypeParam],
     },
   };
 });

@@ -1,11 +1,5 @@
 import Layout from "@/app/layout";
-import {
-  Card,
-  Container,
-  Paper,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Card, Container, Paper, Typography, useMediaQuery } from "@mui/material";
 import Head from "next/head";
 
 export default function ContactComplete() {
@@ -22,11 +16,10 @@ export default function ContactComplete() {
           elevation={0}
           sx={{
             borderRadius: 0,
-            backgroundColor: "#f8f8f8",
           }}
         >
           <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
-            <Card variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
+            <Card variant="outlined" sx={{ p: 2, borderRadius: 2, bgcolor: "transparent" }}>
               <Typography>
                 フォームを送信しました。
                 <br />

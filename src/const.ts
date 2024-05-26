@@ -11,12 +11,17 @@ import SecurityIcon from "@mui/icons-material/Security";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import HomeIcon from "@mui/icons-material/Home";
+import TerminalOutlinedIcon from "@mui/icons-material/TerminalOutlined";
+import RssFeedOutlinedIcon from "@mui/icons-material/RssFeedOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import SendIcon from "@mui/icons-material/Send";
 import { ChipOwnProps } from "@mui/material";
 import { Course } from "@/types/APIDataType";
 import { fetchDataByKey } from "./hooks/server/fetchDataClone";
 
 // アイコンの型を定義
-type IconType = React.ElementType;
+export type IconType = React.ElementType;
 
 // 技術領域ごとのナビゲーションリンク情報の型定義
 interface TechNavigationLink {
@@ -62,6 +67,42 @@ export const PurposeOptions = [
   { _id: "CERTIFICATION", name: "資格取得" },
   { _id: "LEARNING", name: "学習/スキルアップ" },
 ];
+
+// ナビゲーションリンク
+export interface LinkType {
+  text: string;
+  href: string;
+  icon?: IconType;
+}
+interface NavigationLlink {
+  [key: string]: {
+    text: string;
+    menus: LinkType[];
+  };
+}
+export const navigationLinks: NavigationLlink = {
+  features: {
+    text: "提供している機能について",
+    menus: [
+      { icon: HomeIcon, text: "ホーム", href: "/" },
+      { icon: SearchIcon, text: "スクール検索", href: "/search" },
+      // { icon: NotificationsIcon, text: "お知らせ", href: "/notifications" },
+      { icon: TerminalOutlinedIcon, text: "学習コンテンツ", href: "/contents" },
+      { icon: RssFeedOutlinedIcon, text: "管理人のブログ", href: "/blog" },
+      // { icon: MenuIcon, text: "メニュー", href: "/menu" },
+      { icon: SendIcon, text: "お問い合わせ", href: "/contact" },
+    ],
+  },
+  terms: {
+    text: "ご利用にあたり",
+    menus: [
+      { text: "利用規約", href: "/fixed-pages/terms-of-service" },
+      { text: "プライバシーポリシー", href: "/fixed-pages/privacy-policy" },
+      { text: "免責事項", href: "/fixed-pages/disclaimer" },
+      { text: "サービス概要", href: "/fixed-pages/service-overview" },
+    ],
+  },
+};
 
 // コースオプションMap
 export const navLinksMapByOption: Array<OptionNavigationLink> = [

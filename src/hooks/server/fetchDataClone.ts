@@ -1,4 +1,4 @@
-import { Course } from "@/types/APIDataType";
+import { Course, FixedPage } from "@/types/APIDataType";
 import { MasterDataMap } from "@/types/CommonType";
 import axios from "axios";
 
@@ -20,48 +20,37 @@ const _fetch = async <T>(path: string): Promise<T> => {
  */
 const ssrMasterQueryMap = {
   centers: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/school/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/school/list"),
   },
   courses: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/course/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/course/list"),
   },
   programmingLanguages: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/language/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/language/list"),
   },
   frameworks: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/framework/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/framework/list"),
   },
   libraries: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/library/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/library/list"),
   },
   developmentTools: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/development-tool/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/development-tool/list"),
   },
   jobTypes: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/job-type/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/job-type/list"),
   },
   developmentCategories: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/development-category/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/development-category/list"),
   },
   developmentProducts: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/development-product/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/development-product/list"),
   },
   qualifications: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/qualification/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/qualification/list"),
   },
   benefitUserCategories: {
-    callback: async <T>(): Promise<T[]> =>
-      await _fetch("/api/master/benefit-user-category/list"),
+    callback: async <T>(): Promise<T[]> => await _fetch("/api/master/benefit-user-category/list"),
   },
 };
 
@@ -89,8 +78,7 @@ export const fetchDataByKey = async <T>(key: SSRMasterQueryMapKey) => {
 export const fetchMasterData = async <T>(): Promise<MasterDataMap> => {
   const results = await Promise.all(
     Object.keys(ssrMasterQueryMap).map(
-      async (key, index) =>
-        await ssrMasterQueryMap[key as SSRMasterQueryMapKey].callback()
+      async (key, index) => await ssrMasterQueryMap[key as SSRMasterQueryMapKey].callback()
     )
   );
 
@@ -137,9 +125,7 @@ const fetchCourses = async (queryParams: { [key: string]: any }) => {
  */
 export const fetchCourseMaxPrice = async () => {
   try {
-    return await _fetch<{ maxPrice: number | null }>(
-      "/api/master/course/max-price"
-    );
+    return await _fetch<{ maxPrice: number | null }>("/api/master/course/max-price");
   } catch (error) {
     console.error("Error fetching courses:", error);
     return {
@@ -157,9 +143,7 @@ export interface CompoundSearchCondition {
  * 複合検索条件を元にクエリパラメータを生成し、APIを呼び出す
  * @param searchConditions 検索条件の配列
  */
-export const fetchCoursesByCompoundSearch = async (
-  searchConditions: CompoundSearchCondition[]
-) => {
+export const fetchCoursesByCompoundSearch = async (searchConditions: CompoundSearchCondition[]) => {
   const queryParams: { [key: string]: any } = {};
 
   // 検索条件をクエリパラメータオブジェクトに変換
@@ -168,4 +152,17 @@ export const fetchCoursesByCompoundSearch = async (
   });
 
   return await fetchCourses(queryParams);
+};
+
+/**
+ * 固定ページ取得
+ * @param slug スラッグ
+ */
+export const fetchFixedPageById = async (slug: string): Promise<FixedPage | null> => {
+  try {
+    return await _fetch<FixedPage>(`/api/fixed-page/${slug}`);
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    return null;
+  }
 };
