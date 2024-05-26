@@ -8,15 +8,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "normalize.css";
 import "@/assets/css/style.css";
-import {
-  Box,
-  Container,
-  CssBaseline,
-  Divider,
-  ThemeProvider,
-  alpha,
-  createTheme,
-} from "@mui/material";
+import { Box, CssBaseline, ThemeProvider, alpha, createTheme } from "@mui/material";
 import MesageAlert from "@/components/common/parts/MesageAlert";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
 
@@ -29,7 +21,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={defaultTheme}>
       <AppHeader />
-      <Box sx={{ bgcolor: "background.default" }}>
+      <Box
+        sx={{
+          bgcolor: "background.default",
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
         <CssBaseline />
         <Box
           id="hero"
@@ -41,21 +40,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 : `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`,
             backgroundSize: "100% 10%",
             backgroundRepeat: "no-repeat",
+            flexGrow: 1,
           })}
         >
-          <Container
+          <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              pt: { xs: 10, sm: 12 },
+              flexGrow: 1,
+              width: "100%",
+              maxWidth: "100%",
+              paddingTop: { xs: 10, sm: 12 },
             }}
           >
             {children}
-            <Divider />
-            <Footer />
-          </Container>
+          </Box>
         </Box>
+        <Footer />
       </Box>
       <LoadingOverlay />
       <MesageAlert />

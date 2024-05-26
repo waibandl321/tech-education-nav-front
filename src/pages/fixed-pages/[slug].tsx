@@ -4,8 +4,15 @@ import Head from "next/head";
 import Layout from "@/app/layout";
 import { fetchFixedPageById } from "@/hooks/server/fetchDataClone";
 import { FixedPage } from "@/types/APIDataType";
+import markdownToHtml from "@/hooks/utils/markdownToHtml";
+import { Container } from "@mui/material";
 
-export default function SearchType({ ...props }) {
+type Props = {
+  pageData: FixedPage | null;
+  contentHtml: string;
+};
+
+export default function SearchType({ ...props }: Props) {
   const router = useRouter();
   const page = props.pageData as FixedPage;
 
@@ -30,7 +37,9 @@ export default function SearchType({ ...props }) {
         {/* その他のメタタグ */}
       </Head>
 
-      <Layout>{JSON.stringify(page)}</Layout>
+      <Layout>
+        <Container maxWidth="md" dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
+      </Layout>
     </>
   );
 }
@@ -52,9 +61,13 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     };
   }
 
+  // マークダウンをHTMLに変換
+  const contentHtml = await markdownToHtml(result.content);
+
   return {
     props: {
       pageData: result,
+      contentHtml,
     },
   };
 });

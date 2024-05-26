@@ -36,14 +36,10 @@ export default function Hello() {
             テック教育ナビ
           </Typography>
         </Typography>
-        {/* <Typography
-          textAlign="center"
-          color="text.secondary"
-          sx={{ alignSelf: "center", width: { sm: "100%", md: "80%" } }}
-        >
-          Explore our cutting-edge dashboard, delivering high-quality solutions tailored to your
-          needs. Elevate your experience with top-tier features and services.
-        </Typography> */}
+        <Typography color="text.secondary" sx={{ alignSelf: "center" }}>
+          当サイトでは、プログラミングスクールの検索サービスや、学習コンテンツを提供しています。
+          また、フロントエンドエンジニア専門のメンタリングサービスも提供しているため、興味のある方はお問い合わせください。
+        </Typography>
       </Stack>
     </Container>
   );

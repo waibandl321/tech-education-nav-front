@@ -96,8 +96,7 @@ export default function AppHeader() {
                     value.menus.map((v) => (
                       <MenuItem
                         key={v.href}
-                        LinkComponent={Link}
-                        href={v.href}
+                        onClick={() => router.push(v.href)}
                         sx={{ py: "6px", px: "12px" }}
                       >
                         <Typography variant="body2" color="text.primary">
@@ -147,7 +146,6 @@ export default function AppHeader() {
               <Button
                 variant="text"
                 color="primary"
-                aria-label="menu"
                 onClick={toggleDrawer(true)}
                 sx={{ minWidth: "30px", p: "4px" }}
               >

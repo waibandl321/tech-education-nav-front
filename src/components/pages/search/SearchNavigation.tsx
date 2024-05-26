@@ -263,6 +263,7 @@ export default function SearchNavigation({
               p: 2,
               position: "relative",
               pb: 10,
+              overscrollBehavior: "none",
             }
       }
       variant="outlined"

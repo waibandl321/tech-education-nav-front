@@ -7,10 +7,11 @@ import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
 import useSearch from "@/hooks/useSearch";
 import { useAppSelector } from "@/lib/hooks";
 import { Course } from "@/types/APIDataType";
+import CssBaseline from "@mui/material/CssBaseline";
 
-const drawerWidth = 360;
+const drawerWidth = 300;
 
-export default function PCSearchPane({ courses }: { courses: Course[] }) {
+export default function PCSearchPane({ ...props }: { courses: Course[] }) {
   // hooks
   const { hasPlan, getComputedCenters } = useSearch();
   // store
@@ -18,30 +19,36 @@ export default function PCSearchPane({ courses }: { courses: Course[] }) {
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(
-    () => getComputedCenters(searchData.centers, courses),
-    [searchData.centers, courses, getComputedCenters]
+    () => getComputedCenters(searchData.centers, props.courses),
+    [searchData.centers, props.courses, getComputedCenters]
   );
 
   return (
-    <Box sx={{ display: "flex", pb: 8 }}>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            backgroundColor: "transparent",
-            border: "none",
-          },
-        }}
-        anchor="left"
-      >
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
         <Toolbar />
-        <SearchNavigation drawerWidth={drawerWidth} />
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, mx: 2, pt: 2 }}>
+        <Drawer
+          variant="permanent"
+          sx={{
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+              position: "fixed",
+              top: 100, // Adjust this value to match your header height
+              height: "calc(100% - 100px)", // Adjust this value to match your header height
+              bgcolor: "transparent",
+              border: "none",
+            },
+          }}
+        >
+          <SearchNavigation drawerWidth={drawerWidth} />
+        </Drawer>
+      </Box>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
         {items.map(
           (center, index) =>
             hasPlan(center) && (
@@ -50,11 +57,7 @@ export default function PCSearchPane({ courses }: { courses: Course[] }) {
                   (course) =>
                     course.plans &&
                     course.plans.length > 0 && (
-                      <CourceDetailCard
-                        key={course._id}
-                        center={center}
-                        course={course}
-                      />
+                      <CourceDetailCard key={course._id} center={center} course={course} />
                     )
                 )}
               </React.Fragment>
