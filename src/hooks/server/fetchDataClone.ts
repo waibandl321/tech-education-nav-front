@@ -1,10 +1,12 @@
-import { Course, FixedPage } from "@/types/APIDataType";
+import { PostTypeKeys } from "@/const";
+import { Course, EditablePost, FixedPage, PostCategory } from "@/types/APIDataType";
 import { MasterDataMap } from "@/types/CommonType";
 import axios from "axios";
 
 // axiosインスタンス
 const axiosInstance = axios.create({
   baseURL: "https://api.tech-education-nav.com/",
+  // baseURL: "http://localhost:8080/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -163,6 +165,73 @@ export const fetchFixedPageById = async (slug: string): Promise<FixedPage | null
     return await _fetch<FixedPage>(`/api/fixed-page/${slug}`);
   } catch (error) {
     console.error("Error fetching courses:", error);
+    return null;
+  }
+};
+
+export interface GetPostsResponse {
+  items: EditablePost[];
+  totalPosts: number;
+  totalPages: number;
+  currentPage: number;
+}
+
+/**
+ * 投稿一覧取得
+ */
+export const fetchPostList = async (
+  category: string,
+  post_type: PostTypeKeys,
+  pageNum: number,
+  limitPerPage: number
+) => {
+  try {
+    let path = `/api/post/list?post_type=${post_type}&page=${pageNum}&limit=${limitPerPage}`;
+    if (category) {
+      path = path + `&category=${category}`;
+    }
+    return await _fetch<GetPostsResponse>(path);
+  } catch (error) {
+    console.error("Error fetchPostList:", error);
+    return null;
+  }
+};
+
+/**
+ * 投稿詳細取得
+ * @param slug
+ * @returns
+ */
+export const fetchPostBySlug = async (slug: string) => {
+  try {
+    const path = `/api/post/${slug}`;
+    return await _fetch<EditablePost>(path);
+  } catch (error) {
+    console.error("Error fetchPostBySlug:", error);
+    return null;
+  }
+};
+
+/**
+ * カテゴリ一覧取得
+ */
+export const fetchPostCategories = async () => {
+  try {
+    return await _fetch<PostCategory[]>("/api/post/category/list");
+  } catch (error) {
+    console.error("Error fetchPostCategories:", error);
+    return [];
+  }
+};
+
+/**
+ * カテゴリー詳細取得
+ */
+export const fetchPostCategory = async (slug: string) => {
+  try {
+    return await _fetch<PostCategory>(`/api/post/category/${slug}`);
+  } catch (error) {
+    console.error("Error fetchPostCategory:", error);
     return null;
   }
 };

@@ -260,3 +260,13 @@ export type NavLinksMapKeyType = (typeof navLinksMapKeysByTech)[number];
 
 // Amplifyキャッシュの有効期限 24時間に設定する
 export const AMPLIFY_CACHE_EXPIRATION = 1000 * 60 * 60 * 24;
+
+// Postモデル > post_typeのオプション
+export const PostTypes = [
+  { key: "educational_materials", text: "学習コンテンツ" },
+  { key: "blog", text: "ブログ" },
+] as const;
+export type PostTypeKeys = (typeof PostTypes)[number]["key"];
+
+// レフトナビ横幅
+export const DrawerWidth = 300;

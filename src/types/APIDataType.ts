@@ -1,3 +1,32 @@
+// 投稿
+export interface EditablePost {
+  _id?: string | null;
+  title: string;
+  meta_description: string;
+  slug: string;
+  content: string;
+  post_type: string;
+  author_id: string;
+  thumbnail_url?: string;
+  published: boolean;
+  parent_id?: string; // 親のPost ID
+  order: number; // 並び順
+  categories: [];
+  tags: [];
+  created_at?: Date | null;
+  updated_at?: Date | null;
+}
+
+// 投稿カテゴリー
+export interface PostCategory {
+  _id: string;
+  name: string;
+  slug: string;
+  order: number;
+  created_at?: Date | null;
+  updated_at?: Date | null;
+}
+
 // 固定ページ
 export interface FixedPage {
   _id: string;
