@@ -38,7 +38,7 @@ export default function CategoryIndex({ ...props }: PropsType) {
             border: "1px solid #ccc",
           }}
         >
-          <Link href={`${router.basePath}/contents/educational-materials/`}>ウェブ開発を学ぶ</Link>
+          <Link href={`${router.basePath}/contents/educational-materials/`}>学習コンテンツTOP</Link>
           <ChevronRightIcon sx={{ mx: 1 }} />
           <Typography>{props.category.name}</Typography>
         </Box>
@@ -65,7 +65,10 @@ export default function CategoryIndex({ ...props }: PropsType) {
             </List>
           </Box>
 
-          <Box component="main" sx={{ flexGrow: 1, pt: 2, px: 3 }}>
+          <Box
+            component="main"
+            sx={{ flexGrow: 1, pt: 2, px: 3, width: `calc(100% - ${DrawerWidth})` }}
+          >
             <Typography paragraph>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent

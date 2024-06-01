@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useRouter } from "next/router";
+import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
 
 interface PropsType {
   viewport: DeviceType;
@@ -44,7 +45,7 @@ export default function CategoryIndex({ ...props }: PropsType) {
             border: "1px solid #ccc",
           }}
         >
-          <Link href={`${router.basePath}/contents/educational-materials/`}>ウェブ開発を学ぶ</Link>
+          <Link href={`${router.basePath}/contents/educational-materials/`}>学習コンテンツTOP</Link>
           <ChevronRightIcon sx={{ mx: 1 }} />
           <Link href={`${router.basePath}/contents/educational-materials/${props.category.slug}`}>
             {props.category.name}
@@ -78,8 +79,9 @@ export default function CategoryIndex({ ...props }: PropsType) {
               ))}
             </List>
           </Box>
-          <Box component="main" sx={{ flexGrow: 1, pt: 2, px: 3 }}>
-            {JSON.stringify(props.postDetail)}
+          <Box component="main" sx={{ flexGrow: 1, px: 3, width: `calc(100% - ${DrawerWidth})` }}>
+            {/* {JSON.stringify(props.postDetail)} */}
+            <MarkdownRenderer content={props.postDetail.content} />
           </Box>
         </Box>
       </Container>

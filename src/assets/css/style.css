@@ -6,3 +6,20 @@
 a:hover {
   opacity: .8;
 }
+
+/* シンタックスハイライト */
+.code-block {
+  position: relative;
+}
+
+.language-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 2px 8px;
+  border-bottom-left-radius: 4px;
+  font-size: 12px;
+  z-index: 1;
+}
