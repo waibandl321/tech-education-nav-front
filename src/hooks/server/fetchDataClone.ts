@@ -160,7 +160,7 @@ export const fetchCoursesByCompoundSearch = async (searchConditions: CompoundSea
  * 固定ページ取得
  * @param slug スラッグ
  */
-export const fetchFixedPageById = async (slug: string): Promise<FixedPage | null> => {
+export const fetchFixedPageBySlug = async (slug: string): Promise<FixedPage | null> => {
   try {
     return await _fetch<FixedPage>(`/api/fixed-page/${slug}`);
   } catch (error) {

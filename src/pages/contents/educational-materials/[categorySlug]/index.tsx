@@ -4,18 +4,12 @@ import { GetPostsResponse, fetchPostCategory, fetchPostList } from "@/hooks/serv
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";
-import {
-  Box,
-  Container,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Link from "next/link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useRouter } from "next/router";
+import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
+import SidePostTree from "@/components/common/section/SidePostTree";
 
 interface PropsType {
   viewport: DeviceType;
@@ -53,34 +47,16 @@ export default function CategoryIndex({ ...props }: PropsType) {
               },
             }}
           >
-            {/* {JSON.stringify(router)} */}
-            <List>
-              {props.categoryPosts.items.map((item) => (
-                <ListItem key={item._id} disablePadding>
-                  <ListItemButton LinkComponent={Link} href={`${router.asPath}/${item.slug}`}>
-                    <ListItemText primary={item.title} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
+            <SidePostTree posts={props.categoryPosts.items} category={props.category} />
           </Box>
 
           <Box
             component="main"
             sx={{ flexGrow: 1, pt: 2, px: 3, width: `calc(100% - ${DrawerWidth})` }}
           >
-            <Typography paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-              elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-              hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-              velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-              Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-              viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-              Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-              at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-              ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-            </Typography>
+            {props.category.description && (
+              <MarkdownRenderer content={props.category.description} />
+            )}
           </Box>
         </Box>
       </Container>

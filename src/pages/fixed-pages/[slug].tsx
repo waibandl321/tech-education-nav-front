@@ -2,7 +2,7 @@ import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSidePr
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "@/app/layout";
-import { fetchFixedPageById } from "@/hooks/server/fetchDataClone";
+import { fetchFixedPageBySlug } from "@/hooks/server/fetchDataClone";
 import { FixedPage } from "@/types/APIDataType";
 import markdownToHtml from "@/hooks/utils/markdownToHtml";
 import { Container } from "@mui/material";
@@ -53,7 +53,7 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       notFound: true,
     };
   }
-  const result = await fetchFixedPageById(slug as string);
+  const result = await fetchFixedPageBySlug(slug as string);
 
   if (!result) {
     return {

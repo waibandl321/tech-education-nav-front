@@ -22,6 +22,7 @@ export interface PostCategory {
   _id: string;
   name: string;
   slug: string;
+  description?: string;
   order: number;
   created_at?: Date | null;
   updated_at?: Date | null;

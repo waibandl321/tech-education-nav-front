@@ -9,19 +9,12 @@ import {
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { EditablePost, PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";
-import {
-  Box,
-  Container,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Link from "next/link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useRouter } from "next/router";
 import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
+import SidePostTree from "@/components/common/section/SidePostTree";
 
 interface PropsType {
   viewport: DeviceType;
@@ -66,18 +59,7 @@ export default function CategoryIndex({ ...props }: PropsType) {
             }}
           >
             {/* {JSON.stringify(router)} */}
-            <List>
-              {props.categoryPosts.items.map((item) => (
-                <ListItem key={item._id} disablePadding>
-                  <ListItemButton
-                    LinkComponent={Link}
-                    href={`${router.basePath}/contents/educational-materials/${props.category.slug}/${item.slug}`}
-                  >
-                    <ListItemText primary={item.title} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
+            <SidePostTree posts={props.categoryPosts.items} category={props.category} />
           </Box>
           <Box component="main" sx={{ flexGrow: 1, px: 3, width: `calc(100% - ${DrawerWidth})` }}>
             {/* {JSON.stringify(props.postDetail)} */}

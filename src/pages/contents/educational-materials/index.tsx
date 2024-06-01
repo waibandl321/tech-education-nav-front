@@ -1,8 +1,9 @@
 import Layout from "@/app/layout";
+import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
 import { DrawerWidth } from "@/const";
-import { fetchPostCategories, fetchPostList } from "@/hooks/server/fetchDataClone";
+import { fetchPostCategories, fetchFixedPageBySlug } from "@/hooks/server/fetchDataClone";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
-import { PostCategory } from "@/types/APIDataType";
+import { FixedPage, PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";
 import {
   Box,
@@ -20,6 +21,7 @@ import { useRouter } from "next/router";
 interface PropsType {
   viewport: DeviceType;
   categories: PostCategory[];
+  pageData: FixedPage | null;
 }
 
 export default function EducationalMaterials({ ...props }: PropsType) {
@@ -52,18 +54,7 @@ export default function EducationalMaterials({ ...props }: PropsType) {
           </Box>
 
           <Box component="main" sx={{ flexGrow: 1, pt: 2, px: 3 }}>
-            <Typography paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-              elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-              hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-              velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-              Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-              viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-              Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-              at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-              ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-            </Typography>
+            {props.pageData && <MarkdownRenderer content={props.pageData.content} />}
           </Box>
         </Box>
       </Container>
@@ -72,12 +63,16 @@ export default function EducationalMaterials({ ...props }: PropsType) {
 }
 
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
-  // category: string, post_type: "educational_materials" | "blog", pageNum: number, limitPerPage: number
-  const results = await fetchPostCategories();
+  const [pageData, categories] = await Promise.all([
+    fetchFixedPageBySlug("educational-materials"),
+    // category: string, post_type: "educational_materials" | "blog", pageNum: number, limitPerPage: number
+    fetchPostCategories(),
+  ]);
 
   return {
     props: {
-      categories: results,
+      categories,
+      pageData,
     },
   };
 });
