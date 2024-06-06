@@ -2,8 +2,6 @@
 
 import AppHeader from "@/components/common/section/Header";
 import Footer from "@/components/common/section/Footer";
-import { Amplify } from "aws-amplify";
-import config from "@/amplifyconfiguration.json";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -15,8 +13,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import MesageAlert from "@/components/common/parts/MesageAlert";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
 import React from "react";
-
-Amplify.configure(config, { ssr: true });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = React.useState(false);

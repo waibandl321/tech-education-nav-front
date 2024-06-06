@@ -1,11 +1,4 @@
 export type AmplifyDependentResourcesAttributes = {
-  "api": {
-    "techeducationnav": {
-      "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string",
-      "GraphQLAPIKeyOutput": "string"
-    }
-  },
   "auth": {
     "techeducationnav6670346a": {
       "AppClientID": "string",
@@ -15,12 +8,6 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolArn": "string",
       "UserPoolId": "string",
       "UserPoolName": "string"
-    }
-  },
-  "storage": {
-    "s334cc9079": {
-      "BucketName": "string",
-      "Region": "string"
     }
   }
 }
