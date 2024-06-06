@@ -279,3 +279,21 @@ export interface CreditCard {
 export interface CreateCreditCardInput {
   name: string;
 }
+
+/**
+ * 問い合わせ
+ */
+
+export interface Contact {
+  _id: string;
+  name: string;
+  email: string;
+  detail: string;
+  created_at?: Date | null;
+  updated_at?: Date | null;
+}
+export type CreateContactInput = {
+  name: string;
+  email: string;
+  detail: string;
+};

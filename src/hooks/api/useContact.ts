@@ -1,23 +1,17 @@
-import * as mutations from "@/graphql/mutations";
-import { generateClient } from "aws-amplify/api";
-import { CreateContactInput } from "@/API";
 import useAPIResponse from "./useAPIResponse";
+import { createContact } from "../server/fetchDataClone";
+import { Contact, CreateContactInput } from "@/types/APIDataType";
 
 export default function useContact() {
   const { getErrorMessage } = useAPIResponse();
-  const client = generateClient();
 
   // 作成
   const apiCreateContact = async (reviewInput: CreateContactInput) => {
     try {
-      const result = await client.graphql({
-        authMode: "apiKey",
-        query: mutations.createContact,
-        variables: { input: reviewInput },
-      });
+      const result = await createContact<Contact>("/api/contact/create", reviewInput);
       return {
         isSuccess: true,
-        data: result.data.createContact,
+        data: result,
       };
     } catch (error) {
       console.error(error);

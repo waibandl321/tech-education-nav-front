@@ -1,5 +1,11 @@
 import { PostTypeKeys } from "@/const";
-import { Course, EditablePost, FixedPage, PostCategory } from "@/types/APIDataType";
+import {
+  Course,
+  CreateContactInput,
+  EditablePost,
+  FixedPage,
+  PostCategory,
+} from "@/types/APIDataType";
 import { MasterDataMap } from "@/types/CommonType";
 import axios from "axios";
 
@@ -15,6 +21,20 @@ const axiosInstance = axios.create({
 const _fetch = async <T>(path: string): Promise<T> => {
   const res = await axiosInstance.get(`${path}`);
   return res.data;
+};
+
+/**
+ * 問い合わせ送信
+ * @param path エンドポイント
+ * @param contactInput 問い合わせ内容
+ * @returns
+ */
+export const createContact = async <T>(
+  path: string,
+  contactInput: CreateContactInput
+): Promise<T> => {
+  const response = await axiosInstance.post(`${path}`, contactInput);
+  return response.data;
 };
 
 /**

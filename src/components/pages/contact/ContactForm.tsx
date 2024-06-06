@@ -1,8 +1,8 @@
-import { CreateContactInput } from "@/API";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import useContact from "@/hooks/api/useContact";
 import useValidation from "@/hooks/utils/useValidation";
+import { CreateContactInput } from "@/types/APIDataType";
 import {
   Box,
   Button,
@@ -67,17 +67,17 @@ export default function ContactForm() {
               <TextField
                 fullWidth
                 label="お名前"
-                id="userName"
+                id="name"
                 autoComplete="name"
                 required
-                {...register("userName", {
+                {...register("name", {
                   required: {
                     value: true,
                     message: "お名前は入力必須の項目です。",
                   },
                 })}
-                error={!!errors.userName}
-                helperText={errors.userName?.message}
+                error={!!errors.name}
+                helperText={errors.name?.message}
                 sx={{ backgroundColor: "#fff" }}
               />
               <TextField
@@ -87,28 +87,28 @@ export default function ContactForm() {
                 required
                 autoComplete="email"
                 autoFocus
-                {...register("userEmail", {
+                {...register("email", {
                   required: true,
                   pattern: EmailRegex,
                 })}
-                error={!!errors.userEmail}
-                helperText={useGetEmailInputError(errors.userEmail?.type)}
+                error={!!errors.email}
+                helperText={useGetEmailInputError(errors.email?.type)}
                 sx={{ mt: 4, backgroundColor: "#fff" }}
               />
               <TextField
                 fullWidth
                 label="お問い合わせ内容"
                 required
-                id="messageInfo"
+                id="detail"
                 autoComplete="off"
-                {...register("messageInfo", {
+                {...register("detail", {
                   required: {
                     value: true,
                     message: "お問い合わせ内容は入力必須の項目です。",
                   },
                 })}
-                error={!!errors.messageInfo}
-                helperText={errors.messageInfo?.message}
+                error={!!errors.detail}
+                helperText={errors.detail?.message}
                 multiline
                 minRows={3}
                 sx={{ mt: 4, backgroundColor: "#fff" }}
