@@ -13,7 +13,6 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import HomeIcon from "@mui/icons-material/Home";
 import TerminalOutlinedIcon from "@mui/icons-material/TerminalOutlined";
-import RssFeedOutlinedIcon from "@mui/icons-material/RssFeedOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
 import { ChipOwnProps } from "@mui/material";
