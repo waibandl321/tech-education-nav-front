@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
-import Image from "next/image";
 import { navigationLinks } from "@/const";
 
 import { IconButton, PaletteMode } from "@mui/material";

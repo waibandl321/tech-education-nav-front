@@ -1,7 +1,6 @@
 import Layout from "@/app/layout";
 import ContactForm from "@/components/pages/contact/ContactForm";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
-import { DeviceType } from "@/types/CommonType";
 import { Paper } from "@mui/material";
 import Head from "next/head";
 
