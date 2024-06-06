@@ -61,7 +61,11 @@ export default function CategoryIndex({ ...props }: PropsType) {
             {/* {JSON.stringify(router)} */}
             <SidePostTree posts={props.categoryPosts.items} category={props.category} />
           </Box>
-          <Box component="main" sx={{ flexGrow: 1, px: 3, width: `calc(100% - ${DrawerWidth})` }}>
+          <Box
+            component="main"
+            sx={{ flexGrow: 1, px: 3, width: `calc(100% - ${DrawerWidth})` }}
+            className="markdown"
+          >
             {/* {JSON.stringify(props.postDetail)} */}
             <MarkdownRenderer content={props.postDetail.content} />
           </Box>

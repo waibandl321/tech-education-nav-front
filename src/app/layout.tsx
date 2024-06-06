@@ -1,3 +1,5 @@
+"use client";
+
 import AppHeader from "@/components/common/section/Header";
 import Footer from "@/components/common/section/Footer";
 import { Amplify } from "aws-amplify";
@@ -8,19 +10,36 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "normalize.css";
 import "@/assets/css/style.css";
-import { Box, CssBaseline, ThemeProvider, alpha, createTheme } from "@mui/material";
+import { Box, CssBaseline, PaletteMode, alpha } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import MesageAlert from "@/components/common/parts/MesageAlert";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
+import React from "react";
 
 Amplify.configure(config, { ssr: true });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const mode = "light";
+  const [isMounted, setIsMounted] = React.useState(false);
+  const [mode, setMode] = React.useState<PaletteMode>("light");
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const toggleColorMode = () => {
+    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   const defaultTheme = createTheme({ palette: { mode } });
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <AppHeader />
+      <CssBaseline />
+      <AppHeader mode={mode} toggleColorMode={toggleColorMode} />
       <Box
         sx={{
           bgcolor: "background.default",

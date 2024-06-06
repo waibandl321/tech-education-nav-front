@@ -45,8 +45,8 @@ export default function SidePostTree({
   return (
     <List>
       {items.map((item) => (
-        <>
-          <ListItem key={item._id} disablePadding>
+        <div key={item._id}>
+          <ListItem disablePadding>
             <ListItemButton LinkComponent={Link} href={getPostPath(item)}>
               <ListItemText primary={item.title} />
             </ListItemButton>
@@ -61,13 +61,13 @@ export default function SidePostTree({
                     LinkComponent={Link}
                     href={getPostPath(child)}
                   >
-                    <ListItemText primary={child.title} />
+                    <ListItemText primary={`- ${child.title}`} />
                   </ListItemButton>
                 ))}
               </List>
             </Collapse>
           )}
-        </>
+        </div>
       ))}
     </List>
   );

@@ -6,3 +6,41 @@
 a:hover {
   opacity: .8;
 }
+code {
+  background: rgba(135, 131, 120, 0.15);
+  color: #eb575e!important;
+  border-radius: 4px;
+  font-size: 85%;
+  padding: 0.2em 0.4em;
+}
+.markdown table {
+  background-color: #fff;
+  border-collapse: collapse;
+  margin-bottom: .25rem;
+  margin-top: .25rem;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.markdown th {
+  background-color: rgba(0,0,0,.1);
+  background-color:#eee;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-left: 1px solid rgba(0,0,0,.15);
+  border-top: 1px solid rgba(0,0,0,.15);
+  padding: .25rem .75rem
+}
+
+.markdown th:last-child {
+  border-right: 1px solid rgba(0,0,0,.15);;
+}
+
+.markdown td {
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-left: 1px solid rgba(0,0,0,.15);
+  padding: .25rem .75rem
+}
+
+.markdown td:last-child {
+  border-right: 1px solid rgba(0,0,0,.15);
+}

@@ -11,35 +11,31 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import Image from "next/image";
 import { navigationLinks } from "@/const";
-import Link from "next/link";
-import { IconButton } from "@mui/material";
+
+import { IconButton, PaletteMode } from "@mui/material";
 import { useRouter } from "next/router";
+
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
+import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded";
 
 const logoStyle = { width: 140, height: 53 };
 
-export default function AppHeader() {
+interface AppAppBarProps {
+  // dark or light
+  mode: PaletteMode;
+  // テーマ切り替え
+  toggleColorMode: () => void;
+}
+
+export default function AppHeader({ mode, toggleColorMode }: AppAppBarProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const sectionElement = document.getElementById(sectionId);
-    const offset = 128;
-    if (sectionElement) {
-      const targetScroll = sectionElement.offsetTop - offset;
-      sectionElement.scrollIntoView({ behavior: "smooth" });
-      window.scrollTo({
-        top: targetScroll,
-        behavior: "smooth",
-      });
-      setOpen(false);
-    }
   };
 
   return (
@@ -83,12 +79,13 @@ export default function AppHeader() {
                 px: 0,
               }}
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/logo.png"
-                width={logoStyle.width}
-                height={logoStyle.height}
-                alt="logo of sitemark"
+                style={{ width: logoStyle.width, height: logoStyle.height }}
+                alt="テック教育ナビ ロゴ"
               />
+
               <Box sx={{ display: { xs: "none", md: "flex" }, ml: 2 }}>
                 {Object.entries(navigationLinks)
                   .filter(([key, value]) => key === "features")
@@ -114,6 +111,21 @@ export default function AppHeader() {
                 alignItems: "center",
               }}
             >
+              <Box sx={{ maxWidth: "32px" }}>
+                <Button
+                  variant="text"
+                  onClick={toggleColorMode}
+                  size="small"
+                  aria-label="button to toggle theme"
+                  sx={{ minWidth: "32px", height: "32px", p: "4px" }}
+                >
+                  {mode === "dark" ? (
+                    <WbSunnyRoundedIcon fontSize="small" />
+                  ) : (
+                    <ModeNightRoundedIcon fontSize="small" />
+                  )}
+                </Button>
+              </Box>
               <IconButton
                 onClick={() => router.push("/notifications")}
                 size="large"

@@ -46,7 +46,7 @@ export default function EducationalMaterials({ ...props }: PropsType) {
               {props.categories.map((item) => (
                 <ListItem key={item._id} disablePadding>
                   <ListItemButton LinkComponent={Link} href={`${router.asPath}/${item.slug}`}>
-                    <ListItemText primary={item.name} />
+                    <ListItemText primary={`${item.order}.${item.name}`} />
                   </ListItemButton>
                 </ListItem>
               ))}

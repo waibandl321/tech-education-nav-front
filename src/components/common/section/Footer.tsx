@@ -1,13 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-// import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import FacebookIcon from "@mui/icons-material/GitHub";
-import Image from "next/image";
 import dayjs from "dayjs";
 import { navigationLinks } from "@/const";
 import Link from "next/link";
@@ -56,11 +50,11 @@ export default function Footer() {
         >
           <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
             <Box sx={{ ml: "-15px" }}>
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/logo.png"
-                width={logoStyle.width}
-                height={logoStyle.height}
-                alt="logo of sitemark"
+                style={{ width: logoStyle.width, height: logoStyle.height }}
+                alt="テック教育ナビ ロゴ"
               />
             </Box>
           </Box>
