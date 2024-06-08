@@ -1,15 +1,8 @@
-import {
-  CoursePlan,
-  Framework,
-  School,
-  Course,
-  Library,
-  Language,
-} from "@/types/APIDataType";
+import { CoursePlan, Framework, School, Course, Library, Language } from "@/types/APIDataType";
 import { navLinksMapByOption } from "@/const";
 import { useAppSelector } from "@/lib/hooks";
 
-type ExtendedLearningCenter = School & {
+type ExtendedSchool = School & {
   courses: Array<Course>;
 };
 
@@ -31,7 +24,7 @@ export type SearchFilter = {
   developmentProducts: string[];
   qualifications: string[];
   jobTypes: string[];
-  programmingLanguages: string[];
+  languages: string[];
   frameworks: string[];
   developmentTools: string[];
   libraries: string[];
@@ -57,7 +50,7 @@ export const initFilterResults: SearchFilter = {
   developmentProducts: [],
   qualifications: [],
   jobTypes: [],
-  programmingLanguages: [],
+  languages: [],
   frameworks: [],
   developmentTools: [],
   libraries: [],
@@ -73,22 +66,17 @@ export default function useSearch() {
    * @param center スクール情報
    * @returns スクール > コースがplansを持っているかどうか
    */
-  const hasPlan = (center: ExtendedLearningCenter) => {
-    return center.courses.some(
-      (course) => course.plans && course.plans.length > 0
-    );
+  const hasPlan = (center: ExtendedSchool) => {
+    return center.courses.some((course) => course.plans && course.plans.length > 0);
   };
 
   /**
-   * @param centers スクール一覧
+   * @param schools スクール一覧
    * @param courses コース一覧
    * @returns スクールにコース一覧を紐付けたデータ
    */
-  const getComputedCenters = (
-    centers: School[] = [],
-    courses: Course[] = []
-  ) => {
-    return centers.map((center) => {
+  const getComputedSchools = (schools: School[] = [], courses: Course[] = []) => {
+    return schools.map((center) => {
       const coursesByCenter = courses.filter((v) => v.schoolId === center._id);
       return {
         ...center,
@@ -132,9 +120,7 @@ export default function useSearch() {
     items: T[]
   ) => {
     return languages.reduce<ItemsByLangId<T>>((acc, curr) => {
-      const filteredItems = items.filter(
-        (v) => v.programmingLanguageId === curr._id
-      );
+      const filteredItems = items.filter((v) => v.programmingLanguageId === curr._id);
       if (filteredItems.length > 0) {
         // アイテムが1以上の場合のみ、データを登録する
         acc[curr._id] = filteredItems;
@@ -173,9 +159,7 @@ export default function useSearch() {
    * _idに一致する言語名
    */
   const getLanguageNameById = (id: string) => {
-    return (
-      searchData.programmingLanguages.find((v) => v._id === id)?.name ?? ""
-    );
+    return searchData.languages.find((v) => v._id === id)?.name ?? "";
   };
   /**
    * _idに一致するフレームワーク名
@@ -211,9 +195,7 @@ export default function useSearch() {
    * _idに一致する開発分野
    */
   const getDevCategoryNameById = (id: string) => {
-    return (
-      searchData.developmentCategories.find((v) => v._id === id)?.name ?? ""
-    );
+    return searchData.developmentCategories.find((v) => v._id === id)?.name ?? "";
   };
   /**
    * _idに一致する開発プロダクト
@@ -224,7 +206,7 @@ export default function useSearch() {
 
   return {
     hasPlan,
-    getComputedCenters,
+    getComputedSchools,
     findMinPlanPrice,
     getChipsByCourse,
     getMasterItemsByLang,

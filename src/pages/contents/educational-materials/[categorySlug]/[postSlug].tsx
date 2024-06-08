@@ -1,5 +1,5 @@
 import Layout from "@/app/layout";
-import { DrawerWidth } from "@/const";
+import { BaseURL, DrawerWidth } from "@/const";
 import {
   GetPostsResponse,
   fetchPostBySlug,
@@ -15,6 +15,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useRouter } from "next/router";
 import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
 import SidePostTree from "@/components/common/section/SidePostTree";
+import Head from "next/head";
 
 interface PropsType {
   viewport: DeviceType;
@@ -28,6 +29,16 @@ export default function CategoryIndex({ ...props }: PropsType) {
 
   return (
     <Layout>
+      <Head>
+        <title>{props.postDetail.title}</title>
+        <meta name="description" content={props.postDetail.meta_description} />
+        <meta property="og:title" content={props.postDetail.title} />
+        <meta property="og:description" content={props.postDetail.meta_description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${BaseURL}${router.asPath}`} />
+        <meta property="og:image" content={`${BaseURL}/logo.png`} />
+        <link rel="canonical" href={`${BaseURL}${router.asPath}`} />
+      </Head>
       <Container>
         <Box
           sx={{

@@ -6,13 +6,13 @@ import {
   FixedPage,
   PostCategory,
 } from "@/types/APIDataType";
-import { MasterDataMap } from "@/types/CommonType";
+import { AppDataPropType, MasterDataMap } from "@/types/CommonType";
 import axios from "axios";
 
 // axiosインスタンス
 const axiosInstance = axios.create({
-  baseURL: "https://api.tech-education-nav.com/",
-  // baseURL: "http://localhost:8080/",
+  // baseURL: "https://api.tech-education-nav.com/",
+  baseURL: "http://localhost:8080/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -41,13 +41,13 @@ export const createContact = async <T>(
  * マスタデータ取得 クエリマップ
  */
 const ssrMasterQueryMap = {
-  centers: {
+  schools: {
     callback: async <T>(): Promise<T[]> => await _fetch("/api/master/school/list"),
   },
   courses: {
     callback: async <T>(): Promise<T[]> => await _fetch("/api/master/course/list"),
   },
-  programmingLanguages: {
+  languages: {
     callback: async <T>(): Promise<T[]> => await _fetch("/api/master/language/list"),
   },
   frameworks: {
@@ -79,6 +79,15 @@ const ssrMasterQueryMap = {
 type SSRMasterQueryMapKey = keyof typeof ssrMasterQueryMap;
 
 /**
+ * コース一覧のAPIレスポンス
+ */
+export type CourseListResponse = {
+  total: number;
+  totalPages: number;
+  items: Course[];
+};
+
+/**
  * 各種マスタデータ取得
  * @param key 検索対象のfetch key
  */
@@ -97,41 +106,36 @@ export const fetchDataByKey = async <T>(key: SSRMasterQueryMapKey) => {
 };
 
 // データを取得する関数を汎用的に利用
-export const fetchMasterData = async <T>(): Promise<MasterDataMap> => {
-  const results = await Promise.all(
-    Object.keys(ssrMasterQueryMap).map(
-      async (key, index) => await ssrMasterQueryMap[key as SSRMasterQueryMapKey].callback()
-    )
-  );
-
-  return Object.keys(ssrMasterQueryMap).reduce(
-    (acc, key, index) => ({
-      ...acc,
-      [key]: results[index],
-    }),
-    {} as MasterDataMap
-  );
+export const fetchMasterData = async (): Promise<MasterDataMap> => {
+  const path = "/api/master/all-list";
+  return await _fetch<MasterDataMap>(path);
 };
 
 /**
  * コース情報の検索実行処理
  * @param queryParams クエリパラメータを表すオブジェクト
  */
-const fetchCourses = async (queryParams: { [key: string]: any }) => {
-  // 正しくクエリパラメータを組み立てる
-  const query = Object.entries(queryParams)
-    .map(([key, value]) => {
-      if (Array.isArray(value)) {
-        return `${key}=${value.join(",")}`;
-      }
-      return `${key}=${encodeURIComponent(value)}`;
-    })
-    .join("&");
+export const fetchCourses = async (queryParams?: { [key: string]: any }) => {
+  let path = "/api/master/course/list";
+  if (queryParams) {
+    // 正しくクエリパラメータを組み立てる
+    const query = Object.entries(queryParams)
+      .map(([key, value]) => {
+        if (Array.isArray(value)) {
+          return `${key}=${value.join(",")}`;
+        }
+        return `${key}=${encodeURIComponent(value)}`;
+      })
+      .join("&");
+    path = `${path}?${query}`;
+  }
 
   try {
-    const results = await _fetch(`/api/master/course/list?${query}`);
+    const result = await _fetch<CourseListResponse>(path);
     return {
-      courses: results,
+      courses: result.items,
+      total: result.total,
+      totalPages: result.totalPages,
     };
   } catch (error) {
     console.error("Error fetching courses:", error);

@@ -209,9 +209,11 @@ export default function SearchNavigation({
    * 検索実行
    */
   const handlerFilter = async () => {
+    // ページングを初期化するので、検索に含めない
+    const { page, limit, ...rest } = searchQuery;
     // 金額を再度「万円」の単位に変換して保存
     const updatedSearchQuery = {
-      ...searchQuery,
+      ...rest,
       minPrice:
         filterResult.minPrice !== null
           ? String(filterResult.minPrice * PRICE_CONVERSION_RATE)
@@ -221,6 +223,7 @@ export default function SearchNavigation({
           ? String(filterResult.maxPrice * PRICE_CONVERSION_RATE)
           : undefined,
     };
+
     // URLを更新 (更新したクエリパラメータを含める)
     router.push(
       {
@@ -236,19 +239,19 @@ export default function SearchNavigation({
 
   // 言語IDをkeyにしたオブジェクト配列
   const languagesById = useMemo(() => {
-    return getLanguagesById(searchData.programmingLanguages);
-  }, [searchData.programmingLanguages, getLanguagesById]);
+    return getLanguagesById(searchData.languages);
+  }, [searchData.languages, getLanguagesById]);
 
   // 言語IDをkeyにしたオブジェクトフレームワーク配列
   const librariesByLang = useMemo(
-    () => getMasterItemsByLang(searchData.programmingLanguages, searchData.libraries),
-    [searchData.programmingLanguages, searchData.libraries, getMasterItemsByLang]
+    () => getMasterItemsByLang(searchData.languages, searchData.libraries),
+    [searchData.languages, searchData.libraries, getMasterItemsByLang]
   );
 
   // プログラミング言語にフレームワークを紐付けたデータ
   const languageWithFrameworks = useMemo(
-    () => getMasterItemsByLang(searchData.programmingLanguages, searchData.frameworks),
-    [searchData.programmingLanguages, searchData.frameworks, getMasterItemsByLang]
+    () => getMasterItemsByLang(searchData.languages, searchData.frameworks),
+    [searchData.languages, searchData.frameworks, getMasterItemsByLang]
   );
 
   return (
@@ -262,7 +265,6 @@ export default function SearchNavigation({
               mb: 8,
               p: 2,
               position: "relative",
-              pb: 10,
               overscrollBehavior: "none",
             }
       }
@@ -611,20 +613,16 @@ export default function SearchNavigation({
             <Select
               size="small"
               id="select-programming-languages"
-              value={filterResult.programmingLanguages}
-              name="programmingLanguages"
+              value={filterResult.languages}
+              name="languages"
               input={<OutlinedInput fullWidth />}
               onChange={(event) => handlerFormChange(event)}
-              renderValue={(selected) =>
-                getSelectValueText(selected, searchData.programmingLanguages)
-              }
+              renderValue={(selected) => getSelectValueText(selected, searchData.languages)}
               multiple
             >
-              {searchData.programmingLanguages.map((language) => (
+              {searchData.languages.map((language) => (
                 <MenuItem key={language._id} value={language._id}>
-                  <Checkbox
-                    checked={filterResult.programmingLanguages.indexOf(language._id as never) > -1}
-                  />
+                  <Checkbox checked={filterResult.languages.indexOf(language._id as never) > -1} />
                   <ListItemText>{language.name}</ListItemText>
                 </MenuItem>
               ))}
@@ -730,29 +728,17 @@ export default function SearchNavigation({
           </Select>
         </FormControl>
       </Box>
-      <Paper
-        sx={{
-          position: "fixed",
-          bottom: isMobile ? 0 : 54,
-          left: isMobile ? 0 : 16,
-          right: isMobile ? 0 : 16,
-          zIndex: 3,
-          width: isMobile ? "100%" : drawerWidth - 16,
-        }}
-        elevation={4}
-      >
-        <Card sx={{ p: 2 }} variant="elevation">
-          <Button
-            size="large"
-            variant="contained"
-            fullWidth
-            sx={{ fontWeight: "bold" }}
-            onClick={handlerFilter}
-          >
-            検索
-          </Button>
-        </Card>
-      </Paper>
+      <Card sx={{ mt: 2 }} variant="outlined">
+        <Button
+          size="large"
+          variant="contained"
+          fullWidth
+          sx={{ fontWeight: "bold" }}
+          onClick={handlerFilter}
+        >
+          検索
+        </Button>
+      </Card>
     </Card>
   );
 }

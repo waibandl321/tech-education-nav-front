@@ -6,6 +6,7 @@ import { fetchFixedPageBySlug } from "@/hooks/server/fetchDataClone";
 import { FixedPage } from "@/types/APIDataType";
 import markdownToHtml from "@/hooks/utils/markdownToHtml";
 import { Container } from "@mui/material";
+import { BaseURL } from "@/const";
 
 type Props = {
   pageData: FixedPage | null;
@@ -27,14 +28,14 @@ export default function SearchType({ ...props }: Props) {
   return (
     <>
       <Head>
-        <title>{page.title}【テック教育ナビ】</title>
-        <meta
-          name="description"
-          content="
-        テック教育ナビでは豊富なプログラミングスクールの情報からプログラミング言語や
-        職種、その他さまざまな詳細条件でプログラミングスクールを探せます。"
-        />
-        {/* その他のメタタグ */}
+        <title>{props.pageData?.title}</title>
+        <meta name="description" content={props.pageData?.meta_description} />
+        <meta property="og:title" content={props.pageData?.title} />
+        <meta property="og:description" content={props.pageData?.meta_description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${BaseURL}${router.asPath}`} />
+        <meta property="og:image" content={`${BaseURL}/logo.png`} />
+        <link rel="canonical" href={`${BaseURL}${router.asPath}`} />
       </Head>
 
       <Layout>

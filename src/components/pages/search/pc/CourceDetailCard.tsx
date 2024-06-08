@@ -19,13 +19,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import useSearch from "@/hooks/useSearch";
 
-export default function CourceDetailCard({
-  center,
-  course,
-}: {
-  center: School;
-  course: Course;
-}) {
+export default function CourceDetailCard({ center, course }: { center: School; course: Course }) {
   // hooks
   const {
     findMinPlanPrice,
@@ -40,10 +34,7 @@ export default function CourceDetailCard({
     getDevProductNameById,
   } = useSearch();
 
-  const chips = useMemo(
-    () => getChipsByCourse(course),
-    [course, getChipsByCourse]
-  );
+  const chips = useMemo(() => getChipsByCourse(course), [course, getChipsByCourse]);
 
   return (
     <Card sx={{ mb: 2 }} variant="outlined">
@@ -57,11 +48,7 @@ export default function CourceDetailCard({
               </Typography>
               <Typography fontWeight={700}>{course.courseName}</Typography>
               {course.plans && course.plans.length > 0 && (
-                <Typography
-                  color="#f82055"
-                  fontWeight="bold"
-                  whiteSpace="pre-line"
-                >
+                <Typography color="#f82055" fontWeight="bold" whiteSpace="pre-line">
                   &yen;
                   {findMinPlanPrice(course.plans)?.toLocaleString() ?? "---"}〜
                 </Typography>
@@ -101,17 +88,10 @@ export default function CourceDetailCard({
                         <TableRow key={index}>
                           <TableCell>{plan?.planName}</TableCell>
                           <TableCell>
-                            受講期間:{" "}
-                            {plan?.duration
-                              ? `${plan?.duration}ヶ月`
-                              : "無期限"}
+                            受講期間: {plan?.duration ? `${plan?.duration}ヶ月` : "無期限"}
                           </TableCell>
                           <TableCell>
-                            <Typography
-                              color="#f82055"
-                              fontWeight="bold"
-                              margin={0}
-                            >
+                            <Typography color="#f82055" fontWeight="bold" margin={0}>
                               &yen;{plan?.price?.toLocaleString()}
                             </Typography>
                             {/* <Typography fontSize={12}>
@@ -123,11 +103,7 @@ export default function CourceDetailCard({
                           <TableCell>
                             <div>
                               {plan.planMemo && (
-                                <Link
-                                  target="_blank"
-                                  href={plan.planMemo}
-                                  color="#1976d2"
-                                >
+                                <Link target="_blank" href={plan.planMemo} color="#1976d2">
                                   詳細を見る
                                 </Link>
                               )}
@@ -180,64 +156,59 @@ export default function CourceDetailCard({
             </Box>
           )}
 
-          {course.developmentCategories &&
-            course.developmentCategories.length > 0 && (
+          {course.developmentCategories && course.developmentCategories.length > 0 && (
+            <Box marginTop={2}>
+              <Typography fontWeight={700}>開発領域</Typography>
               <Box marginTop={2}>
-                <Typography fontWeight={700}>開発領域</Typography>
-                <Box marginTop={2}>
-                  {course.developmentCategories.map(
-                    (v) =>
-                      v && (
-                        <Chip
-                          key={v}
-                          label={getDevCategoryNameById(v)}
-                          sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
-                        />
-                      )
-                  )}
-                </Box>
+                {course.developmentCategories.map(
+                  (v) =>
+                    v && (
+                      <Chip
+                        key={v}
+                        label={getDevCategoryNameById(v)}
+                        sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
+                      />
+                    )
+                )}
               </Box>
-            )}
+            </Box>
+          )}
 
-          {course.developmentProducts &&
-            course.developmentProducts.length > 0 && (
+          {course.developmentProducts && course.developmentProducts.length > 0 && (
+            <Box marginTop={2}>
+              <Typography fontWeight={700}>開発できるプロダクト</Typography>
               <Box marginTop={2}>
-                <Typography fontWeight={700}>開発できるプロダクト</Typography>
-                <Box marginTop={2}>
-                  {course.developmentProducts?.map(
-                    (v) =>
-                      v && (
-                        <Chip
-                          key={v}
-                          label={getDevProductNameById(v)}
-                          sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
-                        />
-                      )
-                  )}
-                </Box>
+                {course.developmentProducts?.map(
+                  (v) =>
+                    v && (
+                      <Chip
+                        key={v}
+                        label={getDevProductNameById(v)}
+                        sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
+                      />
+                    )
+                )}
               </Box>
-            )}
+            </Box>
+          )}
 
-          {course.programmingLanguages &&
-            course.programmingLanguages.length > 0 && (
+          {course.languages && course.languages.length > 0 && (
+            <Box marginTop={2}>
+              <Typography fontWeight={700}>学べるプログラミング言語</Typography>
               <Box marginTop={2}>
-                <Typography fontWeight={700}>
-                  学べるプログラミング言語
-                </Typography>
-                <Box marginTop={2}>
-                  {course.programmingLanguages.map(
-                    (v) =>
-                      v && (
-                        <Chip
-                          key={v}
-                          label={getLanguageNameById(v)}
-                          sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
-                        />
-                      )
-                  )}
-                </Box>
+                {course.languages.map(
+                  (v) =>
+                    v && (
+                      <Chip
+                        key={v}
+                        label={getLanguageNameById(v)}
+                        sx={{ mr: 1, mb: 1, fontWeight: "bold" }}
+                      />
+                    )
+                )}
               </Box>
-            )}
+            </Box>
+          )}
 
           {course.frameworks && course.frameworks.length > 0 && (
             <Box marginTop={2}>

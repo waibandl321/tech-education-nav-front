@@ -5,7 +5,7 @@ import TerminalIcon from "@mui/icons-material/Terminal";
 import { useMemo } from "react";
 
 type PropsType = {
-  centers: Array<School>;
+  schools: Array<School>;
   courses: Array<Course>;
   selectedCenter: School | null;
   selectedCourse: Course | null;
@@ -14,7 +14,7 @@ type PropsType = {
 };
 
 export default function AutoCompleteSchoolCourse({
-  centers,
+  schools,
   courses,
   selectedCenter,
   selectedCourse,
@@ -31,9 +31,9 @@ export default function AutoCompleteSchoolCourse({
     <Grid container spacing={2}>
       <Grid item md={6} xs={12}>
         <Autocomplete
-          id="learningCenterSelect"
+          id="schoolSelect"
           value={selectedCenter}
-          options={centers}
+          options={schools}
           noOptionsText="データがありません"
           getOptionLabel={(option) => option.name ?? ""}
           isOptionEqualToValue={(option, value) => option._id === value._id}

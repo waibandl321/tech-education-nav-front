@@ -15,15 +15,6 @@ import {
 } from "@/types/APIDataType";
 import { ReduxRootState } from "@/lib/store";
 
-export interface CentersAndCoursesPropType {
-  centers: Array<School>;
-  courses: Array<Course>;
-}
-export interface CenterAndCourseDetailPropType {
-  center: School;
-  course: Course;
-}
-
 /**
  * アクセスしてきたユーザーのデバイスタイプ
  * src/middleware.tsで取得している
@@ -45,9 +36,9 @@ export interface MasterDataBasicType {
 export interface AppDataPropType {
   viewport?: DeviceType;
   searchTypeParam?: string;
-  centers: Array<School>;
+  schools: Array<School>;
   courses: Array<Course>;
-  programmingLanguages: Array<ProgrammingLanguage>;
+  languages: Array<ProgrammingLanguage>;
   frameworks: Array<Framework>;
   libraries: Array<Library>;
   developmentTools: Array<DevelopmentTool>;
@@ -64,8 +55,8 @@ export interface AppDataPropType {
  * マスタデータのマップ型
  */
 export interface MasterDataMap {
-  centers: Array<School>;
-  programmingLanguages: Array<ProgrammingLanguage>;
+  schools: Array<School>;
+  languages: Array<ProgrammingLanguage>;
   frameworks: Array<Framework>;
   libraries: Array<Library>;
   developmentTools: Array<DevelopmentTool>;

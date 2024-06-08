@@ -3,9 +3,10 @@ import Layout from "@/app/layout";
 import Head from "next/head";
 import {
   CompoundSearchCondition,
+  fetchCourses,
   fetchCoursesByCompoundSearch,
 } from "@/hooks/server/fetchDataClone";
-import { fetchDataByKey, fetchMasterData } from "@/hooks/server/fetchDataClone";
+import { fetchMasterData } from "@/hooks/server/fetchDataClone";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
@@ -16,18 +17,23 @@ import { ParsedUrlQuery } from "querystring";
 import { useDispatch } from "react-redux";
 import { setMasterArr } from "@/lib/features/search/masterDataSlice";
 
-export default function Index({ ...props }: AppDataPropType) {
+type SearchPageProps = AppDataPropType & {
+  totalPages: number;
+  totalCount: number;
+};
+
+export default function Index({ ...props }: SearchPageProps) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
   const dispath = useDispatch();
 
   // storeにマスタデータを保持
   useEffect(() => {
-    dispath(setMasterArr({ key: "centers", items: props.centers }));
+    dispath(setMasterArr({ key: "schools", items: props.schools }));
     dispath(
       setMasterArr({
-        key: "programmingLanguages",
-        items: props.programmingLanguages,
+        key: "languages",
+        items: props.languages,
       })
     );
     dispath(setMasterArr({ key: "frameworks", items: props.frameworks }));
@@ -65,9 +71,17 @@ export default function Index({ ...props }: AppDataPropType) {
       </Head>
       <Layout>
         {isMobile ? (
-          <SPSearchPane courses={props.courses} />
+          <SPSearchPane
+            courses={props.courses}
+            totalCount={props.totalCount}
+            totalPages={props.totalPages}
+          />
         ) : (
-          <PCSearchPane courses={props.courses} />
+          <PCSearchPane
+            courses={props.courses}
+            totalCount={props.totalCount}
+            totalPages={props.totalPages}
+          />
         )}
       </Layout>
     </>
@@ -91,16 +105,16 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     const [result, courseResult] = await Promise.all([
       await fetchMasterData(),
       // クエリ数に応じて処理を切り分ける
-      searchConditions.length > 0
-        ? await fetchCoursesByCompoundSearch(searchConditions)
-        : await fetchDataByKey("courses"),
+      await fetchCoursesByCompoundSearch(searchConditions),
     ]);
 
     return {
       props: {
-        centers: result.centers,
         courses: courseResult.courses,
-        programmingLanguages: result.programmingLanguages,
+        totalPages: courseResult.totalPages,
+        totalCount: courseResult.total,
+        schools: result.schools,
+        languages: result.languages,
         frameworks: result.frameworks,
         libraries: result.libraries,
         developmentTools: result.developmentTools,

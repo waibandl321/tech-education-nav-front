@@ -1,6 +1,6 @@
 import Layout from "@/app/layout";
 import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
-import { DrawerWidth } from "@/const";
+import { BaseURL, DrawerWidth } from "@/const";
 import { fetchPostCategories, fetchFixedPageBySlug } from "@/hooks/server/fetchDataClone";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { FixedPage, PostCategory } from "@/types/APIDataType";
@@ -13,8 +13,8 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography,
 } from "@mui/material";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -29,6 +29,16 @@ export default function EducationalMaterials({ ...props }: PropsType) {
 
   return (
     <Layout>
+      <Head>
+        <title>{props.pageData?.title}</title>
+        <meta name="description" content={props.pageData?.meta_description} />
+        <meta property="og:title" content={props.pageData?.title} />
+        <meta property="og:description" content={props.pageData?.meta_description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${BaseURL}${router.asPath}`} />
+        <meta property="og:image" content={`${BaseURL}/logo.png`} />
+        <link rel="canonical" href={`${BaseURL}${router.asPath}`} />
+      </Head>
       <Container>
         <Box sx={{ display: "flex" }}>
           {/* <Toolbar /> */}

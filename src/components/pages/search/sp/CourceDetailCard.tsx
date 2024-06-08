@@ -16,13 +16,7 @@ import { orderBy } from "lodash";
 import React, { useMemo } from "react";
 import useSearch from "@/hooks/useSearch";
 
-export default function CourceDetailCard({
-  center,
-  course,
-}: {
-  center: School;
-  course: Course;
-}) {
+export default function CourceDetailCard({ center, course }: { center: School; course: Course }) {
   // hooks
   const {
     findMinPlanPrice,
@@ -37,10 +31,7 @@ export default function CourceDetailCard({
     getDevProductNameById,
   } = useSearch();
 
-  const chips = useMemo(
-    () => getChipsByCourse(course),
-    [course, getChipsByCourse]
-  );
+  const chips = useMemo(() => getChipsByCourse(course), [course, getChipsByCourse]);
 
   return (
     <Card sx={{ m: 1, pb: 2 }} variant="outlined">
@@ -81,17 +72,11 @@ export default function CourceDetailCard({
                               >
                                 受講期間:
                               </Typography>
-                              {plan?.duration
-                                ? `${plan?.duration}ヶ月`
-                                : "無期限"}
+                              {plan?.duration ? `${plan?.duration}ヶ月` : "無期限"}
                             </React.Fragment>
                           }
                         />
-                        <Typography
-                          color="#f82055"
-                          fontWeight="bold"
-                          margin={0}
-                        >
+                        <Typography color="#f82055" fontWeight="bold" margin={0}>
                           &yen;{plan?.price?.toLocaleString()}
                         </Typography>
                       </ListItem>
@@ -120,7 +105,7 @@ export default function CourceDetailCard({
           <Box marginTop={2}>
             <Typography fontWeight={700}>学べる言語</Typography>
             <Box marginTop={2}>
-              {course.programmingLanguages?.map(
+              {course.languages?.map(
                 (item) =>
                   item && (
                     <Chip

@@ -125,7 +125,7 @@ export interface Course {
   jobTypes?: Array<string | null> | null;
   developmentCategories?: Array<string | null> | null;
   developmentProducts?: Array<string | null> | null;
-  programmingLanguages?: Array<string | null> | null;
+  languages?: Array<string | null> | null;
   frameworks?: Array<string | null> | null;
   libraries?: Array<string | null> | null;
   developmentTools?: Array<string | null> | null;
@@ -159,7 +159,7 @@ export interface CreateCourseInput {
   jobTypes?: Array<string | null> | null;
   developmentCategories?: Array<string | null> | null;
   developmentProducts?: Array<string | null> | null;
-  programmingLanguages?: Array<string | null> | null;
+  languages?: Array<string | null> | null;
   frameworks?: Array<string | null> | null;
   libraries?: Array<string | null> | null;
   developmentTools?: Array<string | null> | null;

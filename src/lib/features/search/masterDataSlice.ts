@@ -10,8 +10,8 @@ export type MasterDataSliceState = {
 
 const initialState: MasterDataSliceState = {
   data: {
-    centers: [],
-    programmingLanguages: [],
+    schools: [],
+    languages: [],
     frameworks: [],
     libraries: [],
     jobTypes: [],
@@ -41,10 +41,7 @@ const masterDataSlice = createSlice({
     setMasterArr: (state, action: PayloadAction<SetMasterArrPayloadAction>) => {
       state.data[action.payload.key] = action.payload.items;
     },
-    setMasterObject: (
-      state,
-      action: PayloadAction<SetMasterObjectPayloadAction>
-    ) => {
+    setMasterObject: (state, action: PayloadAction<SetMasterObjectPayloadAction>) => {
       const existItemIndex = state.data[action.payload.key].findIndex(
         (v) => v._id === action.payload.item._id
       );

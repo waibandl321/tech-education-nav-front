@@ -11,21 +11,24 @@ import {
   Button,
   styled,
   SwipeableDrawer,
+  Pagination,
+  Card,
+  CardHeader,
+  Divider,
+  CardContent,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import ListItemText from "@mui/material/ListItemText";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Global } from "@emotion/react";
 import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
 import useSearch from "@/hooks/useSearch";
 import { useAppSelector } from "@/lib/hooks";
 import { Course } from "@/types/APIDataType";
+import usePagenation from "../usePagenation";
+import { useRouter } from "next/router";
 
 // メニュー関連のスタイル
-const Root = styled("div")(({ theme }) => ({
-  height: "100%",
-  backgroundColor: theme.palette.mode === "light" ? grey[100] : theme.palette.background.default,
-}));
 const StyledBox = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
 }));
@@ -43,9 +46,17 @@ const Puller = styled("div")(({ theme }) => ({
 const drawerBleeding = 56;
 const drawerWidth = 300;
 
-export default function SPSearchPane({ courses }: { courses: Course[] }) {
+export default function SPSearchPane({
+  ...props
+}: {
+  courses: Course[];
+  totalCount: number;
+  totalPages: number;
+}) {
   // hooks
-  const { hasPlan, getComputedCenters } = useSearch();
+  const router = useRouter();
+  const { hasPlan, getComputedSchools } = useSearch();
+  const { pagenation, getDisplayCount, handleChangePagination } = usePagenation(props);
   // store
   const searchData = useAppSelector((state) => state.searchData).data;
 
@@ -58,8 +69,8 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
 
   // スクールにコース一覧を紐付けたデータ
   const items = useMemo(
-    () => getComputedCenters(searchData.centers, courses),
-    [searchData.centers, courses, getComputedCenters]
+    () => getComputedSchools(searchData.schools, props.courses),
+    [searchData.schools, props.courses, getComputedSchools]
   );
 
   const SwipeIcon = () => {
@@ -68,6 +79,22 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
     }
     return <SwipeUpIcon sx={{ color: "text.secondary", mr: 2 }}></SwipeUpIcon>;
   };
+
+  /**
+   * ページングの変更を検知し、クエリパラメーターを更新
+   */
+  useEffect(() => {
+    // 現在のURLパスとクエリパラメーターを取得
+    const currentPath = router.pathname;
+    const currentQuery = { ...router.query, page: pagenation.pageNum };
+
+    // router.pushでクエリパラメーターを更新
+    router.push({
+      pathname: currentPath,
+      query: currentQuery,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagenation.pageNum]);
 
   return (
     <>
@@ -132,12 +159,21 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
       >
         <List sx={{ pb: 0 }}>
           <ListItem sx={{ pb: 0 }}>
-            <ListItemText primary="詳細条件" secondary="設定した条件が入る..." />
+            <ListItemText primary="検索条件" secondary="設定した条件が入る..." />
             <ListItemSecondaryAction>
               <Button onClick={toggleDrawer(true)}>変更する</Button>
             </ListItemSecondaryAction>
           </ListItem>
         </List>
+        {/* 検索件数 */}
+        <Card sx={{ mx: 1, p: 1 }}>
+          <Box display="flex" alignItems="center">
+            <Typography>{props.totalCount}件</Typography>
+            <Typography variant="body2" marginLeft={2}>
+              {getDisplayCount()}
+            </Typography>
+          </Box>
+        </Card>
         {items.map(
           (center, index) =>
             hasPlan(center) && (
@@ -152,6 +188,18 @@ export default function SPSearchPane({ courses }: { courses: Course[] }) {
               </React.Fragment>
             )
         )}
+        {/* ページング */}
+        <Box display="flex" justifyContent="center">
+          <Pagination
+            count={props.totalPages}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
+            sx={{ my: 2 }}
+            page={pagenation.pageNum}
+            onChange={handleChangePagination}
+          />
+        </Box>
       </Box>
     </>
   );

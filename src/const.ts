@@ -50,6 +50,8 @@ interface TechNavigationLinkMap {
   [key: string]: TechNavigationLink;
 }
 
+export const BaseURL = "https://tech-education-nav.com";
+
 // 受講スタイル
 export const AttendanceTypeLabels = [
   { _id: "ONLINE", name: "オンライン" },
@@ -160,15 +162,15 @@ export const navLinksMapByOption: Array<OptionNavigationLink> = [
 ] as const;
 
 export const navLinksMapByTech: TechNavigationLinkMap = {
-  programmingLanguages: {
+  languages: {
     name: "プログラミング言語一覧",
     navigationTitle: "プログラミング言語から探す",
-    href: "/search/technique/programmingLanguages",
+    href: "/search/technique/languages",
     Icon: CodeIcon,
-    ssrFetchFunction: () => fetchDataByKey("programmingLanguages"),
+    ssrFetchFunction: () => fetchDataByKey("languages"),
     searchSelectTitle: "学びたいプログラミング言語からスクールを探す",
     breadcrumbText: "プログラミング言語を選択",
-    selectionTypeParam: "programmingLanguages",
+    selectionTypeParam: "languages",
   },
   frameworks: {
     name: "フレームワーク一覧",
@@ -273,3 +275,8 @@ export type PostTypeKeys = (typeof PostTypes)[number]["key"];
 
 // レフトナビ横幅
 export const DrawerWidth = 300;
+
+/**
+ * コース一覧取得件数
+ */
+export const DEFAULT_LIMIT_PER_PAGE = 20;
