@@ -11,8 +11,8 @@ import axios from "axios";
 
 // axiosインスタンス
 const axiosInstance = axios.create({
-  // baseURL: "https://api.tech-education-nav.com/",
-  baseURL: "http://localhost:8080/",
+  baseURL: "https://api.tech-education-nav.com/",
+  // baseURL: "http://localhost:8080/",
   headers: {
     "Content-Type": "application/json",
   },
