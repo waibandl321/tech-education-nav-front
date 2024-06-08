@@ -1,4 +1,13 @@
-import { Box, Card, CardContent, CardHeader, Divider, Pagination, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Divider,
+  Pagination,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useMemo } from "react";
 import SearchNavigation from "@/components/pages/search/SearchNavigation";
 import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
@@ -50,7 +59,7 @@ export default function PCSearchPane({
   }, [pagenation.pageNum]);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Container maxWidth="lg" sx={{ display: "flex" }}>
       <CssBaseline />
       <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
         <SearchNavigation drawerWidth={drawerWidth} />
@@ -124,6 +133,6 @@ export default function PCSearchPane({
           />
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 }

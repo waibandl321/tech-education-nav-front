@@ -255,23 +255,9 @@ export default function SearchNavigation({
   );
 
   return (
-    <Card
-      sx={
-        isMobile
-          ? { overflow: "auto", mb: 8, pb: 10, p: 2, position: "relative" }
-          : {
-              overflow: "auto",
-              ml: 2,
-              mb: 8,
-              p: 2,
-              position: "relative",
-              overscrollBehavior: "none",
-            }
-      }
-      variant="outlined"
-    >
+    <Card sx={{ mb: 8, pb: 10, p: 2, position: "relative" }} variant="outlined">
       <Box>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             受講料金
           </Typography>
@@ -316,7 +302,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             スクールの特徴
           </Typography>
@@ -395,7 +381,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             受講スタイル
           </Typography>
@@ -421,7 +407,7 @@ export default function SearchNavigation({
         </FormControl>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             受講目的
           </Typography>
@@ -448,7 +434,7 @@ export default function SearchNavigation({
       </Box>
 
       <Box sx={{ mt: 4 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             特別割引の対象者
           </Typography>
@@ -481,7 +467,7 @@ export default function SearchNavigation({
         </FormControl>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             関わりたい開発分野
           </Typography>
@@ -513,7 +499,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             作りたいサービス
           </Typography>
@@ -545,7 +531,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             取得したい資格
           </Typography>
@@ -575,7 +561,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             なりたい職種
           </Typography>
@@ -603,7 +589,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             学びたいプログラミング言語
           </Typography>
@@ -631,7 +617,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             学びたいフレームワーク
           </Typography>
@@ -666,7 +652,7 @@ export default function SearchNavigation({
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             学びたいライブラリ/API
           </Typography>
@@ -700,7 +686,7 @@ export default function SearchNavigation({
         </FormControl>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Box bgcolor="#f8f8f8" p={1} marginBottom={1}>
+        <Box marginBottom={1}>
           <Typography variant="body2" fontWeight={700}>
             学びたいツール
           </Typography>

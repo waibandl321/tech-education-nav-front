@@ -3,14 +3,13 @@ import Layout from "@/app/layout";
 import Head from "next/head";
 import {
   CompoundSearchCondition,
-  fetchCourses,
   fetchCoursesByCompoundSearch,
 } from "@/hooks/server/fetchDataClone";
 import { fetchMasterData } from "@/hooks/server/fetchDataClone";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";
-import { AppDataPropType } from "@/types/CommonType";
+import { AppDataPropType, MasterDataMap } from "@/types/CommonType";
 import { Course } from "@/types/APIDataType";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { ParsedUrlQuery } from "querystring";
@@ -25,42 +24,28 @@ type SearchPageProps = AppDataPropType & {
 export default function Index({ ...props }: SearchPageProps) {
   const isMobile = useMediaQuery("(max-width:640px)");
 
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   // storeにマスタデータを保持
   useEffect(() => {
-    dispath(setMasterArr({ key: "schools", items: props.schools }));
-    dispath(
-      setMasterArr({
-        key: "languages",
-        items: props.languages,
-      })
-    );
-    dispath(setMasterArr({ key: "frameworks", items: props.frameworks }));
-    dispath(setMasterArr({ key: "libraries", items: props.libraries }));
-    dispath(setMasterArr({ key: "developmentTools", items: props.developmentTools }));
-    dispath(setMasterArr({ key: "jobTypes", items: props.jobTypes }));
-    dispath(
-      setMasterArr({
-        key: "developmentCategories",
-        items: props.developmentCategories,
-      })
-    );
-    dispath(
-      setMasterArr({
-        key: "developmentProducts",
-        items: props.developmentProducts,
-      })
-    );
-    dispath(setMasterArr({ key: "qualifications", items: props.qualifications }));
-    dispath(
-      setMasterArr({
-        key: "benefitUserCategories",
-        items: props.benefitUserCategories,
-      })
-    );
+    const masterData = {
+      schools: props.schools,
+      languages: props.languages,
+      frameworks: props.frameworks,
+      libraries: props.libraries,
+      developmentTools: props.developmentTools,
+      jobTypes: props.jobTypes,
+      developmentCategories: props.developmentCategories,
+      developmentProducts: props.developmentProducts,
+      qualifications: props.qualifications,
+      benefitUserCategories: props.benefitUserCategories,
+    };
+
+    Object.entries(masterData).forEach(([key, items]) => {
+      dispatch(setMasterArr({ key: key as keyof MasterDataMap, items }));
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props]);
 
   return (
     <>
