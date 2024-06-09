@@ -5,15 +5,7 @@ import { fetchPostCategories, fetchFixedPageBySlug } from "@/hooks/server/fetchD
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { FixedPage, PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";
-import {
-  Box,
-  Button,
-  Container,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Box, Container, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";

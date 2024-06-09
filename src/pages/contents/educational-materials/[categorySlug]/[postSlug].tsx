@@ -58,7 +58,6 @@ export default function CategoryIndex({ ...props }: PropsType) {
           <Typography>{props.postDetail.title}</Typography>
         </Box>
         <Box marginTop={2} sx={{ display: "flex" }}>
-          {/* <Toolbar /> */}
           <Box
             sx={{
               width: DrawerWidth,
@@ -69,7 +68,6 @@ export default function CategoryIndex({ ...props }: PropsType) {
               },
             }}
           >
-            {/* {JSON.stringify(router)} */}
             <SidePostTree posts={props.categoryPosts.items} category={props.category} />
           </Box>
           <Box
@@ -77,7 +75,6 @@ export default function CategoryIndex({ ...props }: PropsType) {
             sx={{ flexGrow: 1, px: 3, width: `calc(100% - ${DrawerWidth})` }}
             className="markdown"
           >
-            {/* {JSON.stringify(props.postDetail)} */}
             <MarkdownRenderer content={props.postDetail.content} />
           </Box>
         </Box>
