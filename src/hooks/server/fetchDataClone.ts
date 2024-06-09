@@ -6,21 +6,26 @@ import {
   FixedPage,
   PostCategory,
 } from "@/types/APIDataType";
-import { AppDataPropType, MasterDataMap } from "@/types/CommonType";
-import axios from "axios";
+import { MasterDataMap } from "@/types/CommonType";
 
-// axiosインスタンス
-const axiosInstance = axios.create({
-  baseURL: "https://api.tech-education-nav.com/",
-  // baseURL: "http://localhost:8080/",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const ApiBasePath = "https://api.tech-education-nav.com";
 
-const _fetch = async <T>(path: string): Promise<T> => {
-  const res = await axiosInstance.get(`${path}`);
-  return res.data;
+// fetchを使った共通のリクエスト関数
+const _fetch = async <T>(path: string, options: RequestInit = {}): Promise<T> => {
+  const requestPath = `${ApiBasePath}${path}`;
+  const response = await fetch(requestPath, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
 };
 
 /**
@@ -33,8 +38,11 @@ export const createContact = async <T>(
   path: string,
   contactInput: CreateContactInput
 ): Promise<T> => {
-  const response = await axiosInstance.post(`${path}`, contactInput);
-  return response.data;
+  const response = await _fetch<T>(path, {
+    method: "POST",
+    body: JSON.stringify(contactInput),
+  });
+  return response;
 };
 
 /**

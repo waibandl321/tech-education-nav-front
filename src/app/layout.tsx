@@ -1,5 +1,3 @@
-"use client";
-
 import AppHeader from "@/components/common/section/Header";
 import Footer from "@/components/common/section/Footer";
 import "@fontsource/roboto/300.css";
