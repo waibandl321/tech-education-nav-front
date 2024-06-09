@@ -1,27 +1,7 @@
-import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography,
-} from "@mui/material";
-import MuiLink from "@mui/material/Link";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Box, Button, Card, Container, Grid, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { navLinksMapByOption, navLinksMapByTech } from "@/const";
 import React from "react";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import DevicesRoundedIcon from "@mui/icons-material/DevicesRounded";
-import EdgesensorHighRoundedIcon from "@mui/icons-material/EdgesensorHighRounded";
-import ViewQuiltRoundedIcon from "@mui/icons-material/ViewQuiltRounded";
 import { useRouter } from "next/router";
 
 export default function HomeNavigation() {
