@@ -5,7 +5,7 @@ import {
   fetchPostBySlug,
   fetchPostCategory,
   fetchPostList,
-} from "@/hooks/server/fetchDataClone";
+} from "@/hooks/server/fetchData";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { EditablePost, PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";

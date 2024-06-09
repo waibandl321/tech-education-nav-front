@@ -1,5 +1,5 @@
 import useAPIResponse from "./useAPIResponse";
-import { createContact } from "../server/fetchDataClone";
+import { createContact } from "../server/fetchData";
 import { Contact, CreateContactInput } from "@/types/APIDataType";
 
 export default function useContact() {

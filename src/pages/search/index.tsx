@@ -4,8 +4,8 @@ import Head from "next/head";
 import {
   CompoundSearchCondition,
   fetchCoursesByCompoundSearch,
-} from "@/hooks/server/fetchDataClone";
-import { fetchMasterData } from "@/hooks/server/fetchDataClone";
+  fetchMasterData,
+} from "@/hooks/server/fetchData";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
 import { useMediaQuery } from "@mui/material";

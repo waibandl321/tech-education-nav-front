@@ -2,7 +2,7 @@ import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSidePr
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "@/app/layout";
-import { fetchFixedPageBySlug } from "@/hooks/server/fetchDataClone";
+import { fetchFixedPageBySlug } from "@/hooks/server/fetchData";
 import { FixedPage } from "@/types/APIDataType";
 import markdownToHtml from "@/hooks/utils/markdownToHtml";
 import { Container } from "@mui/material";

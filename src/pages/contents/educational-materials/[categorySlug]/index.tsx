@@ -1,6 +1,6 @@
 import Layout from "@/app/layout";
 import { BaseURL, DrawerWidth } from "@/const";
-import { GetPostsResponse, fetchPostCategory, fetchPostList } from "@/hooks/server/fetchDataClone";
+import { GetPostsResponse, fetchPostCategory, fetchPostList } from "@/hooks/server/fetchData";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";

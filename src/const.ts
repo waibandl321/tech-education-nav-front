@@ -17,7 +17,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
 import { ChipOwnProps } from "@mui/material";
 import { Course } from "@/types/APIDataType";
-import { fetchDataByKey } from "./hooks/server/fetchDataClone";
+import { fetchDataByKey } from "./hooks/server/fetchData";
 
 // アイコンの型を定義
 export type IconType = React.ElementType;

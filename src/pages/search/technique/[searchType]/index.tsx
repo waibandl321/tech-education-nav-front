@@ -4,7 +4,6 @@ import { NavLinksMapKeyType, navLinksMapByTech } from "@/const";
 import Head from "next/head";
 import SearchSelect from "@/components/pages/search/SearchSelect";
 import Layout from "@/app/layout";
-import { Container } from "@mui/material";
 
 export default function SearchType({ ...props }) {
   const router = useRouter();

@@ -23,7 +23,7 @@ import { useAppSelector } from "@/lib/hooks";
 import useSearch, { SearchFilter, initFilterResults } from "@/hooks/useSearch";
 import { MasterDataBasicType } from "@/types/CommonType";
 import { useRouter } from "next/router";
-import { fetchCourseMaxPrice } from "@/hooks/server/fetchDataClone";
+import { fetchCourseMaxPrice } from "@/hooks/server/fetchData";
 import { ParsedUrlQuery } from "querystring";
 
 const PRICE_CONVERSION_RATE = 10000;

@@ -1,7 +1,7 @@
 import Layout from "@/app/layout";
 import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
 import { BaseURL, DrawerWidth } from "@/const";
-import { fetchPostCategories, fetchFixedPageBySlug } from "@/hooks/server/fetchDataClone";
+import { fetchPostCategories, fetchFixedPageBySlug } from "@/hooks/server/fetchData";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { FixedPage, PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";
