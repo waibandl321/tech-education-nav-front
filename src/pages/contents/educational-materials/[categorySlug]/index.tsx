@@ -63,7 +63,7 @@ export default function CategoryIndex({ ...props }: PropsType) {
 
           <Box
             component="main"
-            sx={{ flexGrow: 1, pt: 2, px: 3, width: `calc(100% - ${DrawerWidth})` }}
+            sx={{ flexGrow: 1, pt: 2, px: 3, width: `calc(100% - ${DrawerWidth}px)` }}
           >
             {props.category.description && (
               <MarkdownRenderer content={props.category.description} />

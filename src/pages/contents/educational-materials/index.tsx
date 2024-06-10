@@ -55,7 +55,10 @@ export default function EducationalMaterials({ ...props }: PropsType) {
             </List>
           </Box>
 
-          <Box component="main" sx={{ flexGrow: 1, pt: 2, px: 3 }}>
+          <Box
+            component="main"
+            sx={{ flexGrow: 1, pt: 2, px: 3, width: `calc(100% - ${DrawerWidth}px)` }}
+          >
             {props.pageData && <MarkdownRenderer content={props.pageData.content} />}
           </Box>
         </Box>
