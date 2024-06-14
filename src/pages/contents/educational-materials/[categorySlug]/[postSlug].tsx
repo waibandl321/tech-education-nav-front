@@ -1,11 +1,6 @@
 import Layout from "@/app/layout";
 import { BaseURL, DrawerWidth } from "@/const";
-import {
-  GetPostsResponse,
-  fetchPostBySlug,
-  fetchPostCategory,
-  fetchPostList,
-} from "@/hooks/server/fetchData";
+import { fetchPostBySlug, fetchPostCategory } from "@/hooks/server/fetchData";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { EditablePost, PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";
@@ -16,16 +11,41 @@ import { useRouter } from "next/router";
 import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
 import SidePostTree from "@/components/common/section/SidePostTree";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { useMessageAlert } from "@/contexts/MessageAlertContext";
 
 interface PropsType {
   viewport: DeviceType;
-  category: PostCategory;
-  categoryPosts: GetPostsResponse;
   postDetail: EditablePost;
 }
 
 export default function CategoryIndex({ ...props }: PropsType) {
   const router = useRouter();
+  const { setAlertMessage } = useMessageAlert();
+
+  /**
+   * state
+   */
+  const categorySlug = router.query.categorySlug;
+  const [category, setCategory] = useState<PostCategory | null>(null);
+
+  const fetchData = async () => {
+    try {
+      // カテゴリー詳細を取得する
+      const category = await fetchPostCategory(String(categorySlug));
+      if (!category) {
+        return;
+      }
+      setCategory(category);
+    } catch (error) {
+      setAlertMessage({ type: "error", message: String(error) });
+    } finally {
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Layout>
@@ -51,8 +71,8 @@ export default function CategoryIndex({ ...props }: PropsType) {
         >
           <Link href={`${router.basePath}/contents/educational-materials/`}>学習コンテンツTOP</Link>
           <ChevronRightIcon sx={{ mx: 1 }} />
-          <Link href={`${router.basePath}/contents/educational-materials/${props.category.slug}`}>
-            {props.category.name}
+          <Link href={`${router.basePath}/contents/educational-materials/${category?.slug}`}>
+            {category?.name}
           </Link>
           <ChevronRightIcon sx={{ mx: 1 }} />
           <Typography>{props.postDetail.title}</Typography>
@@ -61,6 +81,7 @@ export default function CategoryIndex({ ...props }: PropsType) {
           <Box
             sx={{
               width: DrawerWidth,
+              position: "relative",
               flexShrink: 0,
               "& .MuiDrawer-paper": {
                 width: DrawerWidth,
@@ -68,7 +89,7 @@ export default function CategoryIndex({ ...props }: PropsType) {
               },
             }}
           >
-            <SidePostTree posts={props.categoryPosts.items} category={props.category} />
+            <SidePostTree />
           </Box>
           <Box
             component="main"
@@ -93,14 +114,6 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     };
   }
 
-  // カテゴリー詳細を取得する
-  const category = await fetchPostCategory(String(categorySlug));
-  if (!category) {
-    return {
-      notFound: true,
-    };
-  }
-
   // 記事詳細を取得する
   const postDetail = await fetchPostBySlug(String(postSlug));
   if (!postDetail) {
@@ -109,27 +122,8 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     };
   }
 
-  // カテゴリー記事一覧を取得
-  // category: string, post_type: "educational_materials" | "blog", pageNum: number, limitPerPage: number
-  const result = await fetchPostList(category._id, "educational_materials", 1, 1);
-  if (!result) {
-    return {
-      props: {
-        category,
-        categoryPosts: {
-          items: [],
-          totalPosts: 0,
-          totalPages: 0,
-          currentPage: 0,
-        },
-      },
-    };
-  }
-
   return {
     props: {
-      category,
-      categoryPosts: result,
       postDetail,
     },
   };

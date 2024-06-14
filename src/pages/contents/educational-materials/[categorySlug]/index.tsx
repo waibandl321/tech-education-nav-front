@@ -11,11 +11,12 @@ import { useRouter } from "next/router";
 import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
 import SidePostTree from "@/components/common/section/SidePostTree";
 import Head from "next/head";
+import { Suspense } from "react";
+import LoadingInnerElement from "@/components/common/LoadingInnerElement";
 
 interface PropsType {
   viewport: DeviceType;
   category: PostCategory;
-  categoryPosts: GetPostsResponse;
 }
 
 export default function CategoryIndex({ ...props }: PropsType) {
@@ -51,6 +52,7 @@ export default function CategoryIndex({ ...props }: PropsType) {
           <Box
             sx={{
               width: DrawerWidth,
+              position: "relative",
               flexShrink: 0,
               "& .MuiDrawer-paper": {
                 width: DrawerWidth,
@@ -58,7 +60,9 @@ export default function CategoryIndex({ ...props }: PropsType) {
               },
             }}
           >
-            <SidePostTree posts={props.categoryPosts.items} category={props.category} />
+            <Suspense fallback={<LoadingInnerElement />}>
+              <SidePostTree />
+            </Suspense>
           </Box>
 
           <Box
@@ -83,9 +87,6 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
     };
   }
 
-  try {
-  } catch (error) {}
-
   // カテゴリー詳細を取得する
   const category = await fetchPostCategory(String(categorySlug));
   if (!category) {
@@ -93,27 +94,10 @@ export const getServerSideProps = withCommonServerSideProps(async (context) => {
       notFound: true,
     };
   }
-  // カテゴリー記事一覧を取得
-  // category: string, post_type: "educational_materials" | "blog", pageNum: number, limitPerPage: number
-  const result = await fetchPostList(category._id, "educational_materials", 1, 1);
-  if (!result) {
-    return {
-      props: {
-        category,
-        categoryPosts: {
-          items: [],
-          totalPosts: 0,
-          totalPages: 0,
-          currentPage: 0,
-        },
-      },
-    };
-  }
 
   return {
     props: {
       category,
-      categoryPosts: result,
     },
   };
 });
