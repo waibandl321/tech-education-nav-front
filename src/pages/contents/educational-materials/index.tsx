@@ -1,23 +1,60 @@
 import Layout from "@/app/layout";
+import LoadingInnerElement from "@/components/common/LoadingInnerElement";
 import MarkdownRenderer from "@/components/common/parts/MarkdownRenderer";
 import { BaseURL, DrawerWidth } from "@/const";
 import { fetchPostCategories, fetchFixedPageBySlug } from "@/hooks/server/fetchData";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
+import { storeSetPostCategories } from "@/lib/features/contents/educational-materials/postCategorySlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { FixedPage, PostCategory } from "@/types/APIDataType";
 import { DeviceType } from "@/types/CommonType";
 import { Box, Container, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 interface PropsType {
   viewport: DeviceType;
-  categories: PostCategory[];
   pageData: FixedPage | null;
 }
 
 export default function EducationalMaterials({ ...props }: PropsType) {
+  /**
+   * hook
+   */
   const router = useRouter();
+  const dispath = useAppDispatch();
+  const storePostCategories = useAppSelector((state) => state.postCategories).items;
+
+  /**
+   * state
+   */
+  const [categories, setCategories] = useState<PostCategory[]>(storePostCategories);
+  const [loading, setLoading] = useState(false);
+
+  /**
+   * 投稿カテゴリ一覧を取得し、storeにセットする
+   * @returns
+   */
+  const fetchData = async () => {
+    if (storePostCategories.length > 0) return;
+
+    setLoading(true);
+    try {
+      const results = await fetchPostCategories();
+      setCategories(results);
+      dispath(storeSetPostCategories({ items: results }));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Layout>
@@ -37,6 +74,7 @@ export default function EducationalMaterials({ ...props }: PropsType) {
           <Box
             sx={{
               width: DrawerWidth,
+              position: "relative",
               flexShrink: 0,
               "& .MuiDrawer-paper": {
                 width: DrawerWidth,
@@ -44,15 +82,19 @@ export default function EducationalMaterials({ ...props }: PropsType) {
               },
             }}
           >
-            <List>
-              {props.categories.map((item) => (
-                <ListItem key={item._id} disablePadding>
-                  <ListItemButton LinkComponent={Link} href={`${router.asPath}/${item.slug}`}>
-                    <ListItemText primary={`${item.order}.${item.name}`} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
+            {loading ? (
+              <LoadingInnerElement />
+            ) : (
+              <List>
+                {categories.map((item) => (
+                  <ListItem key={item._id} disablePadding>
+                    <ListItemButton LinkComponent={Link} href={`${router.asPath}/${item.slug}`}>
+                      <ListItemText primary={`${item.order}.${item.name}`} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            )}
           </Box>
 
           <Box
@@ -68,15 +110,10 @@ export default function EducationalMaterials({ ...props }: PropsType) {
 }
 
 export const getServerSideProps = withCommonServerSideProps(async (context) => {
-  const [pageData, categories] = await Promise.all([
-    fetchFixedPageBySlug("educational-materials"),
-    // category: string, post_type: "educational_materials" | "blog", pageNum: number, limitPerPage: number
-    fetchPostCategories(),
-  ]);
+  const pageData = await fetchFixedPageBySlug("educational-materials");
 
   return {
     props: {
-      categories,
       pageData,
     },
   };
