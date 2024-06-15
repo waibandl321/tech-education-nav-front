@@ -9,6 +9,7 @@ import {
 import { MasterDataMap } from "@/types/CommonType";
 
 const ApiBasePath = "https://api.tech-education-nav.com";
+// const ApiBasePath = "http://localhost:8080";
 
 // fetchを使った共通のリクエスト関数
 const _fetch = async <T>(path: string, options: RequestInit = {}): Promise<T> => {
@@ -41,6 +42,22 @@ export const createContact = async <T>(
   const response = await _fetch<T>(path, {
     method: "POST",
     body: JSON.stringify(contactInput),
+  });
+  return response;
+};
+
+/**
+ * 署名付きURLを単一取得する
+ * @param fileUrl 対象ファイルのURL
+ * @returns
+ */
+export const apiGetPresignedURL = async <T>(fileUrl: string): Promise<T> => {
+  const path = "/api/media/generate-presigned-url";
+  const response = await _fetch<T>(path, {
+    method: "POST",
+    body: JSON.stringify({
+      url: fileUrl,
+    }),
   });
   return response;
 };
