@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useMemo } from "react";
 import SearchNavigation from "@/components/pages/search/SearchNavigation";
 import CourceDetailCard from "@/components/pages/search/pc/CourceDetailCard";
-import useSearch from "@/hooks/useSearch";
+import useSearch, { SearchedQuery } from "@/hooks/useSearch";
 import { useAppSelector } from "@/lib/hooks";
 import { Course } from "@/types/APIDataType";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -29,10 +29,12 @@ export default function PCSearchPane({
 }) {
   // hooks
   const router = useRouter();
-  const { hasPlan, getComputedSchools } = useSearch();
+  const { hasPlan, getComputedSchools, getSearchResultOptions } = useSearch();
   const { pagenation, getDisplayCount, handleChangePagination } = usePagenation(props);
   // store
   const searchData = useAppSelector((state) => state.searchData).data;
+
+  const currentQuery = { ...router.query, page: pagenation.pageNum } as SearchedQuery;
 
   /**
    * スクールにコース一覧を紐付けたデータ
@@ -48,8 +50,6 @@ export default function PCSearchPane({
   useEffect(() => {
     // 現在のURLパスとクエリパラメーターを取得
     const currentPath = router.pathname;
-    const currentQuery = { ...router.query, page: pagenation.pageNum };
-
     // router.pushでクエリパラメーターを更新
     router.push({
       pathname: currentPath,
@@ -75,21 +75,23 @@ export default function PCSearchPane({
           <CardContent>
             <Box sx={{ pb: 2 }}>
               <Typography variant="body2" color="text.secondary">
-                現在の選択条件:
+                現在の選択条件: {getSearchResultOptions(currentQuery)}
               </Typography>
             </Box>
             <Divider />
             <Box sx={{ pt: 2 }} display="flex" justifyContent="space-between">
               <Box display="flex" alignItems="center">
-                <Typography>{props.totalCount}件</Typography>
-                <Typography variant="body2" marginLeft={2}>
-                  {getDisplayCount()}
-                </Typography>
+                <Typography>検索結果:{props.totalCount}件</Typography>
+                {props.totalCount > 0 && (
+                  <Typography variant="body2" marginLeft={2}>
+                    {getDisplayCount()}
+                  </Typography>
+                )}
               </Box>
 
-              <Typography variant="body2" color="text.secondary">
+              {/* <Typography variant="body2" color="text.secondary">
                 並べ替え:
-              </Typography>
+              </Typography> */}
             </Box>
           </CardContent>
         </Card>

@@ -2,27 +2,12 @@ import TuneIcon from "@mui/icons-material/Tune";
 import SwipeUpIcon from "@mui/icons-material/SwipeUp";
 import SwipeDownIcon from "@mui/icons-material/SwipeDown";
 import SearchNavigation from "@/components/pages/search/SearchNavigation";
-import {
-  Box,
-  Typography,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  Button,
-  styled,
-  SwipeableDrawer,
-  Pagination,
-  Card,
-  CardHeader,
-  Divider,
-  CardContent,
-} from "@mui/material";
+import { Box, Typography, Button, styled, SwipeableDrawer, Pagination, Card } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import ListItemText from "@mui/material/ListItemText";
 import React, { useEffect, useMemo } from "react";
 import { Global } from "@emotion/react";
 import CourceDetailCard from "@/components/pages/search/sp/CourceDetailCard";
-import useSearch from "@/hooks/useSearch";
+import useSearch, { SearchedQuery } from "@/hooks/useSearch";
 import { useAppSelector } from "@/lib/hooks";
 import { Course } from "@/types/APIDataType";
 import usePagenation from "../usePagenation";
@@ -55,10 +40,12 @@ export default function SPSearchPane({
 }) {
   // hooks
   const router = useRouter();
-  const { hasPlan, getComputedSchools } = useSearch();
+  const { hasPlan, getComputedSchools, getSearchResultOptions } = useSearch();
   const { pagenation, getDisplayCount, handleChangePagination } = usePagenation(props);
   // store
   const searchData = useAppSelector((state) => state.searchData).data;
+
+  const currentQuery = { ...router.query, page: pagenation.pageNum } as SearchedQuery;
 
   // state
   const [open, setOpen] = React.useState(false);
@@ -86,8 +73,6 @@ export default function SPSearchPane({
   useEffect(() => {
     // 現在のURLパスとクエリパラメーターを取得
     const currentPath = router.pathname;
-    const currentQuery = { ...router.query, page: pagenation.pageNum };
-
     // router.pushでクエリパラメーターを更新
     router.push({
       pathname: currentPath,
@@ -157,23 +142,21 @@ export default function SPSearchPane({
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <List sx={{ pb: 0 }}>
-          <ListItem sx={{ pb: 0 }}>
-            <ListItemText primary="検索条件" secondary="設定した条件が入る..." />
-            <ListItemSecondaryAction>
-              <Button onClick={toggleDrawer(true)}>変更する</Button>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </List>
+        <Box padding={1} display="flex" alignItems="center" justifyContent="space-between">
+          <Typography>検索結果: {props.totalCount}件</Typography>
+          <Button onClick={toggleDrawer(true)}>検索条件を変更する</Button>
+        </Box>
         {/* 検索件数 */}
         <Card sx={{ mx: 1, p: 1 }}>
-          <Box display="flex" alignItems="center">
-            <Typography>{props.totalCount}件</Typography>
-            <Typography variant="body2" marginLeft={2}>
-              {getDisplayCount()}
-            </Typography>
-          </Box>
+          <Typography variant="caption">
+            検索条件: {getSearchResultOptions(currentQuery)}
+          </Typography>
         </Card>
+        {props.totalCount > 0 && (
+          <Typography variant="caption" marginLeft={2}>
+            {getDisplayCount()}
+          </Typography>
+        )}
         {items.map(
           (center, index) =>
             hasPlan(center) && (
