@@ -2,22 +2,15 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import dayjs from "dayjs";
+
 import { navigationLinks } from "@/const";
 import Link from "next/link";
+import Copyright from "./Copyright";
 
 const logoStyle = {
   width: 280,
   height: 106,
 };
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" mt={1}>
-      © {dayjs().get("year")} テック教育ナビ. All Rights Reserved.
-    </Typography>
-  );
-}
 
 export default function Footer() {
   return (

@@ -11,7 +11,7 @@ export default function Hello() {
         flexDirection: "column",
         alignItems: "center",
         pt: { xs: 8, sm: 8 },
-        pb: { xs: 8, sm: 12 },
+        pb: 4,
       }}
     >
       <Stack spacing={2} useFlexGap sx={{ width: { xs: "100%", sm: "70%" } }}>
@@ -38,7 +38,7 @@ export default function Hello() {
         </Typography>
         <Typography color="text.secondary" sx={{ alignSelf: "center" }}>
           当サイトでは、プログラミングスクールの検索サービスや、学習コンテンツを提供しています。
-          また、フロントエンドエンジニア専門のメンタリングサービスも提供しているため、興味のある方はお問い合わせください。
+          また、フロントエンドエンジニア専門のコーチングを提供しているため、興味のある方はお問い合わせください。
         </Typography>
       </Stack>
     </Container>
