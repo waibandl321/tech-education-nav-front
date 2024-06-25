@@ -7,7 +7,6 @@ import {
   DialogActions,
   DialogContent,
   Divider,
-  Grid,
   List,
   ListItem,
   ListItemIcon,
@@ -20,7 +19,7 @@ import PlansSection from "@/components/pages/coaching/lp/frontend/PlansSection";
 import FAQSection from "@/components/pages/coaching/lp/frontend/FAQSection";
 import UsageStepperSection from "@/components/pages/coaching/lp/frontend/UsageStepperSection";
 import ServiceStrengthSection from "@/components/pages/coaching/lp/frontend/ServiceStrengthSection";
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CheckBox from "@mui/icons-material/CheckBox";
 import ConversionButton from "@/components/pages/coaching/lp/frontend/ConversionButton";
 import LPLayout from "@/app/lp-layout";
@@ -30,6 +29,26 @@ import Head from "next/head";
 
 export default function FrontEnd() {
   const isMobile = useMediaQuery("(max-width:640px)");
+
+  const boxStyle = {
+    position: "relative",
+    "&::before, &::after": {
+      content: '""',
+      position: "absolute",
+      bottom: "0.4rem",
+      height: "6rem",
+    },
+    "&::before": {
+      left: isMobile ? "2rem" : "-4rem",
+      borderLeft: "solid 3px",
+      transform: "rotate(-25deg)",
+    },
+    "&::after": {
+      right: isMobile ? "2rem" : "-4rem",
+      borderRight: "solid 3px",
+      transform: "rotate(25deg)",
+    },
+  };
 
   /**
    * ダイアログ
@@ -51,20 +70,23 @@ export default function FrontEnd() {
     boxShadow: 1,
   };
 
+  const backgroundImageURL = isMobile
+    ? "url(/images/pages/coaching/lp/frontend/sp-20240624168142.webp)"
+    : "url(/images/pages/coaching/lp/frontend/20240624168142.webp)";
+
   return (
     <LPLayout>
       <Head>
         <title>フロントエンドエンジニア専門のコーチングサービス「テック教育ナビ」</title>
       </Head>
-      <Container maxWidth="md" sx={{ px: { xs: 0, sm: 1 } }}>
+      <Container maxWidth="md" sx={{ px: { xs: 0, sm: 1 }, pb: 20 }}>
         <Box
           mx={isMobile ? 2 : 0}
           marginX="calc(50% - 50vw)"
           width="100vw"
           pb={10}
-          bgcolor="#ddd"
           sx={{
-            backgroundImage: "url(/images/pages/coaching/lp/frontend/20240624168142.webp)",
+            background: `linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0.5) 100%), ${backgroundImageURL}`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: {
@@ -87,26 +109,23 @@ export default function FrontEnd() {
                   pb: { xs: 8, sm: 10 },
                   px: { xs: 3, sm: 10 },
                   textAlign: { sm: "left", md: "center" },
+                  background: "linear-gradient(to bottom, #2E336C, #3A407F, #2B3056)",
+                  color: "white",
                 }}
-                elevation={6}
+                elevation={10}
               >
-                <Typography component="h2" variant={isMobile ? "h5" : "h4"}>
+                <Typography fontWeight="700" component="h2" variant={isMobile ? "h5" : "h4"}>
                   結果を出すための
                   <br />
                   フロントエンド特化型コーチング
                 </Typography>
-                <Typography
-                  textAlign="left"
-                  marginTop={4}
-                  variant="body1"
-                  sx={{ color: "grey.600", mt: 4 }}
-                >
+                <Typography textAlign="left" marginTop={4} variant="body1" sx={{ mt: 4 }}>
                   「テック教育ナビ」は、フロントエンドエンジニアに特化した専門のコーチングサービスです。
                 </Typography>
-                <Typography textAlign="left" variant="body1" sx={{ color: "grey.600", mt: 2 }}>
+                <Typography textAlign="left" variant="body1" sx={{ mt: 2 }}>
                   現場で求められる実践的なスキル習得からキャリアアップまで、個別にカスタマイズされた支援を通じて、あなたのフロントエンドエンジニアとしての成長を加速させます。
                 </Typography>
-                <Typography textAlign="left" variant="body1" sx={{ color: "grey.600", mt: 2 }}>
+                <Typography textAlign="left" variant="body1" sx={{ mt: 2 }}>
                   技術的な悩みやキャリア形成の不安を、経験豊富なコーチが解決へと導きます。フロントエンジニアとして新たな一歩を踏み出すために、まずは具体的な目標設定から始めましょう。
                 </Typography>
                 <Box textAlign="center" marginTop={6}>
@@ -117,37 +136,6 @@ export default function FrontEnd() {
           </Container>
         </Box>
 
-        <Box marginTop={20}>
-          <Typography
-            textAlign="center"
-            fontWeight="700"
-            variant={isMobile ? "h5" : "h4"}
-            component="h2"
-            paddingBottom={3}
-          >
-            こんな悩みを抱えていませんか？
-          </Typography>
-          <WorriesSection />
-        </Box>
-        <Box textAlign="center" marginTop={10}>
-          <KeyboardDoubleArrowDownIcon fontSize="large" />
-        </Box>
-        <Box marginTop={10} paddingY={10} marginX="calc(50% - 50vw)" width="100vw" bgcolor="#ddd">
-          <Container maxWidth="md">
-            <Typography
-              textAlign="center"
-              fontWeight="700"
-              variant={isMobile ? "h5" : "h4"}
-              component="h2"
-              paddingBottom={3}
-            >
-              その悩みは、コーチングで解決できます。
-            </Typography>
-          </Container>
-        </Box>
-        <Box textAlign="center" marginTop={10}>
-          <KeyboardDoubleArrowDownIcon fontSize="large" />
-        </Box>
         <Box marginTop={10}>
           <Typography
             textAlign="center"
@@ -156,13 +144,47 @@ export default function FrontEnd() {
             component="h2"
             paddingBottom={3}
           >
-            サービスの強み
+            こんなお悩みありませんか？
           </Typography>
+          <WorriesSection />
+        </Box>
+        <Box textAlign="center" marginTop={10}>
+          <Box>
+            <ArrowDropDownIcon sx={{ fontSize: "8rem", color: "#41cabd" }} />
+            <ArrowDropDownIcon sx={{ fontSize: "8rem", color: "#41cabd" }} />
+            <ArrowDropDownIcon sx={{ fontSize: "8rem", color: "#41cabd" }} />
+          </Box>
+          <Container maxWidth="sm">
+            <Box sx={boxStyle} marginTop={8}>
+              <Typography
+                textAlign="center"
+                fontWeight="700"
+                fontSize={isMobile ? 24 : 32}
+                component="h2"
+              >
+                そのお悩み
+              </Typography>
+              <Typography
+                mt={2}
+                textAlign="center"
+                fontWeight="700"
+                variant={isMobile ? "h5" : "h4"}
+                component="h2"
+                paddingBottom={3}
+              >
+                <Box component="span" sx={{ color: "#41cabd", fontSize: isMobile ? 32 : 40 }}>
+                  コーチングで解消
+                </Box>
+                <br style={{ display: isMobile ? "block" : "none" }} />
+                できます。
+              </Typography>
+            </Box>
+          </Container>
+        </Box>
+        <Box marginTop={6}>
           <ServiceStrengthSection />
         </Box>
-        <Box marginTop={10} marginX="calc(50% - 50vw)" width="100vw">
-          <ConversionSection />
-        </Box>
+        <ConversionSection />
         <Box marginTop={20}>
           <Typography
             textAlign="center"
@@ -175,54 +197,65 @@ export default function FrontEnd() {
           </Typography>
           <PlansSection />
         </Box>
-        <Box marginTop={20}>
-          <Typography
-            textAlign="center"
-            fontWeight="700"
-            variant={isMobile ? "h5" : "h4"}
-            component="h2"
-            paddingBottom={3}
-          >
-            コーチ紹介
-          </Typography>
-          <Card
-            elevation={3}
-            sx={{
-              borderRadius: 3,
-              p: isMobile ? 3 : 6,
-              mt: 2,
-              mx: isMobile ? 2 : 0,
-              display: isMobile ? "block" : "flex",
-            }}
-          >
-            <Box textAlign="center">
-              <Box
-                component="img"
-                alt=""
-                src="/images/pages/coaching/lp/frontend/frontend6.webp"
-                loading="lazy"
-                sx={imageStyle}
-              />
-            </Box>
-            <Box px={isMobile ? 0 : 3} pb={3} pt={isMobile ? 3 : 0}>
-              <Typography>
-                WEB制作会社のHTMLコーダーからエンジニアとしてのキャリアをスタートし、近年はTypeScript、Vue.js、React.jsのエキスパートとして多様なプロジェクトに参画。
-                スポーツ映像配信アプリや教育関連システムのフロントエンド開発を手掛け、大手SaaS企業で店舗管理システムの開発に従事。
-              </Typography>
-              <Typography mt={1}>
-                また、バックエンド領域でも実績を積んでいる。WEB制作会社時代にPHPを用いたAPI開発を経験。最近では、「テック教育ナビ」のインフラ構築からAPI開発まで手掛ける。
-              </Typography>
-              <Box mt={3}>
-                <Button
-                  size="large"
-                  sx={{ fontSize: 18, fontWeight: "bold" }}
-                  onClick={handleClickOpen}
-                >
-                  コーチについて詳しく見る
-                </Button>
+        <Box
+          mt={10}
+          py={10}
+          marginX="calc(50% - 50vw)"
+          width="100vw"
+          sx={{
+            background: "linear-gradient(to bottom, #2E336C, #3A407F, #2B3056)",
+            color: "#fff",
+          }}
+        >
+          <Container maxWidth="md">
+            <Typography
+              textAlign="center"
+              fontWeight="700"
+              variant={isMobile ? "h5" : "h4"}
+              component="h2"
+              paddingBottom={3}
+            >
+              コーチ紹介
+            </Typography>
+            <Card
+              elevation={3}
+              sx={{
+                borderRadius: 3,
+                p: isMobile ? 3 : 6,
+                mt: 2,
+                mx: isMobile ? 2 : 0,
+                display: isMobile ? "block" : "flex",
+              }}
+            >
+              <Box textAlign="center">
+                <Box
+                  component="img"
+                  alt=""
+                  src="/images/pages/coaching/lp/frontend/frontend6.webp"
+                  loading="lazy"
+                  sx={imageStyle}
+                />
               </Box>
-            </Box>
-          </Card>
+              <Box px={isMobile ? 0 : 3} pb={3} pt={isMobile ? 3 : 0}>
+                <Typography>
+                  WEB制作会社のHTMLコーダーからエンジニアとしてのキャリアをスタートし、近年はTypeScript、Vue.js、React.jsのエキスパートとして多様なプロジェクトに参画。
+                  スポーツ映像配信アプリや教育関連システムのフロントエンド開発を手掛け、大手SaaS企業で店舗管理システムの開発に従事。
+                </Typography>
+                <Typography mt={1}>
+                  また、バックエンド領域でも実績を積んでいる。WEB制作会社時代にPHPを用いたAPI開発を経験。最近では、「テック教育ナビ」のインフラ構築からAPI開発まで手掛ける。
+                </Typography>
+                <Box mt={3}>
+                  <Button
+                    size="large"
+                    sx={{ fontSize: 18, fontWeight: "bold" }}
+                    onClick={handleClickOpen}
+                  >
+                    コーチについて詳しく見る
+                  </Button>
+                </Box>
+              </Box>
+            </Card>
+          </Container>
         </Box>
 
         {/* 詳細ダイアログ */}
@@ -339,6 +372,12 @@ export default function FrontEnd() {
                   </ListItemIcon>
                   <ListItemText>「事実」にフォーカスすること</ListItemText>
                 </ListItem>
+                <ListItem disablePadding>
+                  <ListItemIcon sx={{ minWidth: 32 }}>
+                    <CheckBox color="success" />
+                  </ListItemIcon>
+                  <ListItemText>比較対象は過去の自分</ListItemText>
+                </ListItem>
               </List>
             </Box>
           </DialogContent>
@@ -347,9 +386,7 @@ export default function FrontEnd() {
           </DialogActions>
         </Dialog>
 
-        <Box marginTop={20} marginX="calc(50% - 50vw)" width="100vw">
-          <ConversionSection />
-        </Box>
+        <ConversionSection />
         <Box marginTop={20}>
           <Typography
             textAlign="center"
@@ -374,9 +411,7 @@ export default function FrontEnd() {
           </Typography>
           <FAQSection />
         </Box>
-        <Box mt={10} marginX="calc(50% - 50vw)" width="100vw">
-          <ConversionSection />
-        </Box>
+        <ConversionSection />
       </Container>
     </LPLayout>
   );

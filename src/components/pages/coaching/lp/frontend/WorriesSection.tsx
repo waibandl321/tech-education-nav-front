@@ -1,27 +1,4 @@
-import Layout from "@/app/layout";
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import ConversionSection from "@/components/pages/coaching/lp/frontend/ConversionSection";
-import PlansSection from "@/components/pages/coaching/lp/frontend/PlansSection";
-import FAQSection from "@/components/pages/coaching/lp/frontend/FAQSection";
-import UsageStepperSection from "@/components/pages/coaching/lp/frontend/UsageStepperSection";
-import ServiceStrengthSection from "@/components/pages/coaching/lp/frontend/ServiceStrengthSection";
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import CheckBox from "@mui/icons-material/CheckBox";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ConversionButton from "@/components/pages/coaching/lp/frontend/ConversionButton";
-import LPLayout from "@/app/lp-layout";
+import { Box, Card, Grid, Typography, useMediaQuery } from "@mui/material";
 
 const boxStyle = {
   p: 2,

@@ -54,7 +54,7 @@ export default function PlansSection() {
       {plans.map((plan, index) => (
         <Grid item xs={12} md={4} key={index}>
           <Card
-            sx={{ borderRadius: 3, bgcolor: "white", p: 4, mx: isMobile ? 2 : 0 }}
+            sx={{ borderRadius: 3, bgcolor: "white", p: 3, mx: isMobile ? 2 : 0 }}
             elevation={3}
           >
             <Typography fontSize={18} fontWeight={700} textAlign="center">
