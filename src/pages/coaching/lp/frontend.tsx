@@ -11,6 +11,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -185,7 +192,7 @@ export default function FrontEnd() {
           <ServiceStrengthSection />
         </Box>
         <ConversionSection />
-        <Box marginTop={20}>
+        <Box marginTop={10}>
           <Typography
             textAlign="center"
             fontWeight="700"
@@ -193,7 +200,7 @@ export default function FrontEnd() {
             component="h2"
             paddingBottom={3}
           >
-            料金プラン
+            料金
           </Typography>
           <PlansSection />
         </Box>
@@ -264,89 +271,100 @@ export default function FrontEnd() {
             <Typography fontWeight="700" variant="h5" component="h2">
               大西純平
             </Typography>
-            <Typography paddingBottom={3}>Jumpei Onishi</Typography>
-            <Typography fontWeight="700" component="h3" variant="h6">
-              経歴
-            </Typography>
-            <List disablePadding sx={{ mt: 2 }}>
-              <Divider />
-              <ListItem sx={{ px: 0 }} divider>
-                1996年 愛媛県四国中央市生まれ
-              </ListItem>
-              <ListItem sx={{ px: 0 }} divider>
-                2018年 関西学院大学 国際学部 国際学科を卒業
-              </ListItem>
-              <ListItem sx={{ px: 0 }} divider>
-                2019年 エンジニアとしてのキャリアをスタートさせる
-              </ListItem>
-              <ListItem sx={{ px: 0 }} divider>
-                2021年 フリーランスエンジニアとして独立
-              </ListItem>
-              <ListItem sx={{ px: 0 }} divider>
-                2024年 コーチング提供開始
-              </ListItem>
-            </List>
+            <Typography>Jumpei Onishi</Typography>
+            <Box mt={3}>
+              <Typography fontWeight="700" component="h3" variant="h6">
+                経歴
+              </Typography>
+              <List disablePadding sx={{ mt: 2 }}>
+                <Divider />
+                <ListItem sx={{ px: 0 }} divider>
+                  1996年 愛媛県四国中央市生まれ
+                </ListItem>
+                <ListItem sx={{ px: 0 }} divider>
+                  2018年 関西学院大学 国際学部 国際学科を卒業
+                </ListItem>
+                <ListItem sx={{ px: 0 }} divider>
+                  2019年 エンジニアとしてのキャリアをスタートさせる
+                </ListItem>
+                <ListItem sx={{ px: 0 }} divider>
+                  2021年 フリーランスエンジニアとして独立
+                </ListItem>
+                <ListItem sx={{ px: 0 }} divider>
+                  2024年 コーチング事業開始
+                </ListItem>
+              </List>
+            </Box>
             <Box mt={5}>
               <Typography fontWeight="700" component="h3" variant="h6">
-                コーチングとの出会いと、私の人生に与えた影響
+                エンジニアとしての実績
               </Typography>
-              <Typography mt={2}>
-                エンジニアとしてキャリアを始めた頃、技術者としての力不足を痛感していました。
-                <br />
-                所属していた会社では、先輩に気軽に相談できる環境がなく、一人で解決策を見つけるのが難しかったのです。
-                <br />
-                この状況が、コーチングと出会うきっかけとなりました。
-              </Typography>
-              <Typography mt={2}>
-                私のコーチは、業界の最前線でエンジニアとして活躍する尊敬すべき人物でした。
-                <br />
-                彼からの学びは、技術スキルを超え、エンジニアとしての成長方法、プロジェクトの効率的な進行戦略、
-                そして何よりビジネスプロセスとクライアントのニーズを深く理解することの重要性に焦点を当てていました。
-                <br />
-                彼の指導は、単なるエラーの修正方法を教えるのではなく、エンジニアリングの根本原則を深く理解し、
-                それを実際の仕事に応用する力を育てるものでした。
-              </Typography>
-              <Typography mt={2}>
-                このコーチングは、私が技術的な壁を超え、キャリアの新たな可能性を広げるための重要なステップとなりました。
-                <br />
-                私は、困難を乗り越える自信と、継続的成長のための具体的な戦略を得ることができ、それが自己実現への道となりました。
-              </Typography>
+              <TableContainer component={Paper} sx={{ mt: 2 }}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>プロジェクト</TableCell>
+                      <TableCell>業務概要</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell component="th" scope="row">
+                        スポーツ観戦アプリの開発
+                      </TableCell>
+                      <TableCell>
+                        リアルタイムの車載データや、中継映像をライブ配信する機能の開発を担当。また、運営企業向けの管理アプリ開発も担当。
+                      </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell component="th" scope="row">
+                        店舗管理システムの開発
+                      </TableCell>
+                      <TableCell>
+                        大手SaaS開発企業にて、飲食業界向けの店舗管理システム並びに、店舗オペレーションの電子化を推進するアプリケーションの新規開発・運用に従事。
+                      </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell component="th" scope="row">
+                        教育アプリの開発
+                      </TableCell>
+                      <TableCell>
+                        教育事業を展開している企業にて、オンライン学習アプリ並びに、電子カルテシステムの開発に従事。一部、API設計を担当。
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Box>
             <Box mt={5}>
               <Typography fontWeight="700" component="h3" variant="h6">
                 コーチングを提供しようと思ったきっかけ
               </Typography>
-              <Typography mt={2} fontWeight="700">
-                人の人生に影響を与える仕事がしたかった
+              <Typography mt={2}>
+                過去にコーチングを受けた経験から、持続的な自己向上がいかに人生にプラスの影響を与えるかを強く感じています。
               </Typography>
               <Typography mt={2}>
-                社会人としてのキャリアをスタートさせた当初から、「人の役に立ち、人の人生に深い影響を与える仕事がしたい」と思っていました。
-                <br />
-                しかし、その時点では知識も経験も限られており、自分には何も提供できるものがないように感じていました。
-              </Typography>
-              <Typography mt={2}>
-                そこからエンジニアとしての道を選び、技術スキルを時間をかけて学び、実務経験を積み重ねました。
-                <br />
-                徐々に自信がつき、自分が他人のキャリアや人生に有益な影響を与えられる日が来ることを確信し始めました。
-              </Typography>
-              <Typography mt={4} fontWeight="700">
-                「人生の勝ち癖」をつけるために
-              </Typography>
-              <Typography mt={2}>
-                これまでの経験から、持続的な自己向上がいかに人生にプラスの影響を与えるかを強く感じています。
-                <br />
-                コーチングを受けることで仕事のアウトプットが向上し、評価され、仕事がより楽しくなりました。
+                自分を高めることでアウトプットが向上し、評価され、仕事がより楽しくなります。
                 <br />
                 仕事が楽しくなると、さらに熱意が増大し、持続的な成長を促し、新たな可能性を開きます。
                 <br />
-                まさに「人生の勝ち癖」をつけることに直結し、結果としてより幸せな人生を送ることができるようになります。
+                結果として、より幸せな人生を送ることができるようになります。
               </Typography>
               <Typography mt={2}>
-                私はこの素晴らしい体験を多くの人にもしてもらいたいと願っています。
+                今の私は、この状況を実現することができています。
                 <br />
-                コーチとして、クライアントが自己実現を果たし、キャリアと人生に前向きな変化をもたらせるようサポートしていきたいです。
+                毎日の仕事が楽しいですし、もっと成長したいという熱意に満ちています。
+              </Typography>
+              <Typography mt={2}>
+                しかし、過去はそうではありませんでした。
                 <br />
-                以上が、私がコーチングを提供しようと決意した主な理由であり、他人にも同様の価値ある経験を提供できることに深いやりがいを感じています。
+                技術者として伸び悩み、自分の目標は永遠に達成できないのではないかと不安になることもありました。
+                そんな時にコーチと出会い、エンジニアとして成長するためのきっかけやヒントを得ることができたのです。
+              </Typography>
+              <Typography mt={2}>
+                そして次は、自分がコーチとして、クライアントの自己実現の力となりたいと思うようになりました。
+                以上が、私がコーチングを提供しようと決意した主な理由であり、
+                今後もクライアントのキャリアと人生に前向きな変化をもたらせるようサポートしていきたいです。
               </Typography>
             </Box>
             <Box mt={5}>
@@ -358,7 +376,13 @@ export default function FrontEnd() {
                   <ListItemIcon sx={{ minWidth: 32 }}>
                     <CheckBox color="success" />
                   </ListItemIcon>
-                  <ListItemText>いかなる時も、主語を自分にすること</ListItemText>
+                  <ListItemText>他人と自分を比較しない</ListItemText>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemIcon sx={{ minWidth: 32 }}>
+                    <CheckBox color="success" />
+                  </ListItemIcon>
+                  <ListItemText>いかなる時も、主語を自分にすること。</ListItemText>
                 </ListItem>
                 <ListItem disablePadding>
                   <ListItemIcon sx={{ minWidth: 32 }}>
@@ -371,12 +395,6 @@ export default function FrontEnd() {
                     <CheckBox color="success" />
                   </ListItemIcon>
                   <ListItemText>「事実」にフォーカスすること</ListItemText>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemIcon sx={{ minWidth: 32 }}>
-                    <CheckBox color="success" />
-                  </ListItemIcon>
-                  <ListItemText>比較対象は過去の自分</ListItemText>
                 </ListItem>
               </List>
             </Box>

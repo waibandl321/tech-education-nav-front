@@ -6,20 +6,18 @@ import { Step, StepLabel, Stepper, Typography, useMediaQuery } from "@mui/materi
 const steps = [
   {
     label: "無料体験セッション",
-    description: `サービスへの疑問や質問に無料でお答えします。\n
-      達成したい目標や実現したいこと、希望するサポートなどを気軽に相談ください。(オンライン)`,
+    description: `クライアントのヒアリングを重点的に行い、達成したい目標や実現したいことに対して提供できるサポート内容を説明します。（オンライン対応）`,
   },
   {
     label: "申し込み・お支払い",
-    description:
-      "無料体験セッション後、サービスを利用を希望する場合は、WEBから申し込みを行います。",
+    description: `無料体験セッション後、コーチングを希望される場合は、お支払いの案内をいたします。その場で決断する必要はなく、後日連絡をいただいても構いません。`,
   },
   {
     label: "サービス開始",
-    description: `申し込み後、専用のチャットルーム（Slack）へ招待します。\n
-      コーチングセッションのスケジュールは、都合の良い日程で調整します。`,
+    description: `初回のコーチングセッションで目標をより具体的にし、目標達成までに必要なこと（全体像）をレクチャーします。専用のSlackに招待しますので、その時点から技術やキャリアの相談が可能です。`,
   },
 ];
+
 const UsageStepperSection = () => {
   const isMobile = useMediaQuery("(max-width:640px)");
   return (

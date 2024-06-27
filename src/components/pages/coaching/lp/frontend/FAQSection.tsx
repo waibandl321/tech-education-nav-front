@@ -1,50 +1,110 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, useMediaQuery } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const qaOptions = [
-  {
-    question: "Q. プログラミング経験が少なくても大丈夫ですか？",
-    answer:
-      "A. 大丈夫です。プログラミング経験に関わらず、目指すキャリアや目標に合わせてサポートいたします。まずは気軽にご相談ください。",
+type QAItem = {
+  question: string;
+  answer: string;
+};
+
+type QAObject = {
+  [key: string]: {
+    title: string;
+    items: QAItem[];
+  };
+};
+
+const QAItems: QAObject = {
+  general: {
+    title: "コーチング全般",
+    items: [
+      {
+        question: "Q. プログラミング未経験でも大丈夫ですか？",
+        answer:
+          "A. 大丈夫です。プログラミング経験に関わらず、目指すキャリアや目標に合わせてサポートいたします。まずは気軽にご相談ください。",
+      },
+      {
+        question: "Q. コーチングセッションはどのように行われますか？",
+        answer:
+          "A. コーチングセッションは基本的にオンラインで行います。ビデオ会議ツール（Google Meet）を使用して、あなたの都合の良い時間に合わせてセッションを調整します。",
+      },
+      {
+        question: "Q. プログラミングの教材やカリキュラムは提供されていますか？",
+        answer:
+          "A. サイト内に学習コンテンツを配信していますので、学習のお役に立ててください。こちらのコンテンツは永続的に作成、改修を行なっていきます。",
+      },
+      {
+        question: "Q. コーチングの内容はどのように決まりますか？",
+        answer:
+          "A. 無料体験セッションであなたの目標や現状を詳しくお聞きした上で、個別にカスタマイズされたコーチングプランを提案します。",
+      },
+      {
+        question: "Q. 技術・キャリア相談はどのように行われますか？",
+        answer:
+          "A. 技術・キャリア相談は主にチャット（Slackなど）を通じて行います。随時質問や相談を受け付けております。",
+      },
+
+      {
+        question: "Q. コードレビューではどのようなツールを使用しますか？",
+        answer: "A. GutHubを使用します。",
+      },
+    ],
   },
-  {
-    question: "Q. プログラミングの教材やカリキュラムは提供されていますか？",
-    answer:
-      "A. 一般的なプログラミングスクールのように、教材やカリキュラムの提供は行っておりません。コーチが学習内容やカリキュラムの方針についてアドバイスや提案を行うため、何を学習するか迷っている方でも安心して学習を進められます。",
+  fee: {
+    title: "料金と支払いについて",
+    items: [
+      {
+        question: "Q. 料金の支払い方法は何がありますか？",
+        answer:
+          "A. クレジットカード（VISA、Mastercard、JCB、American Express）や銀行振込に対応しています。詳細はお申し込み後にご案内します。",
+      },
+      {
+        question: "Q. 料金の支払いはいつ行えば良いですか？",
+        answer:
+          "A. 料金のお支払い完了をもって正式申込となります。サービス開始前に全額をお支払いください。",
+      },
+      {
+        question: "Q. 支払い後の返金は可能ですか？",
+        answer:
+          "A. 支払い後の返金は原則として行いません。ただし、特別な事情がある場合はご相談ください。",
+      },
+    ],
   },
-  {
-    question: "Q. コーチングセッションは１回どのくらいの時間ですか？",
-    answer:
-      "A. 1回で約1時間を目安にセッションを行います。セッションの間隔を長く希望される方は、少し長めにすることも可能です。逆に30分程度に短縮することも可能です。",
+  plan: {
+    title: "プランについて",
+    items: [
+      {
+        question: "Q. 「開発実践プラン」と「月額プラン」の違いは何ですか？",
+        answer:
+          "A. 開発実践プランは2ヶ月間の短期集中型で、実践的なプロダクト開発支援やコードレビューが含まれます。一方、月額プランは継続的なサポートを提供し、週1回のコーチングセッションと技術・キャリア相談を通じて長期的な成長をサポートします。",
+      },
+      {
+        question: "Q. コードレビューの料金が別途見積りになる理由は何ですか？",
+        answer:
+          "A. コードレビューの内容はプロジェクトごとに異なり、コードの量や複雑さに応じて所要時間が変わるため、個別に見積もりを行っています。無料体験セッションで詳細をお聞きし、その後見積もりを提示いたします。",
+      },
+    ],
   },
-  {
-    question: "Q. コーチングセッションはどのようなツールによって行いますか？",
-    answer:
-      "A. 環境に特に問題がない場合、zoomを使って面談を行います。ご希望であれば別のツールでも対応は可能です。",
-  },
-  {
-    question: "Q. 決済はどのような方法で行いますか？",
-    answer:
-      "A. 月に1回、クレジットカードで決済いただきます。決済日付は契約日付からの計算となるため、月の途中で解約したとしても次の契約日まではサービスはご利用可能です。",
-  },
-  {
-    question: "Q. 入会金や退会料はかかりますか？",
-    answer:
-      "A. 入会金や退会料は一切かかりません。月単位の契約なので1ヶ月で解約しても1ヶ月以上の料金は一切かかりません。※",
-  },
-];
+};
 
 const FAQSection = () => {
   const isMobile = useMediaQuery("(max-width:640px)");
 
-  return (
-    <Box mx={isMobile ? 2 : 0}>
-      {qaOptions.map((item, index) => (
+  return Object.entries(QAItems).map(([key, v]) => (
+    <Box key={key} mx={isMobile ? 2 : 0} mt={4}>
+      <Typography fontWeight={700}>{v.title}</Typography>
+      {v.items.map((item, index) => (
         <Accordion key={index} sx={{ my: 2 }} variant="outlined">
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel${index}-content`}
-            id={`panel${index}-header`}
+            aria-controls={`panel${key}-content`}
+            id={`panel${key}-header`}
             sx={{
               py: 1,
               background: (theme) =>
@@ -57,7 +117,7 @@ const FAQSection = () => {
         </Accordion>
       ))}
     </Box>
-  );
+  ));
 };
 
 export default FAQSection;
