@@ -9,28 +9,27 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import CheckBox from "@mui/icons-material/CheckBox";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import useUtils from "@/hooks/utils/useUtils";
 
 const plans = {
   sustainedPlans: {
-    subTitle: "持続的なコーチングをご希望の方",
     items: [
       {
-        name: "開発実践プラン（2ヶ月）",
-        price: "440,000",
+        name: "短期集中（2~3ヶ月）",
+        price: "440,000~",
         priceDetails: [
           "- 週1回のコーチングセッション",
           "- 技術・キャリア相談（チャット）",
-          "- プロダクト開発支援（実践的なチーム開発にするため、コーチも開発に参加する）",
+          "- プロダクト開発",
           "- コードレビュー",
         ],
         recommendations: [
           "実務レベルのチーム開発を経験したい方",
           "短期間でプロダクトを開発して実績にしたい方",
-          "自分のコードが本当に良いかどうかチェックしてほしい方",
+          "具体的な例）Vue.jsを習得し、3ヶ月後に転職したい。そのための実績を作り、即戦力として働ける状態にしたい！",
         ],
         memo: "",
         bgColor: "#3293FB",
@@ -38,8 +37,13 @@ const plans = {
       {
         name: "月額プラン",
         price: "88,000",
-        priceDetails: ["- 週1回のコーチングセッション", "- 技術・キャリア相談（チャット）"],
+        priceDetails: [
+          "- 週1回のコーチングセッション",
+          "- 技術・キャリア相談（チャット）",
+          "- コードレビュー",
+        ],
         recommendations: [
+          "長期的なサポートが必要だと感じている方",
           "日々の仕事で悩みや不安を抱えている方",
           "自信を持って業務に取り組みたい方",
           "技術的なアドバイスや仕事の進め方について定期的に相談したい方",
@@ -49,54 +53,15 @@ const plans = {
       },
     ],
   },
-  spotPlans: {
-    subTitle: "単発のコーチングをご希望の方",
-    items: [
-      {
-        name: "コーチングセッション",
-        price: "11,000",
-        priceDetails: ["- 1時間のコーチングセッション"],
-        recommendations: [
-          " 必要な時にだけサポートを受けたい方",
-          "コーチングを試してみたい方",
-          "特定の課題について短期間でアドバイスが欲しい方",
-        ],
-        memo: "",
-        bgColor: "#F9A905",
-      },
-      {
-        name: "コードレビュー",
-        price: null,
-        priceDetails: ["- コードレビュー"],
-        recommendations: [
-          "自分のコードの品質を向上させたい方",
-          "プロの視点からコードの改善点を知りたい方",
-          "コードのベストプラクティスを学びたい方",
-        ],
-        memo: `コードレビューの料金は、体験セッション後に見積もりを行います。
-        これは、コードレビューの内容がクライアントごとに異なり、コードの量や複雑さに応じて所要時間が変わるためです。`,
-        bgColor: "#F63D57",
-      },
-    ],
-  },
 };
 
 export default function PlansSection() {
-  const isMobile = useMediaQuery("(max-width:640px)");
+  const { isWindowSizeSm } = useUtils();
 
   return (
     <>
       {Object.entries(plans).map(([key, value]) => (
         <Box key={key} mb={10}>
-          <Typography
-            textAlign="center"
-            fontWeight="700"
-            variant="h5"
-            component="h3"
-            paddingBottom={3}
-          >
-            {value.subTitle}
-          </Typography>
           <Grid
             container
             direction="row"
@@ -112,7 +77,7 @@ export default function PlansSection() {
                     borderRadius: 3,
                     bgcolor: "white",
                     pb: 3,
-                    mx: isMobile ? 2 : 0,
+                    mx: isWindowSizeSm ? 2 : 0,
                     height: "100%",
                   }}
                   elevation={3}

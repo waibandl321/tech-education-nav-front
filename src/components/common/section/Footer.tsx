@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { navigationLinks } from "@/const";
 import Link from "next/link";
 import Copyright from "./Copyright";
+import Image from "next/image";
 
 const logoStyle = {
   width: 280,
@@ -43,10 +44,10 @@ export default function Footer() {
         >
           <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
             <Box sx={{ ml: "-15px" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/logo.png"
-                style={{ width: logoStyle.width, height: logoStyle.height }}
+                width={logoStyle.width}
+                height={logoStyle.height}
                 alt="テック教育ナビ ロゴ"
               />
             </Box>

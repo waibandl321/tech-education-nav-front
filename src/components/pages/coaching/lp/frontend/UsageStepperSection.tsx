@@ -1,4 +1,5 @@
-import { Step, StepLabel, Stepper, Typography, useMediaQuery } from "@mui/material";
+import useUtils from "@/hooks/utils/useUtils";
+import { Step, StepLabel, Stepper, Typography } from "@mui/material";
 
 /**
  * ご利用までの流れ
@@ -6,7 +7,8 @@ import { Step, StepLabel, Stepper, Typography, useMediaQuery } from "@mui/materi
 const steps = [
   {
     label: "無料体験セッション",
-    description: `クライアントのヒアリングを重点的に行い、達成したい目標や実現したいことに対して提供できるサポート内容を説明します。（オンライン対応）`,
+    description: `これまでの人生の歩みや仕事のご経験など、ヒアリングを重点的に行います。
+    その上で、コーチングの方針や、クライアント様の目標に対して提供できるサポート内容を説明します。（オンライン対応）`,
   },
   {
     label: "申し込み・お支払い",
@@ -19,17 +21,22 @@ const steps = [
 ];
 
 const UsageStepperSection = () => {
-  const isMobile = useMediaQuery("(max-width:640px)");
+  const { isWindowSizeSm } = useUtils();
   return (
     <Stepper
       orientation="vertical"
       sx={{
         mt: 4,
-        px: isMobile ? 2 : 0,
-        "& .MuiStepLabel-label": { fontSize: isMobile ? "1.25rem" : "1.75rem" },
+        color: "#A6E5E0",
+        px: isWindowSizeSm ? 2 : 0,
+        "& .MuiStepLabel-label": { fontSize: isWindowSizeSm ? "1.25rem" : "1.75rem" },
         "& .MuiTypography-caption": { fontSize: "1rem" },
-        "& .MuiStepIcon-root": { fontSize: isMobile ? "3rem" : "4rem" },
-        "& .MuiStepConnector-root": { marginLeft: isMobile ? 2.5 : 3.5 },
+        "& .MuiStepIcon-root": {
+          fontSize: isWindowSizeSm ? "3rem" : "4rem",
+          fontWeight: 700,
+          color: "#6bd3cc",
+        },
+        "& .MuiStepConnector-root": { marginLeft: isWindowSizeSm ? 2.5 : 3.5 },
         "& .MuiStepLabel-labelContainer": { marginLeft: 2 },
       }}
     >

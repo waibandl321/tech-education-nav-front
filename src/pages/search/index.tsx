@@ -8,13 +8,13 @@ import {
 } from "@/hooks/server/fetchData";
 import PCSearchPane from "@/components/pages/search/pc/SearchPane";
 import SPSearchPane from "@/components/pages/search/sp/SearchPane";
-import { useMediaQuery } from "@mui/material";
 import { AppDataPropType, MasterDataMap } from "@/types/CommonType";
 import { Course } from "@/types/APIDataType";
 import { withCommonServerSideProps } from "@/hooks/server/withCommonServerSideProps";
 import { ParsedUrlQuery } from "querystring";
 import { useDispatch } from "react-redux";
 import { setMasterArr } from "@/lib/features/search/masterDataSlice";
+import useUtils from "@/hooks/utils/useUtils";
 
 type SearchPageProps = AppDataPropType & {
   totalPages: number;
@@ -22,7 +22,7 @@ type SearchPageProps = AppDataPropType & {
 };
 
 export default function Index({ ...props }: SearchPageProps) {
-  const isMobile = useMediaQuery("(max-width:640px)");
+  const { isWindowSizeSm } = useUtils();
 
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ export default function Index({ ...props }: SearchPageProps) {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        {isMobile ? (
+        {isWindowSizeSm ? (
           <SPSearchPane
             courses={props.courses}
             totalCount={props.totalCount}

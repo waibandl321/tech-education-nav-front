@@ -87,6 +87,7 @@ export const navigationLinks: NavigationLlink = {
     menus: [
       { icon: HomeIcon, text: "ホーム", href: "/" },
       { icon: SearchIcon, text: "スクール検索", href: "/search" },
+      { icon: SearchIcon, text: "コーチング", href: "/coaching/lp/frontend" },
       // { icon: NotificationsIcon, text: "お知らせ", href: "/notifications" },
       {
         icon: TerminalOutlinedIcon,

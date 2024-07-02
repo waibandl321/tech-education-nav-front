@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded";
+import Image from "next/image";
 
 const logoStyle = { width: 140, height: 53 };
 
@@ -78,10 +79,10 @@ export default function AppHeader({ mode, toggleColorMode }: AppAppBarProps) {
                 px: 0,
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/logo.png"
-                style={{ width: logoStyle.width, height: logoStyle.height }}
+                width={logoStyle.width}
+                height={logoStyle.height}
                 alt="テック教育ナビ ロゴ"
               />
 

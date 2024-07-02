@@ -1,6 +1,5 @@
 import { sortBy } from "lodash";
 import {
-  useMediaQuery,
   Box,
   Card,
   Typography,
@@ -25,6 +24,7 @@ import { MasterDataBasicType } from "@/types/CommonType";
 import { useRouter } from "next/router";
 import { fetchCourseMaxPrice } from "@/hooks/server/fetchData";
 import { ParsedUrlQuery } from "querystring";
+import useUtils from "@/hooks/utils/useUtils";
 
 const PRICE_CONVERSION_RATE = 10000;
 
@@ -43,7 +43,7 @@ export default function SearchNavigation({
   const searchData = useAppSelector((state) => state.searchData).data;
 
   // デバイス判定
-  const isMobile = useMediaQuery("(max-width:640px)");
+  const { isWindowSizeSm } = useUtils();
 
   // クエリパラメータに応じて、選択済みにする
   const searchConditions = useMemo(() => {
@@ -232,7 +232,7 @@ export default function SearchNavigation({
       },
       undefined
     );
-    if (isMobile && closeMobileNav) {
+    if (isWindowSizeSm && closeMobileNav) {
       closeMobileNav();
     }
   };

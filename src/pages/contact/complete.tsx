@@ -1,9 +1,10 @@
 import Layout from "@/app/layout";
-import { Card, Container, Typography, useMediaQuery } from "@mui/material";
+import useUtils from "@/hooks/utils/useUtils";
+import { Card, Container, Typography } from "@mui/material";
 import Head from "next/head";
 
 export default function ContactComplete() {
-  const isMobile = useMediaQuery("(max-width:640px)");
+  const { isWindowSizeSm } = useUtils();
   return (
     <>
       <Head>
@@ -12,7 +13,7 @@ export default function ContactComplete() {
         {/* その他のメタタグ */}
       </Head>
       <Layout>
-        <Container maxWidth="md" sx={{ py: isMobile ? 3 : 5 }}>
+        <Container maxWidth="md" sx={{ py: isWindowSizeSm ? 3 : 5 }}>
           <Card variant="outlined" sx={{ p: 2, borderRadius: 2, bgcolor: "transparent" }}>
             <Typography>
               フォームを送信しました。

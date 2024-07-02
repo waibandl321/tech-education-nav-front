@@ -1,11 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 type QAItem = {
@@ -67,7 +60,7 @@ const QAItems: QAObject = {
       {
         question: "Q. 料金の支払いはいつ行えば良いですか？",
         answer:
-          "A. 料金のお支払い完了をもって正式申込となります。サービス開始前に全額をお支払いください。",
+          "A. サービス開始前に全額をお支払いください。料金のお支払い完了をもって正式申込となります。",
       },
       {
         question: "Q. 支払い後の返金は可能ですか？",
@@ -80,9 +73,18 @@ const QAItems: QAObject = {
     title: "プランについて",
     items: [
       {
-        question: "Q. 「開発実践プラン」と「月額プラン」の違いは何ですか？",
+        question: "Q. 短期集中プランの期間を延長することは可能ですか？",
         answer:
-          "A. 開発実践プランは2ヶ月間の短期集中型で、実践的なプロダクト開発支援やコードレビューが含まれます。一方、月額プランは継続的なサポートを提供し、週1回のコーチングセッションと技術・キャリア相談を通じて長期的な成長をサポートします。",
+          "A. 可能です。延長したい場合はその旨をご連絡ください。延長期間が決まり次第、料金を請求させていただきます。",
+      },
+      {
+        question:
+          "Q. 単発でコーチングセッションを受けることはできますか？まずは、お試しで利用したいです。",
+        answer: "A. 可能です。コーチングセッションは¥11000（税込）/1時間でご提供しております。",
+      },
+      {
+        question: "Q. コードレビューのみお願いすることは可能でしょうか？",
+        answer: "A. 可能です。料金については、ご要望に応じて別途お見積もりいたします。",
       },
       {
         question: "Q. コードレビューの料金が別途見積りになる理由は何ですか？",
@@ -94,10 +96,8 @@ const QAItems: QAObject = {
 };
 
 const FAQSection = () => {
-  const isMobile = useMediaQuery("(max-width:640px)");
-
   return Object.entries(QAItems).map(([key, v]) => (
-    <Box key={key} mx={isMobile ? 2 : 0} mt={4}>
+    <Box key={key} mt={4}>
       <Typography fontWeight={700}>{v.title}</Typography>
       {v.items.map((item, index) => (
         <Accordion key={index} sx={{ my: 2 }} variant="outlined">

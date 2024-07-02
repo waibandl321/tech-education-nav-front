@@ -10,7 +10,7 @@ export default function useValidation() {
    * @param errorType エラーのタイプ
    * @returns エラーメッセージ
    */
-  const useGetEmailInputError = (
+  const getEmailInputError = (
     errorType: LiteralUnion<keyof RegisterOptions, string> | undefined
   ) => {
     switch (errorType) {
@@ -28,7 +28,7 @@ export default function useValidation() {
    * @param errorType エラーのタイプ
    * @returns エラーメッセージ
    */
-  const useGetPasswordInputError = (
+  const getPasswordInputError = (
     errorType: LiteralUnion<keyof RegisterOptions, string> | undefined
   ) => {
     switch (errorType) {
@@ -45,7 +45,7 @@ export default function useValidation() {
 
   return {
     EmailRegex,
-    useGetEmailInputError,
-    useGetPasswordInputError,
+    getEmailInputError,
+    getPasswordInputError,
   };
 }

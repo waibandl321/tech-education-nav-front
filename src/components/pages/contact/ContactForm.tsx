@@ -1,18 +1,10 @@
 import { useLoading } from "@/contexts/LoadingContext";
 import { useMessageAlert } from "@/contexts/MessageAlertContext";
 import useContact from "@/hooks/api/useContact";
+import useUtils from "@/hooks/utils/useUtils";
 import useValidation from "@/hooks/utils/useValidation";
 import { CreateContactInput } from "@/types/APIDataType";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Container,
-  TextField,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Card, CardContent, Container, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
@@ -24,8 +16,8 @@ export default function ContactForm() {
     formState: { errors },
     reset,
   } = useForm<CreateContactInput>();
-  const { EmailRegex, useGetEmailInputError } = useValidation();
-  const isMobile = useMediaQuery("(max-width:640px)");
+  const { EmailRegex, getEmailInputError } = useValidation();
+  const { isWindowSizeSm } = useUtils();
   const { apiCreateContact } = useContact();
   const { setLoading } = useLoading();
   const { setAlertMessage } = useMessageAlert();
@@ -49,20 +41,20 @@ export default function ContactForm() {
 
   return (
     <Box component="main" sx={{ flexGrow: 1 }}>
-      <Container maxWidth="md" sx={{ py: isMobile ? 0 : 5 }}>
+      <Container maxWidth="md" sx={{ py: isWindowSizeSm ? 0 : 5 }}>
         <Card
           sx={{
             py: 4,
-            px: isMobile ? 0 : 4,
+            px: isWindowSizeSm ? 0 : 4,
             borderRadius: "16px",
             bgcolor: "transparent",
           }}
-          elevation={isMobile ? 0 : 3}
+          elevation={isWindowSizeSm ? 0 : 3}
         >
           <Typography component="h2" variant="h5" textAlign="center" marginBottom={2}>
             お問い合わせ
           </Typography>
-          <CardContent sx={{ padding: isMobile ? 0 : 2 }}>
+          <CardContent sx={{ padding: isWindowSizeSm ? 0 : 2 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 fullWidth
@@ -92,7 +84,7 @@ export default function ContactForm() {
                   pattern: EmailRegex,
                 })}
                 error={!!errors.email}
-                helperText={useGetEmailInputError(errors.email?.type)}
+                helperText={getEmailInputError(errors.email?.type)}
                 sx={{ mt: 4, backgroundColor: "#fff" }}
               />
               <TextField
